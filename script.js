@@ -14,6 +14,59 @@
   reveal();
   window.addEventListener('scroll', reveal, { passive: true });
 
+  const overlay = document.getElementById('contact-overlay');
+  const panel = document.getElementById('contact-panel');
+  const triggers = document.querySelectorAll('.contact-trigger');
+  const close = document.querySelector('.contact-close');
+  const form = document.getElementById('contact-form');
+  let lastFocus = null;
+
+  const openContact = () => {
+    if (!overlay || !panel) return;
+    lastFocus = document.activeElement;
+    overlay.hidden = false;
+    panel.hidden = false;
+    requestAnimationFrame(() => {
+      overlay.classList.add('is-open');
+      panel.classList.add('is-open');
+      document.body.classList.add('contact-open');
+      const firstInput = panel.querySelector('input, textarea, button');
+      if (firstInput) firstInput.focus({ preventScroll: true });
+    });
+  };
+
+  const closeContact = () => {
+    if (!overlay || !panel) return;
+    overlay.classList.remove('is-open');
+    panel.classList.remove('is-open');
+    document.body.classList.remove('contact-open');
+    setTimeout(() => {
+      overlay.hidden = true;
+      panel.hidden = true;
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus({ preventScroll: true });
+    }, 380);
+  };
+
+  triggers.forEach((button) => button.addEventListener('click', openContact));
+  if (close) close.addEventListener('click', closeContact);
+  if (overlay) overlay.addEventListener('click', closeContact);
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && panel && panel.classList.contains('is-open')) closeContact();
+  });
+
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const recipient = form.dataset.recipient || 'hello@pramio.ru';
+      const subject = data.get('subject') || 'Обращение с сайта PRAMIO';
+      const email = data.get('email') || '';
+      const message = data.get('message') || '';
+      const body = `E-mail для обратной связи: ${email}\n\nСообщение:\n${message}`;
+      window.location.href = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+  }
+
   if (!prefersReduced && window.matchMedia('(pointer: fine)').matches) {
     let tx = 0, ty = 0, cx = 0, cy = 0;
     window.addEventListener('pointermove', (event) => {
@@ -32,13 +85,14 @@
   }
 
   const canvas = document.getElementById('space');
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas && canvas.getContext ? canvas.getContext('2d') : null;
   let width = 0;
   let height = 0;
   let dpr = 1;
   let particles = [];
 
   function resize() {
+    if (!canvas || !ctx) return;
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     width = window.innerWidth;
     height = window.innerHeight;
@@ -59,6 +113,7 @@
   }
 
   function draw() {
+    if (!ctx) return;
     ctx.clearRect(0, 0, width, height);
     ctx.save();
     ctx.globalCompositeOperation = 'multiply';
