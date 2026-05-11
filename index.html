@@ -6,7 +6,7 @@
   <title>PRAMIO — экосистема интеллектуальных продуктов</title>
   <meta name="description" content="PRAMIO — экосистема интеллектуальных продуктов. Первый продукт — АдминКИТ для управления каналами в MAX.">
   <link rel="preload" as="image" href="assets/pramio-logo.webp" type="image/webp">
-  <link rel="preload" as="image" href="assets/pramio-mark.webp?v=13" type="image/webp">
+  <link rel="preload" as="image" href="assets/pramio-mark.webp?v=14" type="image/webp">
   <link rel="preload" as="image" href="assets/adminkit-logo.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,8 +26,7 @@
         <img src="assets/pramio-logo.webp" alt="PRAMIO" draggable="false" decoding="async" fetchpriority="high">
       </a>
       <nav class="nav" aria-label="Навигация">
-        <a href="https://max.ru/" target="_blank" rel="noopener">Сообщество АдминКИТ</a>
-        <a class="nav-contact" href="mailto:hello@pramio.ru">Связаться <span></span></a>
+        <button class="nav-contact contact-trigger" type="button" aria-haspopup="dialog" aria-controls="contact-panel">Связаться с нами <span></span></button>
       </nav>
     </header>
 
@@ -41,7 +40,7 @@
       <div class="hero-symbol reveal" data-delay="180" aria-hidden="true">
         <div class="glass-sphere">
           <span class="sphere-shine"></span>
-          <img class="sphere-logo" src="assets/pramio-mark.webp?v=13" alt="" draggable="false" decoding="async" fetchpriority="high">
+          <img class="sphere-logo" src="assets/pramio-mark.webp?v=14" alt="" draggable="false" decoding="async" fetchpriority="high">
         </div>
         <span class="orbit orbit-one"></span>
         <span class="orbit orbit-two"></span>
@@ -63,16 +62,42 @@
         <p class="product-muted">Комментарии, модерация, реакции, подарки, кнопки и аналитика — в одном умном решении.</p>
         <div class="actions">
           <a class="btn primary" href="https://max.ru/" target="_blank" rel="noopener">Сообщество АдминКИТ</a>
-          <a class="btn ghost" href="mailto:hello@pramio.ru">Связаться</a>
+          <button class="btn ghost contact-trigger" type="button" aria-haspopup="dialog" aria-controls="contact-panel">Связаться</button>
         </div>
       </div>
     </section>
 
     <footer class="footer reveal" data-delay="320">
       <p>В экосистеме PRAMIO скоро появятся новые продукты и ассистенты.</p>
-      <a href="mailto:hello@pramio.ru">Следите за обновлениями</a>
+      <button class="footer-link contact-trigger" type="button" aria-haspopup="dialog" aria-controls="contact-panel">Следите за обновлениями</button>
     </footer>
   </main>
+
+  <div class="contact-overlay" id="contact-overlay" hidden></div>
+  <aside class="contact-panel" id="contact-panel" role="dialog" aria-modal="true" aria-labelledby="contact-title" hidden>
+    <button class="contact-close" type="button" aria-label="Закрыть форму">×</button>
+    <div class="contact-orb" aria-hidden="true"></div>
+    <p class="eyebrow contact-eyebrow"><span></span> связь с PRAMIO</p>
+    <h2 id="contact-title">Напишите нам</h2>
+    <p class="contact-intro">Коротко опишите задачу — мы вернёмся с ответом на указанный e-mail.</p>
+
+    <form class="contact-form" id="contact-form" data-recipient="hello@pramio.ru">
+      <label>
+        <span>Тема обращения</span>
+        <input name="subject" type="text" autocomplete="off" placeholder="Например: AdminKit для MAX" required>
+      </label>
+      <label>
+        <span>E-mail для обратной связи</span>
+        <input name="email" type="email" autocomplete="email" placeholder="name@example.com" required>
+      </label>
+      <label>
+        <span>Сообщение</span>
+        <textarea name="message" rows="5" placeholder="Расскажите, что хотите обсудить" required></textarea>
+      </label>
+      <button class="btn primary contact-submit" type="submit">Отправить сообщение</button>
+      <p class="form-note">Адрес получателя меняется в коде формы: <code>data-recipient</code>.</p>
+    </form>
+  </aside>
 
   <script src="script.js"></script>
 </body>
