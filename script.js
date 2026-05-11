@@ -14,6 +14,23 @@
   reveal();
   window.addEventListener('scroll', reveal, { passive: true });
 
+  if (!prefersReduced && window.matchMedia('(pointer: fine)').matches) {
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    window.addEventListener('pointermove', (event) => {
+      tx = (event.clientX / window.innerWidth - 0.5) * 18;
+      ty = (event.clientY / window.innerHeight - 0.5) * 18;
+    }, { passive: true });
+
+    const parallax = () => {
+      cx += (tx - cx) * 0.06;
+      cy += (ty - cy) * 0.06;
+      document.documentElement.style.setProperty('--px', `${cx}px`);
+      document.documentElement.style.setProperty('--py', `${cy}px`);
+      requestAnimationFrame(parallax);
+    };
+    parallax();
+  }
+
   const canvas = document.getElementById('space');
   const ctx = canvas.getContext('2d');
   let width = 0;
@@ -30,14 +47,14 @@
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.min(34, Math.max(12, Math.floor(width / 54)));
+    const count = Math.min(26, Math.max(10, Math.floor(width / 70)));
     particles = Array.from({ length: count }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      r: Math.random() * 1.35 + 0.45,
-      vx: (Math.random() - 0.5) * 0.11,
-      vy: (Math.random() - 0.5) * 0.11,
-      a: Math.random() * 0.16 + 0.05
+      r: Math.random() * 1.15 + 0.4,
+      vx: (Math.random() - 0.5) * 0.08,
+      vy: (Math.random() - 0.5) * 0.08,
+      a: Math.random() * 0.12 + 0.04
     }));
   }
 
@@ -67,8 +84,8 @@
         const dx = p.x - q.x;
         const dy = p.y - q.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 132) {
-          ctx.strokeStyle = `rgba(20,102,255,${(1 - dist / 132) * 0.028})`;
+        if (dist < 118) {
+          ctx.strokeStyle = `rgba(20,102,255,${(1 - dist / 118) * 0.018})`;
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
