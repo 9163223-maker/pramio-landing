@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PRAMIO — экосистема интеллектуальных продуктов</title>
   <meta name="description" content="PRAMIO — экосистема интеллектуальных продуктов. Первый продукт — АдминКИТ для управления каналами в MAX.">
+  <link rel="preload" as="image" href="assets/pramio-logo.webp" type="image/webp">
+  <link rel="preload" as="image" href="assets/pramio-mark.webp?v=12" type="image/webp">
+  <link rel="preload" as="image" href="assets/adminkit-logo.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="concept.css">
 </head>
@@ -19,7 +22,7 @@
   <main class="page" id="top">
     <header class="header reveal" data-delay="0">
       <a class="brand-logo" href="#top" aria-label="PRAMIO">
-        <img src="assets/pramio-logo.webp" alt="PRAMIO" draggable="false">
+        <img src="assets/pramio-logo.webp" alt="PRAMIO" draggable="false" decoding="async" fetchpriority="high">
       </a>
       <nav class="nav" aria-label="Навигация">
         <a href="https://max.ru/" target="_blank" rel="noopener">Сообщество АдминКИТ</a>
@@ -37,18 +40,20 @@
       <div class="hero-symbol reveal" data-delay="180" aria-hidden="true">
         <div class="glass-sphere">
           <span class="sphere-shine"></span>
-          <img class="sphere-logo" src="assets/pramio-mark.webp?v=10" alt="" draggable="false">
+          <img class="sphere-logo" src="assets/pramio-mark.webp?v=12" alt="" draggable="false" decoding="async" fetchpriority="high">
         </div>
         <span class="orbit orbit-one"></span>
         <span class="orbit orbit-two"></span>
         <span class="light light-one"></span>
         <span class="light light-two"></span>
+        <span class="data-ring ring-a"></span>
+        <span class="data-ring ring-b"></span>
       </div>
     </section>
 
     <section class="product reveal" data-delay="260" id="adminkit" aria-labelledby="adminkit-title">
       <div class="product-logo">
-        <img src="assets/adminkit-logo.webp" alt="АдминКИТ" draggable="false">
+        <img src="assets/adminkit-logo.webp" alt="АдминКИТ" draggable="false" decoding="async" fetchpriority="high">
       </div>
       <div class="product-copy">
         <p class="eyebrow product-eyebrow"><span></span> первый продукт экосистемы</p>
