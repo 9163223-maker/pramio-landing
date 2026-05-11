@@ -30,14 +30,14 @@
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.min(54, Math.max(20, Math.floor(width / 34)));
+    const count = Math.min(34, Math.max(12, Math.floor(width / 54)));
     particles = Array.from({ length: count }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      r: Math.random() * 1.8 + 0.6,
-      vx: (Math.random() - 0.5) * 0.16,
-      vy: (Math.random() - 0.5) * 0.16,
-      a: Math.random() * 0.32 + 0.10
+      r: Math.random() * 1.35 + 0.45,
+      vx: (Math.random() - 0.5) * 0.11,
+      vy: (Math.random() - 0.5) * 0.11,
+      a: Math.random() * 0.16 + 0.05
     }));
   }
 
@@ -54,12 +54,12 @@
       if (p.y < -12) p.y = height + 12;
       if (p.y > height + 12) p.y = -12;
 
-      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 8);
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 7);
       grad.addColorStop(0, `rgba(20,102,255,${p.a})`);
       grad.addColorStop(1, 'rgba(20,102,255,0)');
       ctx.fillStyle = grad;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r * 8, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, p.r * 7, 0, Math.PI * 2);
       ctx.fill();
 
       for (let j = i + 1; j < particles.length; j += 1) {
@@ -67,8 +67,8 @@
         const dx = p.x - q.x;
         const dy = p.y - q.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 136) {
-          ctx.strokeStyle = `rgba(20,102,255,${(1 - dist / 136) * 0.052})`;
+        if (dist < 132) {
+          ctx.strokeStyle = `rgba(20,102,255,${(1 - dist / 132) * 0.028})`;
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
