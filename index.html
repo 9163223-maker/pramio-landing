@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#f6f9ff" />
   <meta property="og:title" content="PRAMIO — новое слово в IT" />
   <meta property="og:description" content="Экосистема интеллектуальных продуктов. Первый продукт — AdminKit для управления каналами в MAX." />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='30' fill='%23f7faff'/%3E%3Cg fill='none' stroke='%231466ff' stroke-width='9' stroke-linecap='round'%3E%3Cpath d='M91 26a45 45 0 0 1 9 58'/%3E%3Cpath d='M37 102a45 45 0 0 1-8-58'/%3E%3C/g%3E%3Ccircle cx='34' cy='93' r='9' fill='%231466ff'/%3E%3Ccircle cx='94' cy='35' r='9' fill='%231466ff'/%3E%3Ccircle cx='48' cy='64' r='6' fill='%23071836'/%3E%3Ccircle cx='64' cy='64' r='6' fill='%23071836'/%3E%3Ccircle cx='80' cy='64' r='6' fill='%23071836'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='30' fill='%23f7faff'/%3E%3Ccircle cx='64' cy='64' r='42' fill='none' stroke='%231466ff' stroke-width='8' stroke-dasharray='86 42' stroke-linecap='round'/%3E%3Ccircle cx='39' cy='88' r='8' fill='%231466ff'/%3E%3Ccircle cx='90' cy='38' r='8' fill='%231466ff'/%3E%3Ccircle cx='50' cy='64' r='5' fill='%23071836'/%3E%3Ccircle cx='64' cy='64' r='5' fill='%23071836'/%3E%3Ccircle cx='78' cy='64' r='5' fill='%23071836'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -18,21 +18,16 @@
 
   <main class="page" id="top">
     <header class="header reveal" data-delay="0">
-      <a class="pramio-logo" href="#top" aria-label="PRAMIO">
-        <svg viewBox="0 0 520 130" role="img" aria-labelledby="pramioTitle">
-          <title id="pramioTitle">PRAMIO</title>
-          <text x="0" y="73" class="pramio-word">pramio</text>
-          <g class="pramio-mark" transform="translate(433 20)">
-            <path d="M58 7a48 48 0 0 1 9 62" />
-            <path d="M18 86a48 48 0 0 1-9-62" />
-            <circle cx="60" cy="14" r="8" />
-            <circle cx="17" cy="78" r="8" />
-            <circle class="dot" cx="30" cy="48" r="5" />
-            <circle class="dot" cx="45" cy="48" r="5" />
-            <circle class="dot" cx="60" cy="48" r="5" />
-          </g>
-          <text x="5" y="122" class="pramio-sub">ASSISTANT  •  CONVERSATION  •  MEMORY</text>
-        </svg>
+      <a class="brand-logo" href="#top" aria-label="PRAMIO">
+        <span class="brand-main">
+          <span class="brand-word">pramio</span>
+          <span class="brand-mark" aria-hidden="true">
+            <i class="mark-node mark-node-a"></i>
+            <i class="mark-node mark-node-b"></i>
+            <b></b><b></b><b></b>
+          </span>
+        </span>
+        <span class="brand-sub">ASSISTANT&nbsp;&nbsp;•&nbsp;&nbsp;CONVERSATION&nbsp;&nbsp;•&nbsp;&nbsp;MEMORY</span>
       </a>
 
       <nav class="nav" aria-label="Навигация">
@@ -41,15 +36,16 @@
       </nav>
     </header>
 
-    <section class="hero">
+    <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow reveal" data-delay="80"><span></span> экосистема PRAMIO</p>
-        <h1 class="reveal" data-delay="140">PRAMIO —<br><strong>новое слово в IT.</strong></h1>
+        <h1 id="hero-title" class="reveal" data-delay="140">PRAMIO —<br><strong>новое слово в IT.</strong></h1>
         <p class="lead reveal" data-delay="210">Экосистема интеллектуальных продуктов и ассистентов для новой цифровой реальности.</p>
       </div>
 
       <div class="hero-symbol reveal" data-delay="180" aria-hidden="true">
         <div class="glass-sphere">
+          <span class="sphere-shine"></span>
           <svg viewBox="0 0 180 180">
             <path class="arc arc-a" d="M127 35a65 65 0 0 1 12 83" />
             <path class="arc arc-b" d="M52 145a65 65 0 0 1-13-83" />
@@ -67,17 +63,17 @@
       </div>
     </section>
 
-    <section class="product reveal" data-delay="260" id="adminkit">
-      <div class="admin-logo" aria-label="АдминКИТ">
-        <svg class="whale" viewBox="0 0 360 180" role="img" aria-label="Логотип АдминКИТ">
+    <section class="product reveal" data-delay="260" id="adminkit" aria-labelledby="adminkit-title">
+      <div class="adminkit-lockup" aria-label="АдминКИТ">
+        <svg class="whale" viewBox="0 0 360 180" role="img" aria-label="Логотип кит АдминКИТ">
           <defs>
             <linearGradient id="whaleBlue" x1="30" y1="25" x2="310" y2="145" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#153f59" />
-              <stop offset="1" stop-color="#08253c" />
+              <stop stop-color="#17475f" />
+              <stop offset="1" stop-color="#082943" />
             </linearGradient>
             <linearGradient id="kitAqua" x1="0" y1="0" x2="1" y2="1">
-              <stop stop-color="#10d4e6" />
-              <stop offset="1" stop-color="#04a7c8" />
+              <stop stop-color="#13dbe9" />
+              <stop offset="1" stop-color="#05aecb" />
             </linearGradient>
           </defs>
           <path class="whale-body" d="M34 86c28-42 110-44 185-9 42 19 67 28 102 10-17 35-48 61-92 67C129 168 50 135 34 86Z" />
@@ -89,14 +85,12 @@
           <circle class="whale-node-inner" cx="200" cy="101" r="4" />
           <path class="eye" d="M74 75c9-21 44-21 52 0" />
         </svg>
-        <div class="admin-word">
-          <span>Админ</span><strong>КИТ</strong>
-        </div>
+        <div class="admin-word"><span>Админ</span><strong>КИТ</strong></div>
       </div>
 
       <div class="product-copy">
         <p class="eyebrow product-eyebrow"><span></span> первый продукт экосистемы</p>
-        <h2>AdminKit</h2>
+        <h2 id="adminkit-title">AdminKit</h2>
         <p class="product-main">Система управления каналами в мессенджере MAX.</p>
         <p class="product-muted">Комментарии, модерация, реакции, подарки, кнопки и аналитика — в одном умном решении.</p>
         <div class="actions">
