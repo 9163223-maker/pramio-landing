@@ -1,0 +1,63 @@
+/* Final visual fixes: centered atom system + stable image loading */
+.hero-symbol{
+  position:relative!important;
+  display:grid!important;
+  place-items:center!important;
+}
+.hero-symbol .glass-sphere{
+  position:relative!important;
+  z-index:4!important;
+  margin:0!important;
+}
+.hero-symbol .orbit{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform-origin:center!important;
+  transform:translate(-50%,-50%) rotate(-18deg)!important;
+  z-index:2!important;
+}
+.hero-symbol .orbit-two{
+  transform:translate(-50%,-50%) rotate(28deg)!important;
+}
+.hero-symbol .light-one{
+  left:13%!important;
+  top:48%!important;
+  z-index:3!important;
+}
+.hero-symbol .light-two{
+  right:13%!important;
+  top:38%!important;
+  z-index:3!important;
+}
+.hero-symbol .data-ring{
+  left:50%!important;
+  top:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  width:58%!important;
+  height:58%!important;
+  transform:translate(-50%,-50%)!important;
+}
+.hero-symbol .ring-b{
+  width:44%!important;
+  height:44%!important;
+}
+.sphere-logo{
+  width:47%!important;
+  max-width:150px!important;
+  aspect-ratio:1/1!important;
+  object-fit:contain!important;
+}
+h1{
+  font-weight:480!important;
+}
+h1 strong{
+  font-weight:580!important;
+}
+.product-main{
+  font-weight:430!important;
+}
+@media(max-width:780px){
+  .sphere-logo{max-width:128px!important;}
+}
