@@ -148,12 +148,32 @@
   white-space:nowrap!important;
 }
 
+.product{
+  scroll-margin-top:clamp(84px,11svh,132px)!important;
+  transition:opacity .78s ease,transform .78s cubic-bezier(.2,.8,.2,1),filter .78s ease!important;
+}
+.product.soft-arrive{
+  opacity:0!important;
+  transform:translateY(28px) scale(.985)!important;
+  filter:blur(12px)!important;
+}
+
 h1{font-weight:480!important;}
 h1 strong{font-weight:580!important;}
 .product-main{font-weight:430!important;}
 .nav{justify-content:flex-end!important;}
 .nav-contact,.footer-link,.contact-close{font-family:Manrope,system-ui,sans-serif;border:0;cursor:pointer;color:inherit;}
-.nav-contact{font-size:clamp(14px,1.4vw,16px)!important;}
+.nav-contact{
+  position:fixed!important;
+  top:calc(env(safe-area-inset-top,0px) + 18px)!important;
+  right:clamp(18px,4vw,56px)!important;
+  z-index:32!important;
+  font-size:clamp(14px,1.4vw,16px)!important;
+  border-radius:20px!important;
+  backdrop-filter:blur(18px)!important;
+  -webkit-backdrop-filter:blur(18px)!important;
+  background:rgba(255,255,255,.62)!important;
+}
 .footer-link{margin-top:18px;background:transparent;color:var(--blue);font-size:clamp(16px,1.7vw,19px);letter-spacing:.14em;font-weight:500;}
 
 .contact-overlay{position:fixed;inset:0;z-index:40;background:rgba(6,24,51,.18);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;transition:opacity .34s ease;}
@@ -198,6 +218,15 @@ body.contact-open{overflow:hidden;}
   .scroll-cue__text{font-size:11px!important;letter-spacing:.08em!important;}
   .scroll-cue__orb{width:26px!important;height:26px!important;}
   .contact-panel{inset:auto 12px 12px 12px;width:auto;max-height:calc(100svh - 24px);overflow:auto;padding:28px 22px;border-radius:24px;}
+}
+@media(max-width:560px){
+  .nav-contact{
+    left:22px!important;
+    right:22px!important;
+    top:calc(env(safe-area-inset-top,0px) + 92px)!important;
+    justify-content:center!important;
+    min-height:46px!important;
+  }
 }
 @media(max-width:430px){
   .hero-symbol{--sphere:min(50vw,198px);min-height:calc(var(--sphere)*1.36)!important;}
