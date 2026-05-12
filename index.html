@@ -6,7 +6,7 @@
   <title>PRAMIO — экосистема интеллектуальных продуктов</title>
   <meta name="description" content="PRAMIO — экосистема интеллектуальных продуктов. Первый продукт — АдминКИТ для управления каналами в MAX.">
   <link rel="preload" as="image" href="assets/pramio-logo.webp" type="image/webp">
-  <link rel="preload" as="image" href="assets/pramio-mark.webp?v=15" type="image/webp">
+  <link rel="preload" as="image" href="assets/pramio-mark.webp?v=16" type="image/webp">
   <link rel="preload" as="image" href="assets/adminkit-logo.webp" type="image/webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,16 +38,45 @@
       </div>
 
       <div class="hero-symbol reveal" data-delay="180" aria-hidden="true">
+        <svg class="orbit-scene" viewBox="0 0 520 520" role="presentation" focusable="false">
+          <defs>
+            <radialGradient id="pramioAtom" cx="32%" cy="24%" r="70%">
+              <stop offset="0" stop-color="#ffffff"/>
+              <stop offset="0.36" stop-color="#9cc4ff"/>
+              <stop offset="1" stop-color="#1466ff"/>
+            </radialGradient>
+            <filter id="atomGlow" x="-80%" y="-80%" width="260%" height="260%">
+              <feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#1466ff" flood-opacity="0.42"/>
+              <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#1466ff" flood-opacity="0.18"/>
+            </filter>
+          </defs>
+
+          <g class="orbit-layer orbit-layer-a" transform="rotate(-18 260 260)">
+            <ellipse class="orbit-line" cx="260" cy="260" rx="205" ry="84"/>
+            <circle class="orbit-atom atom-a" r="9" fill="url(#pramioAtom)" filter="url(#atomGlow)">
+              <animateMotion dur="9.5s" repeatCount="indefinite" path="M 465 260 A 205 84 0 1 1 55 260 A 205 84 0 1 1 465 260"/>
+            </circle>
+          </g>
+
+          <g class="orbit-layer orbit-layer-b" transform="rotate(28 260 260)">
+            <ellipse class="orbit-line orbit-line-soft" cx="260" cy="260" rx="188" ry="84"/>
+            <circle class="orbit-atom atom-b" r="7" fill="url(#pramioAtom)" filter="url(#atomGlow)">
+              <animateMotion dur="12.5s" repeatCount="indefinite" path="M 448 260 A 188 84 0 1 0 72 260 A 188 84 0 1 0 448 260"/>
+            </circle>
+          </g>
+
+          <g class="orbit-layer orbit-layer-c" transform="rotate(74 260 260)">
+            <ellipse class="orbit-line orbit-line-softest" cx="260" cy="260" rx="156" ry="96"/>
+            <circle class="orbit-atom atom-c" r="6" fill="url(#pramioAtom)" filter="url(#atomGlow)">
+              <animateMotion dur="15s" repeatCount="indefinite" path="M 416 260 A 156 96 0 1 1 104 260 A 156 96 0 1 1 416 260"/>
+            </circle>
+          </g>
+        </svg>
+
         <div class="glass-sphere">
           <span class="sphere-shine"></span>
-          <img class="sphere-logo" src="assets/pramio-mark.webp?v=15" alt="" width="320" height="320" draggable="false" decoding="async" fetchpriority="high">
+          <img class="sphere-logo" src="assets/pramio-mark.webp?v=16" alt="" width="320" height="320" draggable="false" decoding="async" fetchpriority="high">
         </div>
-        <span class="orbit orbit-one"></span>
-        <span class="orbit orbit-two"></span>
-        <span class="light light-one"></span>
-        <span class="light light-two"></span>
-        <span class="data-ring ring-a"></span>
-        <span class="data-ring ring-b"></span>
       </div>
     </section>
 
