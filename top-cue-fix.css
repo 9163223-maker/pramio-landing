@@ -1,4 +1,24 @@
-/* v31: stable mirrored top cue */
+/* v32: stable mirrored top cue + clean chevron geometry */
+.scroll-cue__orb::before{
+  content:""!important;
+  position:absolute!important;
+  left:50%!important;
+  top:47%!important;
+  width:9px!important;
+  height:9px!important;
+  border-right:2.2px solid rgba(20,102,255,.82)!important;
+  border-bottom:2.2px solid rgba(20,102,255,.82)!important;
+  border-top:0!important;
+  border-left:0!important;
+  border-radius:1.5px!important;
+  background:transparent!important;
+  transform:translate(-50%,-50%) rotate(45deg)!important;
+  transform-origin:center!important;
+}
+.scroll-cue__orb::after{
+  display:none!important;
+  content:none!important;
+}
 .scroll-top-cue{
   position:fixed!important;
   z-index:72!important;
@@ -19,6 +39,14 @@
 }
 .scroll-top-cue .scroll-cue__orb{
   transform:rotate(180deg)!important;
+}
+@media(max-width:780px){
+  .scroll-cue__orb::before{
+    width:8px!important;
+    height:8px!important;
+    border-right-width:2px!important;
+    border-bottom-width:2px!important;
+  }
 }
 @media(max-width:560px){
   .scroll-top-cue{
