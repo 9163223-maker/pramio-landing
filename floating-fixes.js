@@ -2,6 +2,7 @@
   const cue = document.querySelector('[data-scroll-cue]');
   const target = document.getElementById('adminkit');
   const footer = document.querySelector('.footer');
+  const topCue = document.querySelector('[data-scroll-top]');
 
   const revealFooter = (delay = 720) => {
     if (!footer || footer.classList.contains('footer-arrive')) return;
@@ -31,6 +32,17 @@
     return Math.max(0, targetTop - desiredTopInViewport);
   };
 
+  const updateTopCue = () => {
+    if (!topCue) return;
+    if (window.scrollY > Math.max(260, window.innerHeight * 0.58)) {
+      topCue.classList.add('is-visible');
+      topCue.classList.remove('is-hidden');
+    } else {
+      topCue.classList.remove('is-visible');
+      topCue.classList.add('is-hidden');
+    }
+  };
+
   if (cue && target) {
     cue.addEventListener('click', (event) => {
       event.preventDefault();
@@ -47,9 +59,19 @@
           target.classList.add('is-visible');
           target.classList.remove('soft-arrive');
           revealFooter(440);
+          updateTopCue();
         }, 420);
       });
     }, true);
+  }
+
+  if (topCue) {
+    topCue.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.setTimeout(updateTopCue, 360);
+    });
+    updateTopCue();
+    window.addEventListener('scroll', updateTopCue, { passive: true });
   }
 
   if (target && footer) {
