@@ -12,28 +12,32 @@
 .hero-symbol .orbit{
   position:absolute!important;
   left:50%!important;
-  top:46%!important;
+  top:50%!important;
   transform-origin:center!important;
   transform:translate(-50%,-50%) rotate(-18deg)!important;
   z-index:2!important;
 }
 .hero-symbol .orbit-two{
-  top:46%!important;
+  top:50%!important;
   transform:translate(-50%,-50%) rotate(28deg)!important;
 }
-.hero-symbol .light-one{
-  left:14%!important;
-  top:43%!important;
-  z-index:3!important;
+.hero-symbol .light{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  width:18px!important;
+  height:18px!important;
+  border-radius:50%!important;
+  z-index:5!important;
+  pointer-events:none!important;
+  background:radial-gradient(circle at 32% 24%,#fff,#86b7ff 42%,#1466ff 100%)!important;
+  box-shadow:0 0 22px rgba(20,102,255,.38),0 8px 18px rgba(20,102,255,.16)!important;
+  will-change:transform!important;
 }
-.hero-symbol .light-two{
-  right:14%!important;
-  top:43%!important;
-  z-index:3!important;
-}
+.hero-symbol .light-two{width:14px!important;height:14px!important;opacity:.88!important;}
 .hero-symbol .data-ring{
   left:50%!important;
-  top:46%!important;
+  top:50%!important;
   right:auto!important;
   bottom:auto!important;
   width:58%!important;
@@ -86,6 +90,5 @@ body.contact-open{overflow:hidden;}
 @keyframes contactSheen{0%,100%{transform:translateX(-22%);opacity:.28}45%{transform:translateX(18%);opacity:.52}}
 @media(max-width:780px){
   .sphere-logo{max-width:128px!important;}
-  .hero-symbol .orbit,.hero-symbol .orbit-two,.hero-symbol .data-ring{top:46%!important;}
   .contact-panel{inset:auto 12px 12px 12px;width:auto;max-height:calc(100svh - 24px);overflow:auto;padding:28px 22px;border-radius:24px;}
 }
