@@ -84,6 +84,40 @@
     parallax();
   }
 
+  const heroSymbol = document.querySelector('.hero-symbol');
+  const lightOne = document.querySelector('.light-one');
+  const lightTwo = document.querySelector('.light-two');
+
+  const setOrbitalAtom = (el, time, options) => {
+    if (!el || !heroSymbol) return;
+    const rect = heroSymbol.getBoundingClientRect();
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    const rx = rect.width * options.rx;
+    const ry = rect.height * options.ry;
+    const tilt = options.tilt * Math.PI / 180;
+    const t = (time / options.duration + options.phase) * Math.PI * 2;
+    const x = Math.cos(t) * rx;
+    const y = Math.sin(t) * ry;
+    const xr = x * Math.cos(tilt) - y * Math.sin(tilt);
+    const yr = x * Math.sin(tilt) + y * Math.cos(tilt);
+    const depth = (Math.sin(t) + 1) / 2;
+    const scale = options.scaleMin + depth * (options.scaleMax - options.scaleMin);
+    const opacity = options.opacityMin + depth * (options.opacityMax - options.opacityMin);
+    el.style.transform = `translate3d(${cx + xr}px, ${cy + yr}px, 0) translate(-50%, -50%) scale(${scale})`;
+    el.style.opacity = opacity.toFixed(3);
+    el.style.zIndex = depth > 0.5 ? '6' : '2';
+  };
+
+  const animateOrbits = (time) => {
+    if (!prefersReduced) {
+      setOrbitalAtom(lightOne, time, { rx: 0.53, ry: 0.215, tilt: -18, duration: 9200, phase: 0.08, scaleMin: 0.62, scaleMax: 1.08, opacityMin: 0.45, opacityMax: 0.98 });
+      setOrbitalAtom(lightTwo, time, { rx: 0.46, ry: 0.205, tilt: 28, duration: 12400, phase: 0.58, scaleMin: 0.55, scaleMax: 0.98, opacityMin: 0.38, opacityMax: 0.86 });
+      requestAnimationFrame(animateOrbits);
+    }
+  };
+  if (!prefersReduced) requestAnimationFrame(animateOrbits);
+
   const canvas = document.getElementById('space');
   const ctx = canvas && canvas.getContext ? canvas.getContext('2d') : null;
   let width = 0;
@@ -101,14 +135,14 @@
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.min(26, Math.max(10, Math.floor(width / 70)));
+    const count = Math.min(22, Math.max(8, Math.floor(width / 82)));
     particles = Array.from({ length: count }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      r: Math.random() * 1.15 + 0.4,
-      vx: (Math.random() - 0.5) * 0.08,
-      vy: (Math.random() - 0.5) * 0.08,
-      a: Math.random() * 0.12 + 0.04
+      r: Math.random() * 1.05 + 0.35,
+      vx: (Math.random() - 0.5) * 0.065,
+      vy: (Math.random() - 0.5) * 0.065,
+      a: Math.random() * 0.10 + 0.035
     }));
   }
 
@@ -139,8 +173,8 @@
         const dx = p.x - q.x;
         const dy = p.y - q.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 118) {
-          ctx.strokeStyle = `rgba(20,102,255,${(1 - dist / 118) * 0.018})`;
+        if (dist < 112) {
+          ctx.strokeStyle = `rgba(20,102,255,${(1 - dist / 112) * 0.015})`;
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
