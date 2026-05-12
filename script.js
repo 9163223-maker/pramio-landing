@@ -85,29 +85,35 @@
   }
 
   const heroSymbol = document.querySelector('.hero-symbol');
+  const sphere = document.querySelector('.glass-sphere');
   const orbitAtoms = [
-    { el: document.querySelector('.atom-a'), rx: 0.44, ry: 0.18, tilt: -18, duration: 9500, phase: 0.04, min: 0.62, max: 1.08, opacityMin: 0.44, opacityMax: 0.98 },
-    { el: document.querySelector('.atom-b'), rx: 0.41, ry: 0.18, tilt: 28, duration: 12500, phase: 0.56, min: 0.56, max: 0.96, opacityMin: 0.36, opacityMax: 0.86 },
-    { el: document.querySelector('.atom-c'), rx: 0.34, ry: 0.215, tilt: 72, duration: 15000, phase: 0.22, min: 0.50, max: 0.82, opacityMin: 0.20, opacityMax: 0.58 }
+    { el: document.querySelector('.atom-a'), rx: 0.78, ry: 0.27, tilt: -18, duration: 9000, phase: 0.08, min: 0.86, max: 1.08, opacityMin: 0.55, opacityMax: 1 },
+    { el: document.querySelector('.atom-b'), rx: 0.72, ry: 0.27, tilt: 28, duration: 11800, phase: 0.44, min: 0.78, max: 1, opacityMin: 0.42, opacityMax: 0.88 },
+    { el: document.querySelector('.atom-c'), rx: 0.58, ry: 0.37, tilt: 72, duration: 14000, phase: 0.72, min: 0.68, max: 0.9, opacityMin: 0.24, opacityMax: 0.56 }
   ];
 
   const setAtom = (atom, time) => {
-    if (!atom.el || !heroSymbol) return;
-    const rect = heroSymbol.getBoundingClientRect();
-    const cx = rect.width / 2;
-    const cy = rect.height / 2;
+    if (!atom.el || !heroSymbol || !sphere) return;
+
+    const hostRect = heroSymbol.getBoundingClientRect();
+    const sphereRect = sphere.getBoundingClientRect();
+    const centerX = sphereRect.left - hostRect.left + sphereRect.width / 2;
+    const centerY = sphereRect.top - hostRect.top + sphereRect.height / 2;
     const t = ((time / atom.duration) + atom.phase) * Math.PI * 2;
-    const x = Math.cos(t) * rect.width * atom.rx;
-    const y = Math.sin(t) * rect.height * atom.ry;
+    const radX = sphereRect.width * atom.rx;
+    const radY = sphereRect.width * atom.ry;
+    const x = Math.cos(t) * radX;
+    const y = Math.sin(t) * radY;
     const tilt = atom.tilt * Math.PI / 180;
     const xr = x * Math.cos(tilt) - y * Math.sin(tilt);
     const yr = x * Math.sin(tilt) + y * Math.cos(tilt);
     const front = (Math.sin(t) + 1) / 2;
     const scale = atom.min + front * (atom.max - atom.min);
     const opacity = atom.opacityMin + front * (atom.opacityMax - atom.opacityMin);
-    atom.el.style.transform = `translate3d(${cx + xr}px, ${cy + yr}px, 0) translate(-50%, -50%) scale(${scale})`;
+
+    atom.el.style.transform = `translate3d(${centerX + xr}px, ${centerY + yr}px, 0) translate(-50%, -50%) scale(${scale})`;
     atom.el.style.opacity = opacity.toFixed(3);
-    atom.el.style.zIndex = front > 0.50 ? '6' : '2';
+    atom.el.style.zIndex = front > 0.5 ? '6' : '3';
   };
 
   const animateAtoms = (time) => {
