@@ -61,6 +61,20 @@ body.contact-open .floating-contact{
   filter:blur(0)!important;
 }
 
+.footer{
+  opacity:0!important;
+  transform:translateY(28px)!important;
+  filter:blur(12px)!important;
+  transition:opacity .82s ease,transform .82s cubic-bezier(.2,.8,.2,1),filter .82s ease!important;
+  margin-top:clamp(36px,5.6vw,74px)!important;
+  padding-bottom:clamp(42px,7vw,90px)!important;
+}
+.footer.footer-arrive{
+  opacity:1!important;
+  transform:translateY(0)!important;
+  filter:blur(0)!important;
+}
+
 @media(max-width:780px){
   .hero-symbol{
     margin-top:-10px!important;
@@ -76,6 +90,10 @@ body.contact-open .floating-contact{
   }
   .scroll-cue.is-hidden{
     transform:translateX(-50%) translateY(10px)!important;
+  }
+  .footer{
+    margin-top:28px!important;
+    padding-bottom:calc(env(safe-area-inset-bottom,0px) + 92px)!important;
   }
 }
 
@@ -101,6 +119,9 @@ body.contact-open .floating-contact{
   .scroll-cue{
     bottom:calc(env(safe-area-inset-bottom,0px) + 16px)!important;
     padding:8px 13px 8px 9px!important;
+  }
+  .footer{
+    margin-top:24px!important;
   }
 }
 
