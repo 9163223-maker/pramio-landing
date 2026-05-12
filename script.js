@@ -85,38 +85,38 @@
   }
 
   const heroSymbol = document.querySelector('.hero-symbol');
-  const lightOne = document.querySelector('.light-one');
-  const lightTwo = document.querySelector('.light-two');
+  const orbitAtoms = [
+    { el: document.querySelector('.atom-a'), rx: 0.44, ry: 0.18, tilt: -18, duration: 9500, phase: 0.04, min: 0.62, max: 1.08, opacityMin: 0.44, opacityMax: 0.98 },
+    { el: document.querySelector('.atom-b'), rx: 0.41, ry: 0.18, tilt: 28, duration: 12500, phase: 0.56, min: 0.56, max: 0.96, opacityMin: 0.36, opacityMax: 0.86 },
+    { el: document.querySelector('.atom-c'), rx: 0.34, ry: 0.215, tilt: 72, duration: 15000, phase: 0.22, min: 0.50, max: 0.82, opacityMin: 0.20, opacityMax: 0.58 }
+  ];
 
-  const setOrbitalAtom = (el, time, options) => {
-    if (!el || !heroSymbol) return;
+  const setAtom = (atom, time) => {
+    if (!atom.el || !heroSymbol) return;
     const rect = heroSymbol.getBoundingClientRect();
     const cx = rect.width / 2;
     const cy = rect.height / 2;
-    const rx = rect.width * options.rx;
-    const ry = rect.height * options.ry;
-    const tilt = options.tilt * Math.PI / 180;
-    const t = (time / options.duration + options.phase) * Math.PI * 2;
-    const x = Math.cos(t) * rx;
-    const y = Math.sin(t) * ry;
+    const t = ((time / atom.duration) + atom.phase) * Math.PI * 2;
+    const x = Math.cos(t) * rect.width * atom.rx;
+    const y = Math.sin(t) * rect.height * atom.ry;
+    const tilt = atom.tilt * Math.PI / 180;
     const xr = x * Math.cos(tilt) - y * Math.sin(tilt);
     const yr = x * Math.sin(tilt) + y * Math.cos(tilt);
-    const depth = (Math.sin(t) + 1) / 2;
-    const scale = options.scaleMin + depth * (options.scaleMax - options.scaleMin);
-    const opacity = options.opacityMin + depth * (options.opacityMax - options.opacityMin);
-    el.style.transform = `translate3d(${cx + xr}px, ${cy + yr}px, 0) translate(-50%, -50%) scale(${scale})`;
-    el.style.opacity = opacity.toFixed(3);
-    el.style.zIndex = depth > 0.5 ? '6' : '2';
+    const front = (Math.sin(t) + 1) / 2;
+    const scale = atom.min + front * (atom.max - atom.min);
+    const opacity = atom.opacityMin + front * (atom.opacityMax - atom.opacityMin);
+    atom.el.style.transform = `translate3d(${cx + xr}px, ${cy + yr}px, 0) translate(-50%, -50%) scale(${scale})`;
+    atom.el.style.opacity = opacity.toFixed(3);
+    atom.el.style.zIndex = front > 0.50 ? '6' : '2';
   };
 
-  const animateOrbits = (time) => {
+  const animateAtoms = (time) => {
     if (!prefersReduced) {
-      setOrbitalAtom(lightOne, time, { rx: 0.53, ry: 0.215, tilt: -18, duration: 9200, phase: 0.08, scaleMin: 0.62, scaleMax: 1.08, opacityMin: 0.45, opacityMax: 0.98 });
-      setOrbitalAtom(lightTwo, time, { rx: 0.46, ry: 0.205, tilt: 28, duration: 12400, phase: 0.58, scaleMin: 0.55, scaleMax: 0.98, opacityMin: 0.38, opacityMax: 0.86 });
-      requestAnimationFrame(animateOrbits);
+      orbitAtoms.forEach((atom) => setAtom(atom, time));
+      requestAnimationFrame(animateAtoms);
     }
   };
-  if (!prefersReduced) requestAnimationFrame(animateOrbits);
+  if (!prefersReduced) requestAnimationFrame(animateAtoms);
 
   const canvas = document.getElementById('space');
   const ctx = canvas && canvas.getContext ? canvas.getContext('2d') : null;
