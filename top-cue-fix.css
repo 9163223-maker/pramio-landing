@@ -1,35 +1,28 @@
-/* v30: mirrored top cue must match the down cue and stay centered */
+/* v31: stable mirrored top cue */
 .scroll-top-cue{
-  position:relative!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
+  position:fixed!important;
+  z-index:72!important;
+  display:inline-flex!important;
   width:fit-content!important;
-  left:auto!important;
+  left:50%!important;
   right:auto!important;
-  top:auto!important;
+  top:18px!important;
   bottom:auto!important;
-  margin:clamp(14px,2.2vw,26px) auto clamp(14px,2vw,22px)!important;
-  transform:translateY(10px)!important;
-  opacity:0!important;
-  pointer-events:none!important;
+  margin:0!important;
+  transform:translateX(-50%) translateY(10px)!important;
 }
 .scroll-top-cue.is-visible{
-  opacity:.94!important;
-  pointer-events:auto!important;
-  transform:translateY(0)!important;
+  transform:translateX(-50%) translateY(0)!important;
 }
 .scroll-top-cue.is-hidden{
-  opacity:0!important;
-  pointer-events:none!important;
-  transform:translateY(10px)!important;
+  transform:translateX(-50%) translateY(10px)!important;
 }
 .scroll-top-cue .scroll-cue__orb{
   transform:rotate(180deg)!important;
 }
-@media(max-width:780px){
-  .scroll-top-cue{margin:12px auto 14px!important;}
-}
 @media(max-width:560px){
-  .scroll-top-cue{padding:8px 13px 8px 9px!important;margin:10px auto 12px!important;}
+  .scroll-top-cue{
+    top:58px!important;
+    padding:8px 13px 8px 9px!important;
+  }
 }
