@@ -87,26 +87,34 @@
   const heroSymbol = document.querySelector('.hero-symbol');
   const sphere = document.querySelector('.glass-sphere');
   const orbitAtoms = [
-    { el: document.querySelector('.atom-a'), rx: 0.78, ry: 0.27, tilt: -18, duration: 9000, phase: 0.08, min: 0.86, max: 1.08, opacityMin: 0.55, opacityMax: 1 },
-    { el: document.querySelector('.atom-b'), rx: 0.72, ry: 0.27, tilt: 28, duration: 11800, phase: 0.44, min: 0.78, max: 1, opacityMin: 0.42, opacityMax: 0.88 },
-    { el: document.querySelector('.atom-c'), rx: 0.58, ry: 0.37, tilt: 72, duration: 14000, phase: 0.72, min: 0.68, max: 0.9, opacityMin: 0.24, opacityMax: 0.56 }
+    { el: document.querySelector('.atom-a'), line: document.querySelector('.orbit-a'), duration: 9000, phase: 0.08, min: 0.86, max: 1.08, opacityMin: 0.55, opacityMax: 1 },
+    { el: document.querySelector('.atom-b'), line: document.querySelector('.orbit-b'), duration: 11800, phase: 0.44, min: 0.78, max: 1, opacityMin: 0.42, opacityMax: 0.88 },
+    { el: document.querySelector('.atom-c'), line: document.querySelector('.orbit-c'), duration: 14000, phase: 0.72, min: 0.68, max: 0.9, opacityMin: 0.24, opacityMax: 0.56 }
   ];
 
+  const getOrbitGeometry = (line) => {
+    const computed = window.getComputedStyle(line);
+    const width = parseFloat(computed.width) || 0;
+    const height = parseFloat(computed.height) || 0;
+    const rotateRaw = computed.getPropertyValue('--orbit-rotate') || '0deg';
+    const tilt = parseFloat(rotateRaw) * Math.PI / 180;
+    return { rx: width / 2, ry: height / 2, tilt };
+  };
+
   const setAtom = (atom, time) => {
-    if (!atom.el || !heroSymbol || !sphere) return;
+    if (!atom.el || !atom.line || !heroSymbol || !sphere) return;
 
     const hostRect = heroSymbol.getBoundingClientRect();
     const sphereRect = sphere.getBoundingClientRect();
     const centerX = sphereRect.left - hostRect.left + sphereRect.width / 2;
     const centerY = sphereRect.top - hostRect.top + sphereRect.height / 2;
+    const orbit = getOrbitGeometry(atom.line);
     const t = ((time / atom.duration) + atom.phase) * Math.PI * 2;
-    const radX = sphereRect.width * atom.rx;
-    const radY = sphereRect.width * atom.ry;
-    const x = Math.cos(t) * radX;
-    const y = Math.sin(t) * radY;
-    const tilt = atom.tilt * Math.PI / 180;
-    const xr = x * Math.cos(tilt) - y * Math.sin(tilt);
-    const yr = x * Math.sin(tilt) + y * Math.cos(tilt);
+
+    const x = Math.cos(t) * orbit.rx;
+    const y = Math.sin(t) * orbit.ry;
+    const xr = x * Math.cos(orbit.tilt) - y * Math.sin(orbit.tilt);
+    const yr = x * Math.sin(orbit.tilt) + y * Math.cos(orbit.tilt);
     const front = (Math.sin(t) + 1) / 2;
     const scale = atom.min + front * (atom.max - atom.min);
     const opacity = atom.opacityMin + front * (atom.opacityMax - atom.opacityMin);
