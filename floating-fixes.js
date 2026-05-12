@@ -10,6 +10,27 @@
     }, delay);
   };
 
+  const getSecondScreenTop = () => {
+    if (!target) return window.scrollY;
+    const rect = target.getBoundingClientRect();
+    const targetTop = window.scrollY + rect.top;
+    const isMobile = window.matchMedia('(max-width: 780px)').matches;
+
+    if (!isMobile || !footer) {
+      return Math.max(0, targetTop - ((window.innerHeight - rect.height) / 2));
+    }
+
+    const footerRect = footer.getBoundingClientRect();
+    const footerHeight = footerRect.height || 0;
+    const gap = Math.min(18, Math.max(10, window.innerHeight * 0.018));
+    const safeBottom = Math.max(26, (window.visualViewport ? window.visualViewport.height : window.innerHeight) * 0.035);
+    const available = (window.visualViewport ? window.visualViewport.height : window.innerHeight) - safeBottom;
+    const combinedHeight = rect.height + gap + footerHeight;
+    const desiredTopInViewport = Math.max(12, (available - combinedHeight) / 2);
+
+    return Math.max(0, targetTop - desiredTopInViewport);
+  };
+
   if (cue && target) {
     cue.addEventListener('click', (event) => {
       event.preventDefault();
@@ -20,15 +41,12 @@
       if (footer) footer.classList.remove('footer-arrive');
 
       requestAnimationFrame(() => {
-        const rect = target.getBoundingClientRect();
-        const top = Math.max(0, window.scrollY + rect.top - ((window.innerHeight - rect.height) / 2));
-
-        window.scrollTo({ top, behavior: 'smooth' });
+        window.scrollTo({ top: getSecondScreenTop(), behavior: 'smooth' });
 
         setTimeout(() => {
           target.classList.add('is-visible');
           target.classList.remove('soft-arrive');
-          revealFooter(520);
+          revealFooter(440);
         }, 420);
       });
     }, true);
