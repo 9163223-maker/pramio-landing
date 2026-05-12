@@ -58,7 +58,19 @@
   if (scrollCue) {
     scrollCue.addEventListener('click', () => {
       const target = document.getElementById('adminkit');
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (!target) return;
+      target.classList.add('soft-arrive');
+      target.classList.remove('is-visible');
+      requestAnimationFrame(() => {
+        const rect = target.getBoundingClientRect();
+        const offset = Math.max(86, Math.min(window.innerHeight * 0.13, 132));
+        const top = window.scrollY + rect.top - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+        setTimeout(() => {
+          target.classList.add('is-visible');
+          target.classList.remove('soft-arrive');
+        }, 360);
+      });
     });
 
     const updateScrollCue = () => {
