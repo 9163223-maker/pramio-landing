@@ -19,6 +19,7 @@
   const triggers = document.querySelectorAll('.contact-trigger');
   const close = document.querySelector('.contact-close');
   const form = document.getElementById('contact-form');
+  const scrollCue = document.querySelector('[data-scroll-cue]');
   let lastFocus = null;
 
   const openContact = () => {
@@ -53,6 +54,20 @@
   window.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && panel && panel.classList.contains('is-open')) closeContact();
   });
+
+  if (scrollCue) {
+    scrollCue.addEventListener('click', () => {
+      const target = document.getElementById('adminkit');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    const updateScrollCue = () => {
+      if (window.scrollY > 42) scrollCue.classList.add('is-hidden');
+      else scrollCue.classList.remove('is-hidden');
+    };
+    updateScrollCue();
+    window.addEventListener('scroll', updateScrollCue, { passive: true });
+  }
 
   if (form) {
     form.addEventListener('submit', (event) => {
