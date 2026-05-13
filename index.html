@@ -117,25 +117,26 @@
     <h2 id="contact-title">Напишите нам</h2>
     <p class="contact-intro">Коротко опишите задачу — мы вернёмся с ответом на указанный e-mail.</p>
 
-    <form class="contact-form" id="contact-form" data-recipient="hello@pramio.ru">
+    <form class="contact-form" id="contact-form" data-recipient="hello@pramio.ru" data-endpoint="/send.php">
       <label>
         <span>Тема обращения</span>
-        <input name="subject" type="text" autocomplete="off" placeholder="Например: AdminKit для MAX" required>
+        <input name="subject" type="text" autocomplete="off" placeholder="Например: AdminKit для MAX" required maxlength="120">
       </label>
       <label>
         <span>E-mail для обратной связи</span>
-        <input name="email" type="email" autocomplete="email" placeholder="name@example.com" required>
+        <input name="email" type="email" autocomplete="email" placeholder="name@example.com" required maxlength="160">
       </label>
       <label>
         <span>Сообщение</span>
-        <textarea name="message" rows="5" placeholder="Расскажите, что хотите обсудить" required></textarea>
+        <textarea name="message" rows="5" placeholder="Расскажите, что хотите обсудить" required maxlength="3000"></textarea>
       </label>
       <button class="btn primary contact-submit" type="submit">Отправить сообщение</button>
-      <p class="form-note">Адрес получателя меняется в коде формы: <code>data-recipient</code>.</p>
+      <p class="form-note">Сообщение отправляется через серверный обработчик и может дублироваться в Telegram.</p>
     </form>
   </aside>
 
   <script src="script.js?v=33"></script>
   <script src="floating-fixes.js?v=33"></script>
+  <script src="form-handler.js?v=1"></script>
 </body>
 </html>
