@@ -6,7 +6,14 @@ AddType image/webp .webp
 AddType image/avif .avif
 
 <FilesMatch "^(config\.local\.php|config\.sample\.php)$">
-  Require all denied
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+    Satisfy All
+  </IfModule>
 </FilesMatch>
 
 <IfModule mod_deflate.c>
