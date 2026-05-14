@@ -4,8 +4,8 @@ return [
     'mail_to' => '9163223@gmail.com',
     'mail_from' => 'no-reply@pramio.ru',
 
-    // SMTP SpaceWeb / Sweb
-    'smtp_host' => 'smtp.spaceweb.ru',
+    // SMTP SpaceWeb / Sweb. For port 465 SpaceWeb recommends ssl://smtp.spaceweb.ru
+    'smtp_host' => 'ssl://smtp.spaceweb.ru',
     'smtp_port' => 465,
     'smtp_secure' => 'ssl',
     'smtp_user' => 'no-reply@pramio.ru',
