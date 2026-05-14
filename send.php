@@ -9,12 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $cfg = [
     'site_name' => 'PRAMIO',
-    'mail_to' => 'hello@pramio.ru',
+    'mail_to' => '9163223@gmail.com',
     'mail_from' => 'no-reply@pramio.ru',
-    'smtp_host' => 'smtp.spaceweb.ru',
+    // SpaceWeb recommends ssl://smtp.spaceweb.ru for port 465 + SSL.
+    // The script also accepts smtp.spaceweb.ru and adds ssl:// automatically.
+    'smtp_host' => 'ssl://smtp.spaceweb.ru',
     'smtp_port' => 465,
     'smtp_secure' => 'ssl',
-    'smtp_user' => '',
+    'smtp_user' => 'no-reply@pramio.ru',
     'smtp_password' => '',
     'tg_key' => '',
     'tg_chat' => '',
@@ -35,6 +37,48 @@ function pramio_cut($text, $limit) {
 
 function pramio_header_encode($text) {
     return '=?UTF-8?B?' . base64_encode($text) . '?=';
+}
+
+function pramio_normalize_smtp($cfg) {
+    $host = trim((string)($cfg['smtp_host'] ?? ''));
+    $port = (int)($cfg['smtp_port'] ?? 465);
+    $secure = strtolower(trim((string)($cfg['smtp_secure'] ?? 'ssl')));
+
+    $host = preg_replace('/\s+/', '', $host);
+    $scheme = '';
+
+    if (stripos($host, 'ssl://') === 0) {
+        $scheme = 'ssl';
+        $host = substr($host, 6);
+    } elseif (stripos($host, 'tls://') === 0) {
+        $scheme = 'tls';
+        $host = substr($host, 6);
+    } elseif (stripos($host, 'tcp://') === 0) {
+        $scheme = 'tcp';
+        $host = substr($host, 6);
+    }
+
+    if (strpos($host, ':') !== false && substr_count($host, ':') === 1) {
+        list($hostOnly, $portPart) = explode(':', $host, 2);
+        if ($hostOnly !== '' && ctype_digit($portPart)) {
+            $host = $hostOnly;
+            $port = (int)$portPart;
+        }
+    }
+
+    if ($scheme === 'ssl') {
+        $secure = 'ssl';
+    } elseif ($scheme === 'tls') {
+        $secure = 'tls';
+    }
+
+    if ($secure === 'ssl') {
+        $remote = 'ssl://' . $host . ':' . $port;
+    } else {
+        $remote = 'tcp://' . $host . ':' . $port;
+    }
+
+    return [$remote, $host, $port, $secure];
 }
 
 function pramio_read_smtp($socket) {
@@ -66,29 +110,37 @@ function pramio_smtp_send($cfg, $to, $subject, $body, $replyTo) {
         throw new Exception('SMTP credentials are empty');
     }
 
-    $host = $cfg['smtp_host'];
-    $port = (int)$cfg['smtp_port'];
-    $secure = strtolower((string)$cfg['smtp_secure']);
-    $from = !empty($cfg['mail_from']) ? $cfg['mail_from'] : $cfg['smtp_user'];
+    list($remote, $host, $port, $secure) = pramio_normalize_smtp($cfg);
+
+    $from = !empty($cfg['mail_from']) ? trim((string)$cfg['mail_from']) : trim((string)$cfg['smtp_user']);
+    $smtpUser = trim((string)$cfg['smtp_user']);
     $siteName = !empty($cfg['site_name']) ? $cfg['site_name'] : 'PRAMIO';
 
     if (!filter_var($to, FILTER_VALIDATE_EMAIL) || !filter_var($from, FILTER_VALIDATE_EMAIL)) {
         throw new Exception('Invalid sender or recipient');
     }
 
-    $remote = ($secure === 'ssl' ? 'ssl://' : '') . $host . ':' . $port;
+    if (strcasecmp($from, $smtpUser) !== 0) {
+        throw new Exception('mail_from and smtp_user must match for SpaceWeb');
+    }
+
     $context = stream_context_create([
         'ssl' => [
             'verify_peer' => true,
             'verify_peer_name' => true,
+            'peer_name' => $host,
+            'SNI_enabled' => true,
+            'SNI_server_name' => $host,
         ],
     ]);
 
-    $socket = @stream_socket_client($remote, $errno, $errstr, 15, STREAM_CLIENT_CONNECT, $context);
+    $errno = 0;
+    $errstr = '';
+    $socket = @stream_socket_client($remote, $errno, $errstr, 20, STREAM_CLIENT_CONNECT, $context);
     if (!$socket) {
-        throw new Exception('Connection failed: ' . $errstr);
+        throw new Exception('Connection failed to ' . $remote . ' (errno ' . $errno . '): ' . $errstr);
     }
-    stream_set_timeout($socket, 15);
+    stream_set_timeout($socket, 20);
 
     try {
         pramio_smtp_cmd($socket, null, 220);
@@ -103,7 +155,7 @@ function pramio_smtp_send($cfg, $to, $subject, $body, $replyTo) {
         }
 
         pramio_smtp_cmd($socket, 'AUTH LOGIN', 334);
-        pramio_smtp_cmd($socket, base64_encode($cfg['smtp_user']), 334);
+        pramio_smtp_cmd($socket, base64_encode($smtpUser), 334);
         pramio_smtp_cmd($socket, base64_encode($cfg['smtp_password']), 235);
         pramio_smtp_cmd($socket, 'MAIL FROM:<' . $from . '>', 250);
         pramio_smtp_cmd($socket, 'RCPT TO:<' . $to . '>', [250, 251]);
@@ -157,14 +209,6 @@ if (!empty($cfg['mail_to'])) {
         $mailOk = pramio_smtp_send($cfg, $cfg['mail_to'], $emailSubject, $text, $email);
     } catch (Exception $e) {
         error_log('PRAMIO SMTP failed: ' . $e->getMessage());
-        $headers = [
-            'MIME-Version: 1.0',
-            'Content-Type: text/plain; charset=UTF-8',
-            'From: ' . $cfg['mail_from'],
-            'Reply-To: ' . $email,
-        ];
-        $mailSubject = pramio_header_encode($emailSubject);
-        $mailOk = @mail($cfg['mail_to'], $mailSubject, $text, implode("\r\n", $headers));
     }
 }
 
