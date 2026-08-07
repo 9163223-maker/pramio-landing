@@ -1,7 +1,7 @@
-# PRAMIO / АДМИНКИТ — FINAL CURRENT CONTEXT AFTER A17
+# PRAMIO / АДМИНКИТ — FINAL CURRENT CONTEXT AFTER A18
 
-**Updated:** 2026-08-07  
-**Chat-planning/front-end phase:** COMPLETE through A17  
+**Updated:** 2026-08-08  
+**Chat product/planning/frontend phase:** COMPLETE through A18  
 **Next engineering stage:** B1  
 **Manual acceptance:** pending  
 **Production deploy:** not performed
@@ -11,73 +11,60 @@
 АдминКИТ is one server product with three clients:
 
 1. **MAX Bot** — notifications, one-tap actions, short wizards, contextual help and deep-links.
-2. **MAX Mini App** — daily work inside MAX: leads, quick content, buttons, lead magnets, scenarios, diagnostics and short analytics.
-3. **Web Cabinet** — large CRM, board/search/filter/export, full calendar/editor, full mechanics management, comparative analytics, team, billing, settings and legal.
+2. **MAX Mini App** — primary daily operational UI inside MAX.
+3. **Web Cabinet** — heavy/full workspace for bulk CRM, full calendar/editor, comparative analytics, team, billing, exports and integrations.
 
-**Server/PostgreSQL is the canonical business state.** No surface may become an independent source of truth.
+**Server/PostgreSQL is canonical business state.** No UI surface is an independent source of truth.
 
 ## Backend target
 
 Repository: `9163223-maker/amio-comments-max`  
 Branch: `agent/issue-298-intermediate-remediation-deploy`  
-Verified HEAD after A17: `3f0c7716c90181eaf9c583febd7938ab25f89e1e`
+Last verified HEAD: `3f0c7716c90181eaf9c583febd7938ab25f89e1e`
 
-Work MUST recheck remote HEAD before any write. If different: STOP and report actual SHA.
+Work MUST re-check remote HEAD before any write. If different: STOP and report actual SHA.
 
-## A14 — Web consolidated responsive hotfix
+## A14 — latest Web candidate
 
-Latest Web candidate:
 `pramio-timeweb-test-v0.3.11.1-a14-responsive-hotfix-public_html.zip`
 
 Fixed:
-- 900–1100px navigation-loss cascade defect;
-- section-header absolute-action containing block;
-- compact 82px rail title/aria labels.
+- 900–1100px navigation-loss cascade;
+- mobile section-header positioning;
+- compact rail accessibility.
 
-A1–A8 product/data behavior preserved. Manual device acceptance still required.
+Manual real-device acceptance remains required.
 
-## A15 — MAX Mini App functional frontend
+## A15 — functional MAX Mini App prototype
 
-Latest Mini App candidate:
+Latest functional prototype before A18 concept reconciliation:
 `pramio-max-miniapp-a15-functional-v0.3.zip`
 
-Local functional demo includes:
-- Leads CRUD/status/result/next-contact/comments/tasks;
-- Content draft/schedule/cancel/retry;
-- Analytics provenance;
-- Diagnostics/profile;
-- MAX Bridge fallback;
-- start_param routing;
-- signed-initData server adapter stub;
-- Mini -> Web one-time handoff stub;
+Includes:
+- CRM daily flow;
+- quick content;
+- analytics provenance;
+- diagnostics/profile;
+- MAX Bridge/start_param contract;
 - Buttons CRUD;
-- Lead magnets CRUD with independent conditions;
-- Scenarios CRUD;
-- scenario -> canonical callback button identity.
+- Lead Magnets CRUD with independent conditions;
+- Scenarios CRUD with canonical callback-button identity.
 
-Real auth and real MAX operations remain B1/B3.
+Real server auth and real MAX operations remain B1/B3.
 
-## A16 — Product surface coverage
+## A16 — complete product surface coverage
 
-Coverage includes channels, comments, comments banner/photo/reactions, moderation, post editor, buttons, lead magnets, scenarios, highlight, polls, CRM, analytics, billing, referrals, team, settings, help and legal.
+Coverage includes channels, comments/subfeatures, moderation, content, buttons, lead magnets, scenarios, highlight, polls, CRM, analytics, billing, referrals, team, settings, help and legal.
 
-Critical finding: A9/A13 did not fully model all existing AdminKit mechanics as shared server domains.
-
-B3 is therefore reconciled as sequential waves:
-- B3.1 Content / scheduler / outbox / MAX message integration;
+B3 is sequential:
+- B3.1 Content / scheduler / outbox / MAX messages;
 - B3.2 Buttons + Lead Magnets + Scenarios;
 - B3.3 Comments + Moderation + Highlight + Polls;
-- B3.4 Cross-surface mechanics compatibility / referrals/platform-mechanics.
+- B3.4 Cross-surface mechanics compatibility / referrals/platform mechanics.
 
-A16 defines 15 deterministic B3 mechanics E2E cases.
+A16 contains 15 mechanics E2E cases and the B3 Work task template.
 
-## Onboarding canon
-
-States cover first open, no channel, bot not admin, missing permission, no mechanics, no leads, no content, role limitation, plan limit, upstream platform blocker, session expired and dependency error.
-
-No blank screen is acceptable onboarding.
-
-## A17 — Marketing / public launch
+## A17 — marketing/public launch base
 
 Parent positioning:
 `Pramio — управление бизнесом в мессенджерах.`
@@ -85,75 +72,191 @@ Parent positioning:
 Product positioning:
 `АдминКИТ — управление бизнесом в MAX.`
 
-Prepared:
-- landing candidate;
-- three-surface message;
-- capabilities and first-value flow;
-- CTA system;
-- SEO/meta/schema structure;
-- event taxonomy;
-- tariff architecture;
-- public page templates for tariffs, offer, privacy, separate PD consent, subscription, refunds, requisites and support.
+Prepared landing/public pages, CTA system, SEO/event taxonomy, tariff architecture and B2/B4/B5 Work task templates.
 
-Tariff architecture inherited from current product gates:
-- Free;
-- Start;
-- Pro;
-- Business.
+Tariff architecture:
+- Free
+- Start
+- Pro
+- Business
 
-Prices/trial/limits are owner decisions and were not invented.
+Prices/trial/limits remain owner decisions and were not invented.
+
+## A18 — PP4 marketing completeness
+
+Historical PP4 Stage-03 inventory contains exactly 64 capabilities.
+Known aggregate engineering state:
+- WORKING 17
+- EXISTS_NOT_WIRED 16
+- PARTIAL 17
+- MISSING 13
+- UNSAFE 1
+
+The available historical source does not prove a row-by-row engineering-status mapping, so A18 does not invent one.
+
+Marketing accounting is complete:
+
+`PP4_MARKETING_COMPLETENESS = 64/64 ACCOUNTED`
+
+Marketing classes:
+- HERO 6
+- SELL 28
+- SUPPORT 18
+- TRUST 9
+- HIDE_TECH 3
+
+Critical marketing gaps discovered after A17:
+
+### Community / chat operations
+Chats, participants, admins/rights, messages, pinning and chat information are a commercially meaningful product pillar.
+
+### Smart moderation
+Flood, exact/similar duplicates, prohibited words, links/domains, mentions/CAPS/attachments/new-member restrictions, exception rules, automated sanctions, sanction ladder, audit, per-chat automation, events and operational chat statistics are a separate strong value layer.
+
+Revised public commercial pillars:
+1. Контент
+2. Рост / механики
+3. CRM
+4. Каналы и сообщества
+5. Умная модерация
+6. Аналитика и контроль
+
+Marketing completeness never equals implementation proof. Public claims remain runtime/manual-evidence gated.
+
+A18 detail:
+`docs/context/PRAMIO_A18_PP4_MARKETING_MINIAPP_WHITELIST_2026-08-08.md`
+
+## A18 — final MAX Mini App concept
+
+Final bottom navigation:
+1. Сводка
+2. Лиды
+3. Контент
+4. Механики
+5. Ещё
+
+Mini App contains the maximum useful daily work inside MAX:
+- CRM;
+- quick content;
+- buttons;
+- lead magnets;
+- scenarios;
+- moderation;
+- channel/chat operations;
+- diagnostics;
+- short analytics.
+
+Full Web is an enhancement for heavy operations, not the critical mobile path.
+
+## A18 — Russian mobile-Internet white-list architecture
+
+Important product constraint:
+MAX itself being reachable does **not** prove that an arbitrary developer-hosted Mini App domain is reachable during restricted mobile Internet.
+
+Preferred Mini App critical path:
+
+`https://mini.pramio.ru/`
+
+with same-origin API ingress:
+
+`https://mini.pramio.ru/api/web/v1/*`
+
+The Mini App browser should not require `api.pramio.ru` as a second origin for ordinary daily work. `/api` reverse-proxies to the same shared AdminKit backend.
+
+Critical production infrastructure must be placed in Russian locations:
+- Mini/static ingress;
+- backend compute;
+- PostgreSQL;
+- critical object storage;
+- critical observability/logging.
+
+Critical frontend must not depend on foreign CDN/fonts/analytics/captcha/error tracking/arbitrary media hosts. Official MAX Bridge on `st.max.ru` remains the platform-hosted dependency.
+
+Mini App network states:
+- ONLINE_FULL;
+- ONLINE_RESTRICTED;
+- SERVER_UNREACHABLE.
+
+If server is unavailable, only last-known read snapshot and explicit local drafts are allowed. No false mutation success and no silent destructive queue.
+
+White-list gates:
+- WHITELIST_ARCHITECTURE_READY
+- WHITELIST_RUNTIME_TESTED
+- WHITELIST_INCLUDED
+
+Only externally confirmed `WHITELIST_INCLUDED` allows a public claim that the Mini App remains available during restricted mobile Internet.
+
+## White-list-friendly gift delivery
+
+Prefer:
+AdminKit backend -> MAX Bot API -> file/message/attachment inside MAX.
+
+Do not make the core gift-delivery flow depend on arbitrary external file hosting.
 
 ## Canonical Work tasks
 
-B1: `docs/context/PRAMIO_B1_WORK_TASK_A13_RECONCILED.md`  
-B2: `docs/context/PRAMIO_B2_WORK_TASK_A17.md`  
-B3: `docs/context/PRAMIO_B3_WORK_TASK_A16_RECONCILED.md`  
-B4: `docs/context/PRAMIO_B4_WORK_TASK_A17.md`  
-B5: `docs/context/PRAMIO_B5_WORK_TASK_A17.md`
+### B1 — CURRENT CANON
+`docs/context/PRAMIO_B1_WORK_TASK_A18_WHITELIST_RECONCILED.md`
+
+This supersedes A13 B1 where network/origin architecture differs. A13 signed-initData security semantics remain mandatory.
+
+### B2
+`docs/context/PRAMIO_B2_WORK_TASK_A17.md`
+
+### B3
+`docs/context/PRAMIO_B3_WORK_TASK_A16_RECONCILED.md`
+
+### B4
+`docs/context/PRAMIO_B4_WORK_TASK_A17.md`
+
+### B5
+`docs/context/PRAMIO_B5_WORK_TASK_A17.md`
 
 Run sequentially. Each later stage receives the ACCEPTED SHA from the previous stage.
 
 Default for every B-stage: **NO DEPLOY**.
 
-## Remaining work — only external/manual/engineering
+## Remaining work after A18
 
-### User / real device
-- upload latest Web candidate and perform real-device acceptance;
-- register/open Mini App URL in real MAX and perform real MAX acceptance;
-- provide screenshots/evidence if defects appear.
+### User / real devices
+- upload and accept latest Web candidate on real devices;
+- register/open Mini App in real MAX and test iOS/Android;
+- perform real restricted-mobile/white-list tests when such network state is available;
+- provide screenshots/evidence for defects.
 
 ### User / business / external
 - seller legal details;
 - prices / plan limits / trial;
-- YooKassa / T-Business commercial answers and provider decision;
+- YooKassa / T-Business commercial answers/provider decision;
 - accountant tax/VAT/KKT model;
-- lawyer final offer/privacy/refund/consent review.
+- lawyer final legal review;
+- external confirmation/inclusion of Pramio Mini App origin in the Russian mobile white-list if pursued.
 
-### Work / Codex engineering
-- B1 real auth/session/MAX WebAppData validation/CORS/tenant access;
+### Work / Codex
+- B1 real signed MAX auth/session/tenant + A18 same-origin Mini ingress;
 - B2 PostgreSQL CRM/API;
-- B3 real MAX content/mechanics shared server domains and cross-surface E2E;
-- B4 real payment providers/webhooks/entitlements/refunds/fiscal integration;
-- B5 persisted analytics/audit/export/security/load/backup;
+- B3 real content/MAX mechanics and cross-surface synchronization;
+- B4 payment provider(s)/webhooks/entitlements/refunds/fiscal integration;
+- B5 persisted analytics/audit/export/security/load/backup + restricted-network dependency acceptance;
 - production DNS/ENV/runtime/deploy only after separate explicit approval.
 
-## Chat exhaustion gate
+## Chat exhaustion gate after A18
 
-After A14–A17, there is no known remaining product-definition, local frontend-prototype, contract, acceptance-plan, onboarding, marketing-copy, public-page-template or Work-task-planning item that must be completed before B1.
+Known product-definition, local frontend concept/prototype, PP4 marketing-accounting, surface architecture, onboarding, marketing/public-page planning and Work-task planning are now complete.
 
-A new normal-Chat task is needed only if:
-- manual testing reveals a product/UI defect;
-- Work returns evidence requiring acceptance/remediation;
-- owner/provider/legal/accounting inputs change a frozen decision;
+A new normal-Chat task is needed when:
+- manual testing reveals a defect;
+- Work returns SHA/tests/evidence for acceptance;
+- provider/legal/accounting/owner inputs change a decision;
+- white-list inclusion/reachability facts change;
 - a new product requirement appears.
 
-This does not mean production-ready. It means the remaining known work requires real devices/MAX, owner/external inputs, or real engineering/runtime execution.
+This does not mean production-ready. It means the remaining known work requires real devices/MAX/restricted-network evidence, owner/external inputs, or actual engineering/runtime execution.
 
 ## Supersession
 
-Older A11-only statements are incomplete after A12–A17.
-
 Current canon:
-`A1–A17 Chat preparation complete -> manual acceptance + B1–B5 engineering`.
 
-Use A13 B1 task, not the old A11 B1 task.
+`A1–A18 Chat preparation complete -> manual/external gates + B1–B5 engineering`
+
+Use A18 B1 task, not A13/A11 B1 tasks.
