@@ -1,51 +1,61 @@
-# PRAMIO WEB CABINET — CONTEXT HANDOFF
+# PRAMIO WEB CABINET — AUTHORITATIVE CONTEXT HANDOFF
 
-**Дата:** 2026-08-07  
-**Проект:** АдминКИТ / Pramio  
-**Назначение:** бесшовное продолжение в новом обычном чате ChatGPT.
+**Updated:** 2026-08-07  
+**Project:** Pramio / АдминКИТ  
+**A-phase:** COMPLETE through A11  
+**Next engineering stage:** B1  
+**Purpose:** seamless continuation in a new Chat or Work session without repeating discovery.
 
-## Роль нового чата
+## 1. Role split
 
-Работать как **руководитель продукта, UX-архитектор и приёмщик Pramio / AdminKit**. Не начинать заново discovery, не расширять scope и не трогать production АдминКИТ, PostgreSQL, ENV, Timeweb Cloud runtime или deploy без прямого согласования.
+Main Chat account works as **product lead, UX architect and acceptance owner**. It does not implement production code.
 
-Стратегия пользователя:
+Second account in **Work / GPT-5.6 Sol High** is the technical executor.
 
-1. **Без режима Work** сделать всё, что возможно на клиентской стороне: product/UX, functional frontend, mobile polish, API-контракты, acceptance pack, тестовый стенд, accessibility/performance hardening.
-2. **После восстановления Work** подключить технического исполнителя для server integration: MAX + PostgreSQL + auth + webhook + real CRM + content actions + billing + audit + stress/load tests + production readiness.
+The user transfers between accounts:
+- Work assignments;
+- reports;
+- exact SHA;
+- test results;
+- production screenshots.
 
-Главный принцип: **web не является зеркалом MAX-бота**.
+Do not repeat product discovery unless an explicit new unknown appears.
 
-## Продуктовая модель
+## 2. Product identity
 
-Pramio — экосистема сервисов для бизнеса в мессенджерах. Первый продукт — **Pramio AdminKit** для MAX; Telegram позже.
+Parent ecosystem: **Pramio**.  
+User-facing product name: **АдминКИТ**.
 
-Позиционирование:
-- `Pramio — управление бизнесом в мессенджерах.`
-- `AdminKit — native daily MAX operations.`
+Positioning:
+`Pramio — управление бизнесом в мессенджерах.`
 
-### MAX / бот
-- быстрые уведомления;
-- быстрые действия;
-- обработка одного лида;
-- простые мастера;
-- короткая статистика;
-- оперативная диагностика.
+АдминКИТ is one product/sub-brand inside Pramio.
+
+The web cabinet is not a mirror of the MAX bot.
+
+### MAX / bot
+- quick notifications;
+- quick actions;
+- one-lead operational work;
+- simple wizards;
+- short stats;
+- operational diagnostics.
 
 ### Web
-- CRM и большие списки;
-- фильтры и поиск;
-- календарь контента;
-- расширенный редактор;
-- сравнительная аналитика;
-- диагностика каналов;
-- команда;
-- тариф;
-- экспорт;
-- настройки.
+- CRM and large lists;
+- filters/search;
+- content calendar;
+- extended editor;
+- comparative/provenance analytics;
+- channel diagnostics;
+- team;
+- billing;
+- exports;
+- settings.
 
-## Утверждённая IA Web Cabinet 1.0
+## 3. Approved IA
 
-Основные разделы:
+Desktop:
 1. Сводка
 2. Лиды
 3. Контент
@@ -53,383 +63,441 @@ Pramio — экосистема сервисов для бизнеса в мес
 5. Каналы
 6. Ещё
 
-В `Ещё`:
+`Ещё`:
 - команда;
 - тариф и оплата;
 - экспорт;
 - интеграции;
 - настройки;
-- помощь.
+- помощь;
+- документы/право.
 
-Мобильная нижняя навигация:
+Mobile bottom nav:
 - Сводка
 - Лиды
 - Контент
 - Аналитика
 - Ещё
 
-## CRM
+## 4. CRM canon
 
-Статусы:
-- красный — Новый;
-- жёлтый — В работе;
-- зелёный — Успешный;
-- серый — Закрыт без результата.
+Statuses:
+- `new` — Новый;
+- `work` — В работе;
+- `won` — Успешный;
+- `lost` — Закрыт без результата.
 
-Карточка лида: имя, MAX ID/username, телефон, источник, кампания, канал, лид-магнит/сценарий, created_at, статус, менеджер, комментарии, activity, next contact, result, amount.
+Lead fields include:
+- name;
+- MAX ID/username;
+- phone;
+- source;
+- campaign;
+- channel;
+- lead magnet/scenario;
+- created_at;
+- status;
+- manager;
+- comments/activity/tasks;
+- next contact;
+- result;
+- amount.
 
-## Данные и аналитика
+Closing a lead requires a human-readable result; closed leads do not keep an active next-contact time.
 
-Нельзя смешивать данные MAX и вычисления AdminKit без маркировки.
+## 5. Data integrity / analytics
 
-### MAX API / native
-Можно использовать:
-- параметры канала;
-- текущее число участников, когда доступно;
-- посты/сообщения;
-- `Message.stat.views`;
-- администраторов;
-- права;
-- закреплённый пост.
+Never mix MAX-native data and АдминКИТ-computed/observed data without provenance labels.
 
-### Собственные события AdminKit
-Можно считать:
-- tracking clicks;
-- member joined / left после подключения;
-- bot started / stopped;
-- attributed joins;
-- наблюдаемые комментарии;
-- CTA clicks;
-- gift requests / claims;
+### MAX native / snapshot examples
+- channel/chat parameters;
+- current participants count when available;
+- posts/messages;
+- Message.stat;
+- administrators;
+- permissions;
+- pinned message.
+
+### Own АдминКИТ data
+- tracking/CTA clicks;
+- observed join/leave after connection;
+- bot started/stopped when observed;
+- attributed joins when attribution exists;
+- gift requests/claims;
 - lead events;
 - campaigns;
 - manual costs;
 - CRM outcomes;
-- snapshots просмотров.
+- saved metric snapshots.
 
-### Не обещать
-- unique reach;
-- identities of viewers;
-- reaction-author analytics;
-- полную демографию;
-- полную историю до установки;
-- точный источник любого органического вступления;
-- неподтверждённые нативные MAX-метрики.
+### Do not promise/synthesize
+- unique reach when not supplied by platform evidence;
+- viewer identities;
+- reaction-author analytics without confirmed platform event/API;
+- full demographics;
+- complete pre-install history;
+- exact source of every organic join;
+- unconfirmed native MAX metrics.
 
-## Архитектура MVP
+A current MAX snapshot is not period growth unless historical snapshots exist.
 
-Обычный Timeweb Hosting работает с MySQL, Timeweb Cloud — с PostgreSQL.
+Cross-source clicks→leads→sales conversion must not be calculated without event-level cohort attribution.
 
-Решение: **MySQL не включать в продуктовый контур**.
+## 6. MVP architecture
 
-Целевая схема:
+Target:
 
 ```text
 pramio.ru
-обычный Timeweb Hosting
-лендинг / документы
+landing / public documents
 
 app.pramio.ru
-веб-кабинет
+Web Cabinet frontend
 
 api.pramio.ru
-backend / auth / API / MAX webhook
+backend / auth / Web API / MAX webhook / payment webhook
 
 PostgreSQL
 Timeweb Cloud
-единственный source of truth
+sole server source of truth
 ```
 
-Первый MVP можно запускать в **том же существующем Timeweb Cloud App**, логически разделив:
-- `/webhooks/max/...`
-- `/api/web/v1/...`
-- `/auth/...`
-- `/app/...`
-
-Позже frontend можно вынести во второй App без миграции PostgreSQL.
-
-Правильный обмен:
+Correct data flow:
 
 ```text
 MAX -> webhook -> backend -> PostgreSQL
 Web -> API -> backend -> PostgreSQL -> MAX API
 ```
 
-Не строить MySQL ↔ PostgreSQL sync. Не строить Web ↔ Bot webhook.
+Do not build MySQL↔PostgreSQL sync.  
+Do not build Web↔Bot webhook.
 
-## Авторизация web из MAX
+The first MVP may share the existing Timeweb Cloud App logically under `/auth`, `/api/web/v1`, `/webhooks/max`, payment webhook routes, etc.
 
-Предпочтительный flow:
+## 7. Web authentication canon
+
+Preferred flow:
 
 ```text
-AdminKit в MAX
--> кнопка «Открыть веб-кабинет»
+АдминКИТ/MAX
+-> “Открыть веб-кабинет”
 -> short-lived one-time token
--> https://app.pramio.ru/login/max?token=...
--> secure web session
+-> app.pramio.ru/login/max?token=...
+-> backend token exchange
+-> Secure HttpOnly web session
 ```
 
-Требования:
-- token 1–3 минуты;
-- one-time;
-- bot token не попадает в браузер;
-- secure HttpOnly cookie;
-- tenant/role назначаются серверно;
+Requirements:
+- TTL 1–3 minutes;
+- one-time use;
+- bot token never reaches browser;
+- Secure HttpOnly session cookie;
+- tenant/role/capabilities server-derived;
+- browser cannot self-elevate;
 - audit trail.
 
-## Что уже создано без Work
+## 8. Frontend test stand
 
-Functional frontend поддерживает:
-- навигацию;
-- create/edit/delete leads;
-- CRM statuses;
-- comments/tasks/next contact;
-- search/filter;
-- board/list;
-- CSV export;
-- JSON export/import;
-- create/edit/delete posts;
-- drafts/scheduled/demo publish;
-- analytics recalculation;
-- demo channels;
-- diagnostics;
-- team;
-- plan/limits;
-- settings;
-- localStorage;
-- API Adapter layer;
-- responsive mobile;
-- PWA groundwork.
-
-Серверные данные пока имитируются.
-
-## Текущий тестовый стенд
-
-Технический домен обычного Timeweb Hosting:
-
+Current test domain:
 `https://cr083957.tw1.ru`
 
-Файлы лежат в `public_html`.
+Normal Timeweb Hosting is only frontend test stand / landing infrastructure.
 
-`cgi-bin` **сохранять**.
+Files for cabinet test are unpacked directly into `public_html`.
 
-Старый `index.htm` удалён/должен оставаться удалённым или переименованным. Наш основной файл — `index.html`.
+Preserve `cgi-bin`.
 
-Этот hosting — только frontend test stand. Будущий backend остаётся в Timeweb Cloud.
+Do not treat this hosting as the production backend.
 
-## Usability baseline
+## 9. UI/usability canon
 
-После реального тестирования на iPhone выявлено, что Unicode-глифы (`◎`, `⌁`, `▤`, `◉`) давали разную оптическую ширину и stroke. Принят единый cross-platform web baseline на основе Apple HIG, WCAG 2.2, Android/Material и Baymard.
+Primary target: 48×48 CSS px.  
+Standard UI icon: 24×24 inline SVG.  
+Large tile icon: 28×28 inside 48×48.  
+Mobile body: 16 px.  
+Secondary: 14 px.  
+Metadata: 13 px.  
+Micro: 12 px.  
+Mobile forms: 16 px.  
+System-native iPhone font stack.
 
-Принятые значения:
-- primary interactive target: **48×48 CSS px**;
-- standard visible icon: **24×24**;
-- large tile icon: **28×28** внутри **48×48**;
-- mobile body: **16 px**;
-- secondary: **14 px**;
-- metadata: **13 px**;
-- micro labels: **12 px**;
-- mobile form text: **16 px**;
-- body line-height около 1.5;
-- нормальный text contrast по WCAG AA;
-- meaningful non-text UI contrast 3:1;
-- длинные текстовые строки около 50–75 символов.
+System navigation/actions use inline SVG, not emoji/Unicode glyphs.
 
-Системные UI-иконки: только inline SVG, `viewBox 24×24`, stroke 2px, round linecap/linejoin. Unicode/emoji для системной навигации больше не использовать.
+Compact header preserves meaning:
+- identity/workspace stay visible;
+- Overview has no artificial create-post action;
+- Content may show create action;
+- Analytics may show export;
+- compact mode changes geometry, not brand/workspace typography.
 
-Typography на iPhone: system-native stack (`-apple-system`, SF Pro fallback chain).
+`ОП` is the canonical account/profile entry.
 
-## Последние версии
+## 10. A-stage completed
 
-### v0.3 Usability Standard
-Исправлено:
-- системная типографика;
-- SVG icon family;
-- 48px touch targets;
-- 24px icons;
-- 16px mobile forms;
-- contrast;
-- focus-visible;
-- reduced motion;
-- bottom navigation;
-- typography scale.
+### A1 — Product UI Canon & Mobile Acceptance candidate
+- clickable `ОП` profile entry;
+- deterministic language/no-translate policy;
+- header identity/typography stabilization;
+- mobile canon prepared.
 
-Приёмка v0.3 на iPhone:
-- icons — PASS;
-- touch targets — PASS;
-- readability — PASS;
-- contrast — PASS;
-- mobile hierarchy — PARTIAL;
-- vertical efficiency — PARTIAL;
-- task cards — NEEDS POLISH.
+Manual real-device acceptance is still pending.
 
-### v0.3.1 Mobile Polish — ТЕКУЩАЯ ПОСЛЕДНЯЯ ВЕРСИЯ
+### A2 — Responsive System & Device Matrix
+- narrow phones;
+- standard phones;
+- large phones;
+- foldables;
+- tablets/iPad;
+- compact desktop;
+- desktop;
+- landscape and pointer modes.
 
-Пакет:
-`pramio-timeweb-test-v0.3.1-mobile-polish-public_html.zip`
+### A3 — Frontend Hardening
+- JSON import validation;
+- unsaved-change protection;
+- focus/keyboard/modal behavior;
+- loading/error states;
+- local audit;
+- accessibility semantics;
+- robust localStorage handling.
 
-Изменения:
-- hero уменьшен примерно на 20–25%;
-- sticky topbar после ~72px scroll схлопывается;
-- breadcrumb становится `Olga.style`;
-- `Создать пост` превращается в квадратную `+`;
-- avatar остаётся;
-- task cards переведены в 2-row mobile layout;
-- bottom nav визуально облегчена;
-- touch targets сохранены;
-- `Ещё` усилено оптически;
-- quick actions сокращены: Новый пост / Добавить лида / Результаты / Диагностика;
-- localStorage/data model не менялись.
+### A4 — Account / Workspace / Roles UX
+- workspace is distinct from MAX channel;
+- roles: owner/admin/manager/editor;
+- capability UX;
+- access-denied/session-expired states;
+- server remains authoritative later.
 
-URL для проверки после загрузки:
-`https://cr083957.tw1.ru/?v=0310`
+### A5 — CRM & Content Production UX
+- CRM lifecycle and task/activity behavior;
+- content states: draft/scheduled/published/failed;
+- workspace timezone;
+- 7-day content calendar;
+- schedule/cancel/retry/publish UX;
+- UI does not pretend demo schedule has executed in MAX.
 
-**Важно:** на момент создания этого handoff пользователь ещё не прислал новые скриншоты фактически загруженной v0.3.1. Первое действие нового чата — принять v0.3.1 по реальным iPhone-скриншотам, не начинать новый редизайн заранее.
+### A6 — Analytics & Data Provenance
+Implemented as an isolated analytics pipeline.
 
-## Дорожная карта без Work
+Existing Overview analytics logic was deliberately not used as a causal input.
 
-### A2 — Frontend Hardening
-- mobile acceptance всех разделов;
-- undo/restore;
-- robust JSON import validation;
-- loading/error/empty states;
-- keyboard/focus handling;
-- unsaved changes protection;
-- content calendar polish;
-- local audit trail;
-- performance;
-- regression suite;
-- accessibility audit.
+A6 defines:
+- 7/30/90/all periods;
+- provenance labels;
+- partial coverage;
+- CRM cohort reporting;
+- no fake cross-source funnel;
+- explicit unavailable metrics.
 
-### A3 — Full Server Contract
-Подготовить OpenAPI для:
-- MAX one-time auth;
-- sessions;
-- tenant context;
-- capability flags;
-- lead API;
-- content API;
-- analytics API;
-- channel diagnostics;
-- idempotency;
-- outbox commands;
-- audit log;
-- MAX webhook contract;
+### A7 — Billing Product & Universal Payment Contract
+Provider-neutral product layer for:
+- ЮKassa;
+- Т-Бизнес.
+
+Provider choice remains open pending commercial responses.
+
+Normalized subscription/payment states, checkout, recurring consent, cancel/resume, refunds and entitlements are contractually separated from provider APIs.
+
+Browser return URL never activates entitlements.
+
+### A8 — Legal / Privacy / Commercial Readiness
+Created:
+- offer structure;
+- privacy structure;
+- separate PD consent structure;
+- recurring-payment consent separation;
+- payment-instrument refusal UX;
+- refunds checklist;
+- 54-FZ/fiscal readiness checklist;
+- Roskomnadzor/localization checklist;
+- acquiring public-site readiness.
+
+**LEGAL PRODUCTION PASS is intentionally not granted.**
+Real seller legal name, INN/OGRN/address/contacts, tax/VAT/KKT model and lawyer/accountant review are still required.
+
+### A9 — Full Server Contract / OpenAPI
+Canonical artifacts define:
+- auth/session;
+- tenant access;
+- CRM;
+- content/scheduler/outbox;
+- analytics provenance;
+- diagnostics;
 - billing/entitlements;
-- payment webhook contract;
-- standard errors.
-
-### A4 — Acceptance Pack
-- E2E scenarios;
-- exact acceptance criteria;
-- test fixtures;
-- MAX/Web responsibility matrix;
-- data-source matrix;
-- mobile checklist;
-- security checklist;
-- server integration plan;
-- Work task decomposition.
-
-## После восстановления Work
-
-### B1 — Shell + Auth + Read-only
-- existing Timeweb Cloud App;
-- one-time login from MAX;
-- secure session;
-- tenant guard;
-- read-only bootstrap;
-- real channels;
-- diagnostics.
-
-### B2 — CRM + PostgreSQL
-- canonical lead services;
-- real cards/status/comments/tasks;
-- multi-device sync;
-- server audit.
-
-### B3 — Content + MAX API
-- real post create/edit/delete/pin;
-- command queue;
-- idempotency;
-- retries;
-- MAX rate limits;
-- webhook confirmation.
-
-### B4 — Billing
-- payment provider;
-- checkout;
+- MAX webhook;
 - payment webhook;
-- entitlements;
-- renewals;
-- cancellations/refunds;
-- invoices/receipts where applicable.
+- idempotency;
+- error semantics.
 
-### B5 — Audit + Stress Test
-- tenant isolation;
-- token security;
-- webhook reliability;
-- concurrent writes;
-- duplicate clicks;
-- load tests;
-- restart recovery;
-- backups;
-- production readiness gate.
+### A10 — Acceptance & Security Pack
+Contains 33 deterministic E2E cases plus:
+- fixtures;
+- security checklist;
+- source-of-truth matrix;
+- exact B-stage gates;
+- manual/device acceptance checklist.
 
-## AdminKit GitHub context
+Each Work report must map required A10 case IDs to PASS/FAIL/BLOCKED.
+
+### A11 — Work Launch Pack
+A-phase is now complete.
+
+Canonical Work launch context:
+`docs/context/PRAMIO_WORK_LAUNCH_PACK_2026-08-07.md`
+
+First Work assignment artifact:
+`PRAMIO_B1_WORK_TASK.md`
+
+## 11. Current frontend candidate
+
+Latest consolidated frontend candidate:
+`pramio-timeweb-test-v0.3.11-a8-legal-commercial-readiness-public_html.zip`
+
+When the user can test again, use the latest consolidated candidate rather than historical intermediate ZIPs.
+
+Manual consolidated iPhone/device acceptance remains pending.
+
+## 12. Backend GitHub state — VERIFIED DURING A11
 
 Repository:
 `9163223-maker/amio-comments-max`
 
-Primary working branch historically:
+Branch:
 `agent/issue-298-intermediate-remediation-deploy`
 
-Last explicitly verified HEAD in this conversation:
+Verified HEAD on 2026-08-07 during A11:
 `3f0c7716c90181eaf9c583febd7938ab25f89e1e`
 
-Этот SHA нужно **проверить заново** перед любой будущей Work-задачей.
+This SHA was rechecked via GitHub during A11.
 
-Не делать без согласования:
-- новую ветку;
-- PostgreSQL schema changes;
-- ENV changes;
-- Timeweb config changes;
-- deploy;
-- unrelated AdminKit fixes.
+**Work must recheck remote HEAD again immediately before any code write.**
+If it differs, stop and report the new SHA before coding.
 
-## Принципы дальнейшей работы нового чата
+Do not create a new branch unless explicitly approved.
 
-1. Считать этот файл authoritative continuity context.
-2. Не повторять discovery.
-3. Продолжать с последнего практического состояния.
-4. Делать инкрементальные frontend-релизы, а не редизайн с нуля.
-5. Тестировать mobile по реальным скриншотам пользователя.
-6. Для Timeweb-пакетов давать ZIP, который распаковывается **напрямую в `public_html`**.
-7. `cgi-bin` сохранять.
-8. Не менять localStorage keys без осознанной миграции.
-9. Во время быстрого тестирования избегать service-worker cache; использовать asset versioning/cache busting.
-10. После возврата Work отдавать серверные задачи узкими волнами и требовать exact SHA/tests/results.
+## 13. B-stage sequence
 
----
+### B1 — Shell + Auth + Read-only
+Only:
+- one-time MAX login;
+- secure session;
+- workspace membership;
+- server roles/capabilities;
+- session expiry/logout;
+- read-only workspaces/channels;
+- diagnostics bootstrap.
 
-## COPY-PASTE START MESSAGE
+Not B1:
+- CRM writes;
+- content publish/scheduler;
+- payment integration;
+- analytics implementation.
 
-Ты продолжаешь проект **Pramio / AdminKit** как руководитель продукта, UX-архитектор и приёмщик.
+### B2 — CRM + PostgreSQL
+- canonical lead persistence;
+- lifecycle;
+- comments/tasks/activity;
+- assignment;
+- next contact;
+- result/amount;
+- multi-device sync;
+- server audit.
 
-Канонический контекст проекта находится в GitHub:
+### B3 — Content + MAX API
+- drafts;
+- schedule/cancel;
+- publish now;
+- retry;
+- scheduler/outbox;
+- MAX webhook inbox/dedup;
+- rate limits/retries;
+- platform message IDs/snapshots.
 
-- repository: `9163223-maker/pramio-landing`
+АдминКИТ backend owns delayed scheduling; do not assume native MAX scheduling.
+
+### B4 — Billing
+- normalized subscription/payment domain;
+- provider adapter(s);
+- verified notifications;
+- recurring consent;
+- cancel/resume;
+- payment-instrument refusal;
+- refunds;
+- entitlements.
+
+### B5 — Analytics + Audit + Production Readiness
+- provenance metrics;
+- saved MAX snapshots;
+- coverage;
+- audit;
+- exports;
+- tenant/security regression;
+- restart/retry;
+- backup/restore;
+- load/stress readiness.
+
+Do not synthesize unavailable MAX metrics.
+
+## 14. Global Work restrictions
+
+Without explicit approval:
+- no new branch;
+- no ENV changes;
+- no Timeweb config/runtime changes;
+- no production deploy;
+- no unrelated АдминКИТ fixes;
+- no silent scope expansion.
+
+PostgreSQL changes are permitted only where the current B-stage explicitly requires them and must use narrow migrations with reporting/rollback assessment.
+
+B1–B5 default to **NO DEPLOY**.
+
+Deploy is a separate gate after:
+1. code/report acceptance;
+2. explicit user authorization;
+3. exact target SHA;
+4. pre-deploy regression;
+5. post-deploy runtime acceptance.
+
+## 15. Work report contract
+
+Every B-stage report must include:
+- repository;
+- branch;
+- starting remote HEAD;
+- result SHA;
+- exact changed files;
+- migrations, if any;
+- required A10 case matrix;
+- exact tests/counts/results;
+- security checklist results;
+- blockers;
+- confirmation of forbidden changes not made;
+- deploy status explicitly stated.
+
+`BLOCKED` is allowed only with a named external blocker and evidence. It is not PASS.
+
+## 16. Immediate next action
+
+When Work limit is available:
+
+1. Open the A11 `PRAMIO_B1_WORK_TASK.md`.
+2. Send it verbatim to the Work executor.
+3. Executor first rechecks remote HEAD of `agent/issue-298-intermediate-remediation-deploy`.
+4. If HEAD equals `3f0c7716c90181eaf9c583febd7938ab25f89e1e`, execute B1 only.
+5. No deploy.
+6. Return SHA + A10 mapping + tests to the main Chat account for acceptance.
+
+## COPY-PASTE START MESSAGE FOR A NEW MAIN CHAT
+
+Ты продолжаешь проект **Pramio / АдминКИТ** как руководитель продукта, UX-архитектор и приёмщик.
+
+Authoritative context:
+- repo: `9163223-maker/pramio-landing`
 - branch: `main`
 - file: `docs/context/PRAMIO_WEB_HANDOFF_2026-08-07.md`
+- Work launch file: `docs/context/PRAMIO_WORK_LAUNCH_PACK_2026-08-07.md`
 
-Сначала прочитай этот файл целиком через GitHub и используй его как исходное состояние проекта. Не начинай заново discovery и не расширяй scope.
+Сначала прочитай эти файлы через GitHub. Не повторяй discovery.
 
-Ключевое текущее состояние:
-- без режима Work мы делаем абсолютно всю клиентскую часть и подготовку, которую возможно;
-- серверную интеграцию MAX + PostgreSQL + auth + payments + audit + stress tests подключим отдельными волнами через Work;
-- web не является зеркалом MAX-бота;
-- frontend-стенд: `https://cr083957.tw1.ru`;
-- последняя собранная frontend-версия — **v0.3.1 Mobile Polish**;
-- после новых iPhone-скриншотов сначала провести приёмку v0.3.1, не начинать новый редизайн;
-- далее A2 Frontend Hardening → A3 Full Server Contract → A4 Acceptance Pack → затем Work B1–B5.
-
-Продолжай бесшовно с этого места.
+A1–A11 завершены. Следующий инженерный этап — B1. Основной backend repo/branch: `9163223-maker/amio-comments-max` / `agent/issue-298-intermediate-remediation-deploy`. A11 verified HEAD: `3f0c7716c90181eaf9c583febd7938ab25f89e1e`; перед любыми изменениями Work обязан проверить его заново.
