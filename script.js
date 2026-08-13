@@ -1,5 +1,11 @@
 (() => {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const compactViewport = window.matchMedia('(max-width: 780px)').matches;
+  const motionEndAt = performance.now() + 4800;
+
+  if (!prefersReduced && !compactViewport) {
+    window.setTimeout(() => document.documentElement.classList.add('motion-settled'), 4800);
+  }
 
   document.querySelectorAll('.reveal').forEach((el) => {
     el.style.setProperty('--delay', el.dataset.delay || 0);
@@ -96,9 +102,11 @@
 
   if (!prefersReduced && window.matchMedia('(pointer: fine)').matches) {
     let tx = 0, ty = 0, cx = 0, cy = 0;
+    let parallaxFrame = 0;
     window.addEventListener('pointermove', (event) => {
       tx = (event.clientX / window.innerWidth - 0.5) * 18;
       ty = (event.clientY / window.innerHeight - 0.5) * 18;
+      if (!parallaxFrame) parallaxFrame = requestAnimationFrame(parallax);
     }, { passive: true });
 
     const parallax = () => {
@@ -106,9 +114,9 @@
       cy += (ty - cy) * 0.06;
       document.documentElement.style.setProperty('--px', `${cx}px`);
       document.documentElement.style.setProperty('--py', `${cy}px`);
-      requestAnimationFrame(parallax);
+      if (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) parallaxFrame = requestAnimationFrame(parallax);
+      else parallaxFrame = 0;
     };
-    parallax();
   }
 
   const heroSymbol = document.querySelector('.hero-symbol');
@@ -153,11 +161,13 @@
 
   const animateAtoms = (time) => {
     if (!prefersReduced) {
-      orbitAtoms.forEach((atom) => setAtom(atom, time));
-      requestAnimationFrame(animateAtoms);
+      if (!heroSymbol || !heroSymbol.classList.contains('motion-paused')) {
+        orbitAtoms.forEach((atom) => setAtom(atom, time));
+      }
+      if (time < motionEndAt) requestAnimationFrame(animateAtoms);
     }
   };
-  if (!prefersReduced) requestAnimationFrame(animateAtoms);
+  if (!prefersReduced && !compactViewport) requestAnimationFrame(animateAtoms);
 
   const canvas = document.getElementById('space');
   const ctx = canvas && canvas.getContext ? canvas.getContext('2d') : null;
@@ -189,6 +199,10 @@
 
   function draw() {
     if (!ctx) return;
+    if (document.hidden) {
+      if (!prefersReduced && performance.now() < motionEndAt) requestAnimationFrame(draw);
+      return;
+    }
     ctx.clearRect(0, 0, width, height);
     ctx.save();
     ctx.globalCompositeOperation = 'multiply';
@@ -226,10 +240,12 @@
     });
 
     ctx.restore();
-    if (!prefersReduced) requestAnimationFrame(draw);
+    if (!prefersReduced && performance.now() < motionEndAt) requestAnimationFrame(draw);
   }
 
-  resize();
-  if (!prefersReduced) draw();
-  window.addEventListener('resize', resize, { passive: true });
+  if (!compactViewport) {
+    resize();
+    if (!prefersReduced) draw();
+    window.addEventListener('resize', resize, { passive: true });
+  }
 })();

@@ -1,7 +1,56 @@
 <?php
+session_name('pramio_form');
+session_start([
+    'cookie_httponly' => true,
+    'cookie_samesite' => 'Lax',
+    'cookie_secure' => (!empty($_SERVER['HTTP_X_HTTPS']) && $_SERVER['HTTP_X_HTTPS'] === '1') || (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
+    'use_strict_mode' => true,
+]);
+
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store, max-age=0');
 header('X-Content-Type-Options: nosniff');
+
+function pramio_new_form_token() {
+    $token = bin2hex(random_bytes(24));
+    $_SESSION['pramio_form_token'] = $token;
+    $_SESSION['pramio_form_token_issued_at'] = time();
+    return $token;
+}
+
+function pramio_rate_limit($clientKey, $limit = 5, $windowSeconds = 3600) {
+    $file = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'pramio-form-' . hash('sha256', $clientKey) . '.json';
+    $handle = @fopen($file, 'c+');
+    if (!$handle) return true;
+
+    $allowed = true;
+    if (flock($handle, LOCK_EX)) {
+        $raw = stream_get_contents($handle);
+        $stored = json_decode($raw ?: '[]', true);
+        $now = time();
+        $attempts = is_array($stored) ? array_values(array_filter($stored, function ($timestamp) use ($now, $windowSeconds) {
+            return is_int($timestamp) && $timestamp > ($now - $windowSeconds);
+        })) : [];
+
+        if (count($attempts) >= $limit) {
+            $allowed = false;
+        } else {
+            $attempts[] = $now;
+            rewind($handle);
+            ftruncate($handle, 0);
+            fwrite($handle, json_encode($attempts));
+            fflush($handle);
+        }
+        flock($handle, LOCK_UN);
+    }
+    fclose($handle);
+    return $allowed;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['form_token'])) {
+    echo json_encode(['ok' => true, 'token' => pramio_new_form_token()]);
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -194,6 +243,7 @@ $message = trim((string)($_POST['message'] ?? ''));
 $consent = (string)($_POST['consent'] ?? '');
 $website = trim((string)($_POST['website'] ?? ''));
 $startedAt = (int)($_POST['started_at'] ?? 0);
+$formToken = trim((string)($_POST['form_token'] ?? ''));
 
 // A filled hidden field is treated as an automated submission. Return a neutral
 // success response so the form does not reveal the anti-spam rule.
@@ -202,10 +252,49 @@ if ($website !== '') {
     exit;
 }
 
+$host = strtolower(preg_replace('/:\d+$/', '', (string)($_SERVER['HTTP_HOST'] ?? '')));
+$origin = trim((string)($_SERVER['HTTP_ORIGIN'] ?? ''));
+$referer = trim((string)($_SERVER['HTTP_REFERER'] ?? ''));
+$sourceOk = true;
+if ($origin !== '') {
+    $sourceOk = strtolower((string)parse_url($origin, PHP_URL_HOST)) === $host;
+} elseif ($referer !== '') {
+    $sourceOk = strtolower((string)parse_url($referer, PHP_URL_HOST)) === $host;
+}
+
+$sessionToken = (string)($_SESSION['pramio_form_token'] ?? '');
+$tokenIssuedAt = (int)($_SESSION['pramio_form_token_issued_at'] ?? 0);
+$tokenOk = $formToken !== '' && $sessionToken !== '' && hash_equals($sessionToken, $formToken) && $tokenIssuedAt > (time() - 3600);
+if (!$sourceOk || !$tokenOk) {
+    http_response_code(403);
+    echo json_encode(['ok' => false, 'error' => 'request_rejected']);
+    exit;
+}
+
 $nowMs = (int)round(microtime(true) * 1000);
 if ($startedAt > 0 && ($nowMs - $startedAt) < 1500) {
     http_response_code(429);
     echo json_encode(['ok' => false, 'error' => 'too_fast']);
+    exit;
+}
+
+if ($startedAt <= 0 || ($nowMs - $startedAt) > 7200000) {
+    http_response_code(422);
+    echo json_encode(['ok' => false, 'error' => 'form_expired']);
+    exit;
+}
+
+$lastSubmitAt = (int)($_SESSION['pramio_last_submit_at'] ?? 0);
+if ($lastSubmitAt > 0 && (time() - $lastSubmitAt) < 45) {
+    http_response_code(429);
+    echo json_encode(['ok' => false, 'error' => 'rate_limited']);
+    exit;
+}
+
+$clientAddress = (string)($_SERVER['REMOTE_ADDR'] ?? 'unknown');
+if (!pramio_rate_limit($clientAddress)) {
+    http_response_code(429);
+    echo json_encode(['ok' => false, 'error' => 'rate_limited']);
     exit;
 }
 
@@ -265,4 +354,5 @@ if (!$mailOk && !$tgOk) {
     exit;
 }
 
-echo json_encode(['ok' => true]);
+$_SESSION['pramio_last_submit_at'] = time();
+echo json_encode(['ok' => true, 'token' => pramio_new_form_token()]);

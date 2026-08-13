@@ -30,6 +30,8 @@
       form.reset();
       const startedAt = form.querySelector('[name="started_at"]');
       if (startedAt) startedAt.value = String(Date.now());
+      const tokenInput = form.querySelector('[name="form_token"]');
+      if (tokenInput) tokenInput.value = result.token || '';
       setStatus('Спасибо! Сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
     } catch (error) {
       setStatus('Не удалось отправить форму. Напишите нам на hello@pramio.ru.');

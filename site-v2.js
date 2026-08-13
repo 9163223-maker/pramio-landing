@@ -27,6 +27,19 @@
     const startedAt = form.querySelector('[name="started_at"]');
     if (startedAt) startedAt.value = String(Date.now());
 
+    const tokenInput = form.querySelector('[name="form_token"]');
+    if (tokenInput) {
+      fetch('/send.php?form_token=1', {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: { 'Accept': 'application/json' },
+        cache: 'no-store'
+      })
+        .then((response) => response.ok ? response.json() : Promise.reject(new Error('token_failed')))
+        .then((result) => { if (result.token) tokenInput.value = result.token; })
+        .catch(() => { tokenInput.value = ''; });
+    }
+
     const requestedService = new URLSearchParams(window.location.search).get('service');
     const serviceSelect = form.querySelector('[name="service"]');
     if (requestedService && serviceSelect) {
@@ -43,4 +56,16 @@
 
   openFromHash();
   window.addEventListener('hashchange', openFromHash);
+
+  const motionTargets = [
+    document.querySelector('.hero-symbol'),
+    document.querySelector('.product-v2')
+  ].filter(Boolean);
+
+  if ('IntersectionObserver' in window && motionTargets.length) {
+    const motionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('motion-paused', !entry.isIntersecting));
+    }, { rootMargin: '80px 0px' });
+    motionTargets.forEach((target) => motionObserver.observe(target));
+  }
 })();
