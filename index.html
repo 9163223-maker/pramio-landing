@@ -10,6 +10,17 @@
   <meta name="theme-color" content="#f3f8ff">
   <link rel="canonical" href="https://pramio.ru/">
   <link rel="icon" href="/assets/pramio-mark.webp" type="image/webp">
+  <!-- Yandex.Metrika counter -->
+  <script>
+    (function(m,e,t,r,i,k,a){
+      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);
+    })(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=111572606','ym');
+    ym(111572606,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:'dataLayer',referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});
+  </script>
+  <!-- /Yandex.Metrika counter -->
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
@@ -51,6 +62,7 @@
   </script>
 </head>
 <body class="home-page">
+  <noscript><div><img src="https://mc.yandex.ru/watch/111572606" style="position:absolute;left:-9999px" alt="" aria-hidden="true"></div></noscript>
   <canvas id="space" aria-hidden="true"></canvas>
   <div class="ambient ambient-a" aria-hidden="true"></div>
   <div class="ambient ambient-b" aria-hidden="true"></div>
@@ -142,8 +154,8 @@
     <button class="contact-close" type="button" aria-label="Закрыть форму">×</button><div class="contact-orb" aria-hidden="true"></div><p class="eyebrow contact-eyebrow"><span></span> связь с PRAMIO</p><h2 id="contact-title">Обсудить задачу</h2><p class="contact-intro">Расскажите о задаче своими словами — мы уточним вводные и ответим на указанный e-mail.</p>
     <form class="contact-form" id="contact-form" data-recipient="hello@pramio.ru" data-endpoint="/send.php">
       <div class="service-field"><label for="contact-service">Что вас интересует</label><select id="contact-service" name="service" required><option value="">Выберите направление</option><option>Лендинг или небольшой сайт</option><option>Telegram-бот</option><option>Бот или решение для MAX</option><option>AI-ассистент или автоматизация</option><option>Интерактивный сервис или поддержка</option><option>АдминКИТ</option><option>Другая задача</option></select></div>
-      <label><span>E-mail для ответа</span><input name="email" type="email" autocomplete="email" placeholder="name@example.com" required maxlength="160"></label>
-      <label><span>Коротко о задаче</span><textarea name="message" rows="5" placeholder="Что нужно сделать и какой результат вы ожидаете" required maxlength="3000"></textarea></label>
+      <label><span>E-mail для ответа</span><input class="ym-disable-keys" name="email" type="email" autocomplete="email" placeholder="name@example.com" required maxlength="160"></label>
+      <label><span>Коротко о задаче</span><textarea class="ym-disable-keys" name="message" rows="5" placeholder="Что нужно сделать и какой результат вы ожидаете" required maxlength="3000"></textarea></label>
       <label class="privacy-consent"><input name="consent" type="checkbox" value="1" required><span>Я соглашаюсь на обработку указанных данных в соответствии с <a href="/privacy/" target="_blank">Политикой обработки персональных данных</a>.</span></label>
       <label class="form-trap" aria-hidden="true"><span>Сайт</span><input name="website" type="text" tabindex="-1" autocomplete="off"></label>
       <input name="started_at" type="hidden" value="">
