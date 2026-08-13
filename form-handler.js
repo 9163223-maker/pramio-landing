@@ -28,6 +28,8 @@
       const result = await response.json().catch(() => ({}));
       if (!response.ok || result.ok === false) throw new Error(result.error || 'send_failed');
       form.reset();
+      const startedAt = form.querySelector('[name="started_at"]');
+      if (startedAt) startedAt.value = String(Date.now());
       setStatus('Спасибо! Сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
     } catch (error) {
       setStatus('Не удалось отправить форму. Напишите нам на hello@pramio.ru.');

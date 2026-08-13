@@ -1,5 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store, max-age=0');
+header('X-Content-Type-Options: nosniff');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -9,11 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $cfg = [
     'site_name' => 'PRAMIO',
-    'mail_to' => '9163223@gmail.com',
+    'mail_to' => 'hello@pramio.ru',
     'mail_from' => 'no-reply@pramio.ru',
-    // SpaceWeb recommends ssl://smtp.spaceweb.ru for port 465 + SSL.
-    // The script also accepts smtp.spaceweb.ru and adds ssl:// automatically.
-    'smtp_host' => 'ssl://smtp.spaceweb.ru',
+    // Timeweb SMTP: encrypted connection on port 465.
+    'smtp_host' => 'ssl://smtp.timeweb.ru',
     'smtp_port' => 465,
     'smtp_secure' => 'ssl',
     'smtp_user' => 'no-reply@pramio.ru',
@@ -121,7 +122,7 @@ function pramio_smtp_send($cfg, $to, $subject, $body, $replyTo) {
     }
 
     if (strcasecmp($from, $smtpUser) !== 0) {
-        throw new Exception('mail_from and smtp_user must match for SpaceWeb');
+        throw new Exception('mail_from and smtp_user must match for SMTP delivery');
     }
 
     $context = stream_context_create([
@@ -187,21 +188,48 @@ function pramio_smtp_send($cfg, $to, $subject, $body, $replyTo) {
     }
 }
 
-$subject = trim((string)($_POST['subject'] ?? ''));
+$service = trim((string)($_POST['service'] ?? ''));
 $email = trim((string)($_POST['email'] ?? ''));
 $message = trim((string)($_POST['message'] ?? ''));
+$consent = (string)($_POST['consent'] ?? '');
+$website = trim((string)($_POST['website'] ?? ''));
+$startedAt = (int)($_POST['started_at'] ?? 0);
 
-if ($subject === '' || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+// A filled hidden field is treated as an automated submission. Return a neutral
+// success response so the form does not reveal the anti-spam rule.
+if ($website !== '') {
+    echo json_encode(['ok' => true]);
+    exit;
+}
+
+$nowMs = (int)round(microtime(true) * 1000);
+if ($startedAt > 0 && ($nowMs - $startedAt) < 1500) {
+    http_response_code(429);
+    echo json_encode(['ok' => false, 'error' => 'too_fast']);
+    exit;
+}
+
+$allowedServices = [
+    'Лендинг или небольшой сайт',
+    'Telegram-бот',
+    'Бот или решение для MAX',
+    'AI-ассистент или автоматизация',
+    'Интерактивный сервис или поддержка',
+    'АдминКИТ',
+    'Другая задача',
+];
+
+if (!in_array($service, $allowedServices, true) || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || $consent !== '1') {
     http_response_code(422);
     echo json_encode(['ok' => false, 'error' => 'validation_failed']);
     exit;
 }
 
-$subject = pramio_cut($subject, 120);
+$service = pramio_cut($service, 120);
 $message = pramio_cut($message, 3000);
 
-$text = "Новая заявка с сайта {$cfg['site_name']}\n\nТема: {$subject}\nEmail: {$email}\n\nСообщение:\n{$message}";
-$emailSubject = 'Заявка с сайта PRAMIO: ' . $subject;
+$text = "Новая заявка с сайта {$cfg['site_name']}\n\nНаправление: {$service}\nEmail: {$email}\nСогласие на обработку данных: получено\n\nСообщение:\n{$message}";
+$emailSubject = 'Заявка с сайта PRAMIO: ' . $service;
 
 $mailOk = false;
 if (!empty($cfg['mail_to'])) {

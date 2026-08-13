@@ -1,6 +1,6 @@
 (() => {
   const cue = document.querySelector('[data-scroll-cue]');
-  const target = document.getElementById('adminkit');
+  const target = document.getElementById('services') || document.getElementById('adminkit');
   const footer = document.querySelector('.footer');
   const topCue = document.querySelector('[data-scroll-top]');
 
