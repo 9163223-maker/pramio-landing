@@ -22,7 +22,6 @@
 
   const overlay = document.getElementById('contact-overlay');
   const panel = document.getElementById('contact-panel');
-  const triggers = document.querySelectorAll('.contact-trigger');
   const close = document.querySelector('.contact-close');
   const form = document.getElementById('contact-form');
   const scrollCue = document.querySelector('[data-scroll-cue]');
@@ -54,7 +53,13 @@
     }, 380);
   };
 
-  triggers.forEach((button) => button.addEventListener('click', openContact));
+  window.PRAmioContact = { open: openContact, close: closeContact };
+  document.addEventListener('click', (event) => {
+    const trigger = event.target.closest('.contact-trigger');
+    if (!trigger) return;
+    event.preventDefault();
+    openContact();
+  });
   if (close) close.addEventListener('click', closeContact);
   if (overlay) overlay.addEventListener('click', closeContact);
   window.addEventListener('keydown', (event) => {
