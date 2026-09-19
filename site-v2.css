@@ -785,3 +785,28 @@ body.contact-open .pramio-contact-fab{opacity:0;pointer-events:none;}
  .link-card>span:not(.link-card-arrow){font-size:14px;line-height:1.45}
  .link-card-arrow{right:16px;bottom:16px;width:32px;height:32px}
 }
+
+
+/* pramio-objects-v1 */
+.pramio-object{position:relative;width:min(30vw,340px);aspect-ratio:1;pointer-events:none;filter:drop-shadow(0 24px 45px rgba(42,107,202,.12));opacity:.92;transform:translateZ(0)}
+.pramio-object .po-orb{position:absolute;width:52%;aspect-ratio:1;right:8%;top:13%;border-radius:50%;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.98) 0 7%,rgba(218,239,255,.78) 28%,rgba(98,167,255,.28) 60%,rgba(38,112,229,.10) 76%,rgba(255,255,255,.02) 100%);border:1px solid rgba(255,255,255,.78);box-shadow:inset -18px -22px 40px rgba(44,116,231,.13),inset 14px 14px 30px rgba(255,255,255,.82),0 24px 55px rgba(42,112,220,.15);backdrop-filter:blur(14px);animation:poFloat 10s ease-in-out infinite}
+.pramio-object .po-plane{position:absolute;border:1px solid rgba(255,255,255,.76);background:linear-gradient(135deg,rgba(255,255,255,.66),rgba(203,228,255,.22));box-shadow:inset 0 1px rgba(255,255,255,.8),0 18px 38px rgba(56,111,190,.10);backdrop-filter:blur(18px) saturate(145%);border-radius:24px;animation:poPlane 12s ease-in-out infinite}
+.pramio-object .po-plane--a{width:55%;height:31%;left:8%;top:39%;transform:rotate(-8deg)}
+.pramio-object .po-plane--b{width:44%;height:25%;right:3%;bottom:12%;transform:rotate(7deg);animation-delay:-4s}
+.pramio-object .po-node{position:absolute;width:12px;height:12px;border-radius:50%;background:rgba(38,116,246,.72);box-shadow:0 0 0 7px rgba(61,135,255,.09),0 8px 20px rgba(29,104,228,.24);animation:poPulse 5s ease-in-out infinite}
+.pramio-object .po-node--a{left:24%;top:33%}.pramio-object .po-node--b{right:24%;bottom:21%;animation-delay:-2s}
+.pramio-object--web .po-plane--a{width:61%;height:38%;border-radius:20px}.pramio-object--web .po-plane--b{width:48%;height:30%;right:0}
+.pramio-object--telegram .po-plane--a{width:49%;height:29%;border-radius:30px 30px 30px 9px}.pramio-object--telegram .po-plane--b{width:39%;height:23%;border-radius:26px 26px 9px 26px}
+.pramio-object--ai .po-orb{width:58%;right:20%;top:20%}.pramio-object--ai .po-plane{width:27%;height:27%;border-radius:50%}.pramio-object--ai .po-plane--a{left:4%;top:46%}.pramio-object--ai .po-plane--b{right:5%;bottom:18%}
+.pramio-object--ui .po-plane--a{width:63%;height:34%}.pramio-object--ui .po-plane--b{width:35%;height:35%;border-radius:50%}
+.pramio-object--max .po-plane--a{border-radius:30px 30px 30px 8px}.pramio-object--max .po-plane--b{border-radius:30px 30px 8px 30px}
+@keyframes poFloat{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-8px,10px,0) scale(1.025)}}
+@keyframes poPlane{0%,100%{translate:0 0}50%{translate:7px -9px}}
+@keyframes poPulse{0%,100%{opacity:.55;transform:scale(.85)}50%{opacity:1;transform:scale(1.08)}}
+@media(max-width:780px){
+ .service-hero{position:relative;overflow:hidden}
+ .service-hero>div:first-child{position:relative;z-index:2}
+ .service-visual.pramio-object{position:absolute;width:210px;height:210px;right:-52px;top:54px;bottom:auto;opacity:.28;z-index:0;filter:blur(.1px) drop-shadow(0 18px 34px rgba(42,107,202,.10))}
+ .pramio-object .po-plane{border-radius:18px}
+}
+@media(prefers-reduced-motion:reduce){.pramio-object *{animation:none!important}}
