@@ -156,7 +156,7 @@ h1 strong{font-weight:580!important;}
 .contact-form textarea{resize:vertical;min-height:132px;}
 .contact-form input:focus,.contact-form textarea:focus{border-color:rgba(20,102,255,.46);background:rgba(255,255,255,.84);box-shadow:0 0 0 5px rgba(20,102,255,.08),inset 0 1px 0 rgba(255,255,255,.96);}
 .contact-submit{width:100%;margin-top:4px;border:0;cursor:pointer;}
-.form-note{margin:2px 0 0;color:#778398;font-size:12px;line-height:1.45;}
+.form-note{margin:2px 0 0;color:#778398;font-size:13px;line-height:1.45;}
 body.contact-open{overflow:hidden;}
 
 @keyframes contactSheen{0%,100%{transform:translateX(-22%);opacity:.28}45%{transform:translateX(18%);opacity:.52}}
@@ -173,7 +173,7 @@ body.contact-open{overflow:hidden;}
   .orbit-b{width:calc(var(--sphere)*1.36)!important;height:calc(var(--sphere)*.50)!important;}
   .orbit-c{width:calc(var(--sphere)*1.00)!important;height:calc(var(--sphere)*.70)!important;}
   .scroll-cue{margin-top:18px!important;padding:8px 14px 8px 10px!important;min-height:42px!important;}
-  .scroll-cue__text{font-size:11px!important;letter-spacing:.08em!important;}
+  .scroll-cue__text{font-size:13px!important;letter-spacing:.08em!important;}
   .scroll-cue__orb{width:26px!important;height:26px!important;}
   .contact-panel{inset:auto 12px 12px 12px;width:auto;max-height:calc(100svh - 24px);overflow:auto;padding:28px 22px;border-radius:24px;}
 }
