@@ -151,9 +151,14 @@ html.motion-settled body::after,html.motion-settled .page::before,html.motion-se
   .contact-panel{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 22px)!important;}
 }
 @media(max-width:480px){
-  .site-header{width:calc(100% - 22px);}.site-header .brand-logo{width:154px!important;}.menu-toggle{width:44px;height:44px;}.mobile-nav{left:11px;right:11px;top:70px;}.home-page .page,.inner-page .page{width:calc(100% - 22px)!important;}.hero-v2{grid-template-columns:minmax(0,1fr) 104px!important;gap:10px 8px!important;}.hero-v2 h1{font-size:clamp(35px,10.7vw,46px)!important;}.hero-v2 .lead{font-size:15px!important;line-height:1.5!important;}.hero-actions{grid-column:1;}.hero-proof{display:grid;grid-template-columns:1fr;}.section-heading h2,.final-cta h2{font-size:36px;}.section-heading>p:last-child{font-size:16px;line-height:1.55;}.service-card{padding:24px 22px;border-radius:24px;}.service-card h3{font-size:28px;}.service-card>p,.service-card>div>p{font-size:15px;}.process-step{padding:22px;}.final-cta{padding:32px 20px;border-radius:26px;}.site-footer{width:calc(100% - 22px);padding-bottom:30px;}.service-hero{border-radius:26px;}.service-hero h1{font-size:39px;}.service-visual{min-height:190px;}.service-glyph{width:126px;font-size:38px;}.scope-box,.feature-card{padding:24px;}.legal-page{padding:30px 22px;border-radius:24px;}.contact-panel h2{font-size:32px!important;}.contact-intro{margin-bottom:18px!important;}.contact-form{gap:12px!important;}.contact-form textarea{min-height:112px!important;}
+  .service-visual{min-height:190px;}
+  .service-glyph{width:126px;font-size:38px;}
+  .legal-page{padding:28px 20px!important;}
+  .contact-panel h2{font-size:32px!important;}
+  .contact-intro{margin-bottom:18px!important;}
+  .contact-form{gap:12px!important;}
+  .contact-form textarea{min-height:112px!important;}
 }
-@media(max-width:390px){.hero-v2{grid-template-columns:1fr 88px!important;}.hero-v2 h1{font-size:36px!important;}.hero-actions .ghost{display:none;}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}body:after,.page:before,.product:after,.product-logo:after{animation:none!important;}}
 
 /* Mobile usability pass: reflow, readable type and compact vertical rhythm. */
@@ -1160,4 +1165,14 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   .pramio-contact-fab{position:fixed!important;}
   .page,.site-footer{z-index:1;}
   .ambient{pointer-events:none!important;}
+}
+
+
+/* Small-screen consistency: no second design system below 480px */
+@media(max-width:480px){
+  .home-page .page,.inner-page .page,.site-header,.site-footer{width:calc(100% - (var(--mobile-gutter) * 2))!important;}
+  .hero-v2 .lead,.service-card>p,.service-card>div>p{font-size:17px!important;}
+  .service-card h3{font-size:22px!important;}
+  .section-heading h2,.final-cta h2{font-size:clamp(30px,8vw,38px)!important;}
+  .hero-actions .ghost{display:flex!important;}
 }
