@@ -21,7 +21,8 @@
     document.body.append(panel);
     if (!document.querySelector('script[data-pramio-form-handler]')) {
       const handler = document.createElement('script');
-      handler.src = '/form-handler.js?v=35';
+      handler.src = '/form-handler.js?v=36';
+      handler.async = false;
       handler.dataset.pramioFormHandler = '1';
       document.body.append(handler);
     }
