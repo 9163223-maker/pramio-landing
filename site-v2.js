@@ -200,4 +200,91 @@
     }, { rootMargin: '80px 0px' });
     motionTargets.forEach((target) => motionObserver.observe(target));
   }
+  /* consent-manager-v1 */
+  const PRAMIO_CONSENT_KEY = 'pramio_cookie_consent_v1';
+  const METRIKA_ID = 111572606;
+  let metrikaLoaded = false;
+
+  const loadMetrika = () => {
+    if (metrikaLoaded || document.querySelector('script[data-pramio-metrika]')) return;
+    metrikaLoaded = true;
+    window.ym = window.ym || function(){ (window.ym.a = window.ym.a || []).push(arguments); };
+    window.ym.l = 1 * new Date();
+    const script = document.createElement('script');
+    script.async = true;
+    script.dataset.pramioMetrika = '1';
+    script.src = 'https://mc.yandex.ru/metrika/tag.js?id=' + METRIKA_ID;
+    script.onload = () => {
+      window.ym(METRIKA_ID,'init',{
+        ssr:true,webvisor:true,clickmap:true,ecommerce:'dataLayer',
+        referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true
+      });
+    };
+    document.head.append(script);
+  };
+
+  const readConsent = () => {
+    try { return JSON.parse(localStorage.getItem(PRAMIO_CONSENT_KEY) || 'null'); } catch (_) { return null; }
+  };
+  const saveConsent = (analytics) => {
+    const value = { necessary:true, analytics:Boolean(analytics), updatedAt:new Date().toISOString() };
+    try { localStorage.setItem(PRAMIO_CONSENT_KEY, JSON.stringify(value)); } catch (_) {}
+    if (value.analytics) loadMetrika();
+    return value;
+  };
+
+  const ensureCookieUi = () => {
+    let panel = document.querySelector('.cookie-consent');
+    if (panel) return panel;
+    panel = document.createElement('aside');
+    panel.className = 'cookie-consent';
+    panel.setAttribute('role','dialog');
+    panel.setAttribute('aria-modal','false');
+    panel.setAttribute('aria-labelledby','cookie-title');
+    panel.hidden = true;
+    panel.innerHTML = '<div class="cookie-consent__head"><div class="cookie-consent__icon" aria-hidden="true">◌</div><div><h2 id="cookie-title">Мы используем cookie</h2><p>Необходимые данные нужны для работы сайта. Аналитические cookie Яндекс Метрики включаются только с вашего согласия. Подробнее — в <a href="/privacy/">политике обработки данных</a>.</p></div></div><div class="cookie-consent__actions"><button class="cookie-accept" type="button">Принять все</button><button class="cookie-settings" type="button">Настройки</button></div><div class="cookie-preferences" hidden><div class="cookie-pref-row"><span>Необходимые<small>Работа интерфейса и сохранение выбора</small></span><label class="cookie-switch is-fixed" aria-label="Необходимые cookie всегда включены"><input type="checkbox" checked disabled><i></i></label></div><div class="cookie-pref-row"><span>Аналитика<small>Яндекс Метрика и Вебвизор</small></span><label class="cookie-switch"><input class="cookie-analytics-toggle" type="checkbox"><i></i></label></div><div class="cookie-consent__actions"><button class="cookie-accept cookie-save" type="button">Сохранить выбор</button><button class="cookie-settings cookie-essential" type="button">Только необходимые</button></div></div>';
+    document.body.append(panel);
+
+    const preferences = panel.querySelector('.cookie-preferences');
+    const analyticsToggle = panel.querySelector('.cookie-analytics-toggle');
+    panel.querySelector('.cookie-accept:not(.cookie-save)').addEventListener('click', () => {
+      saveConsent(true); panel.hidden = true;
+    });
+    panel.querySelector('.cookie-settings:not(.cookie-essential)').addEventListener('click', () => {
+      preferences.hidden = !preferences.hidden;
+    });
+    panel.querySelector('.cookie-save').addEventListener('click', () => {
+      saveConsent(analyticsToggle.checked); panel.hidden = true;
+    });
+    panel.querySelector('.cookie-essential').addEventListener('click', () => {
+      saveConsent(false); panel.hidden = true;
+    });
+    return panel;
+  };
+
+  const openCookieSettings = () => {
+    const panel = ensureCookieUi();
+    const current = readConsent();
+    const toggle = panel.querySelector('.cookie-analytics-toggle');
+    if (toggle) toggle.checked = Boolean(current && current.analytics);
+    const preferences = panel.querySelector('.cookie-preferences');
+    if (preferences) preferences.hidden = false;
+    panel.hidden = false;
+  };
+
+  const consent = readConsent();
+  if (consent && consent.analytics) loadMetrika();
+  const cookiePanel = ensureCookieUi();
+  if (!consent) cookiePanel.hidden = false;
+
+  document.querySelectorAll('.site-footer nav').forEach((nav) => {
+    if (nav.querySelector('.cookie-settings-link')) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'cookie-settings-link';
+    btn.textContent = 'Настройки cookie';
+    btn.addEventListener('click', openCookieSettings);
+    nav.append(btn);
+  });
+
 })();
