@@ -937,3 +937,25 @@ body:has(.cookie-consent:not([hidden])) .pramio-contact-fab{bottom:calc(env(safe
 @media(max-width:780px) and (prefers-reduced-motion:reduce){
   .ambient-a,.ambient-b{animation:none!important;}
 }
+
+
+/* Unified PRAMIO type system — 2026-09-19 */
+:root{
+  --type-display:Geologica,Manrope,system-ui,sans-serif;
+  --type-ui:Manrope,system-ui,sans-serif;
+  --type-body:Manrope,system-ui,sans-serif;
+  --fs-body:17px;
+  --fs-small:14px;
+  --fs-ui:15px;
+}
+body{font-family:var(--type-body)!important;font-size:var(--fs-body);line-height:1.62;color:var(--v2-ink);}
+h1,h2,h3,h4,h5,h6,.service-hero h1,.section-heading h2,.final-cta h2,.content-section h2,.legal-page h1,.article-toc strong,.link-card strong{font-family:var(--type-display)!important;}
+p,li,.service-card>p,.service-card>div>p,.content-section>p,.legal-page p,.legal-page li{font-family:var(--type-body)!important;}
+button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.eyebrow,.breadcrumbs,.service-number,.service-picker,.pramio-contact-fab,.site-footer{font-family:var(--type-ui)!important;}
+@media(max-width:780px){
+  body{font-size:17px!important;line-height:1.62!important;}
+  p:not(.eyebrow):not(.article-meta):not(.form-note):not(.legal-meta){font-size:17px;}
+  .eyebrow,.article-meta,.breadcrumbs,.service-number,.legal-meta{font-size:13px!important;line-height:1.4!important;}
+  button,input,textarea,select,.service-picker__trigger,.service-picker__option{font-size:16px!important;}
+  .site-footer,.site-footer p,.site-footer a{font-size:15px!important;line-height:1.45!important;}
+}
