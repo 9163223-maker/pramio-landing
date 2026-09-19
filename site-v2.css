@@ -822,3 +822,17 @@ body.contact-open .pramio-contact-fab{opacity:0;pointer-events:none;}
 .pramio-object--automation .po-plane--a{width:34%;height:34%;left:8%;top:45%;border-radius:50%}.pramio-object--automation .po-plane--b{width:34%;height:34%;right:8%;bottom:14%;border-radius:50%}.pramio-object--automation .po-orb{width:38%;right:31%;top:8%}
 .pramio-object--integration .po-plane--a{width:43%;height:43%;left:5%;top:40%;border-radius:22px}.pramio-object--integration .po-plane--b{width:43%;height:43%;right:4%;bottom:9%;border-radius:22px}.pramio-object--integration .po-orb{width:30%;right:35%;top:10%}
 .pramio-object--deeplink .po-plane--a{width:48%;height:24%;left:3%;top:48%;border-radius:999px}.pramio-object--deeplink .po-plane--b{width:48%;height:24%;right:2%;bottom:18%;border-radius:999px}.pramio-object--deeplink .po-orb{width:35%;right:30%;top:11%}
+
+
+/* pramio-editorial-objects-v1 */
+.pramio-object--editorial{opacity:.62;filter:drop-shadow(0 18px 38px rgba(42,107,202,.08))}
+.pramio-object--editorial .po-orb{width:38%;right:13%;top:13%;animation-duration:15s}
+.pramio-object--editorial .po-plane{background:linear-gradient(135deg,rgba(255,255,255,.54),rgba(215,235,255,.14));box-shadow:inset 0 1px rgba(255,255,255,.7),0 14px 30px rgba(56,111,190,.07);animation-duration:17s}
+.pramio-object--editorial .po-node{width:9px;height:9px;opacity:.62}
+.pramio-object--guide .po-plane--a{width:51%;height:61%;left:10%;top:26%;border-radius:20px}.pramio-object--guide .po-plane--b{width:34%;height:12%;right:6%;bottom:20%;border-radius:999px}
+.pramio-object--api .po-plane--a{width:57%;height:28%;left:7%;top:42%;border-radius:18px}.pramio-object--api .po-plane--b{width:43%;height:22%;right:4%;bottom:16%;border-radius:18px}
+.pramio-object--channel-guide .po-plane--a{width:62%;height:23%;left:5%;top:43%;border-radius:18px}.pramio-object--channel-guide .po-plane--b{width:46%;height:19%;right:4%;bottom:18%;border-radius:18px}
+.pramio-object--app-guide .po-plane--a{width:43%;height:61%;left:13%;top:25%;border-radius:27px}.pramio-object--app-guide .po-plane--b{width:31%;height:39%;right:8%;bottom:13%;border-radius:22px}
+.pramio-object--lead-guide .po-plane--a{width:55%;height:31%;left:7%;top:45%;border-radius:24px}.pramio-object--lead-guide .po-plane--b{width:27%;height:27%;right:9%;bottom:14%;border-radius:50%}
+.pramio-object--knowledge .po-plane--a{width:58%;height:42%;left:7%;top:37%;border-radius:22px}.pramio-object--knowledge .po-plane--b{width:42%;height:33%;right:3%;bottom:11%;border-radius:20px}
+@media(max-width:780px){.service-visual.pramio-object--editorial{width:180px;height:180px;right:-58px;top:66px;opacity:.20}}
