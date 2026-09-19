@@ -53,10 +53,7 @@
     line-height: 1.52 !important;
   }
 
-  .hero-symbol {
-    width: min(350px, 34vw) !important;
-    opacity: .96 !important;
-  }
+  
 
   .scroll-cue:not(.scroll-top-cue),
   .scroll-top-cue {
@@ -146,9 +143,7 @@
     font-size: clamp(44px, 5.4vw, 54px) !important;
   }
 
-  .hero-symbol {
-    width: min(310px, 32vw) !important;
-  }
+  
 
   .product {
     grid-template-columns: minmax(260px, .82fr) minmax(300px, 1fr) !important;
