@@ -1176,3 +1176,15 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   .section-heading h2,.final-cta h2{font-size:clamp(30px,8vw,38px)!important;}
   .hero-actions .ghost{display:flex!important;}
 }
+
+
+/* Mobile legibility floor — supporting text stays readable */
+@media(max-width:780px){
+  .hero-proof{font-size:14px!important;line-height:1.45!important;gap:9px 16px!important;}
+  .service-number{font-size:13px!important;line-height:1.2!important;}
+  .service-picker.is-invalid::after{font:600 13px/1.35 var(--type-ui)!important;}
+  .privacy-consent{font-size:14px!important;line-height:1.45!important;padding:11px 12px!important;}
+  .form-note{font-size:13px!important;line-height:1.45!important;}
+  .support-note{font-size:15px!important;line-height:1.55!important;}
+  .breadcrumbs{font-size:13px!important;line-height:1.4!important;}
+}
