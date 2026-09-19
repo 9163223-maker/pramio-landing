@@ -156,7 +156,7 @@ body.contact-open .scroll-top-cue{
 }
 
 @media(max-width:780px){
-  :root{--type-label:10px;--type-body:15px;--type-small:14px;--type-card-title:clamp(32px,8.8vw,44px);}
+  :root{--type-label:13px;--type-body:17px;--type-small:14px;--type-card-title:clamp(30px,8vw,38px);}
   
   .scroll-cue:not(.scroll-top-cue){position:fixed!important;left:50%!important;right:auto!important;bottom:calc(env(safe-area-inset-bottom,0px) + 18px)!important;z-index:70!important;margin:0!important;transform:translateX(-50%)!important;}
   .scroll-cue:not(.scroll-top-cue).is-hidden{transform:translateX(-50%) translateY(10px)!important;}
