@@ -41,7 +41,19 @@
       if (!requestedService) return;
       const select = document.querySelector('#contact-form [name="service"]');
       if (!select) return;
-      const option = Array.from(select.options).find((item) => item.text === requestedService || item.value === requestedService);
+      const serviceAliases = {
+        'Бот MAX для заявок':'Бот или решение для MAX',
+        'Бот MAX для бизнеса':'Бот или решение для MAX',
+        'Кнопки и диплинки MAX':'Бот или решение для MAX',
+        'Автоматизация канала MAX':'Бот или решение для MAX',
+        'Бот для канала MAX':'Бот или решение для MAX',
+        'Модерация комментариев MAX':'Бот или решение для MAX',
+        'Интеграция MAX с CRM':'Бот или решение для MAX',
+        'Лид-магнит в MAX':'Бот или решение для MAX',
+        'Mini App для MAX':'Бот или решение для MAX'
+      };
+      const normalizedService = serviceAliases[requestedService] || requestedService;
+      const option = Array.from(select.options).find((item) => item.text === normalizedService || item.value === normalizedService);
       if (option) {
         select.value = option.value;
         select.dispatchEvent(new Event('change', { bubbles:true }));
