@@ -28,6 +28,26 @@
     return panel;
   };
   ensureContactPanel();
+  const contactLinks = document.querySelectorAll('a[href*="#contact"]');
+  contactLinks.forEach((link) => {
+    let url;
+    try { url = new URL(link.href, window.location.origin); } catch (_) { return; }
+    if (url.origin !== window.location.origin || url.hash !== '#contact') return;
+    const requestedService = url.searchParams.get('service');
+    link.classList.add('contact-trigger');
+    link.setAttribute('aria-haspopup','dialog');
+    link.setAttribute('aria-controls','contact-panel');
+    link.addEventListener('click', () => {
+      if (!requestedService) return;
+      const select = document.querySelector('#contact-form [name="service"]');
+      if (!select) return;
+      const option = Array.from(select.options).find((item) => item.text === requestedService || item.value === requestedService);
+      if (option) {
+        select.value = option.value;
+        select.dispatchEvent(new Event('change', { bubbles:true }));
+      }
+    });
+  });
   document.querySelectorAll('.site-nav a[href="/#contact"],.mobile-nav a[href="/#contact"]').forEach((link) => {
     const button = document.createElement('button');
     button.type = 'button';
