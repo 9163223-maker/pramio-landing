@@ -300,3 +300,22 @@
   });
 
 })();
+
+/* persistent-contact-v1 */
+(() => {
+  if (document.querySelector('.pramio-contact-fab')) return;
+  const panel = document.getElementById('contact-panel');
+  if (!panel) return;
+  const fab = document.createElement('button');
+  fab.type = 'button';
+  fab.className = 'pramio-contact-fab contact-trigger';
+  fab.setAttribute('aria-haspopup','dialog');
+  fab.setAttribute('aria-controls','contact-panel');
+  fab.setAttribute('aria-label','Связаться с PRAMIO — открыть форму');
+  fab.textContent = 'Задать вопрос';
+  document.body.append(fab);
+  const source = document.querySelector('.hero-actions .contact-trigger, .site-nav .contact-trigger');
+  fab.addEventListener('click', () => {
+    if (source) source.click();
+  });
+})();
