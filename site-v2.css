@@ -810,3 +810,15 @@ body.contact-open .pramio-contact-fab{opacity:0;pointer-events:none;}
  .pramio-object .po-plane{border-radius:18px}
 }
 @media(prefers-reduced-motion:reduce){.pramio-object *{animation:none!important}}
+
+
+/* pramio-objects-max-family-v1 */
+.pramio-object--business .po-plane--a{width:58%;height:32%;border-radius:28px 28px 28px 9px}.pramio-object--business .po-plane--b{width:42%;height:25%;border-radius:24px 24px 9px 24px}
+.pramio-object--channels .po-plane--a{width:66%;height:22%;left:5%;top:42%;border-radius:18px}.pramio-object--channels .po-plane--b{width:52%;height:19%;right:2%;bottom:17%;border-radius:18px}
+.pramio-object--lead .po-orb{width:46%;right:3%;top:9%}.pramio-object--lead .po-plane--a{width:62%;height:35%;left:5%;top:45%;border-radius:28px}.pramio-object--lead .po-plane--b{width:29%;height:29%;right:7%;bottom:8%;border-radius:50%}
+.pramio-object--app .po-plane--a{width:48%;height:66%;left:14%;top:20%;border-radius:30px}.pramio-object--app .po-plane--b{width:35%;height:43%;right:2%;bottom:10%;border-radius:24px}
+.pramio-object--form .po-plane--a{width:60%;height:48%;left:6%;top:35%;border-radius:24px}.pramio-object--form .po-plane--b{width:42%;height:15%;right:1%;bottom:14%;border-radius:999px}
+.pramio-object--moderation .po-orb{width:43%;right:10%;top:8%}.pramio-object--moderation .po-plane--a{width:58%;height:58%;left:8%;top:31%;clip-path:polygon(50% 0,94% 16%,86% 68%,50% 100%,14% 68%,6% 16%);border-radius:28px}.pramio-object--moderation .po-plane--b{width:24%;height:24%;right:8%;bottom:16%;border-radius:50%}
+.pramio-object--automation .po-plane--a{width:34%;height:34%;left:8%;top:45%;border-radius:50%}.pramio-object--automation .po-plane--b{width:34%;height:34%;right:8%;bottom:14%;border-radius:50%}.pramio-object--automation .po-orb{width:38%;right:31%;top:8%}
+.pramio-object--integration .po-plane--a{width:43%;height:43%;left:5%;top:40%;border-radius:22px}.pramio-object--integration .po-plane--b{width:43%;height:43%;right:4%;bottom:9%;border-radius:22px}.pramio-object--integration .po-orb{width:30%;right:35%;top:10%}
+.pramio-object--deeplink .po-plane--a{width:48%;height:24%;left:3%;top:48%;border-radius:999px}.pramio-object--deeplink .po-plane--b{width:48%;height:24%;right:2%;bottom:18%;border-radius:999px}.pramio-object--deeplink .po-orb{width:35%;right:30%;top:11%}
