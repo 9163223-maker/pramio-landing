@@ -240,10 +240,7 @@
   openFromHash();
   window.addEventListener('hashchange', openFromHash);
 
-  const motionTargets = [
-    document.querySelector('.hero-symbol'),
-    document.querySelector('.product-v2')
-  ].filter(Boolean);
+  const motionTargets = [document.querySelector('.product-v2')].filter(Boolean);
 
   if ('IntersectionObserver' in window && motionTargets.length) {
     const motionObserver = new IntersectionObserver((entries) => {
