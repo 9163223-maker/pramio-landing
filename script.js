@@ -129,56 +129,6 @@
     };
   }
 
-  const heroSymbol = document.querySelector('.hero-symbol');
-  const sphere = document.querySelector('.glass-sphere');
-  const orbitAtoms = [
-    { el: document.querySelector('.atom-a'), line: document.querySelector('.orbit-a'), duration: 9000, phase: 0.08, min: 0.86, max: 1.08, opacityMin: 0.55, opacityMax: 1 },
-    { el: document.querySelector('.atom-b'), line: document.querySelector('.orbit-b'), duration: 11800, phase: 0.44, min: 0.78, max: 1, opacityMin: 0.42, opacityMax: 0.88 },
-    { el: document.querySelector('.atom-c'), line: document.querySelector('.orbit-c'), duration: 14000, phase: 0.72, min: 0.68, max: 0.9, opacityMin: 0.24, opacityMax: 0.56 }
-  ];
-
-  const getOrbitGeometry = (line) => {
-    const computed = window.getComputedStyle(line);
-    const width = parseFloat(computed.width) || 0;
-    const height = parseFloat(computed.height) || 0;
-    const rotateRaw = computed.getPropertyValue('--orbit-rotate') || '0deg';
-    const tilt = parseFloat(rotateRaw) * Math.PI / 180;
-    return { rx: width / 2, ry: height / 2, tilt };
-  };
-
-  const setAtom = (atom, time) => {
-    if (!atom.el || !atom.line || !heroSymbol || !sphere) return;
-
-    const hostRect = heroSymbol.getBoundingClientRect();
-    const sphereRect = sphere.getBoundingClientRect();
-    const centerX = sphereRect.left - hostRect.left + sphereRect.width / 2;
-    const centerY = sphereRect.top - hostRect.top + sphereRect.height / 2;
-    const orbit = getOrbitGeometry(atom.line);
-    const t = ((time / atom.duration) + atom.phase) * Math.PI * 2;
-
-    const x = Math.cos(t) * orbit.rx;
-    const y = Math.sin(t) * orbit.ry;
-    const xr = x * Math.cos(orbit.tilt) - y * Math.sin(orbit.tilt);
-    const yr = x * Math.sin(orbit.tilt) + y * Math.cos(orbit.tilt);
-    const front = (Math.sin(t) + 1) / 2;
-    const scale = atom.min + front * (atom.max - atom.min);
-    const opacity = atom.opacityMin + front * (atom.opacityMax - atom.opacityMin);
-
-    atom.el.style.transform = `translate3d(${centerX + xr}px, ${centerY + yr}px, 0) translate(-50%, -50%) scale(${scale})`;
-    atom.el.style.opacity = opacity.toFixed(3);
-    atom.el.style.zIndex = front > 0.5 ? '6' : '3';
-  };
-
-  const animateAtoms = (time) => {
-    if (!prefersReduced) {
-      if (!heroSymbol || !heroSymbol.classList.contains('motion-paused')) {
-        orbitAtoms.forEach((atom) => setAtom(atom, time));
-      }
-      if (time < motionEndAt) requestAnimationFrame(animateAtoms);
-    }
-  };
-  if (!prefersReduced && !compactViewport) requestAnimationFrame(animateAtoms);
-
   const canvas = document.getElementById('space');
   const ctx = canvas && canvas.getContext ? canvas.getContext('2d') : null;
   let width = 0;
