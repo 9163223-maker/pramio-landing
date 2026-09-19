@@ -590,3 +590,8 @@ video{max-width:100%;height:auto;}
 @media(prefers-reduced-motion:reduce){
   .hero-liquid-bg::before,.hero-liquid-bg::after,.hero-liquid-orb,.hero-liquid-dot{animation:none!important;}
 }
+
+.footer-summary-link{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:8px 28px 8px 0;color:var(--v2-muted);font:500 13px/1.5 Manrope,system-ui,sans-serif;transition:color .16s ease;}
+.footer-summary-link::after{content:"→";position:absolute;right:2px;top:50%;transform:translateY(-50%);color:var(--v2-blue);opacity:.58;transition:transform .16s ease,opacity .16s ease;}
+.footer-summary-link:hover{color:var(--v2-blue);}.footer-summary-link:hover::after{transform:translate(3px,-50%);opacity:1;}
+@media(max-width:780px){.footer-summary-link{width:100%;padding:10px 28px 10px 0;border-bottom:1px solid rgba(20,102,255,.08);}}
