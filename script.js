@@ -20,14 +20,15 @@
   reveal();
   window.addEventListener('scroll', reveal, { passive: true });
 
-  const overlay = document.getElementById('contact-overlay');
-  const panel = document.getElementById('contact-panel');
-  const close = document.querySelector('.contact-close');
+  const getOverlay = () => document.getElementById('contact-overlay');
+  const getPanel = () => document.getElementById('contact-panel');
   const form = document.getElementById('contact-form');
   const scrollCue = document.querySelector('[data-scroll-cue]');
   let lastFocus = null;
 
   const openContact = () => {
+    const overlay = getOverlay();
+    const panel = getPanel();
     if (!overlay || !panel) return;
     lastFocus = document.activeElement;
     overlay.hidden = false;
@@ -42,6 +43,8 @@
   };
 
   const closeContact = () => {
+    const overlay = getOverlay();
+    const panel = getPanel();
     if (!overlay || !panel) return;
     overlay.classList.remove('is-open');
     panel.classList.remove('is-open');
@@ -60,9 +63,11 @@
     event.preventDefault();
     openContact();
   });
-  if (close) close.addEventListener('click', closeContact);
-  if (overlay) overlay.addEventListener('click', closeContact);
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('.contact-close') || event.target.id === 'contact-overlay') closeContact();
+  });
   window.addEventListener('keydown', (event) => {
+    const panel = getPanel();
     if (event.key === 'Escape' && panel && panel.classList.contains('is-open')) closeContact();
   });
 
