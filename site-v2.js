@@ -173,6 +173,19 @@
         window.requestAnimationFrame(() => focusOption(index));
       };
 
+      const syncPicker = () => {
+        const selectedIndex = serviceSelect.selectedIndex;
+        const selected = options[selectedIndex] || options[0];
+        current.textContent = selected.text;
+        activeIndex = selectedIndex > 0 ? selectedIndex - 1 : 0;
+        menu.querySelectorAll('[role="option"]').forEach((item, index) => {
+          item.setAttribute('aria-selected', String(selectedIndex > 0 && index === activeIndex));
+        });
+        if (selectedIndex > 0) picker.classList.remove('is-invalid');
+      };
+
+      serviceSelect.addEventListener('change', syncPicker);
+
       const selectOption = (optionIndex) => {
         const option = options[optionIndex + 1];
         if (!option) return;
