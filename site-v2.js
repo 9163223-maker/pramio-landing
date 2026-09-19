@@ -277,6 +277,18 @@
   const cookiePanel = ensureCookieUi();
   if (!consent) cookiePanel.hidden = false;
 
+  document.querySelectorAll('.site-footer').forEach((footer) => {
+    const summary = footer.querySelector(':scope > p');
+    if (summary && !footer.querySelector('.footer-summary-link')) {
+      const link = document.createElement('a');
+      link.className = 'footer-summary-link';
+      link.href = '/services/';
+      link.textContent = summary.textContent;
+      link.setAttribute('aria-label', 'Перейти ко всем услугам PRAMIO');
+      summary.replaceWith(link);
+    }
+  });
+
   document.querySelectorAll('.site-footer nav').forEach((nav) => {
     if (nav.querySelector('.cookie-settings-link')) return;
     const btn = document.createElement('button');
