@@ -1,3 +1,54 @@
+/* global-contact-v3 */
+(() => {
+  const ensureContactPanel = () => {
+    if (!document.getElementById('contact-overlay')) {
+      const overlay = document.createElement('div');
+      overlay.className = 'contact-overlay';
+      overlay.id = 'contact-overlay';
+      overlay.hidden = true;
+      document.body.append(overlay);
+    }
+    let panel = document.getElementById('contact-panel');
+    if (panel) return panel;
+    panel = document.createElement('aside');
+    panel.className = 'contact-panel';
+    panel.id = 'contact-panel';
+    panel.setAttribute('role','dialog');
+    panel.setAttribute('aria-modal','true');
+    panel.setAttribute('aria-labelledby','contact-title');
+    panel.hidden = true;
+    panel.innerHTML = '<button class="contact-close" type="button" aria-label="Закрыть форму">×</button><div class="contact-orb" aria-hidden="true"></div><p class="eyebrow contact-eyebrow"><span></span> связь с PRAMIO</p><h2 id="contact-title">Обсудить задачу</h2><p class="contact-intro">Расскажите о задаче своими словами — мы уточним вводные и ответим на указанный e-mail.</p><form class="contact-form" id="contact-form" data-recipient="hello@pramio.ru" data-endpoint="/send.php"><div class="service-field"><label for="contact-service">Что вас интересует</label><select id="contact-service" name="service" required><option value="">Выберите направление</option><option>Лендинг или небольшой сайт</option><option>Telegram-бот</option><option>Бот или решение для MAX</option><option>AI-ассистент или автоматизация</option><option>Интерактивный сервис или поддержка</option><option>АдминКИТ</option><option>Другая задача</option></select></div><label><span>E-mail для ответа</span><input class="ym-disable-keys" name="email" type="email" autocomplete="email" placeholder="name@example.com" required maxlength="160"></label><label><span>Коротко о задаче</span><textarea class="ym-disable-keys" name="message" rows="5" placeholder="Что нужно сделать и какой результат вы ожидаете" required maxlength="3000"></textarea></label><label class="privacy-consent"><input name="consent" type="checkbox" value="1" required><span>Я соглашаюсь на обработку указанных данных в соответствии с <a href="/privacy/" target="_blank">Политикой обработки персональных данных</a>.</span></label><label class="form-trap" aria-hidden="true"><span>Сайт</span><input name="website" type="text" tabindex="-1" autocomplete="off"></label><input name="started_at" type="hidden" value=""><input name="form_token" type="hidden" value=""><button class="btn primary contact-submit" type="submit">Отправить запрос</button><p class="form-note" role="status" aria-live="polite">Форма защищена от автоматических отправок. Для оценки достаточно короткого описания задачи.</p></form>';
+    document.body.append(panel);
+    if (!document.querySelector('script[data-pramio-form-handler]')) {
+      const handler = document.createElement('script');
+      handler.src = '/form-handler.js?v=35';
+      handler.dataset.pramioFormHandler = '1';
+      document.body.append(handler);
+    }
+    return panel;
+  };
+  ensureContactPanel();
+  document.querySelectorAll('.site-nav a[href="/#contact"],.mobile-nav a[href="/#contact"]').forEach((link) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = (link.className ? link.className + ' ' : '') + 'contact-trigger';
+    button.setAttribute('aria-haspopup','dialog');
+    button.setAttribute('aria-controls','contact-panel');
+    button.textContent = link.textContent;
+    link.replaceWith(button);
+  });
+  if (!document.querySelector('.pramio-contact-fab')) {
+    const fab = document.createElement('button');
+    fab.type = 'button';
+    fab.className = 'pramio-contact-fab contact-trigger';
+    fab.setAttribute('aria-haspopup','dialog');
+    fab.setAttribute('aria-controls','contact-panel');
+    fab.setAttribute('aria-label','Связаться с PRAMIO — открыть форму');
+    fab.textContent = 'Задать вопрос';
+    document.body.append(fab);
+  }
+})();
+
 (() => {
   const menuToggle = document.querySelector('.menu-toggle');
   const mobileNav = document.getElementById('mobile-nav');
@@ -299,48 +350,4 @@
     nav.append(btn);
   });
 
-})();
-
-/* global-contact-v3 */
-(() => {
-  const ensureContactPanel = () => {
-    let panel = document.getElementById('contact-panel');
-    if (panel) return panel;
-    panel = document.createElement('aside');
-    panel.className = 'contact-panel';
-    panel.id = 'contact-panel';
-    panel.setAttribute('role','dialog');
-    panel.setAttribute('aria-modal','true');
-    panel.setAttribute('aria-labelledby','contact-title');
-    panel.hidden = true;
-    panel.innerHTML = '<button class="contact-close" type="button" aria-label="Закрыть форму">×</button><div class="contact-orb" aria-hidden="true"></div><p class="eyebrow contact-eyebrow"><span></span> связь с PRAMIO</p><h2 id="contact-title">Обсудить задачу</h2><p class="contact-intro">Расскажите о задаче своими словами — мы уточним вводные и ответим на указанный e-mail.</p><form class="contact-form" id="contact-form" data-recipient="hello@pramio.ru" data-endpoint="/send.php"><div class="service-field"><label for="contact-service">Что вас интересует</label><select id="contact-service" name="service" required><option value="">Выберите направление</option><option>Лендинг или небольшой сайт</option><option>Telegram-бот</option><option>Бот или решение для MAX</option><option>AI-ассистент или автоматизация</option><option>Интерактивный сервис или поддержка</option><option>АдминКИТ</option><option>Другая задача</option></select></div><label><span>E-mail для ответа</span><input class="ym-disable-keys" name="email" type="email" autocomplete="email" placeholder="name@example.com" required maxlength="160"></label><label><span>Коротко о задаче</span><textarea class="ym-disable-keys" name="message" rows="5" placeholder="Что нужно сделать и какой результат вы ожидаете" required maxlength="3000"></textarea></label><label class="privacy-consent"><input name="consent" type="checkbox" value="1" required><span>Я соглашаюсь на обработку указанных данных в соответствии с <a href="/privacy/" target="_blank">Политикой обработки персональных данных</a>.</span></label><label class="form-trap" aria-hidden="true"><span>Сайт</span><input name="website" type="text" tabindex="-1" autocomplete="off"></label><input name="started_at" type="hidden" value=""><input name="form_token" type="hidden" value=""><button class="btn primary contact-submit" type="submit">Отправить запрос</button><p class="form-note" role="status" aria-live="polite">Форма защищена от автоматических отправок. Для оценки достаточно короткого описания задачи.</p></form>';
-    document.body.append(panel);
-    if (!document.querySelector('script[data-pramio-form-handler]')) {
-      const handler = document.createElement('script');
-      handler.src = '/form-handler.js?v=35';
-      handler.dataset.pramioFormHandler = '1';
-      document.body.append(handler);
-    }
-    return panel;
-  };
-  ensureContactPanel();
-  document.querySelectorAll('.site-nav a[href="/#contact"],.mobile-nav a[href="/#contact"]').forEach((link) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = (link.className ? link.className + ' ' : '') + 'contact-trigger';
-    button.setAttribute('aria-haspopup','dialog');
-    button.setAttribute('aria-controls','contact-panel');
-    button.textContent = link.textContent;
-    link.replaceWith(button);
-  });
-  if (!document.querySelector('.pramio-contact-fab')) {
-    const fab = document.createElement('button');
-    fab.type = 'button';
-    fab.className = 'pramio-contact-fab contact-trigger';
-    fab.setAttribute('aria-haspopup','dialog');
-    fab.setAttribute('aria-controls','contact-panel');
-    fab.setAttribute('aria-label','Связаться с PRAMIO — открыть форму');
-    fab.textContent = 'Задать вопрос';
-    document.body.append(fab);
-  }
 })();
