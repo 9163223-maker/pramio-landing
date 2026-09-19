@@ -959,3 +959,36 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   button,input,textarea,select,.service-picker__trigger,.service-picker__option{font-size:16px!important;}
   .site-footer,.site-footer p,.site-footer a{font-size:15px!important;line-height:1.45!important;}
 }
+
+
+/* PRAMIO mobile Liquid Glass surface system — 2026-09-19 */
+@media(max-width:780px){
+  :root{--mobile-gutter:18px;--glass-fill:rgba(255,255,255,.57);--glass-line:rgba(255,255,255,.76);--glass-shadow:0 12px 38px rgba(38,73,132,.075),inset 0 1px 0 rgba(255,255,255,.92);}
+  .home-page .page,.inner-page .page{width:calc(100% - (var(--mobile-gutter) * 2))!important;max-width:680px!important;margin-inline:auto!important;}
+  .site-header,.site-footer{width:calc(100% - (var(--mobile-gutter) * 2))!important;max-width:680px!important;margin-inline:auto!important;}
+  .service-hero,.article-toc,.feature-card,.scope-box,.link-card,.process-step,.service-card,.final-cta,.editorial-project-card,.legal-page{
+    border:1px solid var(--glass-line)!important;
+    background:var(--glass-fill)!important;
+    box-shadow:var(--glass-shadow)!important;
+    -webkit-backdrop-filter:blur(18px) saturate(118%)!important;
+    backdrop-filter:blur(18px) saturate(118%)!important;
+  }
+  .service-hero,.final-cta,.legal-page{border-radius:28px!important;}
+  .feature-card,.scope-box,.link-card,.process-step,.service-card,.editorial-project-card{border-radius:24px!important;}
+  .article-toc{border-radius:24px!important;}
+  .content-section,.article-page .content-section{max-width:680px;margin-left:auto!important;margin-right:auto!important;}
+  .article-page .service-hero{padding:26px 20px!important;}
+  .article-page .service-hero h1{font-size:clamp(32px,8.3vw,42px)!important;line-height:1.08!important;}
+  .article-page .service-hero .lead{font-size:17px!important;line-height:1.58!important;}
+  .content-section h2{font-size:clamp(30px,8vw,38px)!important;line-height:1.1!important;}
+  .cluster-nav{margin-left:0!important;margin-right:0!important;}
+  .article-toc{margin-left:0!important;margin-right:0!important;}
+  .article-toc nav{gap:7px!important;}
+  .article-toc a{min-height:50px!important;}
+  .link-card{min-height:132px!important;padding:21px 46px 21px 20px!important;}
+  .link-card strong{font-size:19px!important;}
+  .link-card span{font-size:15px!important;line-height:1.5!important;}
+  .feature-card{padding:22px!important;}
+  .feature-card h3{font-size:21px!important;line-height:1.22!important;}
+  .feature-card p{font-size:16px!important;line-height:1.55!important;}
+}
