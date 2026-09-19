@@ -1,0 +1,23 @@
+name: Package PRAMIO UX final
+on:
+  push:
+    branches:
+      - deploy/package-ux-final-2026-09-19
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build incremental ZIP
+        run: |
+          zip -r pramio-ux-final-2026-09-19.zip \
+            404.html blog/index.html blog/max/chto-takoe-mini-app-max/index.html blog/max/chto-umeet-bot-max/index.html blog/max/index.html blog/max/kak-podklyuchit-bota-k-kanalu-max/index.html blog/max/kak-sozdat-bota-v-max/index.html blog/max/lid-magnit-v-max/index.html \
+            final-fixes.css floating-fixes.css index.html privacy/index.html script.js \
+            services/ai-automation/index.html services/index.html services/interactive-support/index.html services/max-bots/applications/index.html services/max-bots/business/index.html services/max-bots/buttons-deeplinks/index.html services/max-bots/channel-automation/index.html services/max-bots/channels/index.html services/max-bots/comment-moderation/index.html services/max-bots/crm-integration/index.html services/max-bots/index.html services/max-bots/lead-magnets/index.html services/max-bots/mini-app/index.html services/sites/index.html services/telegram-bots/index.html \
+            site-v2.css site-v2.js styles.css tablet-portrait.css
+          unzip -l pramio-ux-final-2026-09-19.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pramio-ux-final-2026-09-19
+          path: pramio-ux-final-2026-09-19.zip
+          if-no-files-found: error
