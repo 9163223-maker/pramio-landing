@@ -16,7 +16,6 @@
 
   const getOverlay = () => document.getElementById('contact-overlay');
   const getPanel = () => document.getElementById('contact-panel');
-  const form = document.getElementById('contact-form');
   const scrollCue = document.querySelector('[data-scroll-cue]');
   let lastFocus = null;
 
@@ -31,8 +30,8 @@
       overlay.classList.add('is-open');
       panel.classList.add('is-open');
       document.body.classList.add('contact-open');
-      const firstInput = panel.querySelector('input, textarea, button');
-      if (firstInput) firstInput.focus({ preventScroll: true });
+      const preferredFocus = panel.querySelector('.service-picker__trigger, input[name="email"], textarea[name="message"], .contact-close');
+      if (preferredFocus) preferredFocus.focus({ preventScroll: true });
     });
   };
 
@@ -107,19 +106,6 @@
     };
     updateScrollCue();
     window.addEventListener('scroll', updateScrollCue, { passive: true });
-  }
-
-  if (form) {
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const data = new FormData(form);
-      const recipient = form.dataset.recipient || 'hello@pramio.ru';
-      const subject = data.get('subject') || 'Обращение с сайта PRAMIO';
-      const email = data.get('email') || '';
-      const message = data.get('message') || '';
-      const body = `E-mail для обратной связи: ${email}\n\nСообщение:\n${message}`;
-      window.location.href = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    });
   }
 
   if (!prefersReduced && window.matchMedia('(pointer: fine)').matches) {
