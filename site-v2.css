@@ -198,10 +198,7 @@ video{max-width:100%;height:auto;}
   }
 
   .home-page .page,
-  .inner-page .page{
-    max-width:680px;
-    padding-top:14px!important;
-  }
+  .inner-page .page{max-width:680px;}
 
   .hero-v2{
     display:block!important;
@@ -548,7 +545,6 @@ video{max-width:100%;height:auto;}
 .site-footer nav a:hover::after,.site-footer .cookie-settings-link:hover::after{transform:translate(3px,-50%);opacity:1;}
 
 @media(max-width:780px){
-  .home-page .page{padding-top:6px!important;}
   .home-page .hero-v2{
     display:block!important;
     min-height:auto!important;
