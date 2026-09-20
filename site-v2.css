@@ -1188,3 +1188,35 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   .support-note{font-size:15px!important;line-height:1.55!important;}
   .breadcrumbs{font-size:13px!important;line-height:1.4!important;}
 }
+
+
+/* Mobile ambient depth — moving light lives behind translucent glass, never behind the body canvas */
+@media(max-width:780px){
+  body{position:relative!important;isolation:auto!important;background:linear-gradient(145deg,rgba(255,255,255,.86),rgba(242,248,255,.74))!important;}
+  body::before{opacity:.18!important;}
+  .ambient{
+    z-index:0!important;
+    width:min(92vw,520px)!important;height:min(92vw,520px)!important;
+    opacity:.72!important;
+    filter:blur(26px)!important;
+    mix-blend-mode:multiply;
+  }
+  .ambient-a{
+    left:-34vw!important;top:9vh!important;
+    background:radial-gradient(circle at 52% 48%,rgba(50,125,255,.30) 0,rgba(89,160,255,.17) 38%,rgba(255,255,255,0) 72%)!important;
+  }
+  .ambient-b{
+    right:-34vw!important;top:52vh!important;
+    background:radial-gradient(circle at 48% 52%,rgba(40,196,222,.23) 0,rgba(91,145,255,.13) 40%,rgba(255,255,255,0) 72%)!important;
+  }
+  .page,.site-header,.site-footer{z-index:2!important;}
+  .mobile-nav,.pramio-contact-fab{z-index:80!important;}
+  .service-hero,.article-toc,.feature-card,.scope-box,.link-card,.process-step,.service-card,.final-cta,.editorial-project-card,.legal-page,.cluster-nav,.site-footer nav{
+    background:rgba(255,255,255,.48)!important;
+    -webkit-backdrop-filter:blur(20px) saturate(124%)!important;
+    backdrop-filter:blur(20px) saturate(124%)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .ambient-a,.ambient-b{animation:none!important;}
+}
