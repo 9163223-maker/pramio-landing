@@ -1252,12 +1252,19 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
 
 /* Mobile background ownership — ambient orbs are the only animated environmental layer */
 @media(max-width:780px){
-  body::after,.page::before{
+  body::after{
     animation:none!important;
     pointer-events:none!important;
+    opacity:.045!important;
+    mix-blend-mode:normal!important;
   }
-  body::after{opacity:.06!important;}
-  .page::before{opacity:.08!important;}
+  .page::before{
+    animation:none!important;
+    pointer-events:none!important;
+    opacity:.055!important;
+    filter:blur(84px)!important;
+    z-index:0!important;
+  }
 }
 
 
