@@ -191,9 +191,9 @@ video{max-width:100%;height:auto;}
 
 @media(max-width:780px){
   :root{
-    --type-label:12px;
-    --type-body:16px;
-    --type-small:15px;
+    --type-label:13px;
+    --type-body:17px;
+    --type-small:14px;
     --tracking-label:.14em;
   }
 
@@ -592,8 +592,8 @@ video{max-width:100%;height:auto;}
   --type-display:clamp(38px,10vw,48px);
   --type-section:clamp(30px,8vw,38px);
   --type-card:clamp(22px,6vw,28px);
-  --type-body:16px;
-  --type-meta:12px;
+  --type-body:17px;
+  --type-meta:13px;
 }
 body{font-family:Manrope,system-ui,sans-serif;}
 h1,h2,h3,.service-glyph{font-family:Geologica,Manrope,system-ui,sans-serif;}
