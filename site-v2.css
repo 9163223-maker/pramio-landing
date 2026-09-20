@@ -228,15 +228,6 @@ video{max-width:100%;height:auto;}
     min-height:52px!important;
     font-size:16px!important;
   }
-  .hero-proof{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:10px;
-    max-width:620px;
-    margin:20px 0 0;
-    font-size:15px;
-    line-height:1.45;
-  }
   .hero-proof li{padding-left:20px;}
   .hero-proof li::before{top:.5em;}
 
