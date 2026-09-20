@@ -584,7 +584,7 @@ video{max-width:100%;height:auto;}
   .home-page .hero-actions .btn{width:100%!important;min-height:56px!important;}
   .home-page .hero-proof{display:none!important;}
   .hero-capabilities{margin-top:18px;gap:7px;}
-  .hero-capabilities li{padding:8px 11px;font-size:10px;}
+  .hero-capabilities li{padding:8px 11px;font-size:13px;}
   .hero-liquid-orb{right:-118px;top:27%;width:280px;opacity:.78;}
   .hero-liquid-orb img{width:31%;height:31%;}
   .hero-liquid-dot.dot-a{right:28%;top:13%}.hero-liquid-dot.dot-b{right:6%;top:69%}.hero-liquid-dot.dot-c{right:43%;top:82%}
@@ -686,7 +686,7 @@ h1,h2,h3,.service-glyph{font-family:Geologica,Manrope,system-ui,sans-serif;}
 /* Secondary-page glyphs become ambient marks instead of taking a third of the screen. */
 @media(max-width:780px){
   .inner-page .page{padding-top:18px!important;}
-  .breadcrumbs{margin-bottom:18px!important;font-size:11px!important;}
+  .breadcrumbs{margin-bottom:18px!important;font-size:13px!important;}
   .service-hero{
     position:relative!important;
     display:block!important;
@@ -727,7 +727,7 @@ h1,h2,h3,.service-glyph{font-family:Geologica,Manrope,system-ui,sans-serif;}
   }
   .hero-liquid-bg::after{opacity:.18!important;}
   .hero-capabilities{margin-top:14px!important;}
-  .hero-capabilities li{font-size:10px!important;padding:7px 10px!important;}
+  .hero-capabilities li{font-size:13px!important;padding:7px 10px!important;}
   .services-section{margin-top:32px!important;}
   .section-heading h2,.final-cta h2,.content-section h2{font-size:var(--type-section)!important;line-height:1.08!important;}
   .section-heading>p:last-child,.final-cta>p,.content-section>p{font-size:var(--type-body)!important;line-height:1.55!important;}
