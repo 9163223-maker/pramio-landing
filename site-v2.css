@@ -888,7 +888,7 @@ body:has(.cookie-consent:not([hidden])) .pramio-contact-fab{bottom:calc(env(safe
   .ambient{
     display:block!important;
     position:fixed!important;
-    z-index:-3!important;
+    z-index:0!important;
     width:72vw!important;
     height:72vw!important;
     max-width:430px!important;
