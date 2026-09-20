@@ -938,7 +938,6 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
 
 /* Unified mobile cards + CTA hierarchy — 2026-09-19 */
 @media(max-width:780px){
-  .services-grid,.feature-grid,.link-grid,.process-grid,.scope-columns{gap:12px!important;}
   .service-card,.feature-card,.link-card,.process-step,.scope-box{
     min-height:0!important;padding:22px 20px!important;
   }
