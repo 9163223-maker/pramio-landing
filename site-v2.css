@@ -484,7 +484,6 @@ video{max-width:100%;height:auto;}
   .cookie-consent__head{grid-template-columns:40px 1fr;gap:10px}.cookie-consent__icon{width:40px;height:40px;border-radius:13px;font-size:18px}
   .cookie-consent h2{font-size:17px}.cookie-consent p{font-size:12.5px}
   .cookie-consent__actions{grid-template-columns:1fr 1fr}.cookie-consent__actions button{padding:0 12px;font-size:13px}
-  .site-footer nav{display:grid!important;gap:0!important;}
   .site-footer nav a,.site-footer .cookie-settings-link{width:100%;min-height:48px;border-bottom:1px solid rgba(20,102,255,.08);}
 }
 @media(prefers-reduced-motion:reduce){
