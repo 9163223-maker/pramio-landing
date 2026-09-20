@@ -426,7 +426,6 @@ video{max-width:100%;height:auto;}
   .home-page .page,
   .inner-page .page,
   .site-header,
-  .site-footer{width:calc(100% - 20px)!important;}
   .hero-v2 h1{font-size:34px!important;}
   .section-heading h2,
   .final-cta h2{font-size:30px;}
@@ -469,8 +468,7 @@ video{max-width:100%;height:auto;}
 .mobile-hero-mark{display:none;}
 @media(max-width:780px){
   .link-grid{grid-template-columns:1fr;}
-  .cluster-nav{margin-top:18px;margin-left:-2px;margin-right:-2px;padding:6px;}
-  .cluster-nav a{min-height:38px;padding:0 12px;font-size:12px;}
+  .cluster-nav{margin-top:18px;}
   .article-page .service-hero{padding:28px 22px;}
   .article-page .service-hero h1{font-size:clamp(34px,9vw,44px);}
   .article-toc{padding:18px 18px;}
@@ -942,9 +940,6 @@ body:has(.cookie-consent:not([hidden])) .pramio-contact-fab{bottom:calc(env(safe
     font-size:17px!important;line-height:1.62!important;color:#53647d!important;
   }
   .article-meta{font-size:12px!important;line-height:1.45!important;letter-spacing:.055em!important;}
-  .site-footer{font-size:14px!important;}
-  .site-footer nav a{min-height:44px!important;display:flex!important;align-items:center!important;}
-  .pramio-contact-fab{min-height:52px!important;font-size:15px!important;}
 }
 @media(max-width:780px) and (prefers-reduced-motion:reduce){
   .ambient-a,.ambient-b{animation:none!important;}
