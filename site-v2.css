@@ -1159,3 +1159,77 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   .final-cta{margin-top:56px!important;margin-bottom:36px!important;}
   .article-page .article-toc{margin-top:20px!important;}
 }
+
+
+/* Mobile visual remediation — continuous PRAMIO environment + coherent glass */
+@media(max-width:780px){
+  body{
+    overflow-x:hidden!important;
+    background:linear-gradient(155deg,#f8fbff 0%,#eef6ff 42%,#f8f6ff 72%,#f7fbff 100%)!important;
+  }
+  .ambient{
+    position:fixed!important;
+    width:82vw!important;height:82vw!important;max-width:430px!important;max-height:430px!important;
+    opacity:.92!important;filter:blur(18px)!important;will-change:transform!important;
+  }
+  .ambient-a{
+    left:-30vw!important;top:7vh!important;
+    background:radial-gradient(circle at 45% 42%,rgba(37,117,255,.48) 0%,rgba(96,159,255,.28) 32%,rgba(151,195,255,.12) 54%,transparent 73%)!important;
+    animation:pramioSceneA 11s cubic-bezier(.45,.05,.55,.95) infinite alternate!important;
+  }
+  .ambient-b{
+    right:-28vw!important;top:48vh!important;
+    background:radial-gradient(circle at 52% 46%,rgba(83,88,255,.31) 0%,rgba(47,190,230,.24) 34%,rgba(126,171,255,.12) 56%,transparent 74%)!important;
+    animation:pramioSceneB 14s cubic-bezier(.45,.05,.55,.95) infinite alternate!important;
+  }
+  @keyframes pramioSceneA{
+    0%{transform:translate3d(-3vw,-2vh,0) scale(.94)}
+    45%{transform:translate3d(29vw,18vh,0) scale(1.13)}
+    100%{transform:translate3d(10vw,58vh,0) scale(.98)}
+  }
+  @keyframes pramioSceneB{
+    0%{transform:translate3d(4vw,3vh,0) scale(1)}
+    48%{transform:translate3d(-31vw,20vh,0) scale(1.14)}
+    100%{transform:translate3d(-9vw,-34vh,0) scale(.96)}
+  }
+  .page::after{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.24!important;
+    background-image:radial-gradient(circle,rgba(35,103,210,.28) 1px,transparent 1.35px)!important;
+    background-size:30px 30px!important;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 12%,#000 86%,transparent 100%);
+    mask-image:linear-gradient(to bottom,transparent 0%,#000 12%,#000 86%,transparent 100%);
+  }
+  .home-page .hero-v2,.service-hero,.final-cta,.legal-page,
+  .feature-card,.scope-box,.link-card,.process-step,.service-card,
+  .editorial-project-card,.article-toc,.cluster-nav,.site-footer nav{
+    background:linear-gradient(145deg,rgba(255,255,255,.60),rgba(244,249,255,.38))!important;
+    border-color:rgba(255,255,255,.84)!important;
+    -webkit-backdrop-filter:blur(22px) saturate(135%)!important;
+    backdrop-filter:blur(22px) saturate(135%)!important;
+    box-shadow:0 16px 42px rgba(34,78,145,.085),inset 0 1px 0 rgba(255,255,255,.98)!important;
+  }
+  .services-grid .service-card,.process-grid .process-step{
+    align-items:stretch!important;text-align:left!important;
+  }
+  .service-card--wide{display:block!important;}
+  .service-card--wide>div{display:block!important;}
+  .service-number,.process-step>span:first-child{
+    display:block!important;width:100%!important;margin:0 0 10px!important;
+    text-align:left!important;align-self:stretch!important;
+  }
+  .product-logo{position:relative!important;z-index:2!important;}
+  .product-logo img{position:relative!important;z-index:3!important;opacity:1!important;filter:none!important;}
+  .product::before,.product::after{z-index:0!important;pointer-events:none!important;}
+  .product-copy{position:relative!important;z-index:2!important;}
+  .pramio-contact-fab{bottom:calc(env(safe-area-inset-bottom,0px) + 14px)!important;}
+  body.cookie-visible .pramio-contact-fab,body.contact-open .pramio-contact-fab{opacity:0!important;pointer-events:none!important;transform:translateY(12px)!important;}
+  .mobile-nav{
+    background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(240,247,255,.54))!important;
+    -webkit-backdrop-filter:blur(28px) saturate(140%)!important;backdrop-filter:blur(28px) saturate(140%)!important;
+  }
+  .site-footer{position:relative!important;padding-top:30px!important;}
+  .site-footer nav{overflow:hidden!important;}
+}
+@media(max-width:780px) and (prefers-reduced-motion:reduce){
+  .ambient-a,.ambient-b{animation:none!important;}
+}
