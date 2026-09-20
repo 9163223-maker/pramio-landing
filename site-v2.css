@@ -497,7 +497,6 @@ video{max-width:100%;height:auto;}
   .hero-liquid-orb img{width:31%;height:31%;}
   .hero-liquid-dot.dot-a{right:28%;top:13%}.hero-liquid-dot.dot-b{right:6%;top:69%}.hero-liquid-dot.dot-c{right:43%;top:82%}
   .hero-liquid-bg::after{opacity:.26;background-size:58px 58px;mask-image:radial-gradient(circle at 82% 32%,#000 0 18%,transparent 54%);-webkit-mask-image:radial-gradient(circle at 82% 32%,#000 0 18%,transparent 54%);}
-  .services-section{margin-top:38px!important;}
   .cookie-consent{bottom:calc(env(safe-area-inset-bottom,0px) + 10px);width:calc(100% - 20px);padding:16px;border-radius:23px;}
   .cookie-consent__head{grid-template-columns:40px 1fr;gap:10px}.cookie-consent__icon{width:40px;height:40px;border-radius:13px;font-size:18px}
   .cookie-consent h2{font-size:17px}.cookie-consent p{font-size:12.5px}
