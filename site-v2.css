@@ -1188,13 +1188,13 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
 /* Mobile ambient depth — moving light lives behind translucent glass, never behind the body canvas */
 @media(max-width:780px){
   body{position:relative!important;isolation:auto!important;background:linear-gradient(145deg,rgba(255,255,255,.86),rgba(242,248,255,.74))!important;}
-  body::before{opacity:.18!important;}
+  body::before{opacity:.10!important;}
   .ambient{
     z-index:0!important;
     width:min(92vw,520px)!important;height:min(92vw,520px)!important;
     opacity:.72!important;
     filter:blur(26px)!important;
-    mix-blend-mode:multiply;
+    mix-blend-mode:normal;
   }
   .ambient-a{
     left:-34vw!important;top:9vh!important;
@@ -1277,4 +1277,15 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
     -webkit-backdrop-filter:blur(12px) saturate(120%)!important;
     backdrop-filter:blur(12px) saturate(120%)!important;
   }
+}
+
+
+/* Mobile background ownership — ambient orbs are the only animated environmental layer */
+@media(max-width:780px){
+  body::after,.page::before{
+    animation:none!important;
+    pointer-events:none!important;
+  }
+  body::after{opacity:.06!important;}
+  .page::before{opacity:.08!important;}
 }
