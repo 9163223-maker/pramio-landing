@@ -398,3 +398,36 @@
   });
 
 })();
+
+
+/* Whole-card navigation + footer-aware FAB — 2026-09-20 */
+(() => {
+  const cards = document.querySelectorAll('.service-card--link,.feature-card--link,.link-card');
+  cards.forEach((card) => {
+    const link = card.querySelector('a[href]');
+    if (!link || card.dataset.wholeCard === '1') return;
+    card.dataset.wholeCard = '1';
+    card.setAttribute('role','link');
+    card.tabIndex = card.hasAttribute('tabindex') ? card.tabIndex : 0;
+    const go = () => { window.location.href = link.href; };
+    card.addEventListener('click', (event) => {
+      if (event.defaultPrevented || event.button > 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (event.target.closest('button,input,select,textarea,label')) return;
+      go();
+    });
+    card.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      if (event.target !== card) return;
+      event.preventDefault();
+      go();
+    });
+  });
+
+  const footer = document.querySelector('.site-footer');
+  if (footer && 'IntersectionObserver' in window) {
+    const footerObserver = new IntersectionObserver((entries) => {
+      document.body.classList.toggle('footer-in-view', entries.some((entry) => entry.isIntersecting));
+    }, { rootMargin:'0px 0px 40px 0px', threshold:.04 });
+    footerObserver.observe(footer);
+  }
+})();
