@@ -967,7 +967,7 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   .service-card>p,.service-card>div>p,.scope-box p,.process-step p{
     margin-top:10px!important;font-size:17px!important;line-height:1.55!important;
   }
-  .service-card ul,.scope-list{margin:15px 0 8px!important;gap:9px!important;font-size:15px!important;line-height:1.48!important;}
+  .service-card ul,.scope-list{margin:15px 0 8px!important;gap:9px!important;font-size:16px!important;line-height:1.5!important;}
   .service-card--wide{display:flex!important;gap:0!important;}
   .service-card--link,.feature-card--link,.link-card{
     transition:transform .18s ease,background .18s ease,box-shadow .18s ease!important;
