@@ -1025,7 +1025,6 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   .site-header{position:sticky!important;}
   .mobile-nav{position:fixed!important;}
   .pramio-contact-fab{position:fixed!important;}
-  .page,.site-footer{z-index:1;}
   .ambient{pointer-events:none!important;}
 }
 
