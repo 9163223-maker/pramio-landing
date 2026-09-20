@@ -374,16 +374,6 @@ video{max-width:100%;height:auto;}
   .final-cta h2{font-size:clamp(30px,8.5vw,35px);}
 }
 
-@media(max-width:360px){
-  .home-page .page,
-  .inner-page .page,
-  .site-header,
-  .hero-v2 h1{font-size:34px!important;}
-  .section-heading h2,
-  .final-cta h2{font-size:30px;}
-  .service-card h3{font-size:25px;}
-}
-
 
 /* UX navigation wave 2026-09-19 */
 .feature-card--link,.service-card--link{position:relative;cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease;}
