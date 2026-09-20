@@ -145,7 +145,6 @@ html.motion-settled body::after,html.motion-settled .page::before,html.motion-se
   .menu-toggle{display:grid;}
   .services-grid,.process-grid,.scope-columns,.feature-grid{grid-template-columns:1fr;}
   .service-card--wide{grid-column:auto;}
-  .product-v2,.section{margin-top:62px!important;}
   .service-hero{grid-template-columns:1fr;}
   .contact-panel{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 22px)!important;}
 }
@@ -303,7 +302,7 @@ video{max-width:100%;height:auto;}
   }
 
   .product-v2{
-    margin-top:52px!important;
+    margin-top:56px!important;
     padding:24px!important;
     gap:20px!important;
     border-radius:26px!important;
@@ -891,7 +890,6 @@ body:has(.cookie-consent:not([hidden])) .pramio-contact-fab{bottom:calc(env(safe
     font-size:16px!important;line-height:1.35!important;font-weight:700!important;
     text-decoration:none!important;
   }
-  .article-page .content-section{margin-top:54px!important;}
   .article-page .content-section h2{font-size:clamp(31px,8.5vw,40px)!important;line-height:1.08!important;letter-spacing:-.035em!important;}
   .article-page .content-section>p,
   .article-page .content-section li{
