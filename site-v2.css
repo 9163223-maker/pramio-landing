@@ -250,13 +250,6 @@ video{max-width:100%;height:auto;}
     overflow-wrap:break-word;
     text-wrap:balance;
   }
-  .service-card ul,
-  .scope-list{
-    gap:9px;
-    margin:17px 0 18px;
-    font-size:15px;
-    line-height:1.45;
-  }
   .service-card>a{
     min-height:44px;
     margin-top:0;
