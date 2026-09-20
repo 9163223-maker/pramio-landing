@@ -147,12 +147,9 @@ html.motion-settled body::after,html.motion-settled .page::before,html.motion-se
   .service-card--wide{grid-column:auto;}
   .product-v2,.section{margin-top:62px!important;}
   .service-hero{grid-template-columns:1fr;}
-  .service-visual{min-height:230px;}
   .contact-panel{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 22px)!important;}
 }
 @media(max-width:480px){
-  .service-visual{min-height:190px;}
-  .service-glyph{width:126px;font-size:38px;}
   .legal-page{padding:28px 20px!important;}
   .contact-panel h2{font-size:32px!important;}
   .contact-intro{margin-bottom:18px!important;}
