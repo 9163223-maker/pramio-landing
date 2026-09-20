@@ -1029,12 +1029,6 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
 }
 
 
-/* Small-screen consistency: no second design system below 480px */
-@media(max-width:480px){
-  .hero-actions .ghost{display:flex!important;}
-}
-
-
 /* Mobile legibility floor — supporting text stays readable */
 @media(max-width:780px){
   .hero-proof{font-size:14px!important;line-height:1.45!important;gap:9px 16px!important;}
