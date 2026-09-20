@@ -1289,3 +1289,21 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   body::after{opacity:.06!important;}
   .page::before{opacity:.08!important;}
 }
+
+
+/* Mobile spacing rhythm — shared vertical cadence across home, services and editorial */
+@media(max-width:780px){
+  .section,.content-section,.article-page .content-section{
+    margin-top:56px!important;
+  }
+  .services-section{margin-top:40px!important;}
+  .section-heading{margin-bottom:24px!important;}
+  .section-heading .eyebrow{margin-bottom:12px!important;}
+  .section-heading>p:last-child,.content-section>p{margin-top:14px!important;}
+  .services-grid,.feature-grid,.link-grid,.process-grid,.scope-columns{
+    gap:12px!important;
+  }
+  .feature-grid,.link-grid{margin-top:22px!important;}
+  .final-cta{margin-top:56px!important;margin-bottom:36px!important;}
+  .article-page .article-toc{margin-top:20px!important;}
+}
