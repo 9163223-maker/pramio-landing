@@ -1,0 +1,20 @@
+name: Package production ZIP
+on:
+  push:
+    branches:
+      - packaging/mobile-polish-2026-09-20
+  workflow_dispatch:
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build production archive
+        run: |
+          rm -rf .git .github
+          zip -r pramio-ux-final-2026-09-20.zip . -x "config.local.php" "*.DS_Store"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pramio-ux-final-2026-09-20
+          path: pramio-ux-final-2026-09-20.zip
+          retention-days: 7
