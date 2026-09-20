@@ -864,16 +864,9 @@ body:has(.cookie-consent:not([hidden])) .pramio-contact-fab{bottom:calc(env(safe
     display:block!important;
     position:fixed!important;
     z-index:0!important;
-    width:72vw!important;
-    height:72vw!important;
-    max-width:430px!important;
-    max-height:430px!important;
     border-radius:50%!important;
-    filter:none!important;
-    opacity:.34!important;
     pointer-events:none!important;
     will-change:transform;
-    transform:translate3d(0,0,0);
   }
   .ambient-a{
     left:-24vw!important;top:13vh!important;
