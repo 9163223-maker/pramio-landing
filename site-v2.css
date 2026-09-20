@@ -916,7 +916,7 @@ body:has(.cookie-consent:not([hidden])) .pramio-contact-fab{bottom:calc(env(safe
   .article-page .content-section li{
     font-size:17px!important;line-height:1.62!important;color:#53647d!important;
   }
-  .article-meta{font-size:12px!important;line-height:1.45!important;letter-spacing:.055em!important;}
+  .article-meta{font-size:13px!important;line-height:1.45!important;letter-spacing:.045em!important;}
 }
 @media(max-width:780px) and (prefers-reduced-motion:reduce){
   .ambient-a,.ambient-b{animation:none!important;}
