@@ -751,11 +751,6 @@ h1,h2,h3,.service-glyph{font-family:Geologica,Manrope,system-ui,sans-serif;}
 .pramio-contact-fab:active{transform:scale(.98);}
 body.contact-open .pramio-contact-fab{opacity:0;pointer-events:none;}
 @media(min-width:981px){.pramio-contact-fab{right:28px;bottom:26px;}}
-@media(max-width:780px){
- .pramio-contact-fab{right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));min-height:50px;padding:0 15px;border-radius:17px;font-size:13px;}
- .cookie-consent:not([hidden])~.pramio-contact-fab{transform:translateY(-4px);}
-}
-
 
 /* navigation-card-unification-v1 */
 .link-grid{align-items:stretch}
