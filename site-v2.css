@@ -1031,9 +1031,6 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
 
 /* Small-screen consistency: no second design system below 480px */
 @media(max-width:480px){
-  .hero-v2 .lead,.service-card>p,.service-card>div>p{font-size:17px!important;}
-  .service-card h3{font-size:22px!important;}
-  .section-heading h2,.final-cta h2{font-size:clamp(30px,8vw,38px)!important;}
   .hero-actions .ghost{display:flex!important;}
 }
 
