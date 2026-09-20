@@ -1220,3 +1220,37 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
 @media(prefers-reduced-motion:reduce){
   .ambient-a,.ambient-b{animation:none!important;}
 }
+
+
+/* Mobile glass edge coherence — one material, distinct hierarchy */
+@media(max-width:780px){
+  :root{
+    --glass-edge:rgba(255,255,255,.78);
+    --glass-edge-soft:rgba(255,255,255,.64);
+    --glass-inset:inset 0 1px 0 rgba(255,255,255,.94);
+  }
+  .home-page .hero-v2,.service-hero,.final-cta,.legal-page{
+    border:1px solid var(--glass-edge)!important;
+    box-shadow:0 18px 54px rgba(31,76,145,.085),var(--glass-inset)!important;
+  }
+  .feature-card,.scope-box,.link-card,.process-step,.service-card,.editorial-project-card,.article-toc,.cluster-nav,.site-footer nav{
+    border:1px solid var(--glass-edge-soft)!important;
+    box-shadow:0 12px 34px rgba(31,76,145,.065),var(--glass-inset)!important;
+  }
+  .site-header{
+    border-color:var(--glass-edge)!important;
+    background:rgba(255,255,255,.50)!important;
+    -webkit-backdrop-filter:blur(22px) saturate(126%)!important;
+    backdrop-filter:blur(22px) saturate(126%)!important;
+  }
+  .mobile-nav{
+    border-color:var(--glass-edge)!important;
+    background:rgba(250,253,255,.62)!important;
+    -webkit-backdrop-filter:blur(24px) saturate(128%)!important;
+    backdrop-filter:blur(24px) saturate(128%)!important;
+  }
+  .home-page .hero-v2{
+    -webkit-backdrop-filter:blur(20px) saturate(124%)!important;
+    backdrop-filter:blur(20px) saturate(124%)!important;
+  }
+}
