@@ -815,16 +815,6 @@ body:has(.cookie-consent:not([hidden])) .pramio-contact-fab{bottom:calc(env(safe
     pointer-events:none!important;
     will-change:transform;
   }
-  .ambient-a{
-    left:-24vw!important;top:13vh!important;
-    background:radial-gradient(circle,rgba(67,139,255,.20) 0,rgba(67,139,255,.08) 42%,transparent 72%)!important;
-    animation:pramioAmbientMobileA 16s ease-in-out infinite alternate!important;
-  }
-  .ambient-b{
-    right:-25vw!important;left:auto!important;top:56vh!important;
-    background:radial-gradient(circle,rgba(55,199,224,.16) 0,rgba(78,135,255,.07) 44%,transparent 72%)!important;
-    animation:pramioAmbientMobileB 19s ease-in-out infinite alternate!important;
-  }
   .cluster-nav{
     gap:7px!important;padding:8px!important;border-radius:20px!important;
     background:rgba(255,255,255,.68)!important;
@@ -1113,12 +1103,14 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
     mix-blend-mode:normal;
   }
   .ambient-a{
-    left:-34vw!important;top:9vh!important;
+    left:-34vw!important;right:auto!important;top:9vh!important;
     background:radial-gradient(circle at 52% 48%,rgba(50,125,255,.30) 0,rgba(89,160,255,.17) 38%,rgba(255,255,255,0) 72%)!important;
+    animation:pramioAmbientMobileA 16s ease-in-out infinite alternate!important;
   }
   .ambient-b{
-    right:-34vw!important;top:52vh!important;
+    right:-34vw!important;left:auto!important;top:52vh!important;
     background:radial-gradient(circle at 48% 52%,rgba(40,196,222,.23) 0,rgba(91,145,255,.13) 40%,rgba(255,255,255,0) 72%)!important;
+    animation:pramioAmbientMobileB 19s ease-in-out infinite alternate!important;
   }
   .page,.site-header,.site-footer{z-index:2!important;}
   .mobile-nav,.pramio-contact-fab{z-index:80!important;}
