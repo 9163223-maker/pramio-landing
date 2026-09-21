@@ -2109,3 +2109,47 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   .cookie-consent p{font-size:12.5px!important;line-height:1.4!important;}
   .cookie-consent__actions{margin-top:8px!important;}
 }
+
+
+/* v62 mobile form + pinch-zoom stability — 2026-09-22 */
+@media(max-width:780px){
+  /* Keep native zoom accessible, but make Safari's visual-viewport changes cheap and reversible. */
+  html{background:#f7f9ff!important;overscroll-behavior-x:none;}
+  body{min-height:100svh!important;overflow-x:clip!important;}
+  .ambient-a{
+    height:100svh!important;min-height:100svh!important;
+    contain:strict!important;will-change:auto!important;
+  }
+  .site-header,.mobile-nav,.contact-overlay,.contact-panel,.cookie-consent{
+    -webkit-transform:translateZ(0);transform:translateZ(0);
+  }
+  .contact-panel{
+    top:max(8px,env(safe-area-inset-top,0px))!important;
+    bottom:max(8px,env(safe-area-inset-bottom,0px))!important;
+    max-height:calc(100dvh - max(16px,env(safe-area-inset-top,0px) + env(safe-area-inset-bottom,0px)))!important;
+    padding:62px 18px 18px!important;
+    overscroll-behavior:contain!important;
+    scrollbar-gutter:stable;
+  }
+  .contact-close{top:12px!important;right:12px!important;}
+  .contact-panel h2{font-size:clamp(29px,8vw,36px)!important;line-height:1.05!important;}
+  .contact-intro{font-size:14px!important;line-height:1.48!important;margin-bottom:16px!important;}
+  .contact-form{gap:11px!important;}
+  .contact-form input,.contact-form textarea,.service-picker__trigger,.contact-form select:not(.service-picker__native){
+    font-size:16px!important; /* prevents iOS focus auto-zoom */
+  }
+  .contact-form textarea{min-height:104px!important;resize:vertical!important;}
+  .privacy-consent{font-size:11.5px!important;line-height:1.38!important;}
+  .contact-submit{
+    display:flex!important;align-items:center!important;justify-content:center!important;
+    width:100%!important;min-height:50px!important;
+    border:1px solid #0b5df0!important;border-radius:14px!important;
+    background:#1466ff!important;color:#fff!important;
+    -webkit-text-fill-color:#fff!important;
+    font:700 15px/1.2 Manrope,system-ui,sans-serif!important;
+    box-shadow:0 10px 26px rgba(20,102,255,.22)!important;
+    opacity:1!important;visibility:visible!important;
+  }
+  .contact-submit:disabled{background:#8fb5f6!important;border-color:#8fb5f6!important;color:#fff!important;-webkit-text-fill-color:#fff!important;opacity:1!important;}
+  .form-note{font-size:11.5px!important;line-height:1.4!important;}
+}
