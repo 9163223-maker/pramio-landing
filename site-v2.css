@@ -1855,3 +1855,51 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
     background:transparent!important;box-shadow:none!important;
   }
 }
+
+
+/* Mobile acceptance repairs — contact escape + truly viewport-owned backdrop — 2026-09-21 */
+@media(max-width:780px){
+  html{
+    min-height:100%!important;
+    background:
+      radial-gradient(ellipse 54% 42% at 0% 18%,rgba(58,132,255,.16) 0%,rgba(58,132,255,.07) 42%,transparent 72%),
+      radial-gradient(ellipse 52% 40% at 100% 78%,rgba(88,94,255,.11) 0%,rgba(52,187,225,.05) 46%,transparent 74%),
+      linear-gradient(160deg,#fbfdff 0%,#f2f7ff 48%,#f9f9ff 100%)!important;
+    background-attachment:fixed!important;
+    background-repeat:no-repeat!important;
+    background-size:100vw 100svh!important;
+  }
+  body{background:transparent!important;}
+  .ambient,.ambient-a,.ambient-b{display:none!important;}
+
+  .contact-overlay{z-index:1100!important;}
+  .contact-panel{
+    z-index:1110!important;
+    top:max(10px,env(safe-area-inset-top,0px))!important;
+    bottom:max(10px,env(safe-area-inset-bottom,0px))!important;
+    max-height:calc(100svh - max(20px,env(safe-area-inset-top,0px) + env(safe-area-inset-bottom,0px)))!important;
+    padding-top:72px!important;
+    overscroll-behavior:contain!important;
+  }
+  .contact-close{
+    position:sticky!important;
+    float:right!important;
+    top:0!important;
+    right:0!important;
+    z-index:20!important;
+    display:grid!important;
+    place-items:center!important;
+    width:46px!important;height:46px!important;
+    margin:-56px -4px 8px 12px!important;
+    border:1px solid rgba(23,48,79,.12)!important;
+    border-radius:50%!important;
+    background:#fff!important;
+    color:#17304f!important;
+    font-size:30px!important;
+    line-height:1!important;
+    box-shadow:0 8px 24px rgba(20,70,150,.14)!important;
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+  }
+}
