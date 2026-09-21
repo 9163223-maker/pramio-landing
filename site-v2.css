@@ -1406,3 +1406,45 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   }
   .page::after{opacity:.025!important;}
 }
+
+
+/* Mobile conversion hierarchy — 2026-09-21 */
+@media(max-width:780px){
+  /* Service hero should sell the destination, not feel like another directory screen. */
+  .service-hero{
+    padding:28px 24px 30px!important;
+    border-radius:28px!important;
+  }
+  .service-hero h1{
+    font-size:clamp(32px,9.2vw,42px)!important;
+    line-height:1.04!important;
+    letter-spacing:-.025em!important;
+  }
+  .service-hero .lead{
+    margin-top:16px!important;
+    font-size:17px!important;
+    line-height:1.5!important;
+  }
+  .service-hero .actions{
+    margin-top:22px!important;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+  }
+  .service-hero .actions .btn{width:100%!important;min-height:52px!important;}
+  /* Decorative object stays supporting; mobile first screen belongs to copy + CTA. */
+  .service-hero .service-visual{
+    min-height:88px!important;
+    max-height:88px!important;
+    opacity:.42!important;
+    overflow:hidden!important;
+    margin-top:-4px!important;
+  }
+
+  /* The section after hero must start as content, not as a second menu. */
+  .service-hero + .content-section{margin-top:42px!important;}
+  main > .cluster-nav{margin-top:56px!important;}
+
+  /* Persistent FAB was obscuring cards. On mobile the page already has explicit CTAs. */
+  .pramio-contact-fab{display:none!important;}
+}
