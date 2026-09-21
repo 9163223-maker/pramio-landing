@@ -1,0 +1,19 @@
+name: Package mobile perfect v53 direct
+on:
+  push:
+    branches:
+      - packaging/mobile-perfect-2026-09-21-v4
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build direct production archive
+        run: |
+          rm -rf .git .github
+          zip -r pramio-mobile-perfect-v53-direct.zip . -x "config.local.php" "*.DS_Store"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pramio-mobile-perfect-v53-direct
+          path: pramio-mobile-perfect-v53-direct.zip
+          retention-days: 7
