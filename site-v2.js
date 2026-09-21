@@ -73,7 +73,7 @@
     button.textContent = link.textContent;
     link.replaceWith(button);
   });
-  if (!document.querySelector('.pramio-contact-fab')) {
+  if (window.matchMedia('(min-width: 781px)').matches && !document.querySelector('.pramio-contact-fab')) {
     const fab = document.createElement('button');
     fab.type = 'button';
     fab.className = 'pramio-contact-fab contact-trigger';
