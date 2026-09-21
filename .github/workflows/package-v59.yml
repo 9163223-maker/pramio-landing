@@ -1,0 +1,17 @@
+name: Package emergency restore v59
+on:
+  push:
+    branches: [packaging/emergency-restore-v59]
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          rm -rf .git .github
+          zip -r pramio-emergency-restore-v59.zip . -x "config.local.php" "*.DS_Store"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pramio-emergency-restore-v59
+          path: pramio-emergency-restore-v59.zip
+          retention-days: 7
