@@ -52,7 +52,11 @@
     link.classList.add('contact-trigger');
     link.setAttribute('aria-haspopup','dialog');
     link.setAttribute('aria-controls','contact-panel');
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (event) => {
+      /* The contact panel exists on every public page. Open it in place instead of
+         navigating service/article visitors through the home page first. */
+      event.preventDefault();
+      if (window.PRAmioContact && typeof window.PRAmioContact.open === 'function') window.PRAmioContact.open();
       if (!requestedService) return;
       const select = document.querySelector('#contact-form [name="service"]');
       if (!select) return;
