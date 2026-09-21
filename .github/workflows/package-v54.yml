@@ -1,0 +1,19 @@
+name: Package mobile SEO audit v54
+on:
+  push:
+    branches:
+      - packaging/mobile-seo-audit-2026-09-21-v54
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build production zip
+        run: |
+          rm -rf .git .github
+          zip -r pramio-mobile-seo-v54.zip . -x "config.local.php" "*.DS_Store"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pramio-mobile-seo-v54
+          path: pramio-mobile-seo-v54.zip
+          retention-days: 7
