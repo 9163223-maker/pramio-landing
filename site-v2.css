@@ -1972,3 +1972,31 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
     margin:0 auto 18px!important;border-radius:999px!important;background:var(--warm-accent)!important;
   }
 }
+
+
+/* v55.1 — mobile menu is one opaque sheet below the header; no page content may bleed through */
+@media(max-width:780px){
+  .site-header.is-menu-open{
+    z-index:1301!important;
+    border-color:rgba(218,228,244,.95)!important;
+    background:#fbfcff!important;
+  }
+  .mobile-nav{
+    z-index:1300!important;
+    top:calc(max(8px,env(safe-area-inset-top,0px)) + 63px)!important;
+    padding:22px 16px 16px!important;
+    border-color:rgba(218,228,244,.98)!important;
+    background:#fbfcff!important;
+    opacity:1!important;
+    box-shadow:0 24px 54px rgba(31,76,145,.18)!important;
+  }
+  .mobile-nav a,.mobile-nav button{
+    position:relative!important;z-index:1!important;
+    background:#fbfcff!important;
+  }
+  html.mobile-menu-open::after{
+    content:""!important;position:fixed!important;inset:0!important;z-index:1180!important;
+    display:block!important;background:rgba(242,247,255,.42)!important;
+    pointer-events:none!important;
+  }
+}
