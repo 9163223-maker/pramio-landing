@@ -1803,3 +1803,55 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
     -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
   }
 }
+
+
+/* Mobile viewport lock — 2026-09-21 video acceptance */
+@media(max-width:780px){
+  /* iOS Safari: fixed header is intentional; sticky was not stable in the live recording. */
+  body{padding-top:80px!important;background:#f6f9ff!important;}
+  .site-header{
+    position:fixed!important;
+    top:max(8px,env(safe-area-inset-top,0px))!important;
+    left:50%!important;
+    transform:translateX(-50%)!important;
+    z-index:1000!important;
+    margin:0!important;
+    width:calc(100% - 28px)!important;
+    max-width:680px!important;
+  }
+  .mobile-nav{
+    position:fixed!important;
+    z-index:999!important;
+    top:calc(max(8px,env(safe-area-inset-top,0px)) + 70px)!important;
+  }
+
+  /* Use a real fixed DOM layer, not body::before: iOS can repaint pseudo backgrounds with document scroll. */
+  body::before{content:none!important;display:none!important;}
+  .ambient{animation:none!important;transform:none!important;filter:none!important;will-change:auto!important;pointer-events:none!important;}
+  .ambient-a{
+    display:block!important;
+    position:fixed!important;
+    inset:0!important;
+    width:100vw!important;height:100vh!important;
+    max-width:none!important;max-height:none!important;
+    z-index:-1!important;
+    opacity:1!important;
+    border-radius:0!important;
+    background:
+      radial-gradient(ellipse 54% 42% at 0% 18%,rgba(58,132,255,.16) 0%,rgba(58,132,255,.07) 42%,transparent 72%),
+      radial-gradient(ellipse 52% 40% at 100% 78%,rgba(88,94,255,.11) 0%,rgba(52,187,225,.05) 46%,transparent 74%),
+      linear-gradient(160deg,#fbfdff 0%,#f2f7ff 48%,#f9f9ff 100%)!important;
+  }
+  .ambient-b{display:none!important;}
+
+  /* Arrow acceptance: stable glyph box, never enlarged by inherited card rules. */
+  .feature-card--link::after,.link-card::after{
+    box-sizing:border-box!important;
+    width:32px!important;height:32px!important;
+    min-width:32px!important;min-height:32px!important;
+    font-size:20px!important;line-height:32px!important;
+    text-align:center!important;
+    border:0!important;border-radius:0!important;
+    background:transparent!important;box-shadow:none!important;
+  }
+}
