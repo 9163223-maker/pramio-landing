@@ -445,17 +445,3 @@
   }, { rootMargin:'0px 0px 72px 0px', threshold:.02 });
   zones.forEach((zone) => observer.observe(zone));
 })();
-
-
-
-/* mobile-v58 canonical shell state */
-(() => {
-  let backdrop=document.querySelector('.site-backdrop');
-  if(!backdrop){backdrop=document.createElement('div');backdrop.className='site-backdrop';backdrop.setAttribute('aria-hidden','true');document.body.prepend(backdrop);}
-  const header=document.querySelector('.site-header'), nav=document.getElementById('mobile-nav'), toggle=document.querySelector('.menu-toggle');
-  if(!header||!nav||!toggle)return;
-  const sync=()=>{const open=toggle.getAttribute('aria-expanded')==='true'&&!nav.hidden;document.documentElement.classList.toggle('mobile-menu-open',open);header.classList.toggle('is-menu-open',open);};
-  toggle.addEventListener('click',()=>requestAnimationFrame(sync));
-  nav.querySelectorAll('a,button').forEach(el=>el.addEventListener('click',()=>requestAnimationFrame(sync)));
-  sync();
-})();
