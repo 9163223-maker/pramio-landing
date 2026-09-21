@@ -1,0 +1,17 @@
+name: Package mobile surface v56
+on:
+  push:
+    branches: [packaging/mobile-surface-v56]
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          rm -rf .git .github
+          zip -r pramio-mobile-surface-v56.zip . -x "config.local.php" "*.DS_Store"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pramio-mobile-surface-v56
+          path: pramio-mobile-surface-v56.zip
+          retention-days: 7
