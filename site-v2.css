@@ -2041,3 +2041,44 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   }
   .contact-eyebrow{padding-right:58px!important;margin-top:2px!important;}
 }
+
+
+/* v60 focused mobile acceptance — fixed viewport scene + lighter first screen */
+@media(max-width:780px){
+  html{background:#f7f9ff!important;background-image:none!important;background-attachment:scroll!important;}
+  body{background:transparent!important;padding-top:74px!important;}
+  /* v55 introduced this canonical physical layer, but production HTML never contained it.
+     Use the existing first ambient node as that physical DOM owner instead of adding another layer. */
+  .ambient-a{
+    display:block!important;position:fixed!important;inset:0!important;
+    width:100%!important;height:100dvh!important;min-height:100svh!important;
+    max-width:none!important;max-height:none!important;z-index:-1!important;
+    opacity:1!important;filter:none!important;animation:none!important;transform:none!important;will-change:auto!important;
+    border-radius:0!important;pointer-events:none!important;
+    background:
+      radial-gradient(ellipse 60% 44% at -5% 14%,rgba(70,139,255,.15) 0%,rgba(70,139,255,.065) 43%,transparent 72%),
+      radial-gradient(ellipse 56% 42% at 105% 82%,rgba(94,91,255,.10) 0%,rgba(54,186,226,.045) 47%,transparent 74%),
+      linear-gradient(160deg,#fbfdff 0%,#f2f7ff 50%,#fbfaff 100%)!important;
+  }
+  .ambient-b{display:none!important;}
+  .site-header{min-height:58px!important;padding:5px 10px!important;border-radius:18px!important;}
+  .site-header .brand-logo{width:clamp(136px,37vw,160px)!important;}
+  .menu-toggle{width:42px!important;height:42px!important;flex-basis:42px!important;border-radius:14px!important;}
+  .mobile-nav{top:calc(max(8px,env(safe-area-inset-top,0px)) + 57px)!important;}
+  .breadcrumbs{font-size:14px!important;line-height:1.42!important;margin:16px 0 20px!important;}
+  .home-page .hero-v2{padding:23px 20px 22px!important;}
+  .home-page .hero-v2 .lead{margin-top:16px!important;line-height:1.48!important;}
+  .home-page .hero-actions{margin-top:20px!important;gap:8px!important;}
+  .home-page .hero-actions .btn{min-height:52px!important;}
+  .service-hero{padding:24px 20px!important;}
+  .service-hero .eyebrow{margin-bottom:13px!important;}
+  .service-hero .lead{margin-top:14px!important;}
+  .service-hero .actions{margin-top:18px!important;}
+  .cookie-consent{width:calc(100% - 20px)!important;padding:12px 13px!important;border-radius:19px!important;}
+  .cookie-consent__head{grid-template-columns:34px 1fr!important;gap:9px!important;}
+  .cookie-consent__icon{width:34px!important;height:34px!important;border-radius:11px!important;font-size:16px!important;}
+  .cookie-consent h2{font-size:16px!important;line-height:1.25!important;}
+  .cookie-consent p{margin-top:6px!important;font-size:12.5px!important;line-height:1.42!important;}
+  .cookie-consent__actions{margin-top:10px!important;gap:7px!important;}
+  .cookie-consent__actions button{min-height:42px!important;padding:0 10px!important;font-size:12.5px!important;}
+}
