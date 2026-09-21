@@ -24,6 +24,15 @@
     const panel = getPanel();
     if (!overlay || !panel) return;
     lastFocus = document.activeElement;
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    if (menuToggle && mobileNav) {
+      menuToggle.setAttribute('aria-expanded','false');
+      menuToggle.setAttribute('aria-label','Открыть меню');
+      mobileNav.hidden = true;
+      document.documentElement.classList.remove('mobile-menu-open');
+      document.querySelector('.site-header')?.classList.remove('is-menu-open');
+    }
     overlay.hidden = false;
     panel.hidden = false;
     requestAnimationFrame(() => {
