@@ -1748,3 +1748,58 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
     max-width:100%!important;
   }
 }
+
+
+/* Perfect mobile consolidation — 2026-09-21 */
+@media(max-width:780px){
+  /* Sticky brand bar stays useful without becoming a second hero. */
+  .site-header{min-height:64px!important;padding:7px 12px!important;border-radius:20px!important;}
+  .site-header .brand-logo{width:clamp(142px,39vw,174px)!important;}
+  .menu-toggle{width:44px!important;height:44px!important;flex-basis:44px!important;}
+  .mobile-nav{top:calc(max(8px,env(safe-area-inset-top,0px)) + 70px)!important;}
+
+  /* Breadcrumbs are context, not another headline. Long current labels may wrap cleanly. */
+  .breadcrumbs{gap:6px 8px!important;margin:18px 0 22px!important;font-size:12px!important;line-height:1.45!important;}
+  .breadcrumbs>*{min-width:0;}
+  .breadcrumbs span:last-child{color:#8c99ad!important;overflow-wrap:anywhere;}
+
+  /* Destination hierarchy: page title owns the first screen. */
+  .service-hero{grid-template-columns:1fr!important;gap:18px!important;padding:27px 22px 26px!important;}
+  .service-hero h1{font-size:clamp(38px,10.4vw,47px)!important;line-height:1.02!important;max-width:none!important;}
+  .service-hero .lead{max-width:36em!important;}
+  .service-hero .service-visual{display:none!important;}
+  .service-hero + .content-section{margin-top:46px!important;}
+
+  /* Body headings stay clearly below H1 even on narrow screens. */
+  .content-section h2{font-size:clamp(29px,7.8vw,36px)!important;line-height:1.09!important;letter-spacing:-.032em!important;}
+  .content-section h3{line-height:1.22!important;}
+
+  /* Informational cards are quieter than actions. */
+  .feature-card:not(.feature-card--link),.scope-box,.process-step{
+    background:rgba(255,255,255,.66)!important;
+    border-color:rgba(32,91,176,.08)!important;
+    box-shadow:0 6px 18px rgba(31,76,145,.035)!important;
+  }
+
+  /* Interactive copy always owns a dedicated lane; no text can run under arrows. */
+  .feature-card--link,.link-card{padding-right:66px!important;}
+  .feature-card--link h3,.feature-card--link p,.link-card strong,.link-card span{
+    width:auto!important;max-width:none!important;overflow-wrap:anywhere!important;
+  }
+  .feature-card--link::after,.link-card::after{
+    right:15px!important;top:50%!important;bottom:auto!important;
+    transform:translateY(-50%)!important;
+    width:34px!important;height:34px!important;min-width:34px!important;min-height:34px!important;
+    display:grid!important;place-items:center!important;
+  }
+
+  /* No persistent overlay can cover reading or conversion content. */
+  .pramio-contact-fab{display:none!important;visibility:hidden!important;pointer-events:none!important;}
+
+  /* One static scene only. No hidden compositor work from old glass rules. */
+  .ambient,.ambient-a,.ambient-b{display:none!important;}
+  .service-hero,.hero-v2,.service-card,.feature-card,.scope-box,.process-step,.link-card,
+  .cluster-nav,.article-toc,.site-footer nav,.service-cta{
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
+}
