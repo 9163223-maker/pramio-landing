@@ -1366,3 +1366,43 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
 @media(prefers-reduced-motion:reduce){
   .service-card--link,.feature-card--link,.link-card{transition:none!important;}
 }
+
+
+/* Fixed atmospheric scene — 2026-09-21: quiet, viewport-bound, text-safe */
+@media(max-width:780px){
+  body{
+    position:relative!important;
+    background:#f7faff!important;
+  }
+  /* Old travelling orbs become fixed edge light; they never cross the reading column. */
+  .ambient{
+    position:fixed!important;z-index:-3!important;pointer-events:none!important;
+    width:64vw!important;height:64vw!important;max-width:360px!important;max-height:360px!important;
+    filter:blur(54px)!important;opacity:.34!important;
+    animation:none!important;will-change:auto!important;
+  }
+  .ambient-a{
+    left:-38vw!important;top:5vh!important;
+    background:radial-gradient(circle at 50% 50%,rgba(36,117,255,.34) 0%,rgba(100,167,255,.15) 42%,transparent 72%)!important;
+    transform:none!important;
+  }
+  .ambient-b{
+    right:-40vw!important;top:62vh!important;
+    background:radial-gradient(circle at 50% 50%,rgba(78,95,255,.22) 0%,rgba(46,190,226,.13) 44%,transparent 73%)!important;
+    transform:none!important;
+  }
+  /* One extremely light fixed atmosphere layer. The center is intentionally clear. */
+  body::before{
+    content:""!important;position:fixed!important;inset:0!important;z-index:-4!important;pointer-events:none!important;
+    background:
+      radial-gradient(70% 46% at -10% 30%,rgba(62,139,255,.13),transparent 66%),
+      radial-gradient(62% 42% at 108% 72%,rgba(88,91,255,.10),transparent 68%),
+      linear-gradient(155deg,#f9fcff 0%,#f2f7ff 48%,#f8f8ff 100%)!important;
+    opacity:1!important;animation:none!important;transform:none!important;filter:none!important;
+  }
+  /* Remove decorative texture from the reading plane. */
+  body::after,.page::before,.page::after{
+    animation:none!important;
+  }
+  .page::after{opacity:.025!important;}
+}
