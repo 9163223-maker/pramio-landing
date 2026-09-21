@@ -1496,3 +1496,42 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
     will-change:auto!important;
   }
 }
+
+
+/* Single-scene mobile background — 2026-09-21
+   One cheap fixed layer. Legacy orbs/textures are explicitly retired. */
+@media(max-width:780px){
+  body{
+    background:#f6f9ff!important;
+  }
+  .ambient,.ambient-a,.ambient-b{
+    display:none!important;
+    animation:none!important;
+    filter:none!important;
+    transform:none!important;
+  }
+  body::after,.page::before,.page::after{
+    content:none!important;
+    display:none!important;
+    background:none!important;
+    animation:none!important;
+    filter:none!important;
+    transform:none!important;
+  }
+  body::before{
+    content:""!important;
+    display:block!important;
+    position:fixed!important;
+    inset:0!important;
+    z-index:-1!important;
+    pointer-events:none!important;
+    opacity:1!important;
+    filter:none!important;
+    transform:none!important;
+    animation:none!important;
+    background:
+      radial-gradient(ellipse 54% 42% at 0% 18%,rgba(58,132,255,.16) 0%,rgba(58,132,255,.07) 42%,transparent 72%),
+      radial-gradient(ellipse 52% 40% at 100% 78%,rgba(88,94,255,.11) 0%,rgba(52,187,225,.05) 46%,transparent 74%),
+      linear-gradient(160deg,#fbfdff 0%,#f2f7ff 48%,#f9f9ff 100%)!important;
+  }
+}
