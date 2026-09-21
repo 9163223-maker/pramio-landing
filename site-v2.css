@@ -1648,3 +1648,50 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
     margin-top:50px!important;
   }
 }
+
+
+/* Mobile conversion close — CTA is the visual destination — 2026-09-21 */
+@media(max-width:780px){
+  .service-cta{
+    padding:28px 22px!important;
+    border:1px solid rgba(20,102,255,.11)!important;
+    border-radius:26px!important;
+    background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(239,246,255,.78))!important;
+    box-shadow:0 14px 38px rgba(31,76,145,.07)!important;
+  }
+  .service-cta h2{
+    max-width:18ch!important;
+    margin:0!important;
+    font-size:clamp(30px,8.2vw,38px)!important;
+    line-height:1.08!important;
+    letter-spacing:-.035em!important;
+  }
+  .service-cta p{
+    margin:14px 0 0!important;
+    font-size:17px!important;
+    line-height:1.55!important;
+  }
+  .service-cta .btn{
+    width:100%!important;
+    min-height:52px!important;
+    margin-top:22px!important;
+  }
+  /* Related links stay useful for SEO/navigation but must not rival the conversion path. */
+  .content-section[aria-labelledby^="related-"]{
+    padding-top:0!important;
+  }
+  .content-section[aria-labelledby^="related-"] h2{
+    font-size:26px!important;
+  }
+  .content-section[aria-labelledby^="related-"] p{
+    font-size:15px!important;
+    line-height:1.65!important;
+  }
+  .support-note{
+    margin-top:18px!important;
+    padding:16px 18px!important;
+    border-radius:18px!important;
+    background:rgba(255,255,255,.52)!important;
+    box-shadow:none!important;
+  }
+}
