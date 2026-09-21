@@ -1903,3 +1903,21 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
     pointer-events:auto!important;
   }
 }
+
+
+/* Conversion CTA repair — keep the terminal funnel unmistakably blue on mobile */
+@media(max-width:780px){
+  .service-cta{
+    border:1px solid rgba(255,255,255,.38)!important;
+    background:linear-gradient(145deg,#1466ff 0%,#0d58e6 100%)!important;
+    box-shadow:0 20px 54px rgba(20,102,255,.20)!important;
+    color:#fff!important;
+  }
+  .service-cta h2{color:#fff!important;}
+  .service-cta p{color:rgba(255,255,255,.84)!important;}
+  .service-cta .btn{
+    background:#fff!important;
+    color:#0b5bf3!important;
+    border-color:#fff!important;
+  }
+}
