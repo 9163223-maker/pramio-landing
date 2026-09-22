@@ -2192,3 +2192,33 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
 .eyebrow>span{background:var(--pramio-warm)!important;box-shadow:0 0 0 4px rgba(242,138,50,.09)!important;}
 @media(max-width:780px){.ambient-a{height:100svh!important;min-height:100svh!important;animation-duration:28s!important;}.ambient-b{display:block!important;top:31vh!important;animation-duration:22s!important;}}
 @media(prefers-reduced-motion:reduce){.ambient-a,.ambient-b{animation:none!important;will-change:auto!important;}}
+
+
+/* v65 Signal Rivers — approved distributed ambient field */
+@keyframes pramioSignalRiverA{0%{transform:translate3d(-2.5vw,-1vh,0) rotate(-1deg)}50%{transform:translate3d(2.5vw,1.2vh,0) rotate(.8deg)}100%{transform:translate3d(-2.5vw,-1vh,0) rotate(-1deg)}}
+@keyframes pramioSignalRiverB{0%{transform:translate3d(2vw,1vh,0) rotate(.7deg)}50%{transform:translate3d(-2vw,-1.4vh,0) rotate(-.7deg)}100%{transform:translate3d(2vw,1vh,0) rotate(.7deg)}}
+.ambient-a{
+ background-image:
+  radial-gradient(circle at 22% 72%,rgba(70,139,220,.38) 0 2px,rgba(70,139,220,.09) 3px,transparent 7px),
+  radial-gradient(circle at 78% 64%,rgba(242,138,50,.48) 0 2.5px,rgba(242,138,50,.10) 3.5px,transparent 8px),
+  radial-gradient(circle at 64% 18%,rgba(48,165,201,.32) 0 2px,transparent 6px),
+  radial-gradient(ellipse 64% 45% at 12% 12%,rgba(65,132,247,.12),transparent 72%),
+  radial-gradient(ellipse 52% 42% at 92% 82%,rgba(242,138,50,.055),transparent 74%),
+  linear-gradient(160deg,#fbfdff 0%,#eef6ff 52%,#fff9f5 100%)!important;
+ background-size:73vw 58vh,81vw 64vh,69vw 61vh,112% 112%,120% 120%,100% 100%!important;
+ background-position:7vw 9vh,18vw 31vh,41vw 2vh,0 0,100% 100%,0 0!important;
+ animation:pramioSignalRiverA 22s ease-in-out infinite!important;
+}
+.ambient-b{
+ display:block!important;position:fixed!important;inset:-18vh -22vw!important;width:auto!important;height:auto!important;max-width:none!important;
+ z-index:-1!important;border-radius:0!important;pointer-events:none!important;opacity:1!important;filter:none!important;
+ background:
+  repeating-radial-gradient(ellipse 72% 24% at 47% 45%,transparent 0 8.8%,rgba(55,124,210,.18) 9.05%,transparent 9.32% 13.7%,rgba(242,138,50,.105) 13.92%,transparent 14.18% 20.2%)!important;
+ box-shadow:none!important;transform-origin:center!important;animation:pramioSignalRiverB 27s ease-in-out infinite!important;will-change:transform!important;
+ -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0%,#000 7%,#000 93%,transparent 100%);
+}
+@media(max-width:780px){
+ .ambient-a{animation-duration:24s!important;background-size:112vw 52vh,124vw 59vh,108vw 55vh,118% 118%,125% 125%,100% 100%!important;}
+ .ambient-b{inset:-12vh -62vw!important;animation-duration:25s!important;}
+}
+@media(prefers-reduced-motion:reduce){.ambient-a,.ambient-b{animation:none!important;will-change:auto!important;}}
