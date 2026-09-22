@@ -489,27 +489,27 @@
   let W=0,H=0,D=1,px=0,py=0,tx=0,ty=0,raf=0;
   const B=[52,120,205],C=[36,169,203],O=[242,138,50];
   const rgba=(q,a)=>'rgba('+q.join(',')+','+a+')';
-  const resize=()=>{W=innerWidth;H=innerHeight;D=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(W*D);canvas.height=Math.round(H*D);ctx.setTransform(D,0,0,D,0,0);};
+  const resize=()=>{W=innerWidth;H=innerHeight;D=Math.min(devicePixelRatio||1,1.6);canvas.width=Math.round(W*D);canvas.height=Math.round(H*D);ctx.setTransform(D,0,0,D,0,0);};
   const path=(seed,t,amp,col,a,lw)=>{
     ctx.strokeStyle=rgba(col,a);ctx.lineWidth=lw;ctx.beginPath();
-    for(let xx=-40;xx<W+40;xx+=8){const yy=H*(seed+.08*Math.sin(xx/W*6.28+seed*9+t)+amp*Math.sin(xx/W*12.5-t*.7+seed*13));if(xx<0)ctx.moveTo(xx,yy);else ctx.lineTo(xx,yy);}
+    for(let xx=-40;xx<W+40;xx+=7){const yy=H*(seed+.08*Math.sin(xx/W*6.28+seed*9+t)+amp*Math.sin(xx/W*12.5-t*.7+seed*13));if(xx<0)ctx.moveTo(xx,yy);else ctx.lineTo(xx,yy);}
     ctx.stroke();
   };
   const dot=(x,y,r,col,a)=>{ctx.fillStyle=rgba(col,a);ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();};
   const draw=(ms)=>{
     const g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,'#f9fcff');g.addColorStop(.52,'#eaf4ff');g.addColorStop(1,'#fff8f3');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-    px+=(tx-px)*.045;py+=(ty-py)*.045;ctx.save();ctx.translate(px,py);
+    px+=(tx-px)*.055;py+=(ty-py)*.055;ctx.save();ctx.translate(px,py);
     const t=ms*.00038;
     for(let i=0;i<9;i++){
       const seed=.08+i*.105,sp=t*(.35+i*.025),col=i===6?O:(i%3===0?C:B);
-      path(seed,sp,.045,col,i===6?.24:.245,.78);
-      if(i%2===0){const a=(t*.11+i*.173)%1,xx=W*a,yy=H*(seed+.08*Math.sin(xx/W*6.28+seed*9+sp)+.045*Math.sin(xx/W*12.5-sp*.7+seed*13));const pulse=1+.22*Math.sin(t*3+i);dot(xx,yy,(i===6?5.2:4)*pulse,col,i===6?.58:.46);}
+      path(seed,sp,.045,col,i===6?.28:.29,.75);
+      if(i%2===0){const a=(t*.11+i*.173)%1,xx=W*a,yy=H*(seed+.08*Math.sin(xx/W*6.28+seed*9+sp)+.045*Math.sin(xx/W*12.5-sp*.7+seed*13));const pulse=1+.22*Math.sin(t*3+i);dot(xx,yy,(i===6?5.4:4.1)*pulse,col,i===6?.55:.42);}
     }
     ctx.restore();raf=requestAnimationFrame(draw);
   };
   addEventListener('resize',resize,{passive:true});
-  addEventListener('pointermove',e=>{tx=(e.clientX/Math.max(W,1)-.5)*24;ty=(e.clientY/Math.max(H,1)-.5)*18;},{passive:true});
-  if(window.DeviceOrientationEvent)addEventListener('deviceorientation',e=>{if(e.gamma!=null){tx=Math.max(-22,Math.min(22,e.gamma*.55));ty=Math.max(-16,Math.min(16,(e.beta||0)*.20));}},{passive:true});
+  addEventListener('pointermove',e=>{tx=(e.clientX/Math.max(W,1)-.5)*32;ty=(e.clientY/Math.max(H,1)-.5)*24;},{passive:true});
+  if(window.DeviceOrientationEvent)addEventListener('deviceorientation',e=>{if(e.gamma!=null){tx=Math.max(-30,Math.min(30,e.gamma*.72));ty=Math.max(-22,Math.min(22,(e.beta||0)*.28));}},{passive:true});
   resize();
   if(matchMedia('(prefers-reduced-motion: reduce)').matches){draw(0);cancelAnimationFrame(raf);}else raf=requestAnimationFrame(draw);
 })();
