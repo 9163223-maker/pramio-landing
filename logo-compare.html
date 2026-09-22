@@ -25,10 +25,10 @@ button{border:1px solid rgba(6,24,51,.15);background:#fff;border-radius:12px;pad
 <p>Оба файла показаны без CSS-фильтров и трансформаций. Переключатель фона помогает проверить прозрачность и края.</p>
 <div class="controls"><button id="bg">Шахматный фон</button><button id="swap">Поменять местами</button></div>
 <div class="grid" id="grid">
-<section class="card"><div class="label">SVG — pramio-mark.svg</div><div class="stage"><img src="/assets/pramio-mark.svg?v=71" alt="PRAMIO SVG mark"></div></section>
-<section class="card"><div class="label">WebP — pramio-logo.webp</div><div class="stage"><img src="/assets/pramio-logo.webp" alt="PRAMIO WebP logo"></div></section>
+<section class="card"><div class="label">SVG — pramio-mark.svg</div><div class="stage"><img src="./assets/pramio-mark.svg?v=71" alt="PRAMIO SVG mark"></div></section>
+<section class="card"><div class="label">WebP — pramio-logo.webp</div><div class="stage"><img src="./assets/pramio-logo.webp" alt="PRAMIO WebP logo"></div></section>
 </div>
-<section class="card zoom"><div class="label">WebP крупно — для проверки исходной геометрии</div><div class="stage"><img src="/assets/pramio-logo.webp" alt="PRAMIO WebP enlarged"></div></section>
+<section class="card zoom"><div class="label">WebP крупно — для проверки исходной геометрии</div><div class="stage"><img src="./assets/pramio-logo.webp" alt="PRAMIO WebP enlarged"></div></section>
 <script>
 const stages=[...document.querySelectorAll('.stage')];
 document.getElementById('bg').onclick=()=>stages.forEach(x=>x.classList.toggle('checker'));
