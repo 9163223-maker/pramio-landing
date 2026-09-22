@@ -2278,6 +2278,6 @@ body.contact-open .cookie-consent{
 body.contact-open .site-header,
 body.contact-open .mobile-nav{pointer-events:none!important;}
 @media(max-width:780px){
-  body.contact-open{position:fixed!important;inset:0!important;width:100%!important;overflow:hidden!important;}
+  body.contact-open{overflow:hidden!important;overscroll-behavior:none!important;}
   body.contact-open .contact-panel{overscroll-behavior:contain!important;}
 }
