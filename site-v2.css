@@ -2312,3 +2312,6 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
   .privacy-consent{padding:7px 8px!important;}
   .contact-submit{min-height:48px!important;}
 }
+
+/* v69 retire legacy decorative hero objects */
+.service-hero .pramio-object,.service-hero .service-visual.pramio-object{display:none!important;animation:none!important;filter:none!important}
