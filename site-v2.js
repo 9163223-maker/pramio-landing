@@ -17,7 +17,7 @@
     panel.setAttribute('aria-modal','true');
     panel.setAttribute('aria-labelledby','contact-title');
     panel.hidden = true;
-    panel.innerHTML = '<button class="contact-close" type="button" aria-label="Закрыть форму">×</button><div class="contact-orb" aria-hidden="true"></div><p class="eyebrow contact-eyebrow"><span></span> связь с PRAMIO</p><h2 id="contact-title">Обсудить задачу</h2><p class="contact-intro">Расскажите о задаче своими словами — мы уточним вводные и ответим на указанный e-mail.</p><form class="contact-form" id="contact-form" data-recipient="hello@pramio.ru" data-endpoint="/send.php"><div class="service-field"><label for="contact-service">Что вас интересует</label><select id="contact-service" name="service" required><option value="">Выберите направление</option><option>Лендинг или небольшой сайт</option><option>Telegram-бот</option><option>Бот или решение для MAX</option><option>AI-ассистент или автоматизация</option><option>Интерактивный сервис или поддержка</option><option>АдминКИТ</option><option>Другая задача</option></select></div><label><span>E-mail для ответа</span><input class="ym-disable-keys" name="email" type="email" autocomplete="email" placeholder="name@example.com" required maxlength="160"></label><label><span>Коротко о задаче</span><textarea class="ym-disable-keys" name="message" rows="5" placeholder="Что нужно сделать и какой результат вы ожидаете" required maxlength="3000"></textarea></label><label class="privacy-consent"><input name="consent" type="checkbox" value="1" required><span>Я соглашаюсь на обработку указанных данных в соответствии с <a href="/privacy/" target="_blank">Политикой обработки персональных данных</a>.</span></label><label class="form-trap" aria-hidden="true"><span>Сайт</span><input name="website" type="text" tabindex="-1" autocomplete="off"></label><input name="started_at" type="hidden" value=""><input name="form_token" type="hidden" value=""><button class="btn primary contact-submit" type="submit">Отправить запрос</button><p class="form-note" role="status" aria-live="polite">Форма защищена от автоматических отправок. Для оценки достаточно короткого описания задачи.</p></form>';
+    panel.innerHTML = '<button class="contact-close" type="button" aria-label="Закрыть форму">×</button><p class="eyebrow contact-eyebrow"><span></span> связь с PRAMIO</p><h2 id="contact-title">Обсудить задачу</h2><p class="contact-intro">Расскажите о задаче своими словами — мы уточним вводные и ответим на указанный e-mail.</p><form class="contact-form" id="contact-form" data-recipient="hello@pramio.ru" data-endpoint="/send.php"><div class="service-field"><label for="contact-service">Что вас интересует</label><select id="contact-service" name="service" required><option value="">Выберите направление</option><option>Лендинг или небольшой сайт</option><option>Telegram-бот</option><option>Бот или решение для MAX</option><option>AI-ассистент или автоматизация</option><option>Интерактивный сервис или поддержка</option><option>АдминКИТ</option><option>Другая задача</option></select></div><label><span>E-mail для ответа</span><input class="ym-disable-keys" name="email" type="email" autocomplete="email" placeholder="name@example.com" required maxlength="160"></label><label><span>Коротко о задаче</span><textarea class="ym-disable-keys" name="message" rows="5" placeholder="Что нужно сделать и какой результат вы ожидаете" required maxlength="3000"></textarea></label><label class="privacy-consent"><input name="consent" type="checkbox" value="1" required><span>Я соглашаюсь на обработку указанных данных в соответствии с <a href="/privacy/" target="_blank">Политикой обработки персональных данных</a>.</span></label><label class="form-trap" aria-hidden="true"><span>Сайт</span><input name="website" type="text" tabindex="-1" autocomplete="off"></label><input name="started_at" type="hidden" value=""><input name="form_token" type="hidden" value=""><button class="btn primary contact-submit" type="submit">Отправить запрос</button><p class="form-note" role="status" aria-live="polite">Форма защищена от автоматических отправок. Для оценки достаточно короткого описания задачи.</p></form>';
     document.body.append(panel);
     window.setTimeout(() => {
       if (document.querySelector('script[data-pramio-form-handler]')) return;
@@ -473,4 +473,42 @@
     window.addEventListener('resize', () => requestAnimationFrame(sync), {passive:true});
     sync();
   }
+})();
+
+
+/* Signal Rivers — approved production ambient, same behavior class as preview 11 */
+(() => {
+  if (document.querySelector('.pramio-signal-rivers')) return;
+  const canvas=document.createElement('canvas');
+  canvas.className='pramio-signal-rivers';
+  canvas.setAttribute('aria-hidden','true');
+  document.body.prepend(canvas);
+  const ctx=canvas.getContext('2d',{alpha:false});
+  if(!ctx) return;
+  let W=0,H=0,D=1,px=0,py=0,tx=0,ty=0,raf=0;
+  const B=[52,120,205],C=[36,169,203],O=[242,138,50];
+  const rgba=(q,a)=>'rgba('+q.join(',')+','+a+')';
+  const resize=()=>{W=innerWidth;H=innerHeight;D=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(W*D);canvas.height=Math.round(H*D);ctx.setTransform(D,0,0,D,0,0);};
+  const path=(seed,t,amp,col,a,lw)=>{
+    ctx.strokeStyle=rgba(col,a);ctx.lineWidth=lw;ctx.beginPath();
+    for(let xx=-40;xx<W+40;xx+=8){const yy=H*(seed+.08*Math.sin(xx/W*6.28+seed*9+t)+amp*Math.sin(xx/W*12.5-t*.7+seed*13));if(xx<0)ctx.moveTo(xx,yy);else ctx.lineTo(xx,yy);}
+    ctx.stroke();
+  };
+  const dot=(x,y,r,col,a)=>{ctx.fillStyle=rgba(col,a);ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();};
+  const draw=(ms)=>{
+    const g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,'#f9fcff');g.addColorStop(.52,'#eaf4ff');g.addColorStop(1,'#fff8f3');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    px+=(tx-px)*.045;py+=(ty-py)*.045;ctx.save();ctx.translate(px,py);
+    const t=ms*.00038;
+    for(let i=0;i<9;i++){
+      const seed=.08+i*.105,sp=t*(.35+i*.025),col=i===6?O:(i%3===0?C:B);
+      path(seed,sp,.045,col,i===6?.24:.245,.78);
+      if(i%2===0){const a=(t*.11+i*.173)%1,xx=W*a,yy=H*(seed+.08*Math.sin(xx/W*6.28+seed*9+sp)+.045*Math.sin(xx/W*12.5-sp*.7+seed*13));const pulse=1+.22*Math.sin(t*3+i);dot(xx,yy,(i===6?5.2:4)*pulse,col,i===6?.58:.46);}
+    }
+    ctx.restore();raf=requestAnimationFrame(draw);
+  };
+  addEventListener('resize',resize,{passive:true});
+  addEventListener('pointermove',e=>{tx=(e.clientX/Math.max(W,1)-.5)*24;ty=(e.clientY/Math.max(H,1)-.5)*18;},{passive:true});
+  if(window.DeviceOrientationEvent)addEventListener('deviceorientation',e=>{if(e.gamma!=null){tx=Math.max(-22,Math.min(22,e.gamma*.55));ty=Math.max(-16,Math.min(16,(e.beta||0)*.20));}},{passive:true});
+  resize();
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){draw(0);cancelAnimationFrame(raf);}else raf=requestAnimationFrame(draw);
 })();
