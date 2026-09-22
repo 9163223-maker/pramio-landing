@@ -55,8 +55,9 @@
     link.addEventListener('click', (event) => {
       /* The contact panel exists on every public page. Open it in place instead of
          navigating service/article visitors through the home page first. */
+      /* script.js is the single owner of opening .contact-trigger dialogs.
+         This local listener only preserves in-place navigation and service preselection. */
       event.preventDefault();
-      if (window.PRAmioContact && typeof window.PRAmioContact.open === 'function') window.PRAmioContact.open();
       if (!requestedService) return;
       const select = document.querySelector('#contact-form [name="service"]');
       if (!select) return;
