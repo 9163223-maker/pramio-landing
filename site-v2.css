@@ -2315,3 +2315,7 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
 
 /* v69 retire legacy decorative hero objects */
 .service-hero .pramio-object,.service-hero .service-visual.pramio-object{display:none!important;animation:none!important;filter:none!important}
+
+/* v70 collapse retired service visual column */
+.service-hero:has(> .pramio-object){grid-template-columns:minmax(0,1fr)!important}
+.service-hero:has(> .pramio-object)>:first-child{max-width:920px}
