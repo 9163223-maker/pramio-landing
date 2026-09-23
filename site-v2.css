@@ -2552,3 +2552,9 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
   .site-footer nav a,.site-footer nav button{min-height:44px!important;}
   .cluster-nav a,.article-toc a{min-height:44px;}
 }
+
+
+/* post-v80 funnel correction — demos are optional evidence, not a homepage showcase */
+.home-work-sample{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:32px;width:min(1180px,calc(100% - 44px));margin:48px auto 0;padding:24px 26px;border:1px solid rgba(255,255,255,.72);border-radius:26px;background:rgba(255,255,255,.42);box-shadow:0 16px 42px rgba(36,76,140,.055);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.home-work-sample .eyebrow{margin-bottom:10px}.home-work-sample h2{margin:0 0 8px;font:600 clamp(23px,2.6vw,32px)/1.12 var(--type-display);letter-spacing:-.025em;color:var(--v2-ink)}.home-work-sample p:not(.eyebrow){max-width:760px;margin:0;font:500 15px/1.58 var(--type-body);color:var(--v2-muted)}.home-work-sample .proof-link{min-width:230px;margin:0;padding:0}
+@media(max-width:780px){.home-work-sample{grid-template-columns:1fr;align-items:start;gap:18px;width:calc(100% - 28px);margin-top:34px;padding:20px;border-radius:22px}.home-work-sample h2{font-size:21px!important}.home-work-sample p:not(.eyebrow){font-size:16px!important;line-height:1.55!important}.home-work-sample .proof-link{min-width:0;padding-top:2px}}
