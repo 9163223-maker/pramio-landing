@@ -2335,3 +2335,69 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
   .blog-page .editorial-project-card>p:not(.eyebrow){line-height:1.55!important;}
   .blog-page .editorial-project-card .support-note{margin-top:18px!important;padding:16px!important;}
 }
+
+
+/* v72 final mobile acceptance — 2026-09-23
+   Canonical owner for first-screen hierarchy, menu legibility and zoom-safe geometry. */
+@media(max-width:780px){
+  html,body{min-width:0!important;max-width:100%!important;overflow-x:clip!important;}
+  .page,.site-footer,.hero-v2,.hero-copy,.section,.services-grid,.service-card{
+    min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+  }
+
+  /* H1 must remain the dominant heading on the home screen. */
+  .home-page .hero-v2 h1{
+    font-family:var(--type-display)!important;
+    font-size:clamp(42px,11.2vw,52px)!important;
+    line-height:1.01!important;
+    letter-spacing:-.045em!important;
+    max-width:12.5ch!important;
+  }
+  .home-page .section-heading h2{
+    font-size:clamp(32px,8.4vw,39px)!important;
+    line-height:1.07!important;
+  }
+
+  /* Menu itself stays solid; only the page behind it is de-emphasised. */
+  .site-header.is-menu-open,.mobile-nav{
+    opacity:1!important;
+    filter:none!important;
+    -webkit-filter:none!important;
+    background:#fbfcff!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+  }
+  .mobile-nav a,.mobile-nav button{
+    opacity:1!important;color:var(--v2-ink)!important;
+    background:#fbfcff!important;
+  }
+  html.mobile-menu-open::after{background:rgba(242,247,255,.08)!important;}
+
+  /* Capability labels are taxonomy, not controls. */
+  .hero-capabilities{pointer-events:none!important;}
+  .hero-capabilities li{
+    min-height:0!important;
+    padding:2px 0!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    color:var(--v2-muted)!important;
+    font-size:13px!important;
+    font-weight:650!important;
+  }
+  .hero-capabilities li::before{
+    content:""!important;width:5px!important;height:5px!important;border-radius:50%!important;
+    margin-right:7px!important;background:rgba(20,102,255,.55)!important;flex:0 0 5px!important;
+  }
+
+  /* Native pinch zoom remains enabled. Nothing may create a wider layout canvas. */
+  .home-page .hero-v2,.home-page .hero-copy,.home-page .hero-actions{
+    width:100%!important;min-width:0!important;max-width:100%!important;
+  }
+  .home-page .hero-v2 h1,.home-page .hero-v2 .lead{
+    overflow-wrap:normal!important;word-break:normal!important;
+  }
+}
