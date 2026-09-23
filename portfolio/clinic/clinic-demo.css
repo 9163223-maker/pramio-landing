@@ -8,3 +8,6 @@ body{background:radial-gradient(circle at 88% 7%,#d9eee7 0,transparent 25%),radi
 .service{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}.service:hover{transform:translateY(-4px);border-color:#aacfc4;box-shadow:0 20px 44px rgba(22,87,72,.09)}
 @media(max-width:720px){.hero{grid-template-columns:1fr;min-height:0;gap:30px}.hero-visual{min-height:530px;border-radius:30px}.doctor-photo{object-position:center 18%}.scene-cross{left:6%;top:6%;width:68px;height:68px;font-size:46px}.chip-a{left:6%;top:22%}.chip-b{left:6%;top:31%}.hero-visual .hero-card{left:5%;right:5%;bottom:5%;padding:20px}.hero-visual .hero-card strong{font-size:25px}.service:hover{transform:none}}
 @media(max-width:390px){.hero h1{font-size:42px}.actions{flex-direction:column}.facts{gap:8px}.facts b{font-size:18px}.hero-visual{min-height:520px}}
+
+/* acceptance v5: keep portrait and booking panel in separate visual zones */
+.scene-cross{display:none!important}.doctor-photo{object-position:center 18%!important}.hero-card{position:relative!important;inset:auto!important;margin:-42px 22px 0!important;z-index:3!important}.medical-scene{padding-bottom:36px}@media(max-width:720px){.hero-card{margin:12px 0 0!important}.medical-scene{padding-bottom:0}.doctor-photo{object-position:center 14%!important}}
