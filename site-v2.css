@@ -2337,67 +2337,49 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
 }
 
 
-/* v72 final mobile acceptance — 2026-09-23
-   Canonical owner for first-screen hierarchy, menu legibility and zoom-safe geometry. */
-@media(max-width:780px){
-  html,body{min-width:0!important;max-width:100%!important;overflow-x:clip!important;}
-  .page,.site-footer,.hero-v2,.hero-copy,.section,.services-grid,.service-card{
-    min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
-  }
 
-  /* H1 must remain the dominant heading on the home screen. */
+
+/* v73 mobile acceptance — single late owner for current first-screen defects */
+@media(max-width:780px){
+  /* Keep native pinch zoom. Only flex/grid descendants are constrained; do not clamp every body child. */
+  .page,.site-footer,.hero-v2,.hero-copy,.hero-actions,.services-grid,.service-card,
+  .content-section,.feature-grid,.link-grid,.process-grid,.process-step{
+    min-width:0!important;box-sizing:border-box!important;
+  }
+  img,svg,video,canvas{max-width:100%;height:auto;}
+
+  /* Home H1 owns the hierarchy; following H2 is deliberately one scale lower. */
   .home-page .hero-v2 h1{
     font-family:var(--type-display)!important;
     font-size:clamp(42px,11.2vw,52px)!important;
-    line-height:1.01!important;
-    letter-spacing:-.045em!important;
-    max-width:12.5ch!important;
+    line-height:1.01!important;letter-spacing:-.045em!important;
+    max-width:13ch!important;overflow-wrap:normal!important;word-break:normal!important;
   }
   .home-page .section-heading h2{
-    font-size:clamp(32px,8.4vw,39px)!important;
-    line-height:1.07!important;
+    font-size:clamp(31px,8.2vw,38px)!important;line-height:1.07!important;
   }
 
-  /* Menu itself stays solid; only the page behind it is de-emphasised. */
+  /* Header/nav must never inherit the page veil. */
   .site-header.is-menu-open,.mobile-nav{
-    opacity:1!important;
-    filter:none!important;
-    -webkit-filter:none!important;
-    background:#fbfcff!important;
-    -webkit-backdrop-filter:none!important;
-    backdrop-filter:none!important;
+    opacity:1!important;filter:none!important;-webkit-filter:none!important;
+    background:#fbfcff!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;
   }
   .mobile-nav a,.mobile-nav button{
-    opacity:1!important;color:var(--v2-ink)!important;
-    background:#fbfcff!important;
+    opacity:1!important;color:var(--v2-ink)!important;background:#fbfcff!important;
   }
   html.mobile-menu-open::after{background:rgba(242,247,255,.08)!important;}
 
-  /* Capability labels are taxonomy, not controls. */
-  .hero-capabilities{pointer-events:none!important;}
+  /* These are descriptors, not fake buttons. */
+  .hero-capabilities{pointer-events:none!important;gap:7px 14px!important;}
   .hero-capabilities li{
-    min-height:0!important;
-    padding:2px 0!important;
-    border:0!important;
-    border-radius:0!important;
-    background:transparent!important;
-    box-shadow:none!important;
-    -webkit-backdrop-filter:none!important;
-    backdrop-filter:none!important;
-    color:var(--v2-muted)!important;
-    font-size:13px!important;
-    font-weight:650!important;
+    min-height:0!important;padding:2px 0!important;border:0!important;border-radius:0!important;
+    background:transparent!important;box-shadow:none!important;
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+    color:var(--v2-muted)!important;font-size:13px!important;font-weight:650!important;
   }
   .hero-capabilities li::before{
-    content:""!important;width:5px!important;height:5px!important;border-radius:50%!important;
-    margin-right:7px!important;background:rgba(20,102,255,.55)!important;flex:0 0 5px!important;
-  }
-
-  /* Native pinch zoom remains enabled. Nothing may create a wider layout canvas. */
-  .home-page .hero-v2,.home-page .hero-copy,.home-page .hero-actions{
-    width:100%!important;min-width:0!important;max-width:100%!important;
-  }
-  .home-page .hero-v2 h1,.home-page .hero-v2 .lead{
-    overflow-wrap:normal!important;word-break:normal!important;
+    content:""!important;display:inline-block!important;width:5px!important;height:5px!important;
+    margin-right:7px!important;border-radius:50%!important;background:rgba(20,102,255,.55)!important;
+    vertical-align:2px!important;
   }
 }
