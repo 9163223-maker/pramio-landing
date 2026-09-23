@@ -1,4 +1,4 @@
-/* PRAMIO showroom v9 — one owner for shell, cards and responsive previews */
+/* PRAMIO showroom v10 — one owner for shell, cards and responsive previews */
 .portfolio-page{overflow-x:clip;background:linear-gradient(180deg,#f6f9ff 0,#f9fbff 45%,#f5f8ff 100%)}
 .portfolio-page .page{width:min(1180px,calc(100% - 44px));margin-inline:auto}
 .portfolio-page .site-header .site-nav{display:flex;align-items:center;gap:22px;margin-left:auto}
@@ -26,7 +26,7 @@
 .live-phone:after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,#f7f9fc,#e5edf8)}.live-phone iframe{position:absolute;z-index:1;inset:0;width:390px;height:780px;border:0;transform:scale(.205);transform-origin:0 0;pointer-events:none;background:#fff}
 .live-preview--logistics{background:#15243a}.live-preview--legal{background:#cbc4b7}.live-preview--shop{background:#ddc4a8}.live-preview--beauty{background:#dfcec5}.live-preview--build{background:#cdd7c4}.live-preview--card{background:#c9bde4}.live-preview--crm{background:#cfe0f8}.live-preview--cms{background:#cbe5da}
 .showroom-copy{position:relative;display:flex;flex-direction:column;padding:20px 24px 62px!important}
-.showroom-copy .proof-kind{margin:0 0 8px!important;font-size:11px!important;letter-spacing:.055em;text-transform:uppercase}
+.showroom-copy .proof-kind{margin:0 0 8px!important;font-size:13px!important;letter-spacing:.045em;text-transform:uppercase}
 .showroom-copy h2,.showroom-copy h3{margin:0 0 9px!important;font:600 25px/1.12 var(--type-display)!important;letter-spacing:-.025em;color:var(--v2-ink)}
 .showroom-copy>p:not(.proof-kind){margin:0!important;font-size:15px!important;line-height:1.5!important;color:var(--v2-muted)}
 .showroom-copy .proof-link{position:absolute!important;inset:0!important;margin:0!important;padding:0!important;min-height:0!important;font-size:0!important;color:transparent!important;z-index:2}
@@ -39,8 +39,7 @@
  .showroom-section{margin-top:30px!important}.showroom-section .section-heading h2{font-size:28px!important}.showroom-section .section-heading>p:last-child{font-size:15px!important;line-height:1.5!important}
  .showroom-grid{grid-template-columns:1fr!important;gap:12px!important;margin-top:18px!important}.showroom-card{display:block!important;min-height:0!important;border-radius:22px!important}
  .showroom-preview{height:210px!important;min-height:210px!important;padding:10px!important}.live-preview{border-radius:15px}.live-desktop{left:8px;right:76px;top:8px;bottom:8px}.live-desktop iframe{transform:scale(.245)}.live-phone{right:36px;bottom:7px;width:78px;height:158px;border-width:3px;border-radius:18px}.live-phone iframe{transform:scale(.185)}
- .showroom-copy{padding:15px 62px 18px 18px!important}.showroom-copy .proof-kind{font-size:10px!important;margin-bottom:5px!important}.showroom-copy h2,.showroom-copy h3{font-size:21px!important;line-height:1.1!important;margin:0!important}.showroom-copy>p:not(.proof-kind){display:none!important}.showroom-card:after{right:17px;bottom:16px;width:34px;height:34px;font-size:16px}
- .portfolio-page .pramio-contact-fab{width:52px!important;height:52px!important;min-width:52px!important;padding:0!important;border-radius:50%!important;font-size:0!important}.portfolio-page .pramio-contact-fab::after{content:"?";font:700 21px/1 var(--type-ui);color:#fff}
+ .showroom-copy{padding:15px 62px 18px 18px!important}.showroom-copy .proof-kind{font-size:13px!important;margin-bottom:5px!important}.showroom-copy h2,.showroom-copy h3{font-size:21px!important;line-height:1.1!important;margin:0!important}.showroom-copy>p:not(.proof-kind){display:none!important}.showroom-card:after{right:17px;bottom:16px;width:34px;height:34px;font-size:16px}
  .portfolio-page .service-cta{margin-top:34px!important;padding:32px 20px!important;border-radius:24px!important}.portfolio-page .service-cta h2{font-size:30px!important;line-height:1.04!important}.portfolio-page .service-cta p{font-size:16px!important;line-height:1.5!important}.portfolio-page .site-footer{margin-top:30px!important}
 }
 @media(max-width:370px){.showroom-hero h1{font-size:34px!important}.showroom-preview{height:194px!important;min-height:194px!important}.showroom-copy h2,.showroom-copy h3{font-size:19px!important}}
