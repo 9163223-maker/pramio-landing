@@ -1,0 +1,73 @@
+name: Package final EG
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate and package
+        shell: bash
+        run: |
+          set -euo pipefail
+          files=(
+            404.html
+            blog/index.html
+            blog/max/chto-takoe-mini-app-max/index.html
+            blog/max/chto-umeet-bot-max/index.html
+            blog/max/index.html
+            blog/max/kak-podklyuchit-bota-k-kanalu-max/index.html
+            blog/max/kak-sozdat-bota-v-max/index.html
+            blog/max/lid-magnit-v-max/index.html
+            index.html
+            privacy/index.html
+            services/ai-automation/index.html
+            services/index.html
+            services/interactive-support/index.html
+            services/max-bots/applications/index.html
+            services/max-bots/business/index.html
+            services/max-bots/buttons-deeplinks/index.html
+            services/max-bots/channel-automation/index.html
+            services/max-bots/channels/index.html
+            services/max-bots/comment-moderation/index.html
+            services/max-bots/crm-integration/index.html
+            services/max-bots/index.html
+            services/max-bots/lead-magnets/index.html
+            services/max-bots/mini-app/index.html
+            services/sites/index.html
+            services/telegram-bots/index.html
+          )
+          test "${#files[@]}" -eq 25
+          for f in "${files[@]}"; do
+            test -f "$f"
+            grep -q 'site-v2.css?v=79' "$f"
+            ! grep -Eq 'site-v2\.css\?v=(73|74|75|76|77|78)' "$f"
+            ! grep -q 'pramio-mark.svg' "$f"
+          done
+          test -f site-v2.css
+          grep -q 'v79 acceptance' site-v2.css
+          python3 - <<'PY'
+          from pathlib import Path
+          c=Path("site-v2.css").read_text()
+          assert c.count("{")==c.count("}"), (c.count("{"),c.count("}"))
+          assert "body>*{max-width:100vw" not in c
+          assert "h1,h2,h3,p,a,span,strong{overflow-wrap:break-word" not in c
+          PY
+          zip -9 pramio-public_html-EG-v79-2026-09-23.zip "${files[@]}" site-v2.css
+          unzip -t pramio-public_html-EG-v79-2026-09-23.zip
+          test "$(unzip -Z1 pramio-public_html-EG-v79-2026-09-23.zip | wc -l)" -eq 26
+          ! unzip -Z1 pramio-public_html-EG-v79-2026-09-23.zip | grep -Eq '(^|/)(config\.local\.php|send\.php|pramio-logo\.webp|pramio-mark\.svg|tech-matter-preview\.html)$'
+          sha256sum pramio-public_html-EG-v79-2026-09-23.zip > pramio-public_html-EG-v79-2026-09-23.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pramio-public_html-EG-v79-2026-09-23
+          path: |
+            pramio-public_html-EG-v79-2026-09-23.zip
+            pramio-public_html-EG-v79-2026-09-23.sha256
+          if-no-files-found: error
+          retention-days: 7
