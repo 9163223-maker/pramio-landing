@@ -2431,3 +2431,26 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
     backdrop-filter:blur(2.5px)!important;
   }
 }
+
+
+/* v75 acceptance — UI type roles that must stay functional */
+@media(max-width:780px){
+  /* Navigation/control text is UI, not editorial body. */
+  .mobile-nav a,.mobile-nav button,.btn,.site-footer nav a,.site-footer nav button,
+  .cluster-nav a,.article-toc a,.cookie-consent button,.contact-form button{
+    font-family:var(--type-ui)!important;
+    font-size:15px!important;
+    line-height:1.25!important;
+  }
+  .mobile-nav a,.mobile-nav button{font-size:16px!important;}
+  .btn{font-weight:700!important;}
+  .site-footer nav a,.site-footer nav button{min-height:40px!important;padding:0 12px!important;}
+  .site-footer small{font-size:13px!important;line-height:1.45!important;}
+  .footer-summary-link{font-size:15px!important;line-height:1.45!important;}
+  .breadcrumbs{font-size:13px!important;line-height:1.45!important;}
+  .article-meta{font-size:13px!important;line-height:1.45!important;}
+
+  /* Reading veil must remain almost invisible: no nested-card cues. */
+  body.article-page .content-section:not(:has(.link-grid))::before,
+  body.blog-article .content-section:not(:has(.link-grid))::before{content:none!important;}
+}
