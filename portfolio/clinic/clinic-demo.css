@@ -11,3 +11,4 @@ body{background:radial-gradient(circle at 88% 7%,#d9eee7 0,transparent 25%),radi
 
 /* acceptance v5: keep portrait and booking panel in separate visual zones */
 .scene-cross{display:none!important}.doctor-photo{object-position:center 18%!important}.hero-card{position:relative!important;inset:auto!important;margin:-42px 22px 0!important;z-index:3!important}.medical-scene{padding-bottom:36px}@media(max-width:720px){.hero-card{margin:12px 0 0!important}.medical-scene{padding-bottom:0}.doctor-photo{object-position:center 14%!important}}
+.booking-error{margin:0!important;color:#9a2f2f;font:600 13px/1.4 Manrope,sans-serif}.modal input[aria-invalid="true"]{border-color:#b84c4c!important;box-shadow:0 0 0 3px rgba(184,76,76,.12)!important}
