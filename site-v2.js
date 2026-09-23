@@ -1,7 +1,8 @@
+/* public-path-owner-v1 */
+const PRAMIO_SITE_BASE = location.hostname.endsWith('github.io') ? '/pramio-landing/' : '/';
+const PRAMIO_SITE_URL = (path='') => PRAMIO_SITE_BASE + String(path).replace(/^\//,'');
 /* global-contact-v4 */
 (() => {
-  const siteBase = location.hostname.endsWith('github.io') ? '/pramio-landing/' : '/';
-  const siteUrl = (path='') => siteBase + String(path).replace(/^\//,'');
   const ensureContactPanel = () => {
     if (!document.getElementById('contact-overlay')) {
       const overlay = document.createElement('div');
@@ -20,12 +21,12 @@
     panel.setAttribute('aria-labelledby','contact-title');
     panel.hidden = true;
     panel.innerHTML = '<button class="contact-close" type="button" aria-label="Закрыть форму">×</button><p class="eyebrow contact-eyebrow"><span></span> связь с PRAMIO</p><h2 id="contact-title">Обсудить задачу</h2><p class="contact-intro">Расскажите о задаче своими словами — мы уточним вводные и ответим на указанный e-mail.</p><form class="contact-form" id="contact-form" data-recipient="hello@pramio.ru" data-endpoint="__SEND_ENDPOINT__"><div class="service-field"><label for="contact-service">Что вас интересует</label><select id="contact-service" name="service" required><option value="">Выберите направление</option><option>Лендинг или небольшой сайт</option><option>Telegram-бот</option><option>Бот или решение для MAX</option><option>AI-ассистент или автоматизация</option><option>Интерактивный сервис или поддержка</option><option>АдминКИТ</option><option>Другая задача</option></select></div><label><span>E-mail для ответа</span><input class="ym-disable-keys" name="email" type="email" autocomplete="email" placeholder="name@example.com" required maxlength="160"></label><label><span>Коротко о задаче</span><textarea class="ym-disable-keys" name="message" rows="5" placeholder="Что нужно сделать и какой результат вы ожидаете" required maxlength="3000"></textarea></label><label class="privacy-consent"><input name="consent" type="checkbox" value="1" required><span>Я соглашаюсь на обработку указанных данных в соответствии с <a href="__PRIVACY_URL__" target="_blank">Политикой обработки персональных данных</a>.</span></label><label class="form-trap" aria-hidden="true"><span>Сайт</span><input name="website" type="text" tabindex="-1" autocomplete="off"></label><input name="started_at" type="hidden" value=""><input name="form_token" type="hidden" value=""><button class="btn primary contact-submit" type="submit">Отправить запрос</button><p class="form-note" role="status" aria-live="polite">Форма защищена от автоматических отправок. Для оценки достаточно короткого описания задачи.</p></form>';
-    panel.innerHTML = panel.innerHTML.replace('__SEND_ENDPOINT__', siteUrl('send.php')).replace('__PRIVACY_URL__', siteUrl('privacy/'));
+    panel.innerHTML = panel.innerHTML.replace('__SEND_ENDPOINT__', PRAMIO_SITE_URL('send.php')).replace('__PRIVACY_URL__', PRAMIO_SITE_URL('privacy/'));
     document.body.append(panel);
     window.setTimeout(() => {
       if (document.querySelector('script[data-pramio-form-handler]')) return;
       const handler = document.createElement('script');
-      handler.src = siteUrl('form-handler.js?v=36');
+      handler.src = PRAMIO_SITE_URL('form-handler.js?v=36');
       handler.dataset.pramioFormHandler = '1';
       document.body.append(handler);
     }, 0);
@@ -124,7 +125,7 @@
 
     const tokenInput = form.querySelector('[name="form_token"]');
     if (tokenInput) {
-      fetch(siteUrl('send.php?form_token=1'), {
+      fetch(PRAMIO_SITE_URL('send.php?form_token=1'), {
         method: 'GET',
         credentials: 'same-origin',
         headers: { 'Accept': 'application/json' },
@@ -349,7 +350,7 @@
     panel.setAttribute('aria-labelledby','cookie-title');
     panel.hidden = true;
     panel.innerHTML = '<div class="cookie-consent__head"><div class="cookie-consent__icon" aria-hidden="true">◌</div><div><h2 id="cookie-title">Мы используем cookie</h2><p>Необходимые данные нужны для работы сайта. Аналитические cookie Яндекс Метрики включаются только с вашего согласия. Подробнее — в <a href="__COOKIE_PRIVACY__">политике обработки данных</a>.</p></div></div><div class="cookie-consent__actions"><button class="cookie-accept" type="button">Принять все</button><button class="cookie-settings" type="button">Настройки</button></div><div class="cookie-preferences" hidden><div class="cookie-pref-row"><span>Необходимые<small>Работа интерфейса и сохранение выбора</small></span><label class="cookie-switch is-fixed" aria-label="Необходимые cookie всегда включены"><input type="checkbox" checked disabled><i></i></label></div><div class="cookie-pref-row"><span>Аналитика<small>Яндекс Метрика и Вебвизор</small></span><label class="cookie-switch"><input class="cookie-analytics-toggle" type="checkbox"><i></i></label></div><div class="cookie-consent__actions"><button class="cookie-accept cookie-save" type="button">Сохранить выбор</button><button class="cookie-settings cookie-essential" type="button">Только необходимые</button></div></div>';
-    panel.innerHTML = panel.innerHTML.replace('__COOKIE_PRIVACY__', siteUrl('privacy/'));
+    panel.innerHTML = panel.innerHTML.replace('__COOKIE_PRIVACY__', PRAMIO_SITE_URL('privacy/'));
     document.body.append(panel);
 
     const preferences = panel.querySelector('.cookie-preferences');
@@ -389,7 +390,7 @@
     if (summary && !footer.querySelector('.footer-summary-link')) {
       const link = document.createElement('a');
       link.className = 'footer-summary-link';
-      link.href = siteUrl('services/');
+      link.href = PRAMIO_SITE_URL('services/');
       link.textContent = summary.textContent;
       link.setAttribute('aria-label', 'Перейти ко всем услугам PRAMIO');
       summary.replaceWith(link);
