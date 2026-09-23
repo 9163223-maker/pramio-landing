@@ -145,3 +145,33 @@
  .showroom-copy{padding-inline:14px!important}
  .showroom-copy h2,.showroom-copy h3{font-size:19px!important}
 }
+
+/* v7 portfolio-card composition — project first, whole surface is the affordance */
+.showroom-copy{position:relative}
+.showroom-copy .proof-link{position:absolute!important;inset:0!important;margin:0!important;padding:0!important;min-height:0!important;font-size:0!important;color:transparent!important;z-index:2}
+.showroom-card{position:relative}
+.showroom-card:after{content:"↗";position:absolute;right:22px;bottom:20px;width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:rgba(234,242,255,.9);color:#176cff;font:600 18px/1 var(--type-ui);pointer-events:none;transition:transform .2s ease,background .2s ease}
+.showroom-card:hover:after{transform:translate(2px,-2px);background:#176cff;color:#fff}
+@media(min-width:781px){
+ .showroom-card{grid-template-rows:260px 1fr}
+ .showroom-preview{height:260px!important;padding:12px!important}
+ .showroom-copy{padding-bottom:68px!important}
+}
+@media(max-width:780px){
+ .showroom-card{display:block!important;min-height:0!important}
+ .showroom-preview{height:210px!important;min-height:210px!important;padding:10px!important}
+ .project-shot,.showroom-scene{min-height:190px!important;border-radius:15px!important}
+ .project-shot{padding:18px!important}
+ .project-shot small{font-size:10px!important}
+ .project-shot b{font-size:23px!important;max-width:10ch}
+ .project-shot span{font-size:11px!important}
+ .project-shot em{font-size:9px!important}
+ .showroom-copy{padding:16px 18px 20px!important;padding-right:62px!important}
+ .showroom-copy .proof-kind{font-size:10px!important;margin-bottom:6px!important}
+ .showroom-copy h2,.showroom-copy h3{font-size:21px!important;margin:0!important}
+ .showroom-copy>p:not(.proof-kind){display:none!important}
+ .showroom-card:after{right:17px;bottom:17px;width:34px;height:34px;font-size:16px}
+ .showroom-scene--legal b{font-size:24px!important}
+ .showroom-scene--crm{display:grid!important;grid-template-columns:52px 1fr!important;padding:12px!important}
+ .showroom-scene--cms{display:grid!important;grid-template-columns:64px 1fr!important;padding:16px!important}
+}
