@@ -2383,3 +2383,51 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
     vertical-align:2px!important;
   }
 }
+
+
+/* v74 type consolidation + editorial reading veil — 2026-09-23 */
+@media(max-width:780px){
+  :root{
+    --m-type-meta:13px;
+    --m-type-secondary:15px;
+    --m-type-body:17px;
+    --m-type-card:21px;
+    --m-type-section:clamp(30px,8vw,34px);
+    --m-type-hero:clamp(42px,11.2vw,52px);
+  }
+
+  /* Six semantic mobile levels. Geometry/weight may vary; size does not. */
+  body{font-size:var(--m-type-body)!important;}
+  .eyebrow,.breadcrumbs,.article-meta,.service-number,.form-note,.legal-meta{
+    font-size:var(--m-type-meta)!important;
+  }
+  .support-note,.footer-meta,.site-footer,.link-card span,.hero-proof,.cluster-nav{
+    font-size:var(--m-type-secondary)!important;
+  }
+  .lead,.content-section>p,.content-section>ul,.content-section>ol,
+  .service-card>p,.service-card>div>p,.legal-page p,.legal-page li{
+    font-size:var(--m-type-body)!important;line-height:1.62!important;
+  }
+  .service-card h3,.feature-card h3,.scope-box h3,.process-step h3,.link-card strong{
+    font-size:var(--m-type-card)!important;line-height:1.16!important;
+  }
+  .section-heading h2,.final-cta h2,.content-section h2{
+    font-size:var(--m-type-section)!important;line-height:1.08!important;
+  }
+  .home-page .hero-v2 h1{font-size:var(--m-type-hero)!important;}
+
+  /* Long-form copy gets a reading veil, not another visible card. */
+  body.article-page .content-section:not(.service-cta),
+  body.blog-article .content-section:not(.service-cta){
+    position:relative;
+    padding:18px 16px!important;
+    margin-left:-16px!important;
+    margin-right:-16px!important;
+    border:0!important;
+    border-radius:22px!important;
+    background:rgba(250,252,255,.46)!important;
+    box-shadow:none!important;
+    -webkit-backdrop-filter:blur(2.5px)!important;
+    backdrop-filter:blur(2.5px)!important;
+  }
+}
