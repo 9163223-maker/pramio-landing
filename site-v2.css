@@ -2452,3 +2452,17 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
   body.article-page .content-section:not([aria-labelledby="article-related"]):not([aria-labelledby^="related-"])::before,
   body.blog-article .content-section:not([aria-labelledby="article-related"]):not([aria-labelledby^="related-"])::before{content:none!important;}
 }
+
+
+/* v76 acceptance — readable auxiliary UI, one tracking grammar */
+@media(max-width:780px){
+  .contact-eyebrow,.form-note{font-size:13px!important;line-height:1.4!important;}
+  .contact-form label{font-size:13px!important;line-height:1.35!important;}
+  .privacy-consent{font-size:13px!important;line-height:1.4!important;}
+  .cookie-consent p{font-size:13px!important;line-height:1.42!important;}
+  .cookie-consent__actions button{font-size:13px!important;}
+  .eyebrow,.article-meta{letter-spacing:.06em!important;}
+  .breadcrumbs,.btn,.mobile-nav a,.mobile-nav button,.site-footer nav a,.site-footer nav button,
+  .link-card span,.support-note{letter-spacing:0!important;}
+  .section-heading h2,.content-section h2,.final-cta h2{letter-spacing:-.032em!important;}
+}
