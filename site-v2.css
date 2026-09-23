@@ -2417,12 +2417,12 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
   .home-page .hero-v2 h1{font-size:var(--m-type-hero)!important;}
 
   /* Long-form copy gets a reading veil, not another visible card. */
-  body.article-page .content-section:not(.service-cta),
-  body.blog-article .content-section:not(.service-cta){
+  body.article-page .content-section:not(:has(.link-grid)),
+  body.blog-article .content-section:not(:has(.link-grid)){
     position:relative;
-    padding:18px 16px!important;
-    margin-left:-16px!important;
-    margin-right:-16px!important;
+    padding:20px 16px!important;
+    margin-left:-12px!important;
+    margin-right:-12px!important;
     border:0!important;
     border-radius:22px!important;
     background:rgba(250,252,255,.46)!important;
