@@ -2492,3 +2492,16 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
   .service-picker__trigger{min-height:48px!important;}
   .privacy-consent input[type="checkbox"]{width:24px!important;height:24px!important;min-width:24px!important;}
 }
+
+
+/* v79 acceptance — explicit overlay ownership */
+@media(max-width:780px){
+  .site-header{z-index:1200!important;}
+  .mobile-nav{z-index:1190!important;}
+  .contact-overlay{z-index:1400!important;}
+  .contact-panel{z-index:1410!important;}
+  .cookie-consent{z-index:1300!important;}
+  .pramio-contact-fab{z-index:1250!important;}
+  body.contact-open .cookie-consent{visibility:hidden!important;pointer-events:none!important;}
+  body.contact-open .site-header,body.contact-open .mobile-nav{pointer-events:none!important;}
+}
