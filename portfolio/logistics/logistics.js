@@ -1,0 +1,1 @@
+document.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.opts button').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.querySelector('#cargo').textContent=b.textContent});
