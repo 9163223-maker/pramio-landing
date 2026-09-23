@@ -1,0 +1,90 @@
+name: Package final v80
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - packaging/final-v80-2026-09-23
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate and package
+        shell: bash
+        run: |
+          set -euo pipefail
+          files=(
+            404.html
+            blog/index.html
+            blog/max/chto-takoe-mini-app-max/index.html
+            blog/max/chto-umeet-bot-max/index.html
+            blog/max/index.html
+            blog/max/kak-podklyuchit-bota-k-kanalu-max/index.html
+            blog/max/kak-sozdat-bota-v-max/index.html
+            blog/max/lid-magnit-v-max/index.html
+            index.html
+            portfolio/beauty/index.html
+            portfolio/build/index.html
+            portfolio/card/index.html
+            portfolio/clinic/index.html
+            portfolio/expert/index.html
+            portfolio/index.html
+            portfolio/logistics/index.html
+            portfolio/shop/index.html
+            privacy/index.html
+            services/ai-automation/index.html
+            services/index.html
+            services/interactive-support/index.html
+            services/max-bots/applications/index.html
+            services/max-bots/business/index.html
+            services/max-bots/buttons-deeplinks/index.html
+            services/max-bots/channel-automation/index.html
+            services/max-bots/channels/index.html
+            services/max-bots/comment-moderation/index.html
+            services/max-bots/crm-integration/index.html
+            services/max-bots/index.html
+            services/max-bots/lead-magnets/index.html
+            services/max-bots/mini-app/index.html
+            services/sites/index.html
+            services/telegram-bots/index.html
+          )
+          test "${#files[@]}" -eq 33
+          for f in "${files[@]}"; do
+            test -f "$f"
+            grep -q 'site-v2.css?v=80' "$f"
+            ! grep -Eq 'site-v2\.css\?v=(73|74|75|76|77|78|79)' "$f"
+            ! grep -q 'pramio-mark.svg' "$f"
+            ! grep -Eq 'user-scalable=no|maximum-scale=1|minimum-scale=1' "$f"
+            test "$(grep -o '<h1' "$f" | wc -l)" -eq 1
+          done
+          for f in index.html 404.html privacy/index.html services/index.html services/sites/index.html services/telegram-bots/index.html services/ai-automation/index.html services/interactive-support/index.html services/max-bots/index.html blog/index.html; do grep -q 'site-v2.js?v=54' "$f"; done
+          test -f site-v2.css && test -f site-v2.js && test -f sitemap.xml
+          grep -q 'v80 acceptance' site-v2.css
+          grep -q 'https://pramio.ru/portfolio/' sitemap.xml
+          grep -q "if (!document.querySelector('.pramio-contact-fab'))" site-v2.js
+          python3 - <<'PY'
+          from pathlib import Path
+          c=Path("site-v2.css").read_text()
+          assert c.count("{")==c.count("}"), (c.count("{"),c.count("}"))
+          assert "body>*{max-width:100vw" not in c
+          assert "h1,h2,h3,p,a,span,strong{overflow-wrap:break-word" not in c
+          assert ".site-footer nav a,.site-footer nav button{min-height:44px!important;}" in c
+          PY
+          zip -9 pramio-public_html-EG-v80-2026-09-23.zip "${files[@]}" site-v2.css site-v2.js sitemap.xml
+          unzip -t pramio-public_html-EG-v80-2026-09-23.zip
+          test "$(unzip -Z1 pramio-public_html-EG-v80-2026-09-23.zip | wc -l)" -eq 36
+          ! unzip -Z1 pramio-public_html-EG-v80-2026-09-23.zip | grep -Eq '(^|/)(config\.local\.php|send\.php|pramio-logo\.webp|pramio-mark\.svg|tech-matter-preview\.html)$'
+          sha256sum pramio-public_html-EG-v80-2026-09-23.zip > pramio-public_html-EG-v80-2026-09-23.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pramio-public_html-EG-v80-2026-09-23
+          path: |
+            pramio-public_html-EG-v80-2026-09-23.zip
+            pramio-public_html-EG-v80-2026-09-23.sha256
+          if-no-files-found: error
+          retention-days: 7
