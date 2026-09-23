@@ -2417,8 +2417,8 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
   .home-page .hero-v2 h1{font-size:var(--m-type-hero)!important;}
 
   /* Long-form copy gets a reading veil, not another visible card. */
-  body.article-page .content-section:not(:has(.link-grid)),
-  body.blog-article .content-section:not(:has(.link-grid)){
+  body.article-page .content-section:not([aria-labelledby="article-related"]):not([aria-labelledby^="related-"]),
+  body.blog-article .content-section:not([aria-labelledby="article-related"]):not([aria-labelledby^="related-"]){
     position:relative;
     padding:20px 16px!important;
     margin-left:-12px!important;
@@ -2451,6 +2451,6 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
   .article-meta{font-size:13px!important;line-height:1.45!important;}
 
   /* Reading veil must remain almost invisible: no nested-card cues. */
-  body.article-page .content-section:not(:has(.link-grid))::before,
-  body.blog-article .content-section:not(:has(.link-grid))::before{content:none!important;}
+  body.article-page .content-section:not([aria-labelledby="article-related"]):not([aria-labelledby^="related-"])::before,
+  body.blog-article .content-section:not([aria-labelledby="article-related"]):not([aria-labelledby^="related-"])::before{content:none!important;}
 }
