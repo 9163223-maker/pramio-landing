@@ -2482,3 +2482,13 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
     opacity:0!important;pointer-events:none!important;transform:translateY(10px)!important;
   }
 }
+
+
+/* v78 acceptance — minimum mobile hit areas */
+@media(max-width:780px){
+  .menu-toggle{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;flex:0 0 44px!important;}
+  .cookie-consent__actions button{min-height:44px!important;}
+  .contact-submit{min-height:48px!important;}
+  .service-picker__trigger{min-height:48px!important;}
+  .privacy-consent input[type="checkbox"]{width:24px!important;height:24px!important;min-width:24px!important;}
+}
