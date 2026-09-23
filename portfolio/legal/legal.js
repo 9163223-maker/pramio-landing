@@ -1,0 +1,1 @@
+document.querySelectorAll('[data-brief]').forEach(b=>b.addEventListener('click',()=>{document.querySelector('#brief').scrollIntoView({behavior:'smooth'})}));
