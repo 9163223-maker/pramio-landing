@@ -1,0 +1,1 @@
+document.querySelector('#contactDemo')?.addEventListener('click',()=>{document.querySelector('#contactResult').hidden=false});
