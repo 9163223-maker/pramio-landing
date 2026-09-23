@@ -1,7 +1,7 @@
 /* global-contact-v4 */
 (() => {
   const siteBase = location.hostname.endsWith('github.io') ? '/pramio-landing/' : '/';
-  const siteUrl = (path='') => siteBase + String(path).replace(/^\\//,'');
+  const siteUrl = (path='') => siteBase + String(path).replace(/^\//,'');
   const ensureContactPanel = () => {
     if (!document.getElementById('contact-overlay')) {
       const overlay = document.createElement('div');
