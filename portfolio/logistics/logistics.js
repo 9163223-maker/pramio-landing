@@ -1,3 +1,4 @@
+const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const cargoButtons=[...document.querySelectorAll('.opts button')];
 const cargo=document.querySelector('#cargo');
 const brief=document.querySelector('#brief');
@@ -20,7 +21,7 @@ cargoButtons.forEach(button=>{
 
 document.querySelector('#next').addEventListener('click',()=>{
   brief.hidden=false;
-  brief.scrollIntoView({behavior:'smooth',block:'center'});
+  brief.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'center'});
   weight.focus({preventScroll:true});
 });
 
