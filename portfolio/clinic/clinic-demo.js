@@ -9,6 +9,7 @@
   const success=document.querySelector('.success');
   let returnFocus=null;
 
+  const dialog=modal?.querySelector('[role="dialog"]');
   const focusables=()=>[...modal.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])')].filter(x=>!x.hidden&&x.getAttribute('aria-hidden')!=='true');
   const closeMenu=()=>{
     nav?.classList.remove('is-open');
@@ -38,9 +39,10 @@
     returnFocus=button;
     modal.hidden=false;
     document.body.style.overflow='hidden';
+    dialog?.setAttribute('tabindex','-1');
     success.hidden=true;
     error.hidden=true;
-    requestAnimationFrame(()=>modal.querySelector('.modal-close')?.focus());
+    requestAnimationFrame(()=>dialog?.focus({preventScroll:true}));
   }));
   document.querySelectorAll('[data-close-booking]').forEach(button=>button.addEventListener('click',closeBooking));
 
