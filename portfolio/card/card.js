@@ -1,1 +1,1 @@
-document.querySelector('#contactDemo')?.addEventListener('click',()=>{document.querySelector('#contactResult').hidden=false});
+const contactButton=document.querySelector('#contactDemo');const contactResult=document.querySelector('#contactResult');contactButton?.addEventListener('click',()=>{if(!contactResult)return;contactResult.hidden=false;contactButton.setAttribute('aria-expanded','true');contactResult.focus({preventScroll:true})});
