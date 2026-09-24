@@ -102,6 +102,7 @@
     .view-header{display:flex;align-items:center;gap:8px;margin:4px 0 12px}
     .back{width:44px;height:44px;border:0;border-radius:14px;background:var(--glass);box-shadow:var(--shadow);color:var(--accent);font-size:23px}
     .view-header h1{font-family:Geologica,Manrope,sans-serif;margin:0;font-size:23px;line-height:1.15;letter-spacing:-.025em}
+    .more-title{margin:14px 4px 6px;font-size:13px;font-weight:750;color:var(--muted)}
     .group{border:1px solid rgba(255,255,255,.88);border-radius:21px;background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
     .row{width:100%;min-height:58px;border:0;border-top:1px solid var(--line);background:transparent;display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;padding:8px 12px;text-align:left}
     .row:first-child{border-top:0}
@@ -146,6 +147,12 @@
       .metric span{padding:4px 7px}
       .metric b{font-size:20px}
     }
+    body.text-200 .workspace small,body.text-200 .context small,body.text-200 .metric small,body.text-200 .tool small,body.text-200 .next-row small,body.text-200 .priority small,body.text-200 .row small{font-size:18px;line-height:1.35}
+    body.text-200 .workspace b,body.text-200 .context b,body.text-200 .tool b,body.text-200 .next-row b,body.text-200 .priority b,body.text-200 .row b{font-size:22px;line-height:1.25}
+    body.text-200 .section-head h2{font-size:24px}body.text-200 .metric b{font-size:30px}body.text-200 .metric em{font-size:18px}
+    body.text-200 .workspace{max-width:240px}body.text-200 .context{grid-template-columns:44px 1fr}body.text-200 .context .status{grid-column:2}
+    body.text-200 .tool-grid{grid-template-columns:1fr}body.text-200 .tool.wide{grid-column:span 1}body.text-200 .metric{grid-template-columns:1fr}
+    body.text-200 .metric span+span{border-left:0;border-top:1px solid var(--line)}body.text-200 .nav button{font-size:14px}
     @media(min-width:700px){body.text-200 .tool-grid{grid-template-columns:1fr}body.text-200 .tool.wide{grid-column:span 1}body.text-200 .metric{grid-template-columns:1fr}body.text-200 .metric span+span{border-left:0;border-top:1px solid var(--line)}}\n    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
@@ -175,7 +182,7 @@
       <header class="topbar">
         <div class="brand">AdminK<i>IT</i></div>
         <button class="workspace" type="button" data-sheet="workspace" aria-haspopup="dialog">
-          <span><small>Рабочая область</small><b>Olga.style</b></span><span class="chev">⌄</span>
+          <span><small>Рабочая область</small><b id="workspace-current">Olga.style</b></span><span class="chev">⌄</span>
         </button>
       </header>
 
@@ -183,7 +190,7 @@
         <span class="context-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M4 12h10"/><path d="m11 5 7 7-7 7"/></svg>
         </span>
-        <span><small>Канал</small><b>Все каналы · 29</b></span>
+        <span><small>Канал</small><b id="channel-current">Все каналы · 29</b></span>
         <span class="status">ACTIVE</span>
       </button>
 
@@ -295,7 +302,7 @@
     renderTools('[data-tools="balanced"]',['growth','gifts','buttons','polls']);
     renderTools('[data-tools="pinned"]',['content','growth','gifts','automation']);
 
-    const body=document.body;\n    const viewportSelect=document.getElementById('viewport-select');\n    viewportSelect.addEventListener('change',e=>{const [w,hh]=e.target.value.split('x');document.documentElement.style.setProperty('--lab-width',w+'px');document.documentElement.style.setProperty('--lab-height',hh+'px')});\n    document.getElementById('text-scale').addEventListener('change',e=>{document.documentElement.style.setProperty('--lab-scale',e.target.value);document.body.classList.toggle('text-200',e.target.value==='2')});
+    const body=document.body;\n    let currentWorkspace='Olga.style';\n    let currentChannel='Все каналы · 29';\n    const viewportSelect=document.getElementById('viewport-select');\n    viewportSelect.addEventListener('change',e=>{const [w,hh]=e.target.value.split('x');document.documentElement.style.setProperty('--lab-width',w+'px');document.documentElement.style.setProperty('--lab-height',hh+'px')});\n    document.getElementById('text-scale').addEventListener('change',e=>{document.documentElement.style.setProperty('--lab-scale',e.target.value);document.body.classList.toggle('text-200',e.target.value==='2')});
     const screen=document.getElementById('screen');
     const toast=document.getElementById('toast');
     let toastTimer;
@@ -304,21 +311,32 @@
     document.querySelectorAll('[data-concept-button]').forEach(b=>b.addEventListener('click',()=>setConcept(b.dataset.conceptButton)));
 
     function setNav(id){document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===id || (id==='more'&&b.dataset.nav==='more')))}
+    function rowHtml(rows){return '<div class="group">'+rows.map((t,i)=>`<button class="row" type="button" data-row="${t.id}"><span class="mini-icon">${i+1}</span><span><b>${t.label}</b><small>${t.sub||'Открыть рабочий раздел'}</small></span><span class="go">›</span></button>`).join('')+'</div>'}
     function openView(id){
       if(id==='home'){body.dataset.view='home';setNav('home');screen.scrollTo({top:0,behavior:'smooth'});return}
       body.dataset.view=id;document.getElementById('view-title').textContent=viewNames[id]||'Раздел';
-      const rows=id==='more'?tools:tools.filter(x=>x.id===id);
+      if(id==='more'){
+        document.getElementById('view-content').innerHTML=
+          '<div class="more-title">Управление каналом</div>'+rowHtml([{id:'channels',label:'Каналы',sub:'Каналы и доступы'}])+
+          '<div class="more-title">Продвижение</div>'+rowHtml([{id:'growth',label:'Рекламные ссылки',sub:'Tracking и источники'},{id:'campaigns',label:'Кампании',sub:'Продвижение и клики'}])+
+          '<div class="more-title">Инструменты вовлечения</div>'+rowHtml([{id:'gifts',label:'Лид-магниты',sub:'Материалы'},{id:'buttons',label:'Кнопки',sub:'Действия под постами'},{id:'polls',label:'Опросы',sub:'Вопросы аудитории'}])+
+          '<div class="more-title">Автоматизации</div>'+rowHtml([{id:'automation',label:'Сценарии',sub:'Автоматические действия'}])+
+          '<div class="more-title">Настройки</div>'+rowHtml([{id:'settings',label:'Настройки',sub:'Рабочая область и кабинет'}]);
+        setNav('more');screen.scrollTo({top:0,behavior:'smooth'});return;
+      }
+      const rows=tools.filter(x=>x.id===id);
       const extra=id==='leads'?[{label:'2 лида ждут ответа',sub:'Новые обращения',id:'leads'}]:id==='stats'?[{label:'Аудитория: 4 826',sub:'+34 за сегодня',id:'stats'}]:[];
       document.getElementById('view-content').innerHTML=[...extra,...rows].map((t,i)=>`<button class="row" type="button" data-row="${t.id||id}"><span class="mini-icon">${i+1}</span><span><b>${t.label}</b><small>${t.sub||'Открыть рабочий раздел'}</small></span><span class="go">›</span></button>`).join('') || '<div class="row"><span class="mini-icon">✓</span><span><b>Раздел готов</b><small>Здесь будет рабочий сценарий без dashboard-декора.</small></span></div>';
       setNav(['content','leads','stats'].includes(id)?id:'more');screen.scrollTo({top:0,behavior:'smooth'});
     }
-    document.addEventListener('click',e=>{const route=e.target.closest('[data-route]');if(route)openView(route.dataset.route);const row=e.target.closest('[data-row]');if(row)notify('Открыт рабочий сценарий: '+row.dataset.row)});
+    document.addEventListener('click',e=>{const route=e.target.closest('[data-route]');if(route){const id=route.dataset.route;const channelRequired=['content','growth','gifts','buttons','polls','automation','campaigns'];if(channelRequired.includes(id)&&currentChannel.startsWith('Все каналы')){document.getElementById('channel-sheet').showModal();notify('Сначала выберите канал');}else openView(id)}const row=e.target.closest('[data-row]');if(row)notify('Открыт рабочий сценарий: '+row.dataset.row)});
     document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>openView(b.dataset.nav)));
     document.getElementById('back').addEventListener('click',()=>openView('home'));
 
     document.querySelectorAll('[data-sheet]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.sheet+'-sheet').showModal()));
     document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>b.closest('dialog').close()));
-    document.querySelectorAll('dialog [data-choice]').forEach(b=>b.addEventListener('click',()=>{notify('Выбрано: '+b.dataset.choice);b.closest('dialog').close()}));
+    document.querySelectorAll('#workspace-sheet [data-choice]').forEach(b=>b.addEventListener('click',()=>{currentWorkspace=b.dataset.choice;document.getElementById('workspace-current').textContent=currentWorkspace;notify('Рабочая область: '+currentWorkspace);b.closest('dialog').close()}));
+    document.querySelectorAll('#channel-sheet [data-choice]').forEach(b=>b.addEventListener('click',()=>{currentChannel=b.dataset.choice;document.getElementById('channel-current').textContent=currentChannel;notify('Канал: '+currentChannel);b.closest('dialog').close()}));
 
     const eventStates={
       default:{icon:'＋',title:'Создать публикацию',copy:'Начните новое действие',cta:'Открыть',route:'content',tone:''},
