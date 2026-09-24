@@ -89,7 +89,7 @@
     nameInput.removeAttribute('aria-invalid');
     error.hidden=true;
     success.hidden=false;
-    success.scrollIntoView({behavior:'smooth',block:'nearest'});
+    success.scrollIntoView({behavior:'smooth',block:'nearest'});success.focus({preventScroll:true});
   };
   submit?.addEventListener('click',submitBooking);
   nameInput?.addEventListener('keydown',event=>{
