@@ -10,9 +10,19 @@ ErrorDocument 404 /404.html
   RewriteCond %{HTTP_HOST} ^www\.pramio\.ru$ [NC]
   RewriteRule ^(.*)$ https://pramio.ru/$1 [R=301,L]
 
-  # Timeweb passes HTTPS state in X-HTTPS.
+  # Force HTTPS using both the origin flag and Timeweb's proxy flag. Never let
+  # mod_dir's trailing-slash redirect be the first redirect on an HTTPS request.
+  RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-HTTPS} !1
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Canonical trailing slash for extensionless directory requests, explicitly
+  # preserving HTTPS instead of relying on mod_dir to construct the Location.
+  RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteCond %{REQUEST_URI} !\.[^/]+$
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+  RewriteRule ^(.+)$ https://%{HTTP_HOST}/$1/ [R=301,L]
 
   # Keep a single canonical URL for the home page.
   RewriteCond %{THE_REQUEST} \s/+index\.html(?:[?\s]) [NC]
