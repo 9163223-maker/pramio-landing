@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>AdminKIT Mobile Control Center — независимый прототип</title>
+  <style>
+    :root{
+      --ink:#142235;
+      --muted:#617286;
+      --faint:#7c8da0;
+      --line:rgba(79,111,146,.15);
+      --surface:rgba(250,252,255,.78);
+      --surface-solid:#f8fbfe;
+      --glass:rgba(242,248,253,.72);
+      --accent:#1570dc;
+      --accent-soft:#e8f2ff;
+      --cyan:#24a7bd;
+      --warm:#c87530;
+      --success:#2f7d5b;
+      --danger:#b64242;
+      --shadow:0 12px 34px rgba(45,75,108,.10),inset 0 1px 0 rgba(255,255,255,.92);
+      --safe-top:max(12px,env(safe-area-inset-top));
+      --safe-bottom:max(10px,env(safe-area-inset-bottom));
+    }
+    *{box-sizing:border-box}
+    html{font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#eaf2f8;color:var(--ink)}
+    body{margin:0;min-height:100vh;overflow:hidden;background:#eaf2f8}
+    button{font:inherit;color:inherit}
+    button:focus-visible{outline:3px solid rgba(21,112,220,.48);outline-offset:2px}
+    .environment{position:fixed;inset:0;overflow:hidden;background:
+      radial-gradient(110% 64% at 8% -4%,rgba(110,193,241,.23),transparent 55%),
+      radial-gradient(75% 55% at 96% 22%,rgba(121,217,218,.16),transparent 58%),
+      radial-gradient(80% 56% at 34% 104%,rgba(211,156,104,.10),transparent 62%),
+      linear-gradient(160deg,#f8fbfe 0%,#edf4f9 48%,#f6f9fc 100%)}
+    .environment::before,.environment::after{content:"";position:absolute;width:120%;height:160px;left:-10%;border:1px solid rgba(74,156,207,.10);border-radius:50%;transform:rotate(-7deg);filter:blur(.2px)}
+    .environment::before{top:17%;box-shadow:0 34px 0 rgba(76,171,211,.035),0 68px 0 rgba(76,171,211,.025)}
+    .environment::after{top:70%;transform:rotate(9deg);border-color:rgba(198,130,73,.075)}
+    .device{position:relative;width:100%;height:100dvh;max-width:430px;margin:0 auto;overflow:hidden;background:rgba(245,250,253,.36)}
+    .screen{height:100%;overflow:auto;overscroll-behavior:contain;padding:var(--safe-top) 14px calc(104px + var(--safe-bottom));scrollbar-width:none}
+    .screen::-webkit-scrollbar{display:none}
+    .topbar{min-height:46px;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .brand{font-family:Geologica,Manrope,-apple-system,sans-serif;font-size:22px;line-height:1.15;letter-spacing:-.035em;font-weight:720}
+    .brand i{font-style:normal;color:var(--accent)}
+    .workspace{margin-left:auto;min-height:44px;max-width:178px;padding:0 12px;border:1px solid rgba(255,255,255,.88);border-radius:15px;background:var(--glass);box-shadow:var(--shadow);backdrop-filter:blur(22px) saturate(1.18);-webkit-backdrop-filter:blur(22px) saturate(1.18);display:flex;align-items:center;gap:7px;text-align:left}
+    .workspace span{min-width:0}
+    .workspace small,.context small{display:block;font-size:11px;line-height:1.2;color:var(--muted)}
+    .workspace b{display:block;max-width:116px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;line-height:1.25}
+    .chev{margin-left:auto;color:var(--faint);font-weight:800}
+    .context{width:100%;min-height:52px;padding:7px 12px;border:1px solid rgba(255,255,255,.86);border-radius:18px;background:var(--surface);box-shadow:var(--shadow);display:grid;grid-template-columns:36px 1fr auto;gap:9px;align-items:center;text-align:left}
+    .context .context-icon,.tool-icon{display:grid;place-items:center;color:var(--accent);background:linear-gradient(145deg,rgba(221,238,255,.98),rgba(244,249,255,.72));box-shadow:inset 0 1px 0 #fff}
+    .context .context-icon{width:36px;height:36px;border-radius:12px}
+    .context b{display:block;font-size:15px;line-height:1.25}
+    .status{font-size:11px;font-weight:750;color:var(--success);padding:5px 7px;border-radius:999px;background:rgba(226,245,236,.86)}
+    .home{display:none;margin-top:10px}
+    body[data-concept="a"] .home-a,body[data-concept="b"] .home-b,body[data-concept="c"] .home-c{display:block}
+    .section-head{display:flex;align-items:end;margin:14px 2px 8px}
+    .section-head h2{font-family:Geologica,Manrope,sans-serif;margin:0;font-size:17px;line-height:1.25;letter-spacing:-.015em}
+    .section-head span{margin-left:auto;font-size:12px;color:var(--muted)}
+    .tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .tool{position:relative;min-width:0;min-height:82px;padding:11px;border:1px solid rgba(255,255,255,.9);border-radius:19px;background:var(--surface);box-shadow:var(--shadow);text-align:left;transition:transform .16s ease,background .16s ease}
+    .tool:active,.metric:active,.priority:active,.context:active,.workspace:active{transform:scale(.985)}
+    .tool-icon{width:34px;height:34px;border-radius:11px;margin-bottom:8px}
+    .tool svg,.context svg,.nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .tool b{display:block;font-size:15px;line-height:1.18;letter-spacing:-.01em;overflow-wrap:anywhere}
+    .tool small{display:block;margin-top:3px;color:var(--muted);font-size:12px;line-height:1.3}
+    .tool.wide{grid-column:span 2;min-height:70px;display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center}
+    .tool.wide .tool-icon{width:42px;height:42px;margin:0;border-radius:13px}
+    .tool.wide .tool-icon svg{width:24px;height:24px}
+    .tool.wide b{font-size:16px}
+    .tool.wide .go{color:var(--accent);font-size:21px}
+    .tool.warm .tool-icon{color:var(--warm);background:linear-gradient(145deg,#ffecd9,#fff8ef)}
+    .tool.cyan .tool-icon{color:#197f8d;background:linear-gradient(145deg,#dcf4f3,#f3fbfb)}
+    .tool.violet .tool-icon{color:#7453a9;background:linear-gradient(145deg,#eee8fa,#faf7ff)}
+    .metric{width:100%;min-height:72px;border:1px solid rgba(255,255,255,.9);border-radius:20px;background:var(--surface);box-shadow:var(--shadow);display:grid;grid-template-columns:1.15fr .85fr .85fr;padding:9px 8px;text-align:left}
+    .metric span{min-width:0;padding:4px 10px;display:flex;flex-direction:column;justify-content:center}
+    .metric span+span{border-left:1px solid var(--line)}
+    .metric small{font-size:11px;line-height:1.2;color:var(--muted);white-space:nowrap}
+    .metric b{display:block;font-size:22px;line-height:1.1;margin-top:2px;letter-spacing:-.035em}
+    .metric em{font-style:normal;font-size:12px;font-weight:720;margin-top:2px;color:var(--success)}
+    .metric .negative{color:#9b5b3b}
+    .launcher-meta{margin:10px 2px 0;color:var(--muted);font-size:12px;line-height:1.4}
+    .balanced-stack{display:grid;gap:9px}
+    .next-row{min-height:54px;width:100%;border:1px solid rgba(255,255,255,.9);border-radius:17px;background:rgba(250,252,255,.66);display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:9px;padding:8px 11px;text-align:left}
+    .next-row b{display:block;font-size:14px;line-height:1.25}
+    .next-row small{display:block;margin-top:2px;font-size:12px;line-height:1.25;color:var(--muted)}
+    .next-row .time{font-size:12px;color:var(--accent);font-weight:750}
+    .priority{min-height:64px;width:100%;border:1px solid rgba(255,255,255,.9);border-radius:18px;background:var(--surface);box-shadow:var(--shadow);display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;padding:10px 12px;text-align:left}
+    .priority .p-icon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-size:20px;font-weight:800}
+    .priority b{display:block;font-size:15px;line-height:1.25}
+    .priority small{display:block;margin-top:2px;color:var(--muted);font-size:12px;line-height:1.3}
+    .priority .cta{font-size:12px;font-weight:800;color:var(--accent)}
+    .priority[data-tone="danger"]{border-color:rgba(196,85,85,.22);background:rgba(255,247,247,.86)}
+    .priority[data-tone="danger"] .p-icon{color:var(--danger);background:#feeaea}
+    .priority[data-tone="warm"]{border-color:rgba(200,117,48,.2);background:rgba(255,250,243,.86)}
+    .priority[data-tone="warm"] .p-icon{color:var(--warm);background:#ffecd9}
+    .section-view{display:none;margin-top:12px}
+    body[data-view]:not([data-view="home"]) .home{display:none}
+    body[data-view]:not([data-view="home"]) .section-view{display:block}
+    .view-header{display:flex;align-items:center;gap:8px;margin:4px 0 12px}
+    .back{width:44px;height:44px;border:0;border-radius:14px;background:var(--glass);box-shadow:var(--shadow);color:var(--accent);font-size:23px}
+    .view-header h1{font-family:Geologica,Manrope,sans-serif;margin:0;font-size:23px;line-height:1.15;letter-spacing:-.025em}
+    .group{border:1px solid rgba(255,255,255,.88);border-radius:21px;background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
+    .row{width:100%;min-height:58px;border:0;border-top:1px solid var(--line);background:transparent;display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;padding:8px 12px;text-align:left}
+    .row:first-child{border-top:0}
+    .row .mini-icon{width:36px;height:36px;border-radius:11px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800}
+    .row b{display:block;font-size:15px;line-height:1.25}
+    .row small{display:block;font-size:12px;line-height:1.3;color:var(--muted);margin-top:2px}
+    .row .go{color:var(--faint)}
+    .nav{position:absolute;z-index:20;left:12px;right:12px;bottom:calc(var(--safe-bottom) + 8px);min-height:64px;padding:5px;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;border:1px solid rgba(255,255,255,.9);border-radius:24px;background:var(--glass);box-shadow:0 18px 44px rgba(40,68,98,.19),inset 0 1px 0 #fff;backdrop-filter:blur(28px) saturate(1.22);-webkit-backdrop-filter:blur(28px) saturate(1.22)}
+    .nav button{min-width:0;min-height:52px;border:0;border-radius:18px;background:transparent;color:#64768a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;line-height:1.05;font-weight:720}
+    .nav button svg{width:20px;height:20px}
+    .nav button.active{background:rgba(231,241,253,.92);color:var(--accent)}
+    .nav button.active svg{fill:currentColor;stroke-width:1.6}
+    .lab{position:fixed;z-index:60;top:max(8px,env(safe-area-inset-top));right:max(8px,env(safe-area-inset-right));font-size:12px}
+    .lab summary{list-style:none;min-height:38px;padding:0 11px;border:1px solid rgba(255,255,255,.9);border-radius:13px;background:rgba(244,249,253,.9);box-shadow:0 8px 24px rgba(42,71,102,.14);backdrop-filter:blur(20px);display:flex;align-items:center;font-weight:800;color:#38506a;cursor:pointer}
+    .lab summary::-webkit-details-marker{display:none}
+    .lab-panel{position:absolute;right:0;top:44px;width:230px;padding:10px;border:1px solid rgba(255,255,255,.9);border-radius:17px;background:rgba(245,250,253,.96);box-shadow:0 18px 50px rgba(42,71,102,.2)}
+    .lab-panel p{margin:0 0 8px;color:var(--muted);font-size:11px;line-height:1.35}
+    .lab-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+    .lab-buttons button,.event-select{min-height:38px;border:0;border-radius:11px;background:#e8eef4;font-size:12px;font-weight:800}
+    .lab-buttons button.on{background:var(--accent);color:#fff}
+    .event-select{width:100%;margin-top:7px;padding:0 8px;color:var(--ink)}
+    dialog{width:min(390px,calc(100% - 20px));border:0;border-radius:26px 26px 18px 18px;padding:12px;background:rgba(247,251,254,.97);box-shadow:0 24px 80px rgba(31,54,80,.28)}
+    dialog::backdrop{background:rgba(21,35,53,.22);backdrop-filter:blur(4px)}
+    dialog h2{font-family:Geologica,Manrope,sans-serif;margin:4px 4px 10px;font-size:20px}
+    .sheet-close{width:100%;min-height:48px;margin-top:9px;border:0;border-radius:15px;background:var(--accent);color:#fff;font-weight:800}
+    .toast{position:absolute;z-index:70;left:50%;bottom:calc(var(--safe-bottom) + 84px);transform:translate(-50%,18px);width:max-content;max-width:calc(100% - 28px);padding:10px 13px;border-radius:14px;background:rgba(20,34,53,.9);color:#fff;font-size:13px;line-height:1.35;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(min-width:700px){
+      body{overflow:auto;padding:28px}
+      .device{height:844px;border:1px solid rgba(255,255,255,.96);border-radius:42px;box-shadow:0 38px 110px rgba(38,67,98,.24);background:rgba(245,250,253,.46)}
+      .device::before{content:"";position:absolute;z-index:50;top:8px;left:50%;width:100px;height:24px;transform:translateX(-50%);border-radius:999px;background:rgba(18,29,42,.88)}
+      .screen{padding-top:45px}
+      .lab{top:18px;right:18px}
+    }
+    @media(max-width:365px){
+      .screen{padding-left:10px;padding-right:10px}
+      .nav{left:8px;right:8px}
+      .workspace{max-width:150px}
+      .tool{padding:10px}
+      .tool b{font-size:14px}
+      .metric span{padding:4px 7px}
+      .metric b{font-size:20px}
+    }
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body data-concept="b" data-view="home">
+  <div class="environment" aria-hidden="true"></div>
+  <details class="lab">
+    <summary>LAB · <span id="lab-current">B</span></summary>
+    <div class="lab-panel">
+      <p>Переключатель не относится к production UI. A/B/C меняют информационную архитектуру, а не цветовую тему.</p>
+      <div class="lab-buttons" aria-label="Концепция">
+        <button type="button" data-concept-button="a">A</button>
+        <button type="button" data-concept-button="b" class="on">B</button>
+        <button type="button" data-concept-button="c">C</button>
+      </div>
+      <select class="event-select" id="event-select" aria-label="Состояние адаптивного события">
+        <option value="default">C: обычный режим</option>
+        <option value="leads">C: 2 лида ждут</option>
+        <option value="failed">C: публикация не отправлена</option>
+        <option value="rights">C: канал потерял права</option>
+        <option value="next">C: публикация по расписанию</option>
+      </select>
+    </div>
+  </details>
+
+  <main class="device" aria-label="AdminKIT mobile prototype">
+    <div class="screen" id="screen">
+      <header class="topbar">
+        <div class="brand">AdminK<i>IT</i></div>
+        <button class="workspace" type="button" data-sheet="workspace" aria-haspopup="dialog">
+          <span><small>Рабочая область</small><b>Olga.style</b></span><span class="chev">⌄</span>
+        </button>
+      </header>
+
+      <button class="context" type="button" data-sheet="channel" aria-haspopup="dialog">
+        <span class="context-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M4 12h10"/><path d="m11 5 7 7-7 7"/></svg>
+        </span>
+        <span><small>Канал</small><b>Все каналы · 29</b></span>
+        <span class="status">ACTIVE</span>
+      </button>
+
+      <section class="home home-a" aria-label="Концепт A — функциональный launcher">
+        <div class="section-head"><h2>Быстрые действия</h2><span>8 инструментов</span></div>
+        <div class="tool-grid" data-tools="all"></div>
+        <p class="launcher-meta">Метрики и события не занимают постоянное место: они доступны в «Статистике» и появляются здесь только при проблеме.</p>
+      </section>
+
+      <section class="home home-b" aria-label="Концепт B — balanced dashboard">
+        <div class="balanced-stack">
+          <button class="metric" type="button" data-route="stats" aria-label="Открыть статистику аудитории">
+            <span><small>Аудитория</small><b>4 826</b></span>
+            <span><small>Подписались</small><em>+41</em></span>
+            <span><small>Ушли</small><em class="negative">−7</em></span>
+          </button>
+          <button class="tool wide" type="button" data-route="content">
+            <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></span>
+            <span><b>Создать публикацию</b><small>Новый пост или расписание</small></span><span class="go">›</span>
+          </button>
+          <div class="tool-grid" data-tools="balanced"></div>
+          <button class="next-row" type="button" data-route="content">
+            <span class="context-icon" aria-hidden="true">◷</span>
+            <span><b>Следующая публикация</b><small>«Осенняя капсула» · сегодня</small></span>
+            <span class="time">19:30</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="home home-c" aria-label="Концепт C — adaptive dashboard">
+        <button class="priority" id="priority" type="button" data-route="content">
+          <span class="p-icon" id="priority-icon" aria-hidden="true">＋</span>
+          <span><b id="priority-title">Создать публикацию</b><small id="priority-copy">Начните новое действие</small></span>
+          <span class="cta" id="priority-cta">Открыть</span>
+        </button>
+        <div class="section-head"><h2>Закреплённые</h2><span>можно настроить</span></div>
+        <div class="tool-grid" data-tools="pinned"></div>
+        <div class="section-head"><h2>Сегодня</h2></div>
+        <button class="metric" type="button" data-route="stats" aria-label="Открыть статистику аудитории">
+          <span><small>Аудитория</small><b>4 826</b></span>
+          <span><small>Баланс</small><em>+34</em></span>
+          <span><small>Клики</small><em>19</em></span>
+        </button>
+      </section>
+
+      <section class="section-view" aria-live="polite">
+        <header class="view-header"><button class="back" type="button" id="back" aria-label="Назад">‹</button><h1 id="view-title">Раздел</h1></header>
+        <div class="group" id="view-content"></div>
+      </section>
+    </div>
+
+    <nav class="nav" aria-label="Основная навигация">
+      <button type="button" class="active" data-nav="home"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg><span>Главная</span></button>
+      <button type="button" data-nav="content"><svg viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5Z"/><path d="M14 3v5h5"/><path d="M8 13h8M8 17h6"/></svg><span>Контент</span></button>
+      <button type="button" data-nav="leads"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c.5-4 2.5-6 6-6s5.5 2 6 6"/><path d="M16 8h5M18.5 5.5v5"/></svg><span>Лиды</span></button>
+      <button type="button" data-nav="stats"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Статистика</span></button>
+      <button type="button" data-nav="more"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg><span>Ещё</span></button>
+    </nav>
+    <div class="toast" id="toast" role="status"></div>
+  </main>
+
+  <dialog id="workspace-sheet">
+    <h2>Рабочая область</h2>
+    <div class="group">
+      <button class="row" type="button" data-choice="Olga.style"><span class="mini-icon">OS</span><span><b>Olga.style</b><small>Текущая рабочая область</small></span><span class="go">✓</span></button>
+      <button class="row" type="button" data-choice="PRAMIO"><span class="mini-icon">PR</span><span><b>PRAMIO</b><small>Переключить контекст</small></span><span class="go">›</span></button>
+    </div>
+    <button class="sheet-close" type="button" data-close>Закрыть</button>
+  </dialog>
+  <dialog id="channel-sheet">
+    <h2>Канал</h2>
+    <div class="group">
+      <button class="row" type="button" data-choice="Все каналы · 29"><span class="mini-icon">29</span><span><b>Все каналы</b><small>Сводный контекст</small></span><span class="go">✓</span></button>
+      <button class="row" type="button" data-choice="Olga.style"><span class="mini-icon">OS</span><span><b>Olga.style</b><small>ACTIVE</small></span><span class="go">›</span></button>
+      <button class="row" type="button" data-choice="PRAMIO"><span class="mini-icon">PR</span><span><b>PRAMIO</b><small>ACTIVE</small></span><span class="go">›</span></button>
+    </div>
+    <button class="sheet-close" type="button" data-close>Закрыть</button>
+  </dialog>
+
+  <script>
+    const icons={
+      post:'<svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg>',
+      link:'<svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.1.1l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1-.1l-2 2A5 5 0 0 0 12 20l1.1-1.1"/></svg>',
+      gift:'<svg viewBox="0 0 24 24"><path d="M4 9h16v12H4Z"/><path d="M2 5h20v4H2ZM12 5v16"/><path d="M12 5c-2-4-7-3-6 0 1 2 6 0 6 0Zm0 0c2-4 7-3 6 0-1 2-6 0-6 0Z"/></svg>',
+      button:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="11" rx="3"/><path d="m13 13 2 8 2-4 4-2Z"/></svg>',
+      poll:'<svg viewBox="0 0 24 24"><path d="M5 4h14v16H5Z"/><path d="M8 8h1M8 12h1M8 16h1M12 8h4M12 12h4M12 16h4"/></svg>',
+      auto:'<svg viewBox="0 0 24 24"><path d="m13 2-8 12h7l-1 8 8-12h-7Z"/></svg>',
+      campaign:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="m16 8 5-5M17 3h4v4"/></svg>',
+      channels:'<svg viewBox="0 0 24 24"><path d="M4 5h16v10H8l-4 4Z"/><path d="M8 9h8M8 12h5"/></svg>'
+    };
+    const tools=[
+      {id:'content',label:'Публикация',sub:'Создать или запланировать',icon:'post'},
+      {id:'growth',label:'Рекламная ссылка',sub:'Кампания и tracking',icon:'link',tone:'warm'},
+      {id:'gifts',label:'Лид-магнит',sub:'Выдать материал',icon:'gift',tone:'violet'},
+      {id:'buttons',label:'Кнопка',sub:'Действие под постом',icon:'button'},
+      {id:'polls',label:'Опрос',sub:'Вопрос аудитории',icon:'poll',tone:'cyan'},
+      {id:'automation',label:'Автоматизация',sub:'Сценарий по событию',icon:'auto',tone:'violet'},
+      {id:'campaigns',label:'Кампании',sub:'Продвижение и клики',icon:'campaign',tone:'warm'},
+      {id:'channels',label:'Каналы',sub:'29 активных',icon:'channels'}
+    ];
+    const viewNames={content:'Контент',growth:'Рекламные ссылки',gifts:'Лид-магниты',buttons:'Кнопки',polls:'Опросы',automation:'Автоматизации',campaigns:'Кампании',channels:'Каналы',leads:'Лиды',stats:'Статистика',more:'Все функции'};
+    const renderTools=(selector,ids)=>{
+      document.querySelector(selector).innerHTML=ids.map(id=>{
+        const t=tools.find(x=>x.id===id);
+        return `<button class="tool ${t.tone||''}" type="button" data-route="${t.id}"><span class="tool-icon" aria-hidden="true">${icons[t.icon]}</span><b>${t.label}</b><small>${t.sub}</small></button>`;
+      }).join('');
+    };
+    renderTools('[data-tools="all"]',tools.map(x=>x.id));
+    renderTools('[data-tools="balanced"]',['growth','gifts','buttons','polls']);
+    renderTools('[data-tools="pinned"]',['content','growth','gifts','automation']);
+
+    const body=document.body;
+    const screen=document.getElementById('screen');
+    const toast=document.getElementById('toast');
+    let toastTimer;
+    function notify(text){clearTimeout(toastTimer);toast.textContent=text;toast.classList.add('show');toastTimer=setTimeout(()=>toast.classList.remove('show'),1500)}
+    function setConcept(id){body.dataset.concept=id;body.dataset.view='home';document.getElementById('lab-current').textContent=id.toUpperCase();document.querySelectorAll('[data-concept-button]').forEach(b=>b.classList.toggle('on',b.dataset.conceptButton===id));setNav('home');screen.scrollTo({top:0,behavior:'smooth'})}
+    document.querySelectorAll('[data-concept-button]').forEach(b=>b.addEventListener('click',()=>setConcept(b.dataset.conceptButton)));
+
+    function setNav(id){document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===id || (id==='more'&&b.dataset.nav==='more')))}
+    function openView(id){
+      if(id==='home'){body.dataset.view='home';setNav('home');screen.scrollTo({top:0,behavior:'smooth'});return}
+      body.dataset.view=id;document.getElementById('view-title').textContent=viewNames[id]||'Раздел';
+      const rows=id==='more'?tools:tools.filter(x=>x.id===id);
+      const extra=id==='leads'?[{label:'2 лида ждут ответа',sub:'Новые обращения',id:'leads'}]:id==='stats'?[{label:'Аудитория: 4 826',sub:'+34 за сегодня',id:'stats'}]:[];
+      document.getElementById('view-content').innerHTML=[...extra,...rows].map((t,i)=>`<button class="row" type="button" data-row="${t.id||id}"><span class="mini-icon">${i+1}</span><span><b>${t.label}</b><small>${t.sub||'Открыть рабочий раздел'}</small></span><span class="go">›</span></button>`).join('') || '<div class="row"><span class="mini-icon">✓</span><span><b>Раздел готов</b><small>Здесь будет рабочий сценарий без dashboard-декора.</small></span></div>';
+      setNav(['content','leads','stats'].includes(id)?id:'more');screen.scrollTo({top:0,behavior:'smooth'});
+    }
+    document.addEventListener('click',e=>{const route=e.target.closest('[data-route]');if(route)openView(route.dataset.route);const row=e.target.closest('[data-row]');if(row)notify('Открыт рабочий сценарий: '+row.dataset.row)});
+    document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>openView(b.dataset.nav)));
+    document.getElementById('back').addEventListener('click',()=>openView('home'));
+
+    document.querySelectorAll('[data-sheet]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.sheet+'-sheet').showModal()));
+    document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>b.closest('dialog').close()));
+    document.querySelectorAll('dialog [data-choice]').forEach(b=>b.addEventListener('click',()=>{notify('Выбрано: '+b.dataset.choice);b.closest('dialog').close()}));
+
+    const eventStates={
+      default:{icon:'＋',title:'Создать публикацию',copy:'Начните новое действие',cta:'Открыть',route:'content',tone:''},
+      leads:{icon:'2',title:'Лиды ждут ответа',copy:'Два новых обращения',cta:'Ответить',route:'leads',tone:'warm'},
+      failed:{icon:'!',title:'Публикация не отправлена',copy:'Нужна повторная отправка',cta:'Исправить',route:'content',tone:'danger'},
+      rights:{icon:'!',title:'Канал потерял права',copy:'Olga.style требует внимания',cta:'Проверить',route:'channels',tone:'danger'},
+      next:{icon:'◷',title:'Публикация по расписанию',copy:'Сегодня в 19:30',cta:'Открыть',route:'content',tone:''}
+    };
+    document.getElementById('event-select').addEventListener('change',e=>{
+      const s=eventStates[e.target.value],p=document.getElementById('priority');
+      document.getElementById('priority-icon').textContent=s.icon;document.getElementById('priority-title').textContent=s.title;document.getElementById('priority-copy').textContent=s.copy;document.getElementById('priority-cta').textContent=s.cta;p.dataset.route=s.route;p.dataset.tone=s.tone;setConcept('c');
+    });
+  </script>
+</body>
+</html>
