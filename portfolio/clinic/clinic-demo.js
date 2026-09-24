@@ -1,1 +1,107 @@
-(()=>{const nav=document.querySelector('#clinic-nav'),menu=document.querySelector('.menu'),modal=document.querySelector('#booking'),serviceSelect=document.querySelector('#booking-service'),nameInput=document.querySelector('#booking-name'),error=document.querySelector('#booking-error'),submit=document.querySelector('.submit-demo'),success=document.querySelector('.success');let returnFocus=null;const focusables=()=>[...modal.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])')].filter(x=>!x.hidden&&x.getAttribute('aria-hidden')!=='true');const closeBooking=()=>{if(!modal||modal.hidden)return;modal.hidden=true;document.body.style.overflow='';returnFocus?.focus();returnFocus=null};menu?.addEventListener('click',()=>{const open=nav.classList.toggle('is-open');menu.setAttribute('aria-expanded',String(open))});nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('is-open');menu?.setAttribute('aria-expanded','false')}));document.querySelectorAll('[data-open-booking]').forEach(b=>b.addEventListener('click',()=>{returnFocus=b;modal.hidden=false;document.body.style.overflow='hidden';success.hidden=true;error.hidden=true;requestAnimationFrame(()=>modal.querySelector('.modal-close')?.focus())}));document.querySelectorAll('[data-close-booking]').forEach(b=>b.addEventListener('click',closeBooking));document.addEventListener('keydown',e=>{if(modal.hidden)return;if(e.key==='Escape'){e.preventDefault();closeBooking();return}if(e.key!=='Tab')return;const f=focusables();if(!f.length)return;const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}});document.querySelectorAll('.service').forEach(b=>b.addEventListener('click',()=>{const box=document.querySelector('#service-detail');document.querySelector('#service-title').textContent=b.dataset.service;if(serviceSelect)serviceSelect.value=b.dataset.service;box.hidden=false;box.scrollIntoView({behavior:'smooth',block:'nearest'})}));document.querySelector('.close-detail')?.addEventListener('click',()=>document.querySelector('#service-detail').hidden=true);submit?.addEventListener('click',()=>{if(!nameInput.value.trim()){error.hidden=false;nameInput.setAttribute('aria-invalid','true');nameInput.focus();return}nameInput.removeAttribute('aria-invalid');error.hidden=true;success.hidden=false;success.scrollIntoView({behavior:'smooth',block:'nearest'})});nameInput?.addEventListener('input',()=>{if(nameInput.value.trim()){nameInput.removeAttribute('aria-invalid');error.hidden=true}})})();
+(()=>{
+  const nav=document.querySelector('#clinic-nav');
+  const menu=document.querySelector('.menu');
+  const modal=document.querySelector('#booking');
+  const serviceSelect=document.querySelector('#booking-service');
+  const nameInput=document.querySelector('#booking-name');
+  const error=document.querySelector('#booking-error');
+  const submit=document.querySelector('.submit-demo');
+  const success=document.querySelector('.success');
+  let returnFocus=null;
+
+  const focusables=()=>[...modal.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])')].filter(x=>!x.hidden&&x.getAttribute('aria-hidden')!=='true');
+  const closeMenu=()=>{
+    nav?.classList.remove('is-open');
+    menu?.setAttribute('aria-expanded','false');
+  };
+  const closeBooking=()=>{
+    if(!modal||modal.hidden)return;
+    modal.hidden=true;
+    document.body.style.overflow='';
+    returnFocus?.focus();
+    returnFocus=null;
+  };
+
+  menu?.addEventListener('click',()=>{
+    const open=nav.classList.toggle('is-open');
+    menu.setAttribute('aria-expanded',String(open));
+  });
+  nav?.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
+  document.addEventListener('click',event=>{
+    if(nav?.classList.contains('is-open')&&!nav.contains(event.target)&&!menu?.contains(event.target))closeMenu();
+  });
+  window.matchMedia('(min-width: 761px)').addEventListener('change',event=>{
+    if(event.matches)closeMenu();
+  });
+
+  document.querySelectorAll('[data-open-booking]').forEach(button=>button.addEventListener('click',()=>{
+    returnFocus=button;
+    modal.hidden=false;
+    document.body.style.overflow='hidden';
+    success.hidden=true;
+    error.hidden=true;
+    requestAnimationFrame(()=>modal.querySelector('.modal-close')?.focus());
+  }));
+  document.querySelectorAll('[data-close-booking]').forEach(button=>button.addEventListener('click',closeBooking));
+
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&nav?.classList.contains('is-open')){
+      event.preventDefault();
+      closeMenu();
+      menu?.focus();
+      return;
+    }
+    if(modal.hidden)return;
+    if(event.key==='Escape'){
+      event.preventDefault();
+      closeBooking();
+      return;
+    }
+    if(event.key!=='Tab')return;
+    const items=focusables();
+    if(!items.length)return;
+    const first=items[0],last=items[items.length-1];
+    if(event.shiftKey&&document.activeElement===first){
+      event.preventDefault();
+      last.focus();
+    }else if(!event.shiftKey&&document.activeElement===last){
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  document.querySelectorAll('.service').forEach(button=>button.addEventListener('click',()=>{
+    const box=document.querySelector('#service-detail');
+    document.querySelector('#service-title').textContent=button.dataset.service;
+    if(serviceSelect)serviceSelect.value=button.dataset.service;
+    box.hidden=false;
+    box.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }));
+  document.querySelector('.close-detail')?.addEventListener('click',()=>document.querySelector('#service-detail').hidden=true);
+
+  const submitBooking=()=>{
+    if(!nameInput.value.trim()){
+      error.hidden=false;
+      nameInput.setAttribute('aria-invalid','true');
+      nameInput.focus();
+      return;
+    }
+    nameInput.removeAttribute('aria-invalid');
+    error.hidden=true;
+    success.hidden=false;
+    success.scrollIntoView({behavior:'smooth',block:'nearest'});
+  };
+  submit?.addEventListener('click',submitBooking);
+  nameInput?.addEventListener('keydown',event=>{
+    if(event.key==='Enter'){
+      event.preventDefault();
+      submitBooking();
+    }
+  });
+  nameInput?.addEventListener('input',()=>{
+    if(nameInput.value.trim()){
+      nameInput.removeAttribute('aria-invalid');
+      error.hidden=true;
+    }
+  });
+})();
