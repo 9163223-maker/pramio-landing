@@ -2530,3 +2530,7 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
 @media(max-width:780px){.home-work-sample{grid-template-columns:1fr;align-items:start;gap:18px;width:calc(100% - 28px);margin-top:34px;padding:20px;border-radius:22px}.home-work-sample h2{font-size:21px!important}.home-work-sample p:not(.eyebrow){font-size:16px!important;line-height:1.55!important}.home-work-sample .proof-link{min-width:0;padding-top:2px}}
 
 /* v81 generic demo-workbench retired: no production HTML consumer remains. */
+
+
+/* v83 canonical environment: retired ambient owners stay inert; Signal Rivers is the only live scene. */
+.ambient,.ambient-a,.ambient-b{display:none!important;animation:none!important;}
