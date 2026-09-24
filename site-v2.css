@@ -2181,17 +2181,6 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
 }
 
 
-/* v64 ambient scene — fine, crisp, slowly moving; blue field with restrained copper warmth */
-:root{--pramio-warm:#f28a32;}
-@keyframes pramioAmbientDrift{0%{background-position:0% 0%,100% 100%,50% 50%,0 0}50%{background-position:7% 4%,94% 94%,54% 47%,0 0}100%{background-position:0% 0%,100% 100%,50% 50%,0 0}}
-@keyframes pramioAmbientLine{0%,100%{opacity:.42;transform:translate3d(-2%,0,0) rotate(-8deg)}50%{opacity:.62;transform:translate3d(3%,1.5%,0) rotate(-7deg)}}
-.ambient-a{display:block!important;position:fixed!important;inset:0!important;width:100%!important;height:100svh!important;max-width:none!important;max-height:none!important;z-index:-2!important;border-radius:0!important;pointer-events:none!important;opacity:1!important;filter:none!important;transform:none!important;background-image:radial-gradient(ellipse 56% 42% at 4% 13%,rgba(65,132,247,.145) 0%,rgba(65,132,247,.052) 47%,transparent 73%),radial-gradient(ellipse 44% 36% at 97% 78%,rgba(44,176,221,.085) 0%,rgba(44,176,221,.026) 48%,transparent 75%),radial-gradient(ellipse 25% 20% at 78% 22%,rgba(242,138,50,.070) 0%,rgba(242,138,50,.022) 44%,transparent 72%),linear-gradient(160deg,#fcfdff 0%,#f3f7ff 50%,#fffaf7 100%)!important;background-size:112% 112%,114% 114%,120% 120%,100% 100%!important;animation:pramioAmbientDrift 24s ease-in-out infinite!important;will-change:background-position!important;contain:strict!important;}
-.ambient-b{display:block!important;position:fixed!important;z-index:-1!important;left:-10vw!important;top:26vh!important;width:120vw!important;height:1px!important;max-width:none!important;border-radius:0!important;background:linear-gradient(90deg,transparent 0%,rgba(44,112,224,.08) 23%,rgba(242,138,50,.16) 52%,rgba(44,112,224,.06) 77%,transparent 100%)!important;box-shadow:0 0 18px rgba(242,138,50,.035)!important;filter:none!important;pointer-events:none!important;transform-origin:center!important;animation:pramioAmbientLine 19s ease-in-out infinite!important;will-change:transform,opacity!important;}
-.eyebrow>span{background:var(--pramio-warm)!important;box-shadow:0 0 0 4px rgba(242,138,50,.09)!important;}
-@media(max-width:780px){.ambient-a{height:100svh!important;min-height:100svh!important;animation-duration:28s!important;}.ambient-b{display:block!important;top:31vh!important;animation-duration:22s!important;}}
-@media(prefers-reduced-motion:reduce){.ambient-a,.ambient-b{animation:none!important;will-change:auto!important;}}
-
-
 /* v65 Signal Rivers — approved distributed ambient field */
 @keyframes pramioSignalRiverA{0%{transform:translate3d(-2.5vw,-1vh,0) rotate(-1deg)}50%{transform:translate3d(2.5vw,1.2vh,0) rotate(.8deg)}100%{transform:translate3d(-2.5vw,-1vh,0) rotate(-1deg)}}
 @keyframes pramioSignalRiverB{0%{transform:translate3d(2vw,1vh,0) rotate(.7deg)}50%{transform:translate3d(-2vw,-1.4vh,0) rotate(-.7deg)}100%{transform:translate3d(2vw,1vh,0) rotate(.7deg)}}
