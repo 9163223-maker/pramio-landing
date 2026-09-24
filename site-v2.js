@@ -82,16 +82,7 @@ const PRAMIO_SITE_URL = (path='') => PRAMIO_SITE_BASE + String(path).replace(/^\
     button.textContent = link.textContent;
     link.replaceWith(button);
   });
-  if (!document.querySelector('.pramio-contact-fab')) {
-    const fab = document.createElement('button');
-    fab.type = 'button';
-    fab.className = 'pramio-contact-fab contact-trigger';
-    fab.setAttribute('aria-haspopup','dialog');
-    fab.setAttribute('aria-controls','contact-panel');
-    fab.setAttribute('aria-label','Связаться с PRAMIO — открыть форму');
-    fab.textContent = 'Задать вопрос';
-    document.body.append(fab);
-  }
+
 })();
 
 (() => {
