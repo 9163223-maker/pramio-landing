@@ -124,7 +124,7 @@
     .lab-buttons button,.event-select{min-height:44px;border:0;border-radius:11px;background:#e8eef4;font-size:12px;font-weight:800}
     .lab-buttons button.on{background:var(--accent);color:#fff}
     .event-select{width:100%;margin-top:7px;padding:0 8px;color:var(--ink)}
-    dialog{width:min(390px,calc(100% - 20px));border:0;border-radius:26px 26px 18px 18px;padding:12px;background:rgba(247,251,254,.97);box-shadow:0 24px 80px rgba(31,54,80,.28)}
+    dialog{position:fixed;inset:auto 10px calc(var(--safe-bottom) + 8px);margin:0 auto;width:min(390px,calc(100% - 20px));max-height:min(72dvh,620px);overflow:auto;border:0;border-radius:26px 26px 18px 18px;padding:12px;background:rgba(247,251,254,.97);box-shadow:0 24px 80px rgba(31,54,80,.28)}
     dialog::backdrop{background:rgba(21,35,53,.22);backdrop-filter:blur(4px)}
     dialog h2{font-family:Geologica,Manrope,sans-serif;margin:4px 4px 10px;font-size:20px}
     .sheet-close{width:100%;min-height:48px;margin-top:9px;border:0;border-radius:15px;background:var(--accent);color:#fff;font-weight:800}
@@ -307,10 +307,10 @@
     const toast=document.getElementById('toast');
     let toastTimer;
     function notify(text){clearTimeout(toastTimer);toast.textContent=text;toast.classList.add('show');toastTimer=setTimeout(()=>toast.classList.remove('show'),1500)}
-    function setConcept(id){body.dataset.concept=id;body.dataset.view='home';document.getElementById('lab-current').textContent=id.toUpperCase();document.querySelectorAll('[data-concept-button]').forEach(b=>b.classList.toggle('on',b.dataset.conceptButton===id));setNav('home');screen.scrollTo({top:0,behavior:'smooth'})}
+    function setConcept(id){body.dataset.concept=id;body.dataset.view='home';document.getElementById('lab-current').textContent=id.toUpperCase();document.querySelectorAll('[data-concept-button]').forEach(b=>b.classList.toggle('on',b.dataset.conceptButton===id));setNav('home');screen.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
     document.querySelectorAll('[data-concept-button]').forEach(b=>b.addEventListener('click',()=>setConcept(b.dataset.conceptButton)));
 
-    function setNav(id){document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===id || (id==='more'&&b.dataset.nav==='more')))}
+    function setNav(id){document.querySelectorAll('[data-nav]').forEach(b=>{const active=b.dataset.nav===id || (id==='more'&&b.dataset.nav==='more');b.classList.toggle('active',active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})}
     function rowHtml(rows){return '<div class="group">'+rows.map((t,i)=>`<button class="row" type="button" data-route="${t.id}"><span class="mini-icon">${i+1}</span><span><b>${t.label}</b><small>${t.sub||'Открыть рабочий раздел'}</small></span><span class="go">›</span></button>`).join('')+'</div>'}
     function openView(id){
       if(id==='home'){body.dataset.view='home';setNav('home');screen.scrollTo({top:0,behavior:'smooth'});return}
