@@ -69,9 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['form_token'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['ok' => false, 'error' => 'method_not_allowed']);
-    exit;
+    header('Allow: GET, POST');
+    pramio_respond(405, ['ok' => false, 'error' => 'method_not_allowed']);
 }
 
 $cfg = [
