@@ -63,6 +63,7 @@ function pramio_rate_limit($clientKey, $limit = 5, $windowSeconds = 3600) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['form_token'])) {
+    header('Content-Type: application/json; charset=utf-8');
     echo json_encode(['ok' => true, 'token' => pramio_new_form_token()]);
     exit;
 }
@@ -279,7 +280,8 @@ if ($origin !== '') {
 $sessionToken = (string)($_SESSION['pramio_form_token'] ?? '');
 $tokenIssuedAt = (int)($_SESSION['pramio_form_token_issued_at'] ?? 0);
 $tokenOk = $formToken !== '' && $sessionToken !== '' && hash_equals($sessionToken, $formToken) && $tokenIssuedAt > (time() - 3600);
-$nativeFallback = !$wantsJson && $formToken === '' && $startedAt === 0 && $sourceOk && ($origin !== '' || $referer !== '');
+$fetchSite = strtolower(trim((string)($_SERVER['HTTP_SEC_FETCH_SITE'] ?? '')));
+$nativeFallback = !$wantsJson && $formToken === '' && $startedAt === 0 && $sourceOk && ($origin !== '' || $referer !== '' || $fetchSite === 'same-origin');
 if (!$sourceOk || (!$tokenOk && !$nativeFallback)) {
     pramio_respond(403, ['ok' => false, 'error' => 'request_rejected']);
 }
