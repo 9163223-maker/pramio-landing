@@ -263,8 +263,7 @@ $formToken = trim((string)($_POST['form_token'] ?? ''));
 // A filled hidden field is treated as an automated submission. Return a neutral
 // success response so the form does not reveal the anti-spam rule.
 if ($website !== '') {
-    echo json_encode(['ok' => true]);
-    exit;
+    pramio_respond(200, ['ok' => true]);
 }
 
 $host = strtolower(preg_replace('/:\d+$/', '', (string)($_SERVER['HTTP_HOST'] ?? '')));
@@ -287,9 +286,7 @@ if (!$sourceOk || (!$tokenOk && !$nativeFallback)) {
 
 $nowMs = (int)round(microtime(true) * 1000);
 if ($startedAt > 0 && ($nowMs - $startedAt) < 1500) {
-    http_response_code(429);
-    echo json_encode(['ok' => false, 'error' => 'too_fast']);
-    exit;
+    pramio_respond(429, ['ok' => false, 'error' => 'too_fast']);
 }
 
 if (!$nativeFallback && ($startedAt <= 0 || ($nowMs - $startedAt) > 7200000)) {
@@ -298,16 +295,12 @@ if (!$nativeFallback && ($startedAt <= 0 || ($nowMs - $startedAt) > 7200000)) {
 
 $lastSubmitAt = (int)($_SESSION['pramio_last_submit_at'] ?? 0);
 if ($lastSubmitAt > 0 && (time() - $lastSubmitAt) < 45) {
-    http_response_code(429);
-    echo json_encode(['ok' => false, 'error' => 'rate_limited']);
-    exit;
+    pramio_respond(429, ['ok' => false, 'error' => 'rate_limited']);
 }
 
 $clientAddress = (string)($_SERVER['REMOTE_ADDR'] ?? 'unknown');
 if (!pramio_rate_limit($clientAddress)) {
-    http_response_code(429);
-    echo json_encode(['ok' => false, 'error' => 'rate_limited']);
-    exit;
+    pramio_respond(429, ['ok' => false, 'error' => 'rate_limited']);
 }
 
 $allowedServices = [
@@ -321,9 +314,7 @@ $allowedServices = [
 ];
 
 if (!in_array($service, $allowedServices, true) || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || $consent !== '1') {
-    http_response_code(422);
-    echo json_encode(['ok' => false, 'error' => 'validation_failed']);
-    exit;
+    pramio_respond(422, ['ok' => false, 'error' => 'validation_failed']);
 }
 
 $service = pramio_cut($service, 120);
@@ -361,9 +352,7 @@ if (!empty($cfg['tg_key']) && !empty($cfg['tg_chat'])) {
 }
 
 if (!$mailOk && !$tgOk) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'delivery_failed']);
-    exit;
+    pramio_respond(500, ['ok' => false, 'error' => 'delivery_failed']);
 }
 
 $_SESSION['pramio_last_submit_at'] = time();
