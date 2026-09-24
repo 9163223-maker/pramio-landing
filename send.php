@@ -7,9 +7,24 @@ session_start([
     'use_strict_mode' => true,
 ]);
 
-header('Content-Type: application/json; charset=utf-8');
+$wantsJson = strpos((string)($_SERVER['HTTP_ACCEPT'] ?? ''), 'application/json') !== false || strtolower((string)($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '')) === 'xmlhttprequest';
+header('Content-Type: ' . ($wantsJson ? 'application/json' : 'text/html') . '; charset=utf-8');
 header('Cache-Control: no-store, max-age=0');
 header('X-Content-Type-Options: nosniff');
+
+function pramio_respond($status, $payload) {
+    global $wantsJson;
+    http_response_code($status);
+    if ($wantsJson) {
+        echo json_encode($payload, JSON_UNESCAPED_UNICODE);
+    } else {
+        $ok = !empty($payload['ok']);
+        $title = $ok ? 'Заявка отправлена' : 'Не удалось отправить заявку';
+        $message = $ok ? 'Спасибо! Мы получили сообщение и ответим на указанный e-mail.' : 'Проверьте поля формы или напишите нам на hello@pramio.ru.';
+        echo '<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8').' — PRAMIO</title></head><body><main><h1>'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8').'</h1><p>'.htmlspecialchars($message, ENT_QUOTES, 'UTF-8').'</p><p><a href="/">Вернуться на PRAMIO</a></p></main></body></html>';
+    }
+    exit;
+}
 
 function pramio_new_form_token() {
     $token = bin2hex(random_bytes(24));
@@ -265,10 +280,9 @@ if ($origin !== '') {
 $sessionToken = (string)($_SESSION['pramio_form_token'] ?? '');
 $tokenIssuedAt = (int)($_SESSION['pramio_form_token_issued_at'] ?? 0);
 $tokenOk = $formToken !== '' && $sessionToken !== '' && hash_equals($sessionToken, $formToken) && $tokenIssuedAt > (time() - 3600);
-if (!$sourceOk || !$tokenOk) {
-    http_response_code(403);
-    echo json_encode(['ok' => false, 'error' => 'request_rejected']);
-    exit;
+$nativeFallback = !$wantsJson && $formToken === '' && $startedAt === 0 && $sourceOk && ($origin !== '' || $referer !== '');
+if (!$sourceOk || (!$tokenOk && !$nativeFallback)) {
+    pramio_respond(403, ['ok' => false, 'error' => 'request_rejected']);
 }
 
 $nowMs = (int)round(microtime(true) * 1000);
@@ -278,10 +292,8 @@ if ($startedAt > 0 && ($nowMs - $startedAt) < 1500) {
     exit;
 }
 
-if ($startedAt <= 0 || ($nowMs - $startedAt) > 7200000) {
-    http_response_code(422);
-    echo json_encode(['ok' => false, 'error' => 'form_expired']);
-    exit;
+if (!$nativeFallback && ($startedAt <= 0 || ($nowMs - $startedAt) > 7200000)) {
+    pramio_respond(422, ['ok' => false, 'error' => 'form_expired']);
 }
 
 $lastSubmitAt = (int)($_SESSION['pramio_last_submit_at'] ?? 0);
@@ -355,4 +367,4 @@ if (!$mailOk && !$tgOk) {
 }
 
 $_SESSION['pramio_last_submit_at'] = time();
-echo json_encode(['ok' => true, 'token' => pramio_new_form_token()]);
+pramio_respond(200, ['ok' => true, 'token' => pramio_new_form_token()]);
