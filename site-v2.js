@@ -434,20 +434,6 @@ const PRAMIO_SITE_URL = (path='') => PRAMIO_SITE_BASE + String(path).replace(/^\
 })();
 
 
-/* Keep the floating contact CTA clear of conversion/navigation zones — 2026-09-21 */
-(() => {
-  if (!('IntersectionObserver' in window)) return;
-  const zones = [...document.querySelectorAll('.final-cta,.contact-panel,.site-footer')];
-  if (!zones.length) return;
-  const visible = new Set();
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => entry.isIntersecting ? visible.add(entry.target) : visible.delete(entry.target));
-    document.body.classList.toggle('fab-safe-zone', visible.size > 0);
-  }, { rootMargin:'0px 0px 72px 0px', threshold:.02 });
-  zones.forEach((zone) => observer.observe(zone));
-})();
-
-
 /* mobile-surface-v55: one owner for viewport backdrop and expanded navigation */
 (() => {
   if (!document.querySelector('.site-backdrop')) {
