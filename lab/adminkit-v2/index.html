@@ -45,7 +45,7 @@
     .brand i{font-style:normal;color:var(--accent)}
     .workspace{margin-left:auto;min-height:44px;max-width:178px;padding:0 12px;border:1px solid rgba(255,255,255,.88);border-radius:15px;background:var(--glass);box-shadow:var(--shadow);backdrop-filter:blur(22px) saturate(1.18);-webkit-backdrop-filter:blur(22px) saturate(1.18);display:flex;align-items:center;gap:7px;text-align:left}
     .workspace span{min-width:0}
-    .workspace small,.context small{display:block;font-size:11px;line-height:1.2;color:var(--muted)}
+    .workspace small,.context small{display:block;font-size:13px;line-height:1.2;color:var(--muted)}
     .workspace b{display:block;max-width:116px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;line-height:1.25}
     .chev{margin-left:auto;color:var(--faint);font-weight:800}
     .context{width:100%;min-height:52px;padding:7px 12px;border:1px solid rgba(255,255,255,.86);border-radius:18px;background:var(--surface);box-shadow:var(--shadow);display:grid;grid-template-columns:36px 1fr auto;gap:9px;align-items:center;text-align:left}
@@ -57,14 +57,14 @@
     body[data-concept="a"] .home-a,body[data-concept="b"] .home-b,body[data-concept="c"] .home-c{display:block}
     .section-head{display:flex;align-items:end;margin:14px 2px 8px}
     .section-head h2{font-family:Geologica,Manrope,sans-serif;margin:0;font-size:17px;line-height:1.25;letter-spacing:-.015em}
-    .section-head span{margin-left:auto;font-size:12px;color:var(--muted)}
+    .section-head span{margin-left:auto;font-size:13px;color:var(--muted)}
     .tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
     .tool{position:relative;min-width:0;min-height:82px;padding:11px;border:1px solid rgba(255,255,255,.9);border-radius:19px;background:var(--surface);box-shadow:var(--shadow);text-align:left;transition:transform .16s ease,background .16s ease}
     .tool:active,.metric:active,.priority:active,.context:active,.workspace:active{transform:scale(.985)}
     .tool-icon{width:34px;height:34px;border-radius:11px;margin-bottom:8px}
     .tool svg,.context svg,.nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
     .tool b{display:block;font-size:15px;line-height:1.18;letter-spacing:-.01em;overflow-wrap:anywhere}
-    .tool small{display:block;margin-top:3px;color:var(--muted);font-size:12px;line-height:1.3}
+    .tool small{display:block;margin-top:3px;color:var(--muted);font-size:13px;line-height:1.3}
     .tool.wide{grid-column:span 2;min-height:70px;display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center}
     .tool.wide .tool-icon{width:42px;height:42px;margin:0;border-radius:13px}
     .tool.wide .tool-icon svg{width:24px;height:24px}
@@ -76,22 +76,22 @@
     .metric{width:100%;min-height:72px;border:1px solid rgba(255,255,255,.9);border-radius:20px;background:var(--surface);box-shadow:var(--shadow);display:grid;grid-template-columns:1.15fr .85fr .85fr;padding:9px 8px;text-align:left}
     .metric span{min-width:0;padding:4px 10px;display:flex;flex-direction:column;justify-content:center}
     .metric span+span{border-left:1px solid var(--line)}
-    .metric small{font-size:11px;line-height:1.2;color:var(--muted);white-space:nowrap}
+    .metric small{font-size:13px;line-height:1.2;color:var(--muted);white-space:nowrap}
     .metric b{display:block;font-size:22px;line-height:1.1;margin-top:2px;letter-spacing:-.035em}
-    .metric em{font-style:normal;font-size:12px;font-weight:720;margin-top:2px;color:var(--success)}
+    .metric em{font-style:normal;font-size:13px;font-weight:720;margin-top:2px;color:var(--success)}
     .metric .negative{color:#9b5b3b}
-    .launcher-meta{margin:10px 2px 0;color:var(--muted);font-size:12px;line-height:1.4}
+    .launcher-meta{margin:10px 2px 0;color:var(--muted);font-size:13px;line-height:1.4}
     .balanced-stack{display:grid;grid-template-columns:minmax(0,1fr);gap:9px}
     .balanced-stack>.metric,.balanced-stack>.tool.wide,.balanced-stack>.tool-grid,.balanced-stack>.next-row{grid-column:1/-1;width:100%}
     .next-row{min-height:54px;width:100%;border:1px solid rgba(255,255,255,.9);border-radius:17px;background:rgba(250,252,255,.66);display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:9px;padding:8px 11px;text-align:left}
     .next-row b{display:block;font-size:14px;line-height:1.25}
-    .next-row small{display:block;margin-top:2px;font-size:12px;line-height:1.25;color:var(--muted)}
-    .next-row .time{font-size:12px;color:var(--accent);font-weight:750}
+    .next-row small{display:block;margin-top:2px;font-size:13px;line-height:1.25;color:var(--muted)}
+    .next-row .time{font-size:13px;color:var(--accent);font-weight:750}
     .priority{min-height:64px;width:100%;border:1px solid rgba(255,255,255,.9);border-radius:18px;background:var(--surface);box-shadow:var(--shadow);display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;padding:10px 12px;text-align:left}
     .priority .p-icon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-size:20px;font-weight:800}
     .priority b{display:block;font-size:15px;line-height:1.25}
-    .priority small{display:block;margin-top:2px;color:var(--muted);font-size:12px;line-height:1.3}
-    .priority .cta{font-size:12px;font-weight:800;color:var(--accent)}
+    .priority small{display:block;margin-top:2px;color:var(--muted);font-size:13px;line-height:1.3}
+    .priority .cta{font-size:13px;font-weight:800;color:var(--accent)}
     .priority[data-tone="danger"]{border-color:rgba(196,85,85,.22);background:rgba(255,247,247,.86)}
     .priority[data-tone="danger"] .p-icon{color:var(--danger);background:#feeaea}
     .priority[data-tone="warm"]{border-color:rgba(200,117,48,.2);background:rgba(255,250,243,.86)}
@@ -108,7 +108,7 @@
     .row:first-child{border-top:0}
     .row .mini-icon{width:36px;height:36px;border-radius:11px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800}
     .row b{display:block;font-size:15px;line-height:1.25}
-    .row small{display:block;font-size:12px;line-height:1.3;color:var(--muted);margin-top:2px}
+    .row small{display:block;font-size:13px;line-height:1.3;color:var(--muted);margin-top:2px}
     .row .go{color:var(--faint)}
     .nav{position:absolute;z-index:20;left:12px;right:12px;bottom:calc(var(--safe-bottom) + 8px);min-height:64px;padding:5px;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;border:1px solid rgba(255,255,255,.9);border-radius:24px;background:var(--glass);box-shadow:0 18px 44px rgba(40,68,98,.19),inset 0 1px 0 #fff;backdrop-filter:blur(28px) saturate(1.22);-webkit-backdrop-filter:blur(28px) saturate(1.22)}
     .nav button{min-width:0;min-height:52px;border:0;border-radius:18px;background:transparent;color:#64768a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;line-height:1.05;font-weight:720}
@@ -121,7 +121,7 @@
     .lab-panel{position:absolute;right:0;bottom:44px;width:250px;padding:10px;border:1px solid rgba(255,255,255,.9);border-radius:17px;background:rgba(245,250,253,.96);box-shadow:0 18px 50px rgba(42,71,102,.2)}
     .lab-panel p{margin:0 0 8px;color:var(--muted);font-size:11px;line-height:1.35}
     .lab-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
-    .lab-buttons button,.event-select{min-height:38px;border:0;border-radius:11px;background:#e8eef4;font-size:12px;font-weight:800}
+    .lab-buttons button,.event-select{min-height:44px;border:0;border-radius:11px;background:#e8eef4;font-size:12px;font-weight:800}
     .lab-buttons button.on{background:var(--accent);color:#fff}
     .event-select{width:100%;margin-top:7px;padding:0 8px;color:var(--ink)}
     dialog{width:min(390px,calc(100% - 20px));border:0;border-radius:26px 26px 18px 18px;padding:12px;background:rgba(247,251,254,.97);box-shadow:0 24px 80px rgba(31,54,80,.28)}
@@ -311,7 +311,7 @@
     document.querySelectorAll('[data-concept-button]').forEach(b=>b.addEventListener('click',()=>setConcept(b.dataset.conceptButton)));
 
     function setNav(id){document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===id || (id==='more'&&b.dataset.nav==='more')))}
-    function rowHtml(rows){return '<div class="group">'+rows.map((t,i)=>`<button class="row" type="button" data-row="${t.id}"><span class="mini-icon">${i+1}</span><span><b>${t.label}</b><small>${t.sub||'Открыть рабочий раздел'}</small></span><span class="go">›</span></button>`).join('')+'</div>'}
+    function rowHtml(rows){return '<div class="group">'+rows.map((t,i)=>`<button class="row" type="button" data-route="${t.id}"><span class="mini-icon">${i+1}</span><span><b>${t.label}</b><small>${t.sub||'Открыть рабочий раздел'}</small></span><span class="go">›</span></button>`).join('')+'</div>'}
     function openView(id){
       if(id==='home'){body.dataset.view='home';setNav('home');screen.scrollTo({top:0,behavior:'smooth'});return}
       body.dataset.view=id;document.getElementById('view-title').textContent=viewNames[id]||'Раздел';
