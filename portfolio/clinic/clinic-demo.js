@@ -1,3 +1,4 @@
+const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 (()=>{
   const nav=document.querySelector('#clinic-nav');
   const menu=document.querySelector('.menu');
@@ -77,7 +78,7 @@
     document.querySelector('#service-title').textContent=button.dataset.service;
     if(serviceSelect)serviceSelect.value=button.dataset.service;
     box.hidden=false;
-    box.scrollIntoView({behavior:'smooth',block:'nearest'});
+    box.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'nearest'});
   }));
   document.querySelector('.close-detail')?.addEventListener('click',()=>document.querySelector('#service-detail').hidden=true);
 
@@ -91,7 +92,7 @@
     nameInput.removeAttribute('aria-invalid');
     error.hidden=true;
     success.hidden=false;
-    success.scrollIntoView({behavior:'smooth',block:'nearest'});success.focus({preventScroll:true});
+    success.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'nearest'});success.focus({preventScroll:true});
   };
   submit?.addEventListener('click',submitBooking);
   nameInput?.addEventListener('keydown',event=>{
