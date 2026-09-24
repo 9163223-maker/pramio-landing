@@ -6,15 +6,14 @@ ErrorDocument 404 /404.html
   RewriteEngine On
   RewriteBase /
 
-  # Canonical host and scheme in one hop. Using the fixed public host avoids
-  # reflecting an arbitrary Host header into redirect responses.
-  RewriteCond %{HTTP_HOST} !^pramio\.ru$ [NC,OR]
-  RewriteCond %{HTTPS} !=on
-  RewriteCond %{HTTP:X-HTTPS} !1
+  # Canonicalize the public host first. The destination is fixed so an
+  # arbitrary Host header can never be reflected into Location.
+  RewriteCond %{HTTP_HOST} !^pramio\.ru$ [NC]
   RewriteRule ^(.*)$ https://pramio.ru/$1 [R=301,L]
 
-  # If HTTPS is already reported by the proxy, canonicalize only the host.
-  RewriteCond %{HTTP_HOST} !^pramio\.ru$ [NC]
+  # Then force HTTPS on the canonical host, honoring Timeweb's proxy flag.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-HTTPS} !1
   RewriteRule ^(.*)$ https://pramio.ru/$1 [R=301,L]
 
   # Canonical trailing slash for extensionless directory requests, explicitly
