@@ -1024,7 +1024,7 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   .privacy-consent{font-size:14px!important;line-height:1.45!important;padding:11px 12px!important;}
   .form-note{font-size:13px!important;line-height:1.45!important;}
   .support-note{font-size:15px!important;line-height:1.55!important;}
-  .breadcrumbs{font-size:13px!important;line-height:1.4!important;}
+  .breadcrumbs{font-size:14px!important;line-height:1.4!important;}
 }
 
 
@@ -1759,7 +1759,7 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
   .mobile-nav{top:calc(max(8px,env(safe-area-inset-top,0px)) + 70px)!important;}
 
   /* Breadcrumbs are context, not another headline. Long current labels may wrap cleanly. */
-  .breadcrumbs{gap:6px 8px!important;margin:18px 0 22px!important;font-size:12px!important;line-height:1.45!important;}
+  .breadcrumbs{gap:6px 8px!important;margin:18px 0 22px!important;font-size:14px!important;line-height:1.45!important;}
   .breadcrumbs>*{min-width:0;}
   .breadcrumbs span:last-child{color:#8c99ad!important;overflow-wrap:anywhere;}
 
@@ -2445,7 +2445,7 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
   .site-footer nav a,.site-footer nav button{min-height:40px!important;padding:0 12px!important;}
   .site-footer small{font-size:13px!important;line-height:1.45!important;}
   .footer-summary-link{font-size:15px!important;line-height:1.45!important;}
-  .breadcrumbs{font-size:13px!important;line-height:1.45!important;}
+  .breadcrumbs{font-size:14px!important;line-height:1.45!important;}
   .article-meta{font-size:13px!important;line-height:1.45!important;}
 
   /* Reading veil must remain almost invisible: no nested-card cues. */
