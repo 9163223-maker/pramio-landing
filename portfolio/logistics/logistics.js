@@ -34,7 +34,7 @@ function submitCalculation(){
     return;
   }
   [weight,volume].forEach(input=>input.removeAttribute('aria-invalid'));
-  result.textContent='Демо-запрос собран: '+cargo.textContent+' · '+weightValue+' кг · '+volumeValue+' м³. Отправка отключена.';
+  result.textContent='Демо-запрос собран: '+cargo.textContent+' · '+weightValue+' кг · '+volumeValue+' м³. Отправка отключена.';result.focus({preventScroll:true});
 }
 
 document.querySelector('#calcSend').addEventListener('click',submitCalculation);
