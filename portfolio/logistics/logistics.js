@@ -38,6 +38,7 @@ function submitCalculation(){
 }
 
 document.querySelector('#calcSend').addEventListener('click',submitCalculation);
+[weight,volume].forEach(input=>input.addEventListener('input',()=>{if(input.value.trim())input.removeAttribute('aria-invalid')}));
 [weight,volume].forEach(input=>input.addEventListener('keydown',event=>{
   if(event.key==='Enter'){
     event.preventDefault();
