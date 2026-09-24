@@ -1,1 +1,46 @@
-document.querySelectorAll('.opts button').forEach(b=>{b.setAttribute('aria-pressed',String(b.classList.contains('on')));b.onclick=()=>{document.querySelectorAll('.opts button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false')});b.classList.add('on');b.setAttribute('aria-pressed','true');document.querySelector('#cargo').textContent=b.textContent}});document.querySelector('#next').onclick=()=>{const x=document.querySelector('#brief');x.hidden=false;x.scrollIntoView({behavior:'smooth',block:'center'})};document.querySelector('#calcSend').onclick=()=>{const w=document.querySelector('#weight').value.trim(),v=document.querySelector('#volume').value.trim();const out=document.querySelector('#calcResult'),weight=document.querySelector('#weight'),volume=document.querySelector('#volume');if(!w||!v){out.textContent='Заполните вес и объём — это локальная проверка сценария.';[weight,volume].forEach(x=>x.setAttribute('aria-invalid',String(!x.value.trim())));(!w?weight:volume).focus();return}[weight,volume].forEach(x=>x.removeAttribute('aria-invalid'));out.textContent='Демо-запрос собран: '+document.querySelector('#cargo').textContent+' · '+w+' кг · '+v+' м³. Отправка отключена.'};
+const cargoButtons=[...document.querySelectorAll('.opts button')];
+const cargo=document.querySelector('#cargo');
+const brief=document.querySelector('#brief');
+const weight=document.querySelector('#weight');
+const volume=document.querySelector('#volume');
+const result=document.querySelector('#calcResult');
+
+cargoButtons.forEach(button=>{
+  button.setAttribute('aria-pressed',String(button.classList.contains('on')));
+  button.addEventListener('click',()=>{
+    cargoButtons.forEach(item=>{
+      item.classList.remove('on');
+      item.setAttribute('aria-pressed','false');
+    });
+    button.classList.add('on');
+    button.setAttribute('aria-pressed','true');
+    cargo.textContent=button.textContent;
+  });
+});
+
+document.querySelector('#next').addEventListener('click',()=>{
+  brief.hidden=false;
+  brief.scrollIntoView({behavior:'smooth',block:'center'});
+  weight.focus({preventScroll:true});
+});
+
+function submitCalculation(){
+  const weightValue=weight.value.trim();
+  const volumeValue=volume.value.trim();
+  if(!weightValue||!volumeValue){
+    result.textContent='Заполните вес и объём — это локальная проверка сценария.';
+    [weight,volume].forEach(input=>input.setAttribute('aria-invalid',String(!input.value.trim())));
+    (!weightValue?weight:volume).focus();
+    return;
+  }
+  [weight,volume].forEach(input=>input.removeAttribute('aria-invalid'));
+  result.textContent='Демо-запрос собран: '+cargo.textContent+' · '+weightValue+' кг · '+volumeValue+' м³. Отправка отключена.';
+}
+
+document.querySelector('#calcSend').addEventListener('click',submitCalculation);
+[weight,volume].forEach(input=>input.addEventListener('keydown',event=>{
+  if(event.key==='Enter'){
+    event.preventDefault();
+    submitCalculation();
+  }
+}));
