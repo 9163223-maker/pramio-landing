@@ -1,0 +1,52 @@
+name: Package final 2026-09-25
+
+on:
+  push:
+    branches:
+      - packaging/final-2026-09-25
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate and package DIRECT production delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=5979942df516645712fd44a20a1370c990d378af
+          git merge-base --is-ancestor "$BASE" HEAD
+          mapfile -t files < <(git diff --name-only --diff-filter=ACMRT "$BASE"...HEAD | grep -Ev '^(\.github/|lab/|README|.*\.md$|config\.local\.php$|config\.sample\.php$|package\.json$)' | grep -Ev '(^|/)(config\.local\.php|config\.sample\.php)$' | sort -u)
+          test "${#files[@]}" -gt 0
+          printf '%s\n' "${files[@]}" > deploy-files.txt
+          ! grep -Eq '(^|/)(config\.local\.php|config\.sample\.php)$|^lab/|^\.github/' deploy-files.txt
+          for f in "${files[@]}"; do test -f "$f"; done
+          test -f index.html
+          grep -q 'site-v2.css?v=83' index.html
+          grep -q 'site-v2.js?v=59' index.html
+          test -f site-v2.css
+          test -f site-v2.js
+          test -f sitemap.xml
+          test -f robots.txt
+          zip -9 pramio-public_html-DIRECT-2026-09-25.zip "${files[@]}"
+          unzip -t pramio-public_html-DIRECT-2026-09-25.zip
+          ! unzip -Z1 pramio-public_html-DIRECT-2026-09-25.zip | grep -Eq '^(\.github/|lab/)|(^|/)(config\.local\.php|config\.sample\.php)$'
+          test "$(unzip -Z1 pramio-public_html-DIRECT-2026-09-25.zip | head -1 | cut -d/ -f1)" != "pramio-landing"
+          sha256sum pramio-public_html-DIRECT-2026-09-25.zip > pramio-public_html-DIRECT-2026-09-25.sha256
+          wc -l deploy-files.txt
+          cat deploy-files.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pramio-public_html-DIRECT-2026-09-25
+          path: |
+            pramio-public_html-DIRECT-2026-09-25.zip
+            pramio-public_html-DIRECT-2026-09-25.sha256
+            deploy-files.txt
+          if-no-files-found: error
+          retention-days: 7
