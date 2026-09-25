@@ -9,6 +9,7 @@ const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const submit=document.querySelector('.submit-demo');
   const success=document.querySelector('.success');
   let returnFocus=null;
+  const inertSiblings=(value)=>[...document.body.children].filter(el=>el!==modal&&el.tagName!=='SCRIPT').forEach(el=>value?el.setAttribute('inert',''):el.removeAttribute('inert'));
 
   const dialog=modal?.querySelector('[role="dialog"]');
   const focusables=()=>[...modal.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])')].filter(x=>!x.hidden&&x.getAttribute('aria-hidden')!=='true');
@@ -20,6 +21,7 @@ const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if(!modal||modal.hidden)return;
     modal.hidden=true;
     document.body.style.overflow='';
+    inertSiblings(false);
     returnFocus?.focus();
     returnFocus=null;
   };
@@ -40,6 +42,7 @@ const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches
     returnFocus=button;
     modal.hidden=false;
     document.body.style.overflow='hidden';
+    inertSiblings(true);
     dialog?.setAttribute('tabindex','-1');
     success.hidden=true;
     error.hidden=true;
@@ -64,7 +67,10 @@ const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const items=focusables();
     if(!items.length)return;
     const first=items[0],last=items[items.length-1];
-    if(event.shiftKey&&document.activeElement===first){
+    if(!dialog?.contains(document.activeElement)){
+      event.preventDefault();
+      (event.shiftKey?last:first).focus();
+    }else if(event.shiftKey&&document.activeElement===first){
       event.preventDefault();
       last.focus();
     }else if(!event.shiftKey&&document.activeElement===last){
