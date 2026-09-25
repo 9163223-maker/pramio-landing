@@ -1,5 +1,8 @@
 name: package-final-2026-09-25-v3
 on:
+  push:
+    branches:
+      - packaging/final-2026-09-25-v3
   workflow_dispatch:
 jobs:
   package:
