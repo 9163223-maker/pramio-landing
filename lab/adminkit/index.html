@@ -72,6 +72,23 @@ body{overflow-x:hidden}
 .c11.mini .mobilebar button{width:46px;min-width:46px;min-height:46px;border-radius:15px}
 .c11.mini .mobilebar button.active{background:rgba(255,255,255,.92)}
 @media(max-width:370px){.c11.mini .main{padding-left:10px;padding-right:70px}.c11.mini .mobilebar{right:8px}.c11 .brandplate{padding:10px}.c11 .aud3 small,.c11 .lead3 small{font-size:12px}}
+
+/* 11c · full-width mobile composition; navigation is a compact glass tabbar, never a content column */
+.shell.c11.mini{max-width:430px}
+.c11.mini .main{padding:14px 14px 112px!important}
+.c11 .concept11{gap:10px}
+.c11 .brandplate{padding:12px 12px 10px;grid-template-columns:1fr auto}
+.c11 .brandnav{display:flex;gap:6px}.c11 .brandnav button{width:44px;height:44px;border-radius:15px}
+.c11 .channelcontext{width:100%;max-width:100%;gap:7px;mask-image:linear-gradient(90deg,#000 0,#000 90%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,#000 0,#000 90%,transparent 100%)}
+.c11 .channelpill{max-width:210px}.c11 .channelpill b{white-space:nowrap}
+.c11 .dashblock{width:100%}
+.c11 .aud3 button,.c11 .lead3 button{min-width:0}.c11 .aud3 small,.c11 .lead3 small{white-space:normal;line-height:1.2}
+.c11 .importantrow{grid-template-columns:38px minmax(0,1fr) auto}.c11 .tworows button,.c11 .campaign{grid-template-columns:38px minmax(0,1fr) auto}
+.c11.mini .mobilebar{position:fixed!important;z-index:55;left:50%!important;right:auto!important;top:auto!important;bottom:max(12px,env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;width:min(392px,calc(100vw - 24px))!important;min-width:0!important;max-width:392px!important;padding:6px!important;display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:4px!important;border-radius:24px!important;background:rgba(239,247,253,.70)!important;backdrop-filter:blur(30px) saturate(1.42)!important;-webkit-backdrop-filter:blur(30px) saturate(1.42)!important;border:1px solid rgba(255,255,255,.88)!important;box-shadow:0 14px 38px rgba(38,70,103,.16),inset 0 1px 0 rgba(255,255,255,.95)!important}
+.c11.mini .mobilebar button{width:auto!important;min-width:0!important;min-height:54px!important;padding:4px 2px!important;border-radius:18px!important;font-size:11px!important;display:flex!important;flex-direction:column!important;gap:3px!important;align-items:center!important;justify-content:center!important}
+.c11.mini .mobilebar button:before{font-size:18px!important}.c11.mini .mobilebar button.active{background:rgba(255,255,255,.92)!important}
+.c11.mini .mobilebar button:nth-child(1):after{content:'Главная'}.c11.mini .mobilebar button:nth-child(2):after{content:'Контент'}.c11.mini .mobilebar button:nth-child(3):after{content:'Лиды'}.c11.mini .mobilebar button:nth-child(4):after{content:'Статистика'}.c11.mini .mobilebar button:nth-child(5):after{content:'Ещё'}
+@media(max-width:370px){.c11.mini .main{padding:10px 10px 108px!important}.c11.mini .mobilebar{width:calc(100vw - 16px)!important}.c11.mini .mobilebar button{font-size:10px!important}.c11 .aud3 b{font-size:19px}.c11 .lead3 b{font-size:18px}}
 </style></head><body>
 <main class="stage"><div class="shell c1" id="shell">
 <aside class="side"><div class="logo">PRAM<i>IO</i> · AdminKIT</div><nav class="nav" id="nav"></nav><div class="side-foot"><b>Демо-лаборатория</b><br>Все разделы интерактивны. Здесь принимаем IA, плотность и визуальную систему — без production backend.</div></aside>
