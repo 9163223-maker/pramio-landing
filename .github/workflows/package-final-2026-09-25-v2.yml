@@ -1,0 +1,54 @@
+name: Package PRAMIO DIRECT v2
+on:
+  push:
+    branches:
+      - packaging/final-2026-09-25-v2
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build direct public_html package
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf package
+          mkdir package
+          rsync -a --prune-empty-dirs \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='lab/' \
+            --exclude='docs/' \
+            --exclude='.gitignore' \
+            --exclude='.nojekyll' \
+            --exclude='README.md' \
+            --exclude='config.local.php' \
+            --exclude='config.sample.php' \
+            --exclude='assets/.gitkeep' \
+            --exclude='tech-matter-preview.html' \
+            --exclude='demo-runtime.js' \
+            ./ package/
+          test "$(find package -type f | wc -l)" -eq 80
+          test -f package/.htaccess
+          test -f package/index.html
+          test -f package/send.php
+          test -f package/portfolio/showroom.css
+          test ! -e package/config.local.php
+          test ! -e package/config.sample.php
+          test ! -e package/lab
+          test ! -e package/docs
+          test ! -e package/.github
+          test ! -e package/tech-matter-preview.html
+          test ! -e package/demo-runtime.js
+          (cd package && zip -qr ../pramio-public_html-DIRECT-2026-09-25-v2.zip .)
+          unzip -Z1 pramio-public_html-DIRECT-2026-09-25-v2.zip | grep -qx '.htaccess'
+          unzip -Z1 pramio-public_html-DIRECT-2026-09-25-v2.zip | grep -qx 'index.html'
+          sha256sum pramio-public_html-DIRECT-2026-09-25-v2.zip | tee SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pramio-public_html-DIRECT-2026-09-25-v2
+          path: |
+            pramio-public_html-DIRECT-2026-09-25-v2.zip
+            SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 7
