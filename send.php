@@ -306,6 +306,7 @@ if (!pramio_rate_limit($clientAddress)) {
 
 $allowedServices = [
     'Лендинг или небольшой сайт',
+    'Сайт или веб-продукт',
     'Telegram-бот',
     'Бот или решение для MAX',
     'AI-ассистент или автоматизация',
