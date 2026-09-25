@@ -1,4 +1,4 @@
-name: Package PRAMIO DIRECT v2
+name: Package PRAMIO DIRECT v2 # verified whitelist
 on:
   push:
     branches:
