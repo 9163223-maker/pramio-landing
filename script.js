@@ -18,6 +18,8 @@
   const getPanel = () => document.getElementById('contact-panel');
   const scrollCue = document.querySelector('[data-scroll-cue]');
   let lastFocus = null;
+  const inertTargets = () => Array.from(document.body.children).filter((el) => el.id !== 'contact-overlay' && el.id !== 'contact-panel' && el.tagName !== 'SCRIPT');
+  const setBackgroundInert = (value) => inertTargets().forEach((el) => { if (value) el.setAttribute('inert',''); else el.removeAttribute('inert'); });
 
   const openContact = () => {
     const overlay = getOverlay();
@@ -39,6 +41,7 @@
       overlay.classList.add('is-open');
       panel.classList.add('is-open');
       document.body.classList.add('contact-open');
+      setBackgroundInert(true);
       const preferredFocus = panel.querySelector('.service-picker__trigger, input[name="email"], textarea[name="message"], .contact-close');
       if (preferredFocus) preferredFocus.focus({ preventScroll: true });
     });
@@ -51,6 +54,7 @@
     overlay.classList.remove('is-open');
     panel.classList.remove('is-open');
     document.body.classList.remove('contact-open');
+    setBackgroundInert(false);
     setTimeout(() => {
       overlay.hidden = true;
       panel.hidden = true;
@@ -82,7 +86,10 @@
     if (!focusable.length) return;
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
-    if (event.shiftKey && document.activeElement === first) {
+    if (!panel.contains(document.activeElement)) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    } else if (event.shiftKey && document.activeElement === first) {
       event.preventDefault();
       last.focus();
     } else if (!event.shiftKey && document.activeElement === last) {
