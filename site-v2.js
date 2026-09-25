@@ -401,26 +401,17 @@ const PRAMIO_SITE_URL = (path='') => PRAMIO_SITE_BASE + String(path).replace(/^\
 })();
 
 
-/* Whole-card navigation + footer-aware FAB — 2026-09-20 */
+/* Card affordance + footer-aware FAB — 2026-09-25 */
 (() => {
   const cards = document.querySelectorAll('.service-card--link,.feature-card--link,.link-card');
   cards.forEach((card) => {
     const link = card.querySelector('a[href]');
-    if (!link || card.dataset.wholeCard === '1') return;
+    if (!link) return;
     card.dataset.wholeCard = '1';
-    card.setAttribute('role','link');
-    card.tabIndex = card.hasAttribute('tabindex') ? card.tabIndex : 0;
-    const go = () => { window.location.href = link.href; };
     card.addEventListener('click', (event) => {
       if (event.defaultPrevented || event.button > 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      if (event.target.closest('button,input,select,textarea,label')) return;
-      go();
-    });
-    card.addEventListener('keydown', (event) => {
-      if (event.key !== 'Enter' && event.key !== ' ') return;
-      if (event.target !== card) return;
-      event.preventDefault();
-      go();
+      if (event.target.closest('a,button,input,select,textarea,label')) return;
+      link.click();
     });
   });
 
