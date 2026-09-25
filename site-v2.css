@@ -2534,3 +2534,6 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
 
 /* v83 canonical environment: retired ambient owners stay inert; Signal Rivers is the only live scene. */
 .ambient,.ambient-a,.ambient-b{display:none!important;animation:none!important;}
+
+/* Acceptance polish 2026-09-25 */
+.site-footer small{font-size:12px!important;color:#66758b!important;}
