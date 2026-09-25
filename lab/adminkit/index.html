@@ -50,15 +50,37 @@ button{font:inherit}button:focus-visible{outline:3px solid #2b78e4;outline-offse
 /* 11b · channel-first context + edge liquid navigation */
 .c11 .brandplate{display:grid;grid-template-columns:1fr auto;gap:10px;min-height:78px}.c11 .channelcontext{grid-column:1/-1;display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 0 1px;scrollbar-width:none}.c11 .channelcontext::-webkit-scrollbar{display:none}.c11 .channelpill{scroll-snap-align:start;flex:0 0 auto;min-height:48px;border:0;border-radius:15px;padding:7px 12px;background:rgba(234,243,251,.76);text-align:left;color:#24384b}.c11 .channelpill.active{background:rgba(255,255,255,.92);box-shadow:inset 0 0 0 1px rgba(29,111,207,.16),0 6px 18px rgba(47,80,112,.08)}.c11 .channelpill small{display:block;font-size:12px;color:#708296}.c11 .channelpill b{font-size:15px}.c11 .brandnav{align-self:start}.c11 .brandnav button{font-size:0;width:44px;padding:0}.c11 .brandnav button:before{font-size:17px}.c11 .brandnav button:first-child:before{content:'↗'}.c11 .brandnav button:last-child:before{content:'M';font-weight:850}.c11.mini .mobilebar{left:auto;right:12px;bottom:max(14px,env(safe-area-inset-bottom));width:62px;min-width:62px;max-width:62px;padding:6px;display:grid;grid-template-columns:1fr;gap:4px;border-radius:24px;background:rgba(236,246,253,.66);backdrop-filter:blur(30px) saturate(1.45);-webkit-backdrop-filter:blur(30px) saturate(1.45)}.c11.mini .mobilebar button{min-width:50px;width:50px;min-height:50px;padding:0 4px;border-radius:17px;font-size:0;display:grid;place-items:center}.c11.mini .mobilebar button:before{font-size:19px;line-height:1}.c11.mini .mobilebar button:nth-child(1):before{content:'⌂'}.c11.mini .mobilebar button:nth-child(2):before{content:'▤'}.c11.mini .mobilebar button:nth-child(3):before{content:'♙'}.c11.mini .mobilebar button:nth-child(4):before{content:'▥'}.c11.mini .mobilebar button:nth-child(5):before{content:'•••';font-size:14px}.c11.mini .mobilebar button.active{background:rgba(255,255,255,.84);color:#176fd8;box-shadow:0 5px 15px rgba(39,82,124,.11)}.c11.mini .main{padding-bottom:28px;padding-right:84px}.c11.mini .concept11{padding-bottom:12px}
 @media(max-width:700px){body:has(.shell.c11.mini) .labbar{left:12px;right:auto;bottom:calc(14px + env(safe-area-inset-bottom));width:auto;max-width:calc(100vw - 94px)}body:has(.shell.c11.mini) .labbar .brand{display:none}body:has(.shell.c11.mini) .labbar .switches{max-width:calc(100vw - 118px)}}
+
+/* Single accepted direction: Operational Home. Previous concept switcher retired. */
+.obsolete-lab,.concept-note{display:none!important}
+body{overflow-x:hidden}
+.stage{padding:0;max-width:100%;min-height:100dvh}
+.shell.c11.mini{width:100%;max-width:430px;margin:0 auto;min-height:100dvh;border-radius:0;border:0;box-shadow:none;background:radial-gradient(120% 70% at 15% 0%,rgba(196,230,255,.72),transparent 58%),linear-gradient(180deg,#f3f9fd 0%,#eef5f9 100%)}
+.c11.mini .main{padding:14px 78px 24px 14px}
+.c11 .concept11{gap:9px}
+.c11 .brandplate{grid-template-columns:1fr auto;min-height:0;padding:12px;border-radius:22px}
+.c11 .brandplate strong{font-size:20px}.c11 .brandplate>span>small{font-size:13px}
+.c11 .channelcontext{margin-top:4px;padding-bottom:2px}
+.c11 .channelpill{min-height:52px;padding:7px 12px;border-radius:16px}
+.c11 .channelpill small{font-size:12px}.c11 .channelpill b{font-size:15px}
+.c11 .dashblock{border-radius:20px}
+.c11 .dashlabel{padding:9px 12px 3px;font-size:13px}
+.c11 .aud3{padding:3px 5px 8px}.c11 .aud3 button{min-height:54px;padding:6px 8px}.c11 .aud3 b{font-size:20px}
+.c11 .importantrow{min-height:56px}.c11 .lead3{padding:4px}.c11 .lead3 button{min-height:58px}.c11 .lead3 b{font-size:19px}
+.c11 .tworows button{min-height:58px}.c11 .campaign{min-height:58px}
+.c11.mini .mobilebar{position:fixed;z-index:50;right:max(10px,calc((100vw - 430px)/2 + 10px));left:auto;top:50%;bottom:auto;transform:translateY(-50%);width:56px;min-width:56px;max-width:56px;padding:5px;border-radius:22px;gap:3px;background:rgba(238,247,253,.70);border:1px solid rgba(255,255,255,.86);box-shadow:0 14px 34px rgba(41,72,103,.14),inset 0 1px 0 rgba(255,255,255,.95)}
+.c11.mini .mobilebar button{width:46px;min-width:46px;min-height:46px;border-radius:15px}
+.c11.mini .mobilebar button.active{background:rgba(255,255,255,.92)}
+@media(max-width:370px){.c11.mini .main{padding-left:10px;padding-right:70px}.c11.mini .mobilebar{right:8px}.c11 .brandplate{padding:10px}.c11 .aud3 small,.c11 .lead3 small{font-size:12px}}
 </style></head><body>
 <main class="stage"><div class="shell c1" id="shell">
 <aside class="side"><div class="logo">PRAM<i>IO</i> · AdminKIT</div><nav class="nav" id="nav"></nav><div class="side-foot"><b>Демо-лаборатория</b><br>Все разделы интерактивны. Здесь принимаем IA, плотность и визуальную систему — без production backend.</div></aside>
 <section class="main"><header class="head"><div><h1 id="title">Добрый вечер</h1><p id="subtitle">Olga.style · всё важное на одном экране</p></div><div class="avatar">AP</div></header><div id="content"></div></section>
-<nav class="mobilebar" id="mobilebar"></nav></div><div class="concept-note" id="note"></div></main><header class="labbar"><div class="brand">AdminKIT <span>Design Lab</span></div><div class="switches"><button data-concept="1" class="on">01</button><button data-concept="2">02</button><button data-concept="3">03</button><button data-concept="4">04</button><button data-concept="5">05</button><button data-concept="6">06</button><button data-concept="7">07</button><button data-concept="8">08</button><button data-concept="9">09</button><button data-concept="10">10</button><button data-concept="11">11</button></div><div class="surface"><button data-surface="mini" class="on">Mini</button><button data-surface="web">Web</button></div></header>
+<nav class="mobilebar" id="mobilebar"></nav></div><div class="concept-note" id="note"></div></main><header class="labbar obsolete-lab"><div class="brand">AdminKIT <span>Design Lab</span></div><div class="switches"><button data-concept="1" class="on">01</button><button data-concept="2">02</button><button data-concept="3">03</button><button data-concept="4">04</button><button data-concept="5">05</button><button data-concept="6">06</button><button data-concept="7">07</button><button data-concept="8">08</button><button data-concept="9">09</button><button data-concept="10">10</button><button data-concept="11">11</button></div><div class="surface"><button data-surface="mini" class="on">Mini</button><button data-surface="web">Web</button></div></header>
 <script>
 const features=[['home','Главная'],['channels','Каналы'],['content','Контент'],['growth','Продвижение'],['gifts','Лид-магниты'],['buttons','Кнопки'],['polls','Опросы'],['automation','Автоматизации'],['leads','Лиды / CRM'],['stats','Статистика'],['settings','Настройки']];
 const notes={1:'<b>01 · Focus.</b> Самый спокойный вариант: dashboard отвечает только на «что происходит / что требует внимания / что сделать сейчас». Функции вынесены в отдельный каталог.',2:'<b>02 · Workspace.</b> Более операционный вариант: меньше карточек, больше плотных рабочих списков. На desktop ближе к кабинету, на mobile сохраняет ту же IA.',3:'<b>03 · Flow.</b> Вариант вокруг действий: главная быстрее ведёт в создание механики, контента или кампании; текущая работа и статусы остаются рядом.'};
-let concept=1,page='home',surface='mini';
+let concept=11,page='home',surface='mini';
 const actions=[['＋','Новая публикация','Создать или запланировать'],['↗','Продвижение','Ссылка и кампания'],['◆','Лид-магнит','Выдача материала'],['▣','Кнопка','Действие под постом'],['●','Опрос','Вопрос и варианты'],['⚡','Автоматизация','Сценарий по событию']];
 
 const conceptNames=['Clean Glass','Dark Glass','Focus Cards','Widget Mosaic','Minimal Bars','Channel Switch','Panel Stack','Action Focus','Analytics First','Elegant Compact','Operational Home'];
