@@ -1,0 +1,31 @@
+name: package-final-2026-09-25-v3
+on:
+  workflow_dispatch:
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build direct public_html package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p package
+          rsync -a ./ package/ \
+            --exclude='.git/' --exclude='.github/' --exclude='lab/' --exclude='docs/' \
+            --exclude='.gitignore' --exclude='.nojekyll' --exclude='README.md' \
+            --exclude='config.sample.php' --exclude='config.local.php' --exclude='assets/.gitkeep' \
+            --exclude='tech-matter-preview.html' --exclude='demo-runtime.js' --exclude='package/'
+          test "$(find package -type f | wc -l)" -eq 80
+          test -f package/.htaccess
+          test -f package/index.html
+          test ! -e package/config.local.php
+          (cd package && zip -qr ../pramio-public_html-DIRECT-2026-09-25-v3.zip .)
+          sha256sum pramio-public_html-DIRECT-2026-09-25-v3.zip > SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pramio-public_html-DIRECT-2026-09-25-v3
+          path: |
+            pramio-public_html-DIRECT-2026-09-25-v3.zip
+            SHA256SUMS
+          if-no-files-found: error
