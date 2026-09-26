@@ -133,3 +133,14 @@
  .showroom-copy h2:before,.showroom-copy h2:after,
  .showroom-copy h3:before,.showroom-copy h3:after{content:none!important;display:none!important}
 }
+
+/* v19 — logistics is an operational map, not another landing-page hero */
+.preview-logistics .preview-stage{position:relative;justify-content:flex-end;background:#091923;color:#edf5f7}
+.preview-logistics .preview-stage:after{content:none}
+.logistics-mini-grid{position:absolute;inset:0;background-image:linear-gradient(#34505d45 1px,transparent 1px),linear-gradient(90deg,#34505d45 1px,transparent 1px);background-size:24px 24px}
+.logistics-mini-route{position:absolute;left:10%;right:9%;top:45%;height:2px;background:#bdf23c;transform:rotate(-12deg);box-shadow:0 0 10px #bdf23c66}
+.logistics-mini-dot{position:absolute;left:57%;top:38%;width:13px;height:13px;border-radius:50%;background:#bdf23c;box-shadow:0 0 0 6px #bdf23c20}
+.preview-logistics .preview-stage small,.preview-logistics .preview-stage strong,.preview-logistics .preview-ui{position:relative;z-index:2}
+.preview-logistics .preview-stage strong{max-width:18ch;font-size:clamp(17px,1.9vw,27px)}
+.preview-logistics .preview-ui span:first-child{background:#bdf23c;color:#07131d;border-color:#bdf23c}
+.preview-logistics .preview-credit{background:rgba(7,19,29,.78);border-color:#ffffff22;color:#fff}
