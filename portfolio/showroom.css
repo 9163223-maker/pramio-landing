@@ -52,3 +52,24 @@
 }
 @media(max-width:370px){.showroom-hero h1{font-size:31px!important}.showroom-copy h2,.showroom-copy h3{font-size:19px!important}}
 @media(prefers-reduced-motion:reduce){.showroom-card,.showroom-card:after{transition:none}}
+
+/* v15 — previews are sellable hero crops, not abstract wireframes */
+.preview-stage{position:relative}
+.preview-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.preview-overlay{position:absolute;z-index:2}
+.preview-overlay small,.preview-overlay strong{display:block}
+.preview-clinic .preview-stage{background:#dce9e4}.preview-clinic .preview-photo{left:44%;width:56%;object-position:center 20%;filter:saturate(.72) contrast(.97)}
+.preview-clinic .preview-stage:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#f2f6f3 0 49%,rgba(242,246,243,.92) 55%,transparent 76%);z-index:1}
+.preview-clinic .preview-overlay{left:6%;top:18%;width:56%;color:#102724}.preview-clinic .preview-overlay strong{font:600 clamp(21px,2.4vw,34px)/.92 var(--type-display);letter-spacing:-.05em;margin-top:8px}.preview-clinic .preview-ui{margin-top:13px}
+.preview-build .preview-stage{background:#20251f}.preview-build .preview-photo{filter:saturate(.68) contrast(.96);object-position:center 58%}
+.preview-build .preview-stage:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,18,14,.08),rgba(13,18,14,.58));z-index:1}
+.preview-build .preview-overlay{left:6%;right:6%;bottom:10%;color:#fff}.preview-build .preview-overlay small{color:#e5ded0}.preview-build .preview-overlay strong{font:500 clamp(22px,2.5vw,36px)/.92 var(--type-display);letter-spacing:-.055em;margin-top:6px;max-width:12ch}.preview-build .preview-ui span:first-child{background:#e9e4d9;color:#181b17;border-color:#e9e4d9}
+.preview-beauty .preview-stage{background:#e9d8d7}.preview-beauty .preview-photo{left:48%;width:52%;object-position:center 42%;filter:saturate(.78)}
+.preview-beauty .preview-stage:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#f6f0ec 0 52%,rgba(246,240,236,.95) 58%,transparent 76%);z-index:1}
+.preview-beauty .preview-overlay{left:6%;top:12%;width:56%;color:#201b19}.preview-beauty .preview-overlay strong{font:500 clamp(24px,2.8vw,40px)/.78 var(--type-display);letter-spacing:-.065em;margin-top:8px}.preview-beauty .preview-overlay strong em{font-family:Georgia,serif;font-weight:400;color:#a65358}
+@media(max-width:780px){
+ .preview-clinic .preview-overlay{top:16%;left:6%;width:60%}.preview-clinic .preview-photo{left:43%;width:57%}
+ .preview-build .preview-overlay{bottom:9%}
+ .preview-beauty .preview-overlay{left:6%;top:11%;width:60%}.preview-beauty .preview-photo{left:47%;width:53%}
+ .preview-clinic .preview-overlay strong,.preview-build .preview-overlay strong{font-size:25px}.preview-beauty .preview-overlay strong{font-size:28px}
+}
