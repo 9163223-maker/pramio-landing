@@ -104,3 +104,32 @@
  .showroom-copy .proof-kind,.showroom-copy h3,.showroom-copy>p:not(.proof-kind){max-width:100%!important}
  .showroom-copy .proof-kind{padding:0!important}
 }
+
+/* v18 — natural-scale mobile acceptance */
+@media(max-width:780px){
+ .portfolio-page .site-header{
+   top:8px!important;margin:8px 14px 0!important;height:58px!important;min-height:58px!important;
+   padding:7px 9px 7px 14px!important;overflow:hidden!important
+ }
+ .portfolio-page .site-header .menu-toggle{
+   position:static!important;margin-left:auto!important;width:44px!important;height:44px!important;
+   min-width:44px!important;min-height:44px!important;border-radius:15px!important;transform:none!important
+ }
+ .portfolio-page .breadcrumbs{margin:18px 4px 14px!important}
+ .showroom-hero{padding:24px 22px 22px!important}
+ .showroom-hero .eyebrow,.showroom-section .section-heading .eyebrow{
+   padding-left:0!important;margin-left:0!important;display:flex!important;align-items:center!important;gap:10px!important
+ }
+ .showroom-hero .eyebrow span,.showroom-section .section-heading .eyebrow span{
+   position:static!important;width:9px!important;height:9px!important;min-width:9px!important;flex:0 0 9px!important;
+   margin:0!important;transform:none!important
+ }
+ .showroom-section{margin-top:34px!important;padding-top:0!important}
+ .showroom-section .section-heading{padding:0 4px!important}
+ .showroom-grid{margin-top:18px!important;gap:14px!important}
+ .showroom-copy{padding:16px 54px 18px 18px!important;background:rgba(255,255,255,.82)!important}
+ .showroom-copy:before,.showroom-copy:after,
+ .showroom-copy>p:before,.showroom-copy>p:after,
+ .showroom-copy h2:before,.showroom-copy h2:after,
+ .showroom-copy h3:before,.showroom-copy h3:after{content:none!important;display:none!important}
+}
