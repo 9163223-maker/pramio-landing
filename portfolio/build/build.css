@@ -1,2 +1,31 @@
 *{box-sizing:border-box}body{margin:0;font-family:Manrope,system-ui;background:#f2efe7;color:#172019}a{color:inherit}.bar{padding:9px 4vw;background:#26372b;color:#fff;display:flex;justify-content:space-between;font-size:12px}.nav{padding:18px 4vw;display:flex;justify-content:space-between;align-items:center}.logo{font:600 22px Geologica}.hero{padding:5vw 4vw;display:grid;grid-template-columns:1fr 1fr;gap:4vw}.hero h1{font:500 clamp(48px,7vw,94px)/.94 Geologica;margin:15px 0}.hero p{font-size:18px;line-height:1.6;color:#5f695f}.house{min-height:500px;background:#c9d0c3;position:relative;overflow:hidden}.house:before{content:"";position:absolute;width:68%;height:48%;background:#eae3d5;left:16%;bottom:12%;clip-path:polygon(0 25%,50% 0,100% 25%,100% 100%,0 100%)}.house:after{content:"";position:absolute;width:23%;height:27%;background:#314435;left:39%;bottom:12%}.section{padding:70px 4vw}.section h2{font:500 42px Geologica}.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.plan{background:#fff;padding:24px;border-radius:4px;border:1px solid #ded9ce}.plan b{font:500 25px Geologica}.config{display:grid;grid-template-columns:1fr 1fr;gap:24px;background:#26372b;color:#fff;padding:35px}.opts{display:flex;flex-wrap:wrap;gap:8px}.opts button{padding:10px 14px;border:1px solid #819083;background:transparent;color:#fff}.opts button.on{background:#d6b96d;color:#172019}.summary{background:#f2efe7;color:#172019;padding:25px}.footer{padding:40px 4vw;display:flex;justify-content:space-between}@media(max-width:720px){.hero,.config{grid-template-columns:1fr}.house{min-height:350px}.plans{grid-template-columns:1fr}.hero h1{font-size:54px}}
 .house{border-radius:26px}.house:before,.house:after{display:none}.house img{width:100%;height:100%;min-height:500px;object-fit:cover;display:block}@media(max-width:720px){.house img{min-height:350px}}.opts button,#leadSend{min-height:44px}.leadflow{margin-top:28px;padding:24px;border:1px solid #cad3c8;border-radius:18px}.leadflow label{display:block;max-width:520px}.leadflow input{display:block;width:100%;font:inherit;margin:8px 0 12px;padding:13px;border:1px solid #aeb9ab;border-radius:10px}.leadflow button{border:0;border-radius:10px;padding:0 18px;background:#294b39;color:#fff}.house{position:relative;overflow:hidden}.house-label{position:absolute;left:20px;bottom:20px;padding:10px 12px;border-radius:10px;background:rgba(20,34,25,.78);backdrop-filter:blur(10px);color:#fff;font:700 11px/1.2 Manrope;letter-spacing:.04em}
+/* v5 — architectural editorial system */
+body{background:#e9e4d9;color:#181b17}
+.bar{background:#181b17;padding-left:3vw;padding-right:3vw}
+.nav{padding:26px 3vw 18px;border-bottom:1px solid rgba(24,27,23,.18);text-transform:uppercase;letter-spacing:.08em}
+.nav>span{font-size:11px}.logo{font-size:18px;letter-spacing:.03em}
+.hero{position:relative;grid-template-columns:minmax(360px,.72fr) minmax(0,1.28fr);gap:2vw;padding:24px 3vw 72px;min-height:760px}
+.hero-copy{display:flex;flex-direction:column;padding:34px 0 20px}
+.hero-copy>small{font-size:10px;letter-spacing:.16em}.project-no{margin:auto 0 0;font:500 13px Geologica;letter-spacing:.08em}
+.hero h1{margin:14px 0 24px;font-size:clamp(56px,6vw,96px);line-height:.89;letter-spacing:-.06em}
+.hero-copy>p:not(.project-no){max-width:500px;margin:0;color:#4d534b;font-size:16px}
+.hero-link{width:max-content;margin-top:30px;padding-bottom:5px;border-bottom:1px solid currentColor;text-decoration:none;font-weight:700;font-size:13px}
+.house{min-height:700px;border-radius:0}
+.house img{min-height:700px;filter:saturate(.72) contrast(.97)}
+.house-label{left:auto;right:18px;bottom:18px;border-radius:0;background:#e9e4d9;color:#181b17;backdrop-filter:none}
+.section{padding:84px 3vw;border-top:1px solid rgba(24,27,23,.18)}
+.section>small{letter-spacing:.15em}.section h2{font-size:clamp(40px,5vw,68px);letter-spacing:-.045em}
+.plans{gap:0;border-top:1px solid rgba(24,27,23,.25);border-bottom:1px solid rgba(24,27,23,.25)}
+.plan{position:relative;min-height:300px;padding:28px 22px;border:0;border-right:1px solid rgba(24,27,23,.25);border-radius:0;background:transparent}
+.plan:last-child{border-right:0}.plan h3{margin:90px 0 8px;font:500 32px Geologica}.plan b{font-size:15px}.plan p{color:#60665e}
+.config{padding:0;gap:0;background:#181b17}.config>div:first-child{padding:46px}.summary{padding:46px;background:#b8aa8d}.summary h3{font:500 clamp(34px,4vw,56px)/1 Geologica}
+.opts button{border-color:#747a70;border-radius:0}.opts button.on{background:#e9e4d9;color:#181b17;border-color:#e9e4d9}
+.leadflow{max-width:760px;margin:50px 0 0;padding:0;border:0;border-radius:0}.leadflow input{border-radius:0;background:transparent}.leadflow button{border-radius:0;background:#181b17}
+@media(max-width:720px){
+ .nav{padding:18px 14px}.nav>span{max-width:44%;text-align:right}
+ .hero{grid-template-columns:1fr;padding:22px 14px 46px;min-height:0}.hero-copy{padding:16px 0 0}.project-no{margin-top:50px}
+ .hero h1{font-size:52px}.house,.house img{min-height:470px}
+ .section{padding:56px 14px}.plans{grid-template-columns:1fr}.plan{min-height:200px;border-right:0;border-bottom:1px solid rgba(24,27,23,.2)}.plan h3{margin-top:48px}
+ .config{grid-template-columns:1fr}.config>div:first-child,.summary{padding:28px 20px}
+}
