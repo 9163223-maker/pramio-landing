@@ -75,7 +75,7 @@
 }
 
 /* v16 — explicit PRAMIO authorship on the accepted preview set */
-.preview-credit{position:absolute;z-index:3;right:10px;bottom:8px;padding:5px 7px;background:rgba(255,255,255,.82);border:1px solid rgba(20,30,35,.1);font:700 6.5px/1 var(--type-ui);letter-spacing:.04em;color:#17211e;backdrop-filter:blur(8px)}
+.preview-credit{position:absolute;z-index:3;right:10px;bottom:8px;padding:5px 7px;background:rgba(255,255,255,.82);border:1px solid rgba(20,30,35,.1);font:700 8px/1 var(--type-ui);letter-spacing:.04em;color:#17211e;backdrop-filter:blur(8px)}
 .preview-build .preview-credit{background:rgba(20,25,21,.68);border-color:rgba(255,255,255,.18);color:#fff}
 .preview-beauty .preview-credit{color:#6d3f42}
-@media(max-width:780px){.preview-credit{right:7px;bottom:6px;padding:4px 5px;font-size:5.8px}}
+@media(max-width:780px){.preview-credit{right:7px;bottom:6px;padding:4px 5px;font-size:7px}}
