@@ -144,3 +144,11 @@
 .preview-logistics .preview-stage strong{max-width:18ch;font-size:clamp(17px,1.9vw,27px)}
 .preview-logistics .preview-ui span:first-child{background:#bdf23c;color:#07131d;border-color:#bdf23c}
 .preview-logistics .preview-credit{background:rgba(7,19,29,.78);border-color:#ffffff22;color:#fff}
+
+/* v20 — shop preview is a retail campaign frame */
+.preview-shop .preview-stage{position:relative;background:#b8aa99;color:#fff}
+.preview-shop .preview-stage:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,16,13,.48),transparent 65%)}
+.preview-shop .preview-photo{inset:0;width:100%;height:100%;object-position:center 55%;filter:saturate(.72)}
+.shop-mini-title{position:absolute;z-index:2;left:6%;bottom:11%;max-width:58%}.shop-mini-title small{display:block;font-size:7px;letter-spacing:.1em}.shop-mini-title strong{display:block;font:500 clamp(22px,2.7vw,39px)/.82 var(--type-display);letter-spacing:-.065em;margin-top:7px}
+.shop-mini-price{position:absolute;z-index:2;right:5%;bottom:11%;padding:8px 10px;background:#eee9df;color:#171512;font:700 9px var(--type-ui)}
+.preview-shop .preview-credit{background:rgba(238,233,223,.86);color:#171512}
