@@ -28,3 +28,6 @@ body{background:#f6f0ec;color:#201b19}
 
 /* v7 mobile editorial balance */
 @media(max-width:720px){.hero{padding-top:10px;gap:20px}.hero-copy{padding-top:10px}.issue{margin-top:22px!important}.hero h1{font-size:61px;margin:12px 0 16px}.hero-copy>p:not(.issue){margin:0}.book-link{margin-top:18px}.photo,.photo img{min-height:460px}}
+
+/* v8 — mobile editorial image follows the real viewport */
+@media(max-width:720px){.hero{min-height:auto}.photo,.photo img{min-height:0}.photo{height:min(70svh,580px)}.photo img{height:100%;object-fit:cover}}
