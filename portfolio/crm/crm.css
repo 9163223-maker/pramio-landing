@@ -21,3 +21,6 @@ body{background:#111820!important;color:#f3f5f6!important}.bar{background:#d8e2d
 .bar{background:#d8e2df!important;color:#14201d!important}.status{color:#d8e2df!important}.fab{background:#d8e2df!important}.fab button,.fab button.active{color:#14201d!important}
 /* v11 — mobile legibility floor */
 @media(max-width:720px){.pipeline-rail span{font-size:10px}.side button,.top button,.fab button{min-height:44px}}
+/* v12 — safe-area mobile command bar */
+html,body{overflow-x:hidden}
+@media(max-width:720px){.fab{bottom:max(12px,env(safe-area-inset-bottom));left:12px;right:12px}.main{padding-bottom:calc(88px + env(safe-area-inset-bottom))}}
