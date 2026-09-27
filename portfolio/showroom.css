@@ -287,3 +287,18 @@
 .preview-card .preview-stage{background:#e9e4da!important;color:#171717!important}
 .card-acid-shape{background:#263c56!important}.card-acid-shape:after{background:#b75b3c!important}
 .preview-crm .preview-stage{background:#111820!important}.crm-neonrail span{color:#d8e2df!important}.preview-crm .preview-credit{background:#d8e2df!important;color:#14201d!important}
+
+/* v30 — final contrast normalization after video review */
+.preview-card .card-mini-projects{background:rgba(233,228,218,.9)!important}
+.preview-card .card-mini-projects b,.preview-card .card-mini-projects span{color:#171717!important}
+.preview-card .card-mini-projects em{color:#5f5a52!important}
+.preview-expert .expert-mini-title,.preview-expert .expert-mini-list{position:relative;z-index:2}
+.preview-expert .expert-mini-list{background:rgba(232,228,217,.88)!important}
+.preview-expert .expert-mini-list span{color:#171714!important}
+.preview-crm .crm-mini-metric,.preview-crm .crm-mini-deals{color:#f3f5f6!important}
+.preview-crm .crm-mini-metric small,.preview-crm .crm-mini-deals small{color:#aab6bd!important}
+@media(max-width:780px){
+ .preview-card .card-acid-shape{opacity:.86!important}
+ .preview-expert .expert-redblock{opacity:.16!important}
+ .preview-legal .legal-sectionmark{opacity:.1!important}
+}
