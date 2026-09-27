@@ -46,3 +46,6 @@ body{background:var(--paper)}
  .service-grid{grid-template-columns:1fr}.service{min-height:150px}.service b{margin-top:22px}
  .about{margin:20px 14px 46px;padding:34px 22px;border-radius:30px}.about h2{font-size:40px}
 }
+
+/* v11 mobile video repair */
+@media(max-width:720px){.hero-visual{min-height:520px}.doctor-photo{object-position:center 8%!important}.scene-chip{top:3%}.chip-b{top:11%}}
