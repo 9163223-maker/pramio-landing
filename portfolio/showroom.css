@@ -223,3 +223,12 @@
  .preview-logistics .preview-stage,.preview-legal .preview-stage{padding:7%!important}
  .preview-card .card-mini-projects{width:68%!important}
 }
+
+/* v25 — showroom eyebrow marker is self-contained; no inherited blue halo */
+.portfolio-page .showroom-hero .eyebrow>span,
+.portfolio-page .showroom-section .section-heading .eyebrow>span{
+ box-shadow:none!important;
+ background:#f47a3c!important;
+}
+.portfolio-page .showroom-section .section-heading{overflow:visible!important}
+.portfolio-page .showroom-section .section-heading .eyebrow{margin-left:4px!important}
