@@ -15,3 +15,6 @@ body,.screen{background:#e9e4da!important;color:#171717!important}
 body,.screen,.work{background:#e9e4da!important}.ticker{color:#e9e4da!important}.project-visual{background:#263c56!important}.project-visual:before{background:#b75b3c!important}.project-visual i:nth-child(2){background:#d4c3a5!important}.signal{background:#b75b3c!important}
 /* v11 — mobile legibility floor */
 @media(max-width:700px){.work button,.work button strong,.work button span,footer b,.ticker span{font-size:max(10px,inherit)}.work button{min-height:46px}}
+/* v12 — contain experimental artwork on narrow screens */
+html,body{overflow-x:hidden}
+@media(max-width:700px){.screen{overflow:hidden}.project-visual{right:-4vw;width:48vw;max-width:190px}.identity h1{font-size:clamp(54px,18vw,72px)}}
