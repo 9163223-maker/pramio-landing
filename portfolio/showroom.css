@@ -232,3 +232,31 @@
 }
 .portfolio-page .showroom-section .section-heading{overflow:visible!important}
 .portfolio-page .showroom-section .section-heading .eyebrow{margin-left:4px!important}
+
+/* v26 — final visual-weight pass for previews 6–10 */
+.preview-expert .preview-stage{min-height:330px!important}
+.preview-expert .expert-mini-list{grid-template-columns:1fr 1fr!important;gap:0!important;border-bottom:1px solid #171714}
+.preview-expert .expert-mini-list span{padding:8px 4px;border-top:1px solid #171714}
+.preview-card .preview-stage{min-height:350px!important;position:relative!important}
+.preview-card .card-mini-projects{width:72%!important;border-top:1px solid #26231e!important}
+.preview-card .card-mini-projects span{display:grid!important;grid-template-columns:20px 1fr auto!important;gap:6px!important;padding:7px 0!important;border-bottom:1px solid #c9c3b6!important;align-items:center!important}
+.preview-card .card-mini-projects b{font:700 7px var(--type-ui)!important}.preview-card .card-mini-projects em{font:500 6px var(--type-ui)!important;font-style:normal!important;color:#766e62!important;text-transform:uppercase!important}
+.card-mini-foot{position:absolute;left:7%;right:7%;bottom:7%;display:flex;gap:10px;border-top:1px solid #26231e;padding-top:7px;font:600 6px var(--type-ui);letter-spacing:.08em}
+.preview-card .preview-credit{bottom:31px!important}
+.preview-legal .preview-ui{grid-template-columns:1fr 1fr!important;gap:7px!important}
+.preview-legal .preview-ui span{border:1px solid #9e8257!important;border-radius:999px!important;padding:7px 8px!important}
+.preview-crm .preview-stage{min-height:360px!important}
+.preview-crm .crm-mini{width:100%!important}
+.preview-crm .crm-mini-deals{width:100%!important}
+.preview-cms .preview-stage{min-height:360px!important}
+.cms-mini-layout{margin-top:auto!important;display:grid!important;grid-template-columns:32% 1fr!important;width:100%!important;min-height:180px!important;background:#f8f5ed!important;border:1px solid #d7d1c4!important}
+.cms-mini-layout nav{display:grid!important;align-content:start!important;gap:0!important;background:#e5e0d5!important;padding:10px 7px!important;font:600 6px var(--type-ui)!important}
+.cms-mini-layout nav span{padding:6px 4px!important;border-bottom:1px solid #d1cabb!important}.cms-mini-layout nav .on{color:#173b31!important;font-weight:800!important}
+.cms-mini-layout .cms-mini{margin:0!important;border:0!important;padding:12px 10px!important;align-self:stretch!important}
+@media(max-width:780px){
+ .preview-expert .preview-stage{min-height:300px!important}
+ .preview-card .preview-stage{min-height:330px!important}
+ .preview-card .card-mini-projects{width:78%!important}
+ .card-mini-foot{gap:7px!important}
+ .preview-crm .preview-stage,.preview-cms .preview-stage{min-height:350px!important}
+}
