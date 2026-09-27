@@ -11,3 +11,5 @@ body,.screen{background:#e9e4da!important;color:#171717!important}
 .project-visual i:nth-child(2){background:#d4c3a5!important}
 .signal{background:#b75b3c!important}
 @media(max-width:700px){.work{background:#e9e4da!important}}
+/* v10 — remove obsolete acid declarations from cascade */
+body,.screen,.work{background:#e9e4da!important}.ticker{color:#e9e4da!important}.project-visual{background:#263c56!important}.project-visual:before{background:#b75b3c!important}.project-visual i:nth-child(2){background:#d4c3a5!important}.signal{background:#b75b3c!important}
