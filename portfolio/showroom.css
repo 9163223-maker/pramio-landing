@@ -176,3 +176,33 @@
  .showroom-copy{min-height:150px!important}
  .portfolio-page .service-cta{margin-top:30px!important;padding:28px 20px!important;border-radius:28px!important}
 }
+
+/* v23 — video acceptance: marker ownership, faithful previews, readable CTA */
+.portfolio-page .showroom-hero .eyebrow,
+.portfolio-page .showroom-section .section-heading .eyebrow{position:relative!important;padding-left:18px!important;overflow:visible!important;display:block!important}
+.portfolio-page .showroom-hero .eyebrow>span,
+.portfolio-page .showroom-section .section-heading .eyebrow>span{position:absolute!important;left:0!important;top:50%!important;width:8px!important;height:8px!important;min-width:8px!important;margin:0!important;border-radius:50%!important;transform:translateY(-50%)!important}
+.portfolio-page .showroom-section .section-heading{padding-left:4px!important}
+.portfolio-page .showroom-section .section-heading .eyebrow{margin-left:0!important}
+.portfolio-page .service-cta:before,.portfolio-page .service-cta:after{content:none!important;display:none!important}
+.portfolio-page .service-cta h2{color:#13223b!important;opacity:1!important}
+.portfolio-page .service-cta p{color:#52627a!important;opacity:1!important}
+.portfolio-page .service-cta .btn{background:#fff!important;color:#0c5fc7!important;border:1px solid rgba(12,95,199,.14)!important}
+.mini-trip{position:relative;z-index:3;display:grid;grid-template-columns:repeat(6,1fr);gap:4px;width:82%;margin:15px 0 8px}
+.mini-trip i{height:3px;background:#35505c}.mini-trip i:nth-child(-n+4){background:#bdf23c}.mini-trip b{position:absolute;left:62%;top:-7px;width:17px;height:17px;border-radius:50%;display:grid;place-items:center;background:#bdf23c;color:#07131d;font-size:7px}
+.logistics-mini-route,.logistics-mini-dot{display:none!important}
+.expert-mini-list{display:grid;gap:4px;margin-top:10px;width:100%;font:600 7px var(--type-ui);border-top:1px solid #171714;padding-top:7px}
+.card-mini-projects{display:grid;gap:3px;margin-top:10px;font:600 7px var(--type-ui);text-transform:uppercase}
+.preview-crm .preview-stage{padding:8% 5% 6% 27%!important;justify-content:flex-start!important}
+.crm-mini{grid-template-columns:1fr 1fr!important;gap:4px!important;margin-top:8px!important}
+.crm-mini i{height:auto!important;min-height:35px!important;padding:5px!important;display:flex!important;flex-direction:column!important;justify-content:space-between!important;font-style:normal!important}
+.crm-mini i b{font:600 12px var(--type-display)}.crm-mini i span{font:500 5px var(--type-ui);color:#65717a}
+.crm-mini-deals{margin-top:5px;background:#fff;padding:6px;display:grid;gap:3px;font:500 5px var(--type-ui)}
+.crm-mini-deals b{font-size:7px}.crm-mini-deals span{padding-top:3px;border-top:1px solid #e4e7e9}
+.cms-mini em{display:block;margin-top:7px;padding-top:5px;border-top:1px solid #d6d1c7;font:500 6px var(--type-ui);font-style:normal;color:#68716d}
+@media(max-width:780px){
+ .portfolio-page .showroom-hero .eyebrow,.portfolio-page .showroom-section .section-heading .eyebrow{padding-left:18px!important;display:block!important}
+ .portfolio-page .showroom-hero .eyebrow>span,.portfolio-page .showroom-section .section-heading .eyebrow>span{left:0!important;top:50%!important;position:absolute!important}
+ .showroom-copy{min-height:0!important;padding-bottom:42px!important}
+ .preview-expert .preview-stage,.preview-card .preview-stage{padding:7%!important}
+}
