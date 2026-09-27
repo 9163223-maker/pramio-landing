@@ -29,3 +29,6 @@ body{background:#e9e4d9;color:#181b17}
  .section{padding:56px 14px}.plans{grid-template-columns:1fr}.plan{min-height:200px;border-right:0;border-bottom:1px solid rgba(24,27,23,.2)}.plan h3{margin-top:48px}
  .config{grid-template-columns:1fr}.config>div:first-child,.summary{padding:28px 20px}
 }
+
+/* v6 mobile density */
+@media(max-width:720px){.section{padding:44px 14px}.plan{min-height:150px;padding:20px 16px}.plan h3{margin-top:28px;font-size:29px}.project-no{margin-top:32px}}
