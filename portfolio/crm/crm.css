@@ -24,3 +24,6 @@ body{background:#111820!important;color:#f3f5f6!important}.bar{background:#d8e2d
 /* v12 — safe-area mobile command bar */
 html,body{overflow-x:hidden}
 @media(max-width:720px){.fab{bottom:max(12px,env(safe-area-inset-bottom));left:12px;right:12px}.main{padding-bottom:calc(88px + env(safe-area-inset-bottom))}}
+
+/* v14 — dark component contrast normalization */
+.detail{background:#16212a;color:#f3f5f6;border:1px solid #31414b}.detail p,.detail span{color:#aab6bd}.settings input[type=text],.settings input:not([type]){background:#16212a;color:#f3f5f6;border-color:#31414b}.settings input::placeholder{color:#82919a}.chart i{background:#6f8f87}.client em{color:#a9c7c0}
