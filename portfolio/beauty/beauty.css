@@ -25,3 +25,6 @@ body{background:#f6f0ec;color:#201b19}
  .section{padding:58px 14px}.services{grid-template-columns:1fr}.service{min-height:220px;border-right:0;border-bottom:1px solid rgba(32,27,25,.18)}.service h3{margin-top:52px}
  .book{grid-template-columns:1fr}.book>div:first-child,.result{padding:28px 20px}.result{margin:0 12px 12px}.book h2{font-size:44px}
 }
+
+/* v7 mobile editorial balance */
+@media(max-width:720px){.hero{padding-top:10px;gap:20px}.hero-copy{padding-top:10px}.issue{margin-top:22px!important}.hero h1{font-size:61px;margin:12px 0 16px}.hero-copy>p:not(.issue){margin:0}.book-link{margin-top:18px}.photo,.photo img{min-height:460px}}
