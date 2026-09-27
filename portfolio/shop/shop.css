@@ -19,3 +19,6 @@ body{background:#eee9df;color:#171512}
 
 /* v9 mobile chrome reduction */
 @media(max-width:720px){.bar{padding:7px 14px;font-size:10px}.bar span{display:none}.nav{padding:9px 14px;min-height:54px}.nav .logo{font-size:23px}.demo-menu{border:0;padding:0 8px}.cart{padding:8px 11px;border-radius:0}.hero .visual{height:68vh;min-height:500px}}
+
+/* v10 — iPhone viewport and cart safe-area */
+@media(max-width:720px){.hero .visual{height:68svh;min-height:min(500px,68svh)}.drawer{top:max(72px,env(safe-area-inset-top));bottom:max(12px,env(safe-area-inset-bottom));max-height:calc(100dvh - max(84px,env(safe-area-inset-top)) - max(12px,env(safe-area-inset-bottom)));overflow:auto;overscroll-behavior:contain}.filters{-webkit-overflow-scrolling:touch;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}}
