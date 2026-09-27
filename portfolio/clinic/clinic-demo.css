@@ -49,3 +49,6 @@ body{background:var(--paper)}
 
 /* v11 mobile video repair */
 @media(max-width:720px){.hero-visual{min-height:520px}.doctor-photo{object-position:center 8%!important}.scene-chip{top:3%}.chip-b{top:11%}}
+
+/* v12 — mobile doctor image and booking modal follow the real viewport */
+@media(max-width:720px){.hero-visual{min-height:0;height:min(68svh,560px)}.modal section{max-height:calc(100dvh - max(32px,env(safe-area-inset-top)) - max(32px,env(safe-area-inset-bottom)));overscroll-behavior:contain}.modal{padding-top:max(16px,env(safe-area-inset-top));padding-bottom:max(16px,env(safe-area-inset-bottom))}}
