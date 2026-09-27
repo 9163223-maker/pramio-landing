@@ -19,3 +19,5 @@ body{background:#111820!important;color:#f3f5f6!important}.bar{background:#d8e2d
 .fab{background:#d8e2df!important;color:#14201d!important}.fab button,.fab button.active{color:#14201d!important}
 /* v10 — remove obsolete neon declarations from cascade */
 .bar{background:#d8e2df!important;color:#14201d!important}.status{color:#d8e2df!important}.fab{background:#d8e2df!important}.fab button,.fab button.active{color:#14201d!important}
+/* v11 — mobile legibility floor */
+@media(max-width:720px){.pipeline-rail span{font-size:10px}.side button,.top button,.fab button{min-height:44px}}
