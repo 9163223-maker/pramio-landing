@@ -260,3 +260,17 @@
  .card-mini-foot{gap:7px!important}
  .preview-crm .preview-stage,.preview-cms .preview-stage{min-height:350px!important}
 }
+
+/* v27 — acceptance video: compact faithful mobile captures */
+@media(max-width:780px){
+ .preview-expert .preview-stage,.preview-card .preview-stage,
+ .preview-crm .preview-stage,.preview-cms .preview-stage{min-height:0!important;height:100%!important}
+ .preview-expert .expert-mini-list{margin-top:18px!important}
+ .preview-card .card-mini-projects{margin-top:28px!important;width:76%!important}
+ .preview-card .card-mini-projects span{padding:5px 0!important}
+ .card-mini-foot{bottom:8%!important}
+ .preview-card .preview-credit{bottom:8px!important}
+ .preview-crm .preview-stage{padding-top:7%!important;padding-bottom:6%!important}
+ .preview-cms .preview-stage{padding-top:7%!important;padding-bottom:6%!important}
+ .cms-mini-layout{min-height:0!important;margin-top:18px!important}
+}
