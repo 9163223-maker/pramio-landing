@@ -17,3 +17,6 @@ body{background:#dfe6e2}.bar{background:#101d19}.workspace-strip{height:28px;dis
 @media(max-width:820px){.workspace-strip{grid-template-columns:28% 44% 28%;height:25px}.workspace-strip span{padding:7px 5px;text-align:center;font-size:6px}.main{margin:6px;padding:12px}.headline{margin:-12px -12px 0;padding:14px}.grid{margin-top:10px}}
 /* v9 — mobile legibility floor */
 @media(max-width:820px){.workspace-strip{height:auto;min-height:30px}.workspace-strip span{font-size:8px!important;line-height:1.2}.row button,.primary,aside button{min-height:44px}}
+/* v10 — contain editor chrome on narrow screens */
+html,body{overflow-x:hidden}
+@media(max-width:820px){.top{flex-wrap:wrap;padding-top:6px;padding-bottom:6px}.project{min-width:0}.project select{max-width:46vw}.headline{gap:10px;flex-wrap:wrap}.fields input,.fields textarea,.fields select{min-width:0}}
