@@ -281,3 +281,9 @@
 .preview-legal .preview-stage{background:#f0eee8!important;color:#151515!important;position:relative}.legal-sectionmark{position:absolute;right:3%;top:-5%;font:400 190px Georgia;color:#c43f2d;opacity:.14;font-style:normal}.preview-legal .legal-mini{background:#f0eee8!important;color:#151515!important}.preview-legal .preview-ui span{border-color:#c43f2d!important}.preview-legal .preview-credit{color:#151515!important}
 .preview-crm .preview-stage{background:#0b1016!important;color:#eaf0f5!important}.preview-crm .crm-mini{background:#101821!important;border-color:#26313b!important}.crm-neonrail{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#26313b;margin:7px 0}.crm-neonrail span{background:#101821;color:#7cff6b;padding:6px;font:600 15px Geologica}.crm-neonrail small{display:block;color:#81909d;font:500 5px Manrope;letter-spacing:.08em}.preview-crm .crm-mini-metric,.preview-crm .crm-mini-deals{border-color:#26313b!important;background:#101821!important;color:#eaf0f5!important}
 .preview-cms .preview-stage{background:#dfe6e2!important}.cms-workbar{display:grid;grid-template-columns:30% 42% 28%;width:100%;background:#101d19;color:#9eb0a8;font:600 5px Manrope;letter-spacing:.08em}.cms-workbar span{padding:5px;border-right:1px solid #31433b}.preview-cms .cms-mini-layout{border-color:#aebcb5!important;background:#f8faf8!important}
+
+/* v29 — video acceptance: premium contrast, no acid preview palettes */
+.preview-expert .preview-stage{background:linear-gradient(110deg,#e8e4d9 0 72%,#a94835 72%)!important}
+.preview-card .preview-stage{background:#e9e4da!important;color:#171717!important}
+.card-acid-shape{background:#263c56!important}.card-acid-shape:after{background:#b75b3c!important}
+.preview-crm .preview-stage{background:#111820!important}.crm-neonrail span{color:#d8e2df!important}.preview-crm .preview-credit{background:#d8e2df!important;color:#14201d!important}
