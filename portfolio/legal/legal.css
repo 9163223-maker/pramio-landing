@@ -12,3 +12,9 @@ body{background:#f0eee8;color:#151515}.labbar{background:#151515;color:#f0eee8}.
 /* v8 — narrow-screen containment */
 html,body{overflow-x:hidden}.hero{overflow:hidden}
 @media(max-width:720px){.panel{margin-left:8%;max-width:92%}.hero h1{font-size:clamp(45px,14vw,55px)}}
+
+/* v9 — compact inner-page hero; home keeps editorial composition */
+body:not(:has(.legal-mark)) .hero{min-height:0;display:block;padding:72px 5vw 58px;overflow:hidden;border-bottom:1px solid #151515}
+body:not(:has(.legal-mark)) .hero>div{max-width:920px}
+body:not(:has(.legal-mark)) .hero h1{font-size:clamp(46px,6vw,82px);max-width:900px;margin-bottom:18px}
+@media(max-width:720px){body:not(:has(.legal-mark)) .hero{padding:46px 5vw 38px}body:not(:has(.legal-mark)) .hero h1{font-size:clamp(40px,12vw,52px)}}
