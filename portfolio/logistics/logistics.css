@@ -22,3 +22,21 @@ footer{padding:28px 3.5vw 45px;border-top:1px solid #263944;display:grid;grid-te
  .control-head{gap:12px}.control h1{font-size:34px}.eta{flex:0 0 auto}
 }
 @media(prefers-reduced-motion:reduce){.route-line .truck{animation:none;left:54%}}
+
+/* v9 — abstract trip progress, deliberately not a geographic line */
+.route-line,.truck,.pulse{display:none!important}
+.route-progress{position:absolute;left:9%;right:9%;top:52%;height:64px;transform:none}
+.progress-track{position:absolute;left:0;right:0;top:30px;display:grid;grid-template-columns:repeat(12,1fr);gap:7px}
+.progress-track i{height:3px;background:#2b4653}
+.progress-track i:nth-child(-n+7){background:#bdf23c;box-shadow:0 0 9px #bdf23c35}
+.progress-vehicle{position:absolute;left:58%;top:19px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#bdf23c;color:#07131d;font-size:11px;box-shadow:0 0 0 7px #bdf23c16;animation:trip-status 2.8s ease-in-out infinite}
+.city:before{top:-15px}
+.city-a{left:9%;top:59%}.city-b{right:9%;top:59%}
+@keyframes trip-status{50%{box-shadow:0 0 0 13px #bdf23c08;transform:scale(1.06)}}
+@media(max-width:720px){
+ .route-progress{left:7%;right:7%;top:52%}
+ .progress-track{gap:4px}
+ .progress-vehicle{left:58%}
+ .city-a{left:7%;top:62%}.city-b{right:7%;top:62%}
+}
+@media(prefers-reduced-motion:reduce){.progress-vehicle{animation:none}}
