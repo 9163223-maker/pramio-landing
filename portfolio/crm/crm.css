@@ -17,3 +17,5 @@ body{background:#111820!important;color:#f3f5f6!important}.bar{background:#d8e2d
 .status{background:#20372f!important;color:#d8e2df!important;border-color:#3c5b50!important}
 .pipeline-rail b{color:#f3f5f6!important}.badge{background:#263742!important;color:#dbe7e2!important}
 .fab{background:#d8e2df!important;color:#14201d!important}.fab button,.fab button.active{color:#14201d!important}
+/* v10 — remove obsolete neon declarations from cascade */
+.bar{background:#d8e2df!important;color:#14201d!important}.status{color:#d8e2df!important}.fab{background:#d8e2df!important}.fab button,.fab button.active{color:#14201d!important}
