@@ -23,3 +23,6 @@ html,body{overflow-x:hidden}
 
 /* v11 — mobile editor navigation and keyboard-safe controls */
 @media(max-width:820px){aside{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:4}aside::-webkit-scrollbar{display:none}aside button{flex:0 0 auto}.fields input,.fields textarea,.fields select{font-size:16px}.project select{font-size:16px;max-width:min(52vw,240px)}.main{padding-bottom:calc(24px + env(safe-area-inset-bottom))}}
+
+/* v12 — horizontal module rail stays in normal flow below the dynamic header */
+@media(max-width:820px){aside{position:relative;top:auto;z-index:auto}.shell{min-height:calc(100svh - 60px)}}
