@@ -206,3 +206,20 @@
  .showroom-copy{min-height:0!important;padding-bottom:42px!important}
  .preview-expert .preview-stage,.preview-card .preview-stage{padding:7%!important}
 }
+
+/* v24 — previews 4–10 read as interface captures, not generic posters */
+.preview-logistics .preview-stage{padding:7%!important;justify-content:flex-start!important}
+.preview-logistics .preview-stage strong{margin-top:8px!important}
+.preview-logistics .mini-trip{margin-top:auto!important;margin-bottom:14px!important}
+.preview-expert .preview-stage{justify-content:flex-start!important}.preview-expert .expert-mini-list{margin-top:auto!important}
+.preview-card .preview-stage{justify-content:flex-start!important}.preview-card .card-mini-projects{margin-top:auto!important;width:62%!important}
+.preview-legal .preview-stage{justify-content:flex-start!important;padding:7%!important;background:#121211!important;color:#f1eee6!important}
+.preview-legal .preview-stage strong{font:500 clamp(22px,2.7vw,38px)/.9 var(--type-display)!important;max-width:15ch!important;margin-top:10px!important}
+.preview-legal .preview-ui{margin-top:auto!important;width:100%!important;display:grid!important;grid-template-columns:1fr 1fr!important}
+.preview-crm .preview-stage>strong,.preview-cms .preview-stage>strong{font-size:clamp(18px,2.1vw,29px)!important}
+.preview-cms .preview-stage{justify-content:flex-start!important;padding-top:7%!important}
+.preview-cms .cms-mini{margin-top:auto!important}
+@media(max-width:780px){
+ .preview-logistics .preview-stage,.preview-legal .preview-stage{padding:7%!important}
+ .preview-card .card-mini-projects{width:68%!important}
+}
