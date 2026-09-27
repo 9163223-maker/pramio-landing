@@ -159,3 +159,20 @@
 .preview-legal .preview-ui span{font-size:6px}
 .preview-crm .preview-stage{background:linear-gradient(90deg,#11161a 0 22%,#edf0f2 22%);padding-left:27%}.crm-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:100%;margin-top:10px}.crm-mini i{height:25px;background:#fff;border:1px solid #d7dce0}.crm-mini i:nth-child(2){height:38px}.crm-mini i:nth-child(3){height:31px}
 .preview-cms .preview-stage{background:linear-gradient(90deg,#e4e0d7 0 22%,#fffdf8 22%);padding-left:27%}.preview-cms .preview-stage>*{margin-left:0}.cms-mini{margin-top:10px;padding:8px;background:#f1eee6;border-top:1px solid #d6d1c7}.cms-mini span,.cms-mini i{display:block;font-size:6px;color:#68716d}.cms-mini b{display:block;margin:5px 0;font-size:9px}.cms-mini i{font-style:normal;color:#24705c}
+
+/* v22 — deterministic catalog rhythm + varied card silhouettes */
+.showroom-card{opacity:1!important;visibility:visible!important}
+.showroom-card:after{width:auto;height:auto;border-radius:0;background:transparent!important;content:"Открыть ↗";font:700 11px/1 var(--type-ui);color:#176cff!important}
+.showroom-card:nth-child(4),.showroom-card:nth-child(8){background:#0d1820!important}.showroom-card:nth-child(4) .showroom-copy,.showroom-card:nth-child(8) .showroom-copy{background:#0d1820!important}.showroom-card:nth-child(4) .showroom-copy h3,.showroom-card:nth-child(8) .showroom-copy h3{color:#f3f6f8!important}.showroom-card:nth-child(4) .showroom-copy p,.showroom-card:nth-child(8) .showroom-copy p{color:#aebac0!important}
+.showroom-card:nth-child(6),.showroom-card:nth-child(7){border-radius:8px!important;box-shadow:none!important}
+.portfolio-page .service-cta{position:relative;overflow:hidden;background:rgba(255,255,255,.54)!important;border:1px solid rgba(27,62,115,.1)!important;box-shadow:0 18px 50px rgba(39,73,130,.08)!important;color:var(--v2-ink)!important}
+.portfolio-page .service-cta:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(76,151,255,.08),transparent 55%);pointer-events:none}
+.portfolio-page .service-cta .btn{position:relative}
+@media(max-width:780px){
+ .showroom-grid{gap:14px!important}
+ .showroom-card{min-height:0!important;margin:0!important;opacity:1!important;transform:none!important}
+ .showroom-card:after{right:18px;bottom:20px}
+ .showroom-preview{aspect-ratio:1.38!important}
+ .showroom-copy{min-height:150px!important}
+ .portfolio-page .service-cta{margin-top:30px!important;padding:28px 20px!important;border-radius:28px!important}
+}
