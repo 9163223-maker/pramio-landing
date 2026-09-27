@@ -32,3 +32,6 @@ body{background:#e9e4d9;color:#181b17}
 
 /* v6 mobile density */
 @media(max-width:720px){.section{padding:44px 14px}.plan{min-height:150px;padding:20px 16px}.plan h3{margin-top:28px;font-size:29px}.project-no{margin-top:32px}}
+
+/* v7 — mobile hero follows the real viewport */
+@media(max-width:720px){.hero{min-height:auto}.house,.house img{min-height:0}.house{height:min(68svh,560px)}.house img{height:100%;object-fit:cover}}
