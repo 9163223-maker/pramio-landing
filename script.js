@@ -39,10 +39,10 @@
     setBackgroundInert(true);
     overlay.hidden = false;
     panel.hidden = false;
-    syncContactViewport();
     requestAnimationFrame(() => {
       overlay.classList.add('is-open');
       panel.classList.add('is-open');
+      syncContactViewport();
       const preferredFocus = panel.querySelector('.service-picker__trigger, input[name="email"], textarea[name="message"], .contact-close');
       if (preferredFocus) preferredFocus.focus({ preventScroll: true });
     });
