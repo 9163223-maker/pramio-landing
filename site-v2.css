@@ -2539,3 +2539,15 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
 
 /* Acceptance polish 2026-09-25 */
 .site-footer small{font-size:12px!important;color:#66758b!important;}
+
+/* showroom-lead-v1: one unobtrusive commercial exit from standalone demos */
+.pramio-demo-lead{
+  position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));
+  z-index:90;display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+  padding:0 16px;border:1px solid rgba(20,102,255,.22);border-radius:999px;
+  background:rgba(255,255,255,.88);box-shadow:0 10px 30px rgba(6,24,51,.12);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  color:#0755ed;font:600 13px/1.2 Manrope,system-ui,sans-serif;text-decoration:none;
+}
+.pramio-demo-lead:focus-visible{outline:3px solid rgba(20,102,255,.3);outline-offset:3px}
+@media(max-width:560px){.pramio-demo-lead{left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));}}
