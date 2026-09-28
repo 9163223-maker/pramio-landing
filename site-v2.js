@@ -66,6 +66,7 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
     try { url = new URL(link.href, window.location.origin); } catch (_) { return; }
     if (url.origin !== window.location.origin || url.hash !== '#contact') return;
     const requestedService = url.searchParams.get('service');
+    const requestedSource = url.searchParams.get('source');
     link.classList.add('contact-trigger');
     link.setAttribute('aria-haspopup','dialog');
     link.setAttribute('aria-controls','contact-panel');
@@ -75,8 +76,19 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
       /* script.js is the single owner of opening .contact-trigger dialogs.
          This local listener only preserves in-place navigation and service preselection. */
       event.preventDefault();
+      const form = document.getElementById('contact-form');
+      if (requestedSource && form) {
+        let sourceInput = form.querySelector('[name="source"]');
+        if (!sourceInput) {
+          sourceInput = document.createElement('input');
+          sourceInput.type = 'hidden';
+          sourceInput.name = 'source';
+          form.append(sourceInput);
+        }
+        sourceInput.value = requestedSource.slice(0,120);
+      }
       if (!requestedService) return;
-      const select = document.querySelector('#contact-form [name="service"]');
+      const select = form && form.querySelector('[name="service"]');
       if (!select) return;
       const normalizedService = PRAMIO_NORMALIZE_CONTACT_SERVICE(requestedService);
       const option = Array.from(select.options).find((item) => item.text === normalizedService || item.value === normalizedService);
