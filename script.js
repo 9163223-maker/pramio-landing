@@ -86,6 +86,13 @@
     const trigger = event.target.closest('.contact-trigger');
     if (!trigger) return;
     event.preventDefault();
+    if (!trigger.hasAttribute('data-contact-service') && !trigger.matches('a[href*="service="]')) {
+      const select = document.querySelector('#contact-form [name="service"]');
+      if (select && select.value) {
+        select.value = '';
+        select.dispatchEvent(new Event('change', { bubbles:true }));
+      }
+    }
     openContact();
   });
   document.addEventListener('click', (event) => {
