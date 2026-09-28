@@ -24,6 +24,11 @@ ErrorDocument 404 /404.html
   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
   RewriteRule ^(.+)$ https://pramio.ru/$1/ [R=301,L]
 
+  # Normalize explicit index.html paths to their directory URL. This also
+  # removes the duplicate showroom/legal/index.html URL without indexing demos.
+  RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html(?:[?\s]) [NC]
+  RewriteRule ^(.*/)?index\.html$ https://pramio.ru/$1 [R=301,L]
+
   # Keep a single canonical URL for the home page.
   RewriteCond %{THE_REQUEST} \s/+index\.html(?:[?\s]) [NC]
   RewriteRule ^index\.html$ https://pramio.ru/ [R=301,L]
