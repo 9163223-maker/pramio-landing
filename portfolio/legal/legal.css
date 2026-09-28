@@ -21,3 +21,6 @@ body:not(:has(.legal-mark)) .hero h1{font-size:clamp(46px,6vw,82px);max-width:90
 
 /* v10 — readable mobile menu on the light editorial shell */
 @media(max-width:720px){.navlinks{background:#151515;border-color:#151515;color:#f0eee8}.navlinks a{color:#f0eee8}.navlinks a:focus-visible{outline:2px solid #f0eee8;outline-offset:-2px}.nav{padding-left:max(5vw,env(safe-area-inset-left));padding-right:max(5vw,env(safe-area-inset-right))}}
+
+/* v11 — mobile menu follows the sticky header instead of a hard-coded offset */
+@media(max-width:720px){.nav{flex-wrap:wrap}.navlinks{position:static;flex:0 0 100%;order:4;margin-top:8px}.navlinks.open{display:flex}}
