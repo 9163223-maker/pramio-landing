@@ -1,7 +1,23 @@
 /* public-path-owner-v1 */
 const PRAMIO_SITE_BASE = location.hostname.endsWith('github.io') ? '/pramio-landing/' : '/';
 const PRAMIO_SITE_URL = (path='') => PRAMIO_SITE_BASE + String(path).replace(/^\//,'');
-/* global-contact-v4 */
+const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
+  const aliases = {
+    'Лендинг или небольшой сайт':'Сайт или веб-продукт',
+    'Бот MAX для заявок':'Бот или решение для MAX',
+    'Бот MAX для бизнеса':'Бот или решение для MAX',
+    'Кнопки и диплинки MAX':'Бот или решение для MAX',
+    'Автоматизация канала MAX':'Бот или решение для MAX',
+    'Бот для канала MAX':'Бот или решение для MAX',
+    'Модерация комментариев MAX':'Бот или решение для MAX',
+    'Интеграция MAX с CRM':'Бот или решение для MAX',
+    'Лид-магнит в MAX':'Бот или решение для MAX',
+    'Mini App для MAX':'Бот или решение для MAX'
+  };
+  return aliases[value] || value;
+};
+
+/* global-contact-v5 */
 (() => {
   const ensureContactPanel = () => {
     if (!document.getElementById('contact-overlay')) {
@@ -33,22 +49,7 @@ const PRAMIO_SITE_URL = (path='') => PRAMIO_SITE_BASE + String(path).replace(/^\
     return panel;
   };
   ensureContactPanel();
-  const normalizeContactService = (value) => {
-    const aliases = {
-      'Лендинг или небольшой сайт':'Сайт или веб-продукт',
-      'Бот MAX для заявок':'Бот или решение для MAX',
-      'Бот MAX для бизнеса':'Бот или решение для MAX',
-      'Кнопки и диплинки MAX':'Бот или решение для MAX',
-      'Автоматизация канала MAX':'Бот или решение для MAX',
-      'Бот для канала MAX':'Бот или решение для MAX',
-      'Модерация комментариев MAX':'Бот или решение для MAX',
-      'Интеграция MAX с CRM':'Бот или решение для MAX',
-      'Лид-магнит в MAX':'Бот или решение для MAX',
-      'Mini App для MAX':'Бот или решение для MAX'
-    };
-    return aliases[value] || value;
-  };
-  document.querySelectorAll('[data-contact-service]').forEach((trigger) => { trigger.addEventListener('click', () => { const select=document.querySelector('#contact-form [name="service"]'); if(!select)return; const wanted=normalizeContactService(trigger.dataset.contactService||''); const option=Array.from(select.options).find(item=>item.text===wanted||item.value===wanted); if(option){select.value=option.value;select.dispatchEvent(new Event('change',{bubbles:true}));} }); });
+  document.querySelectorAll('[data-contact-service]').forEach((trigger) => { trigger.addEventListener('click', () => { const select=document.querySelector('#contact-form [name="service"]'); if(!select)return; const wanted=PRAMIO_NORMALIZE_CONTACT_SERVICE(trigger.dataset.contactService||''); const option=Array.from(select.options).find(item=>item.text===wanted||item.value===wanted); if(option){select.value=option.value;select.dispatchEvent(new Event('change',{bubbles:true}));} }); });
   const contactLinks = document.querySelectorAll('a[href*="#contact"]');
   contactLinks.forEach((link) => {
     let url;
@@ -67,7 +68,7 @@ const PRAMIO_SITE_URL = (path='') => PRAMIO_SITE_BASE + String(path).replace(/^\
       if (!requestedService) return;
       const select = document.querySelector('#contact-form [name="service"]');
       if (!select) return;
-      const normalizedService = normalizeContactService(requestedService);
+      const normalizedService = PRAMIO_NORMALIZE_CONTACT_SERVICE(requestedService);
       const option = Array.from(select.options).find((item) => item.text === normalizedService || item.value === normalizedService);
       if (option) {
         select.value = option.value;
@@ -132,7 +133,7 @@ const PRAMIO_SITE_URL = (path='') => PRAMIO_SITE_BASE + String(path).replace(/^\
     const requestedService = new URLSearchParams(window.location.search).get('service');
     const serviceSelect = form.querySelector('[name="service"]');
     if (requestedService && serviceSelect) {
-      const normalizedService = normalizeContactService(requestedService);
+      const normalizedService = PRAMIO_NORMALIZE_CONTACT_SERVICE(requestedService);
       const option = Array.from(serviceSelect.options).find((item) => item.text === normalizedService || item.value === normalizedService);
       if (option) serviceSelect.value = option.value;
     }
@@ -342,7 +343,7 @@ const PRAMIO_SITE_URL = (path='') => PRAMIO_SITE_BASE + String(path).replace(/^\
     panel.setAttribute('aria-modal','false');
     panel.setAttribute('aria-labelledby','cookie-title');
     panel.hidden = true;
-    panel.innerHTML = '<div class="cookie-consent__head"><div class="cookie-consent__icon" aria-hidden="true">◌</div><div><h2 id="cookie-title">Мы используем cookie</h2><p>Необходимые данные нужны для работы сайта. Аналитические cookie Яндекс Метрики включаются только с вашего согласия. Подробнее — в <a href="__COOKIE_PRIVACY__">политике обработки данных</a>.</p></div></div><div class="cookie-consent__actions"><button class="cookie-accept" type="button">Принять все</button><button class="cookie-settings" type="button">Настройки</button></div><div class="cookie-preferences" hidden><div class="cookie-pref-row"><span>Необходимые<small>Работа интерфейса и сохранение выбора</small></span><label class="cookie-switch is-fixed" aria-label="Необходимые cookie всегда включены"><input type="checkbox" checked disabled><i></i></label></div><div class="cookie-pref-row"><span>Аналитика<small>Яндекс Метрика и Вебвизор</small></span><label class="cookie-switch"><input class="cookie-analytics-toggle" type="checkbox"><i></i></label></div><div class="cookie-consent__actions"><button class="cookie-accept cookie-save" type="button">Сохранить выбор</button><button class="cookie-settings cookie-essential" type="button">Только необходимые</button></div></div>';
+    panel.innerHTML = '<div class="cookie-consent__head"><div class="cookie-consent__icon" aria-hidden="true">◌</div><div><h2 id="cookie-title">Мы используем cookie</h2><p>Необходимые данные нужны для работы сайта. Аналитические cookie Яндекс Метрики включаются только с вашего согласия. Подробнее — в <a href="__COOKIE_PRIVACY__">политике обработки данных</a>.</p></div></div><div class="cookie-consent__actions"><button class="cookie-accept" type="button">Принять все</button><button class="cookie-settings" type="button">Настройки</button></div><div class="cookie-preferences" hidden><div class="cookie-pref-row"><span>Необходимые<small>Работа интерфейса и сохранение выбора</small></span><label class="cookie-switch is-fixed" aria-label="Необходимые cookie всегда включены"><input type="checkbox" checked disabled><i></i></label></div><div class="cookie-pref-row"><span>Аналитика<small>Яндекс Метрика и Вебвизор</small></span><label class="cookie-switch"><span class="sr-only">Разрешить аналитические cookie</span><input class="cookie-analytics-toggle" type="checkbox" aria-label="Разрешить аналитические cookie"><i></i></label></div><div class="cookie-consent__actions"><button class="cookie-accept cookie-save" type="button">Сохранить выбор</button><button class="cookie-settings cookie-essential" type="button">Только необходимые</button></div></div>';
     panel.innerHTML = panel.innerHTML.replace('__COOKIE_PRIVACY__', PRAMIO_SITE_URL('privacy/'));
     document.body.append(panel);
 
