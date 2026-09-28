@@ -140,7 +140,16 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
         .catch(() => { tokenInput.value = ''; });
     }
 
-    const requestedService = new URLSearchParams(window.location.search).get('service');
+    const contactParams = new URLSearchParams(window.location.search);
+    const requestedService = contactParams.get('service');
+    const requestedSource = contactParams.get('source');
+    if (requestedSource && !form.querySelector('[name="source"]')) {
+      const sourceInput = document.createElement('input');
+      sourceInput.type = 'hidden';
+      sourceInput.name = 'source';
+      sourceInput.value = requestedSource.slice(0,120);
+      form.append(sourceInput);
+    }
     const serviceSelect = form.querySelector('[name="service"]');
     if (requestedService && serviceSelect) {
       const normalizedService = PRAMIO_NORMALIZE_CONTACT_SERVICE(requestedService);
