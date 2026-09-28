@@ -34,6 +34,7 @@
       mobileNav.hidden = true;
       document.documentElement.classList.remove('mobile-menu-open');
       document.querySelector('.site-header')?.classList.remove('is-menu-open');
+      document.querySelectorAll('.site-header [inert]').forEach((el) => el.removeAttribute('inert'));
     }
     document.body.classList.add('contact-open');
     setBackgroundInert(true);
