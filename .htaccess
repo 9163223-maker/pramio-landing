@@ -26,7 +26,7 @@ ErrorDocument 404 /404.html
 
   # Keep a single canonical URL for the home page.
   RewriteCond %{THE_REQUEST} \s/+index\.html(?:[?\s]) [NC]
-  RewriteRule ^index\.html$ / [R=301,L]
+  RewriteRule ^index\.html$ https://pramio.ru/ [R=301,L]
 
 </IfModule>
 
