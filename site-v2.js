@@ -395,23 +395,37 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
     panel.setAttribute('aria-modal','false');
     panel.setAttribute('aria-labelledby','cookie-title');
     panel.hidden = true;
-    panel.innerHTML = '<div class="cookie-consent__head"><div class="cookie-consent__icon" aria-hidden="true">◌</div><div><h2 id="cookie-title">Мы используем cookie</h2><p>Необходимые данные нужны для работы сайта. Аналитические cookie Яндекс Метрики включаются только с вашего согласия. Подробнее — в <a href="__COOKIE_PRIVACY__">политике обработки данных</a>.</p></div></div><div class="cookie-consent__actions"><button class="cookie-accept" type="button">Принять все</button><button class="cookie-settings" type="button">Настройки</button></div><div class="cookie-preferences" hidden><div class="cookie-pref-row"><span>Необходимые<small>Работа интерфейса и сохранение выбора</small></span><label class="cookie-switch is-fixed" aria-label="Необходимые cookie всегда включены"><input type="checkbox" checked disabled><i></i></label></div><div class="cookie-pref-row"><span>Аналитика<small>Яндекс Метрика и Вебвизор</small></span><label class="cookie-switch"><span class="sr-only">Разрешить аналитические cookie</span><input class="cookie-analytics-toggle" type="checkbox" aria-label="Разрешить аналитические cookie"><i></i></label></div><div class="cookie-consent__actions"><button class="cookie-accept cookie-save" type="button">Сохранить выбор</button><button class="cookie-settings cookie-essential" type="button">Только необходимые</button></div></div>';
+    panel.innerHTML = '<div class="cookie-consent__head"><div class="cookie-consent__icon" aria-hidden="true">◌</div><div><h2 id="cookie-title">Мы используем cookie</h2><p>Необходимые cookie — для работы сайта. Аналитика включается только с вашего согласия. <a href="__COOKIE_PRIVACY__">Подробнее</a>.</p></div></div><div class="cookie-consent__actions"><button class="cookie-accept" type="button">Принять все</button><button class="cookie-settings" type="button">Настройки</button></div><div class="cookie-preferences" hidden><div class="cookie-pref-row"><span>Необходимые<small>Работа интерфейса и сохранение выбора</small></span><label class="cookie-switch is-fixed" aria-label="Необходимые cookie всегда включены"><input type="checkbox" checked disabled><i></i></label></div><div class="cookie-pref-row"><span>Аналитика<small>Яндекс Метрика и Вебвизор</small></span><label class="cookie-switch"><span class="sr-only">Разрешить аналитические cookie</span><input class="cookie-analytics-toggle" type="checkbox" aria-label="Разрешить аналитические cookie"><i></i></label></div><div class="cookie-consent__actions"><button class="cookie-accept cookie-save" type="button">Сохранить выбор</button><button class="cookie-settings cookie-essential" type="button">Только необходимые</button></div></div>';
     panel.innerHTML = panel.innerHTML.replace('__COOKIE_PRIVACY__', PRAMIO_SITE_URL('privacy/'));
     document.body.append(panel);
 
     const preferences = panel.querySelector('.cookie-preferences');
     const analyticsToggle = panel.querySelector('.cookie-analytics-toggle');
+    let cookieReturnFocus = null;
+    const hideCookiePanel = () => {
+      const focusWasInside = panel.contains(document.activeElement);
+      panel.hidden = true;
+      panel.classList.remove('is-preferences-open');
+      if (focusWasInside) {
+        const target = cookieReturnFocus && document.contains(cookieReturnFocus)
+          ? cookieReturnFocus
+          : document.querySelector('.hero-actions .btn, main a[href], main button:not([disabled])');
+        if (target && typeof target.focus === 'function') target.focus({ preventScroll:true });
+      }
+      cookieReturnFocus = null;
+    };
     panel.querySelector('.cookie-accept:not(.cookie-save)').addEventListener('click', () => {
-      saveConsent(true); panel.hidden = true;
+      saveConsent(true); hideCookiePanel();
     });
     panel.querySelector('.cookie-settings:not(.cookie-essential)').addEventListener('click', () => {
       preferences.hidden = !preferences.hidden;
+      panel.classList.toggle('is-preferences-open', !preferences.hidden);
     });
     panel.querySelector('.cookie-save').addEventListener('click', () => {
-      saveConsent(analyticsToggle.checked); panel.hidden = true;
+      saveConsent(analyticsToggle.checked); hideCookiePanel();
     });
     panel.querySelector('.cookie-essential').addEventListener('click', () => {
-      saveConsent(false); panel.hidden = true;
+      saveConsent(false); hideCookiePanel();
     });
     return panel;
   };
@@ -423,7 +437,10 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
     if (toggle) toggle.checked = Boolean(current && current.analytics);
     const preferences = panel.querySelector('.cookie-preferences');
     if (preferences) preferences.hidden = false;
+    cookieReturnFocus = document.activeElement;
+    panel.classList.add('is-preferences-open');
     panel.hidden = false;
+    window.requestAnimationFrame(() => panel.querySelector('.cookie-analytics-toggle')?.focus({ preventScroll:true }));
   };
 
   const consent = readConsent();
