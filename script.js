@@ -39,6 +39,7 @@
     setBackgroundInert(true);
     overlay.hidden = false;
     panel.hidden = false;
+    syncContactViewport();
     requestAnimationFrame(() => {
       overlay.classList.add('is-open');
       panel.classList.add('is-open');
@@ -54,6 +55,8 @@
     overlay.classList.remove('is-open');
     panel.classList.remove('is-open');
     document.body.classList.remove('contact-open');
+    panel.style.removeProperty('--contact-vv-height');
+    panel.style.removeProperty('--contact-vv-top');
     setBackgroundInert(false);
     setTimeout(() => {
       overlay.hidden = true;
@@ -62,6 +65,22 @@
     }, 380);
   };
 
+  const syncContactViewport = () => {
+    const panel = getPanel();
+    if (!panel || !panel.classList.contains('is-open')) return;
+    const vv = window.visualViewport;
+    if (!vv || window.innerWidth > 780) {
+      panel.style.removeProperty('--contact-vv-height');
+      panel.style.removeProperty('--contact-vv-top');
+      return;
+    }
+    panel.style.setProperty('--contact-vv-height', Math.max(240, vv.height) + 'px');
+    panel.style.setProperty('--contact-vv-top', Math.max(0, vv.offsetTop) + 'px');
+  };
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', syncContactViewport, { passive:true });
+    window.visualViewport.addEventListener('scroll', syncContactViewport, { passive:true });
+  }
   window.PRAmioContact = { open: openContact, close: closeContact };
   document.addEventListener('click', (event) => {
     const trigger = event.target.closest('.contact-trigger');
