@@ -1,0 +1,53 @@
+name: Package PRAMIO public_html v4
+on:
+  push:
+    branches:
+      - packaging/final-2026-09-28-v4
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build DIRECT public_html package
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="$RUNNER_TEMP/public_html"
+          mkdir -p "$OUT"
+          rsync -a ./ "$OUT/" \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.gitignore' \
+            --exclude='.nojekyll' \
+            --exclude='README.md' \
+            --exclude='docs/' \
+            --exclude='lab/' \
+            --exclude='config.sample.php' \
+            --exclude='config.local.php' \
+            --exclude='assets/.gitkeep' \
+            --exclude='tech-matter-preview.html' \
+            --exclude='demo-runtime.js'
+          test -f "$OUT/index.html"
+          test -f "$OUT/.htaccess"
+          test ! -e "$OUT/lab"
+          test ! -e "$OUT/docs"
+          test ! -e "$OUT/.github"
+          test ! -e "$OUT/config.local.php"
+          test ! -e "$OUT/config.sample.php"
+          find "$OUT" -type f -print | sort
+          COUNT="$(find "$OUT" -type f | wc -l | tr -d ' ')"
+          echo "Production files: $COUNT"
+          cd "$OUT"
+          zip -qr "$GITHUB_WORKSPACE/pramio-public_html-DIRECT-2026-09-28-v4.zip" .
+          cd "$GITHUB_WORKSPACE"
+          sha256sum pramio-public_html-DIRECT-2026-09-28-v4.zip | tee pramio-public_html-DIRECT-2026-09-28-v4.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pramio-public_html-DIRECT-2026-09-28-v4
+          path: |
+            pramio-public_html-DIRECT-2026-09-28-v4.zip
+            pramio-public_html-DIRECT-2026-09-28-v4.sha256
+          if-no-files-found: error
+          retention-days: 14
