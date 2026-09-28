@@ -232,7 +232,11 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
         menu.querySelectorAll('[role="option"]').forEach((item, index) => {
           item.setAttribute('aria-selected', String(selectedIndex > 0 && index === activeIndex));
         });
-        if (selectedIndex > 0) picker.classList.remove('is-invalid');
+        if (selectedIndex > 0) {
+          picker.classList.remove('is-invalid');
+          trigger.removeAttribute('aria-invalid');
+          trigger.removeAttribute('aria-describedby');
+        }
       };
 
       serviceSelect.addEventListener('change', syncPicker);
@@ -246,6 +250,8 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
           item.setAttribute('aria-selected', String(index === optionIndex));
         });
         picker.classList.remove('is-invalid');
+        trigger.removeAttribute('aria-invalid');
+        trigger.removeAttribute('aria-describedby');
         serviceSelect.dispatchEvent(new Event('change', { bubbles: true }));
         activeIndex = optionIndex;
         closePicker(true);
@@ -294,6 +300,18 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
         event.preventDefault();
         event.stopImmediatePropagation();
         picker.classList.add('is-invalid');
+        trigger.setAttribute('aria-invalid','true');
+        trigger.setAttribute('aria-describedby','contact-service-error');
+        let error = picker.querySelector('#contact-service-error');
+        if (!error) {
+          error = document.createElement('span');
+          error.id = 'contact-service-error';
+          error.className = 'service-picker__error';
+          error.textContent = 'Выберите направление';
+          picker.append(error);
+        }
+        const status = form.querySelector('.form-note');
+        if (status) status.textContent = 'Выберите направление.';
         trigger.focus();
       }, true);
 
@@ -302,6 +320,9 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
           serviceSelect.value = '';
           current.textContent = options[0].text;
           picker.classList.remove('is-invalid');
+          trigger.removeAttribute('aria-invalid');
+          trigger.removeAttribute('aria-describedby');
+          picker.querySelector('#contact-service-error')?.remove();
           menu.querySelectorAll('[role="option"]').forEach((item) => item.setAttribute('aria-selected', 'false'));
         });
       });
