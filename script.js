@@ -35,13 +35,13 @@
       document.documentElement.classList.remove('mobile-menu-open');
       document.querySelector('.site-header')?.classList.remove('is-menu-open');
     }
+    document.body.classList.add('contact-open');
+    setBackgroundInert(true);
     overlay.hidden = false;
     panel.hidden = false;
     requestAnimationFrame(() => {
       overlay.classList.add('is-open');
       panel.classList.add('is-open');
-      document.body.classList.add('contact-open');
-      setBackgroundInert(true);
       const preferredFocus = panel.querySelector('.service-picker__trigger, input[name="email"], textarea[name="message"], .contact-close');
       if (preferredFocus) preferredFocus.focus({ preventScroll: true });
     });
