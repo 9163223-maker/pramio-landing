@@ -2062,9 +2062,9 @@ button,input,textarea,select,.site-nav,.mobile-nav,.cluster-nav,.article-meta,.e
       linear-gradient(160deg,#fbfdff 0%,#f2f7ff 50%,#fbfaff 100%)!important;
   }
   .ambient-b{display:none!important;}
-  .site-header{min-height:58px!important;padding:5px 10px!important;border-radius:18px!important;}
-  .site-header .brand-logo{width:clamp(136px,37vw,160px)!important;}
-  .menu-toggle{width:42px!important;height:42px!important;flex-basis:42px!important;border-radius:14px!important;}
+  .site-header{height:58px!important;min-height:58px!important;box-sizing:border-box!important;padding:5px 10px!important;border-radius:18px!important;}
+  .site-header .brand-logo{width:150px!important;max-width:calc(100% - 56px)!important;flex:0 0 150px!important;}\n  .site-header .brand-logo img{display:block!important;width:100%!important;height:auto!important;}
+  .menu-toggle{width:42px!important;height:42px!important;flex:0 0 42px!important;border-radius:14px!important;}
   .mobile-nav{top:calc(max(8px,env(safe-area-inset-top,0px)) + 57px)!important;}
   .breadcrumbs{font-size:14px!important;line-height:1.42!important;margin:16px 0 20px!important;}
   .home-page .hero-v2{padding:23px 20px 22px!important;}
