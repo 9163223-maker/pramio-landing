@@ -40,3 +40,6 @@ footer{padding:28px 3.5vw 45px;border-top:1px solid #263944;display:grid;grid-te
  .city-a{left:7%;top:62%}.city-b{right:7%;top:62%}
 }
 @media(prefers-reduced-motion:reduce){.progress-vehicle{animation:none}}
+
+/* v10 — mobile Safari viewport and safe-area contract */
+@media(max-width:720px){.map{height:clamp(330px,52svh,430px);min-height:0}.topbar{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}.finder{padding-left:max(5vw,env(safe-area-inset-left));padding-right:max(5vw,env(safe-area-inset-right))}.footer{padding-bottom:max(28px,env(safe-area-inset-bottom))}}
