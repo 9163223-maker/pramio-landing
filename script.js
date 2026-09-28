@@ -58,10 +58,10 @@
     panel.style.removeProperty('--contact-vv-height');
     panel.style.removeProperty('--contact-vv-top');
     setBackgroundInert(false);
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus({ preventScroll: true });
     setTimeout(() => {
       overlay.hidden = true;
       panel.hidden = true;
-      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus({ preventScroll: true });
     }, 380);
   };
 
