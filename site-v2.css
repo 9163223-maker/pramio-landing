@@ -2551,3 +2551,12 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
 }
 .pramio-demo-lead:focus-visible{outline:3px solid rgba(20,102,255,.3);outline-offset:3px}
 @media(max-width:560px){.pramio-demo-lead{left:12px;right:12px;bottom:max(10px,env(safe-area-inset-bottom));}}
+
+/* v85 contact visual-viewport owner — keep the dialog inside the iOS keyboard viewport */
+@media(max-width:780px){
+  body.contact-open .contact-panel{
+    top:calc(var(--contact-vv-top,0px) + max(8px,env(safe-area-inset-top,0px)))!important;
+    bottom:auto!important;
+    max-height:calc(var(--contact-vv-height,100dvh) - max(16px,env(safe-area-inset-top,0px) + env(safe-area-inset-bottom,0px)))!important;
+  }
+}
