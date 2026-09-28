@@ -2586,3 +2586,6 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
 @media(max-width:360px),(max-height:520px){
   .cookie-consent__actions{grid-template-columns:1fr!important;}
 }
+
+/* v87 accessible service error */
+.service-picker__error{display:block;margin:6px 2px 0;color:#a72e43;font:600 11px/1.3 Manrope,system-ui,sans-serif;}
