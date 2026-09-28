@@ -255,6 +255,7 @@ function pramio_smtp_send($cfg, $to, $subject, $body, $replyTo) {
 $service = trim((string)($_POST['service'] ?? ''));
 $email = trim((string)($_POST['email'] ?? ''));
 $message = trim((string)($_POST['message'] ?? ''));
+$source = trim((string)($_POST['source'] ?? ''));
 $consent = (string)($_POST['consent'] ?? '');
 $website = trim((string)($_POST['website'] ?? ''));
 $startedAt = (int)($_POST['started_at'] ?? 0);
@@ -321,8 +322,9 @@ if (!in_array($service, $allowedServices, true) || $message === '' || !filter_va
 
 $service = pramio_cut($service, 120);
 $message = pramio_cut($message, 3000);
+$source = preg_replace('/[^a-zA-Z0-9_-]/', '', pramio_cut($source, 120));
 
-$text = "Новая заявка с сайта {$cfg['site_name']}\n\nНаправление: {$service}\nEmail: {$email}\nСогласие на обработку данных: получено\n\nСообщение:\n{$message}";
+$text = "Новая заявка с сайта {$cfg['site_name']}\n\nНаправление: {$service}\nEmail: {$email}\n" . ($source !== '' ? "Источник: {$source}\n" : '') . "Согласие на обработку данных: получено\n\nСообщение:\n{$message}";
 $emailSubject = 'Заявка с сайта PRAMIO: ' . $service;
 
 $mailOk = false;
