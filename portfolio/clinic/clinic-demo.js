@@ -43,6 +43,7 @@ const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches
     modal.hidden=false;
     document.body.style.overflow='hidden';
     inertSiblings(true);
+    modal.removeAttribute('inert');
     dialog?.setAttribute('tabindex','-1');
     success.hidden=true;
     error.hidden=true;
