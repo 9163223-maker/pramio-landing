@@ -1,0 +1,9 @@
+{
+  "name":"PRAMIO",
+  "short_name":"PRAMIO",
+  "start_url":"/",
+  "display":"standalone",
+  "background_color":"#f7fbff",
+  "theme_color":"#f7fbff",
+  "icons":[{"src":"/assets/pramio-mark.webp","sizes":"640x640","type":"image/webp"}]
+}
