@@ -27,6 +27,10 @@ jobs:
           grep -q 'fromSel' aurora/index.html
           grep -q 'toSel' aurora/index.html
           grep -q 'planner-result' aurora/index.html
+          grep -q 'railRate' aurora/index.html
+          grep -q 'roadRate' aurora/index.html
+          grep -q 'waterRate' aurora/index.html
+          grep -q 'Сценарная логистика' aurora/index.html
           echo "Aurora HTML validation passed"
       - name: Check external map assets
         run: |
