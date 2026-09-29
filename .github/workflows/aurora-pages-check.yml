@@ -31,6 +31,9 @@ jobs:
           grep -q 'roadRate' aurora/index.html
           grep -q 'waterRate' aurora/index.html
           grep -q 'Сценарная логистика' aurora/index.html
+          grep -q 'data-mf' aurora/index.html
+          grep -q 'sheetClose' aurora/index.html
+          grep -q 'fillDest' aurora/index.html
           grep -q 'id:"podg"' aurora/index.html
           grep -q 'id:"nyag"' aurora/index.html
       - name: Runtime graph integrity
