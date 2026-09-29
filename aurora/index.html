@@ -168,8 +168,8 @@ body.route-mode{--ui-head:42px}.route-mode .map-header{height:var(--ui-head)!imp
 .leg-list{display:grid;gap:6px;margin-top:8px}.leg-row{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:7px;align-items:center;background:#071621;border:1px solid #263f50;border-radius:9px;padding:7px}.leg-no{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#17384d;font-weight:800;font-size:10px}.leg-main b{display:block;font-size:10px}.leg-main small{display:block;color:#8fa9b8;font-size:8px;margin-top:2px}.leg-metric{text-align:right;white-space:nowrap}.leg-metric b,.leg-metric strong,.leg-metric span{display:block;font-size:9px}.leg-metric strong{color:#fff}.leg-metric span{color:#9fb6c4}.handling-row,.total-row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:7px;padding:7px 8px;border-radius:8px;background:#10293a;font-size:10px}.total-row{background:#153b2d}.total-row b{font-size:15px}.result-confidence{display:flex;justify-content:space-between;gap:8px;font-size:9px;padding:6px 8px;border-radius:8px;background:#152536}.result-confidence span{color:#9fb6c4;text-align:right}.scenario-note{font-size:8px;color:#8fa9b8;margin-top:6px}.result-sources{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}.result-sources a{font-size:8px;color:#78cfff}.planner.route-result{max-height:min(72vh,620px)!important}
 @media(max-width:650px){.planner.route-result{max-height:68vh!important}.result-kpi{grid-template-columns:1fr 1fr 1fr!important}.result-kpi strong{font-size:13px!important}.leg-row{grid-template-columns:22px minmax(0,1fr);}.leg-metric{grid-column:2;text-align:left;display:flex;gap:8px;flex-wrap:wrap}.result-confidence{display:block}.result-confidence span{display:block;text-align:left;margin-top:2px}}
 .point-route-action{min-height:44px!important}
-.pramio-point-wrap{background:transparent!important;border:0!important;overflow:visible!important}
-.pramio-point{display:block;box-sizing:border-box;width:100%;height:100%;border-radius:50%;background:var(--point-color);border:2px solid #06121c;box-shadow:0 1px 3px #0008}
+.pramio-point-wrap{width:18px!important;height:18px!important;min-width:18px!important;min-height:18px!important;max-width:18px!important;max-height:18px!important;background:transparent!important;border:0!important;overflow:visible!important;padding:0!important;margin:0!important}
+.pramio-point{display:block!important;box-sizing:border-box!important;width:18px!important;height:18px!important;min-width:18px!important;min-height:18px!important;max-width:18px!important;max-height:18px!important;border-radius:50%!important;background:var(--point-color)!important;border:2px solid #06121c!important;box-shadow:0 1px 3px #0008!important;padding:0!important;margin:0!important}
 .pramio-point-wrap.destination-candidate .pramio-point{border:4px solid #d9f6ff;outline:2px solid #278dff;outline-offset:1px}
 .pramio-point-wrap.destination-candidate{filter:none!important}
 </style></head><body><div id="map"></div>
@@ -246,6 +246,15 @@ O.forEach(o=>{
  const m=L.marker(o.p,{icon:pointIcon(o),keyboard:true,riseOnHover:true})
    .bindTooltip(o.n,{direction:"top",permanent:true,className:"obj-label",offset:[0,-8]})
    .bindPopup('<h3>'+o.n+'</h3><b>'+o.r+'</b><p>'+o.d+'</p><div class="m">'+o.m+'</div>'+action+'<a target="_blank" rel="noopener" href="'+o.u+'">Источник ↗</a>');
+ m.on("click",()=>{
+   if(o.c==="quarry"){
+     window.setOrigin(o.id);
+     setTimeout(()=>m.openPopup(),0);
+   }else if((o.c==="demand"||o.c==="terminal"||o.c==="port")&&selA.value){
+     window.setDestination(o.id);
+     if(selB.value===o.id)document.querySelector("#planBtn").click();
+   }
+ });
  m.addTo(map);groups[o.id]=m;
 });
 const ROUTE_GEOM={
@@ -283,7 +292,7 @@ function updateLabels(){const z=map.getZoom();O.forEach(o=>{const m=groups[o.id]
 const selA=document.querySelector("#fromSel"),selB=document.querySelector("#toSel");O.forEach(o=>{let op=document.createElement("option");op.value=o.id;op.textContent=o.n+" · "+({quarry:"карьер",terminal:"перевалка",port:"порт/ЖД",demand:"потребление"}[o.c]);selA.appendChild(op)});
 function fillDest(){const old=selB.value;selB.innerHTML='<option value="">Точка B…</option>';if(!selA.value)return;const seen=new Set(),q=[selA.value];seen.add(selA.value);while(q.length){const x=q.shift();for(const [y] of adj[x]||[])if(!seen.has(y)){seen.add(y);q.push(y)}}O.filter(o=>seen.has(o.id)&&o.id!==selA.value&&o.c!=="quarry").forEach(o=>{let op=document.createElement("option");op.value=o.id;op.textContent=o.n+" · "+({terminal:"перевалка",port:"порт/ЖД",demand:"потребление"}[o.c]||o.c);selB.appendChild(op)});if([...selB.options].some(o=>o.value===old))selB.value=old}
 window.setOrigin=function(id){const o=O.find(x=>x.id===id);if(!o)return false;selA.value=id;fillDest();selB.value="";planner.classList.add("origin-set","choose-destination");planner.classList.remove("open");map.closePopup();applyDestinationMode();return false};
-document.querySelector(".leaflet-popup-pane").addEventListener("click",e=>{
+document.querySelector("#map").addEventListener("click",e=>{
  const btn=e.target.closest("[data-route-action]");if(!btn)return;
  e.preventDefault();e.stopPropagation();
  const id=btn.dataset.id;
