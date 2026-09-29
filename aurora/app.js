@@ -55,7 +55,7 @@
 {a:"ob",b:"bov",t:"rail",lab:"Обская → Бованенково",km:"525 км",kind:"Железная дорога Газпрома",proof:"ПАО «Газпром»: Обская—Бованенково 525 км; до Карской 572 км",src:"https://www.gazprom.ru/projects/obskaya-bovanenkovo/"},
 {a:"laby",b:"tamb",t:"water",lab:"Лабытнанги → Тамбей",km:"водное плечо — считать по судовому ходу",kind:"Водный транспорт",proof:"Подтверждён проектный коридор; точное судоходное расстояние требует трассировки",src:"https://energybase.ru/upstream/gazdobtambey/tenders/epc"},
 {a:"bov",b:"tamb",t:"hyp",lab:"проектный коридор — не считать готовым"}];
-const map=L.map("map",{zoomControl:true}).setView([66.7,72.2],5);
+
 const COLORS={demand:"#ff9f43",terminal:"#20c7e8",quarry:"#48c774",port:"#4d86ff"},state={origin:null,destination:null,path:null,rates:{rail:3.2,yrw:4.5,road:12,water:4,handling:250}};
 const byId=new Map(POINTS.map(p=>[p.id,p])),adj=new Map(POINTS.map(p=>[p.id,[]])),markers=new Map(),lines=[];
 ROUTES.forEach((r,i)=>{r.status=r.status||(r.t==="hyp"?"hypothesis":(r.km&&/^\d/.test(r.km)?"verified":"corridor"));if(r.t!=="hyp"&&r.status!=="hypothesis"&&!(r.a==="kor"&&r.b==="yambst")){adj.get(r.a)?.push([r.b,i]);adj.get(r.b)?.push([r.a,i])}});
