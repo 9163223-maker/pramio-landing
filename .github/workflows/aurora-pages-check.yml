@@ -21,6 +21,9 @@ jobs:
           grep -q 'FreiCON' aurora/index.html
           grep -q '797500' aurora/index.html
           grep -q '306 км' aurora/index.html
+          grep -q 'obj-label' aurora/index.html
+          grep -q 'routeCard' aurora/index.html
+          grep -q 'Водный транспорт' aurora/index.html
           echo "Aurora HTML validation passed"
       - name: Check external map assets
         run: |
