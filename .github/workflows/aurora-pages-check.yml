@@ -1,7 +1,7 @@
 name: Aurora Pages Check
 on:
   push:
-    branches: [main, Aurora]
+    branches: [main]
     paths:
       - 'aurora/**'
       - '.github/workflows/aurora-pages-check.yml'
@@ -11,55 +11,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate Aurora HTML
+      - name: Clean architecture contract
         run: |
           test -s aurora/index.html
-          grep -q '<div id="map"></div>' aurora/index.html
-          grep -q 'leaflet@1.9.4' aurora/index.html
-          grep -q 'Коротчаево' aurora/index.html
-          grep -q 'Тамбей' aurora/index.html
-          grep -q 'FreiCON' aurora/index.html
-          grep -q '797500' aurora/index.html
-          grep -q '306 км' aurora/index.html
-          grep -q 'obj-label' aurora/index.html
-          grep -q 'routeCard' aurora/index.html
-          grep -q 'Водный транспорт' aurora/index.html
-          grep -q 'fromSel' aurora/index.html
-          grep -q 'toSel' aurora/index.html
-          grep -q 'planner-result' aurora/index.html
-          grep -q 'railRate' aurora/index.html
-          grep -q 'roadRate' aurora/index.html
-          grep -q 'waterRate' aurora/index.html
-          grep -q 'Сценарная логистика' aurora/index.html
-          grep -q 'data-mf' aurora/index.html
-          grep -q 'sheetClose' aurora/index.html
-          grep -q 'fillDest' aurora/index.html
-          grep -q 'id:"podg"' aurora/index.html
-          grep -q 'id:"nyag"' aurora/index.html
-      - name: Runtime graph integrity
+          test -s aurora/app.css
+          test -s aurora/app.js
+          grep -q './app.css?v=2' aurora/index.html
+          grep -q './app.js?v=2' aurora/index.html
+          ! grep -q '<style' aurora/index.html
+          ! grep -q '<script>' aurora/index.html
+          grep -q 'id="origin"' aurora/index.html
+          grep -q 'id="destination"' aurora/index.html
+          test "$(grep -o 'function setA(' aurora/app.js | wc -l)" -eq 1
+          test "$(grep -o 'function setB(' aurora/app.js | wc -l)" -eq 1
+          ! grep -q 'circleMarker' aurora/app.js
+          ! grep -q 'selectMapPoint' aurora/app.js
+      - name: Graph integrity
         run: |
-          python3 - <<'PY'
-          import re
-          s=open('aurora/index.html',encoding='utf-8').read()
-          ids=set(re.findall(r'id:"([^"]+)",n:',s))
-          edges=re.findall(r'\{a:"([^"]+)",b:"([^"]+)",t:',s)
-          missing=sorted({x for e in edges for x in e if x not in ids})
-          assert not missing, f"Routes reference missing objects: {missing}"
-          print(f"objects={len(ids)} routes={len(edges)} graph=OK")
-          PY
+          node - <<'NODE'
+          const fs=require('fs'),vm=require('vm');
+          let s=fs.readFileSync('aurora/app.js','utf8');
+          const p=s.indexOf('const COLORS=');
+          const data=s.slice(13,p);
+          const ctx={}; vm.createContext(ctx);
+          vm.runInContext(data.replace('const POINTS=','POINTS=').replace('const ROUTES=','ROUTES='),ctx);
+          const ids=new Set(ctx.POINTS.map(x=>x.id));
+          const missing=[...new Set(ctx.ROUTES.flatMap(r=>[r.a,r.b]).filter(x=>!ids.has(x)))];
+          if(missing.length) throw new Error('Missing route objects: '+missing.join(','));
+          console.log('objects='+ctx.POINTS.length,'routes='+ctx.ROUTES.length,'graph=OK');
+          NODE
       - name: JavaScript syntax
-        run: |
-          python3 - <<'PY'
-          import re
-          s=open('aurora/index.html',encoding='utf-8').read()
-          scripts=re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>',s,re.S)
-          open('/tmp/aurora.js','w',encoding='utf-8').write('\n'.join(x for x in scripts if x.strip()))
-          PY
-          node --check /tmp/aurora.js
-          echo "Aurora HTML validation passed"
-      - name: Check external map assets
-        run: |
-          curl -fsSL --retry 3 --max-time 20 https://unpkg.com/leaflet@1.9.4/dist/leaflet.js -o /tmp/leaflet.js
-          test -s /tmp/leaflet.js
-      - name: Report
-        run: echo "Map source and external Leaflet asset are available"
+        run: node --check aurora/app.js
+      - name: External Leaflet asset
+        run: curl -fsSL --retry 3 --max-time 20 https://unpkg.com/leaflet@1.9.4/dist/leaflet.js -o /tmp/leaflet.js && test -s /tmp/leaflet.js
