@@ -201,11 +201,11 @@ function pramio_smtp_send($cfg, $to, $subject, $body, $replyTo) {
 
     $errno = 0;
     $errstr = '';
-    $socket = @stream_socket_client($remote, $errno, $errstr, 20, STREAM_CLIENT_CONNECT, $context);
+    $socket = @stream_socket_client($remote, $errno, $errstr, 8, STREAM_CLIENT_CONNECT, $context);
     if (!$socket) {
         throw new Exception('Connection failed to ' . $remote . ' (errno ' . $errno . '): ' . $errstr);
     }
-    stream_set_timeout($socket, 20);
+    stream_set_timeout($socket, 8);
 
     try {
         pramio_smtp_cmd($socket, null, 220);
@@ -242,8 +242,11 @@ function pramio_smtp_send($cfg, $to, $subject, $body, $replyTo) {
 
         $safeBody = preg_replace('/^\./m', '..', str_replace("\n", "\r\n", str_replace("\r", '', $body)));
         fwrite($socket, implode("\r\n", $headers) . "\r\n\r\n" . $safeBody . "\r\n.\r\n");
+        // DATA 250 is the authoritative acceptance point: the SMTP server has
+        // accepted responsibility for the message. QUIT is courtesy only and
+        // must not keep the visitor waiting after delivery was already accepted.
         pramio_smtp_cmd($socket, null, 250);
-        pramio_smtp_cmd($socket, 'QUIT', [221, 250]);
+        @fwrite($socket, "QUIT\r\n");
         fclose($socket);
         return true;
     } catch (Exception $e) {
