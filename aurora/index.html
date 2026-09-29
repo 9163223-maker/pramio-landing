@@ -133,7 +133,7 @@ body.route-mode{--ui-head:42px}.route-mode .map-header{height:var(--ui-head)!imp
  .planner.choose-destination #toSel{display:block!important;border-color:#57b8e6;font-weight:700}
  .planner.choose-destination #planBtn{display:block!important}
 }
-.destination-candidate{filter:drop-shadow(0 0 5px #67d7ff)}
+.destination-candidate{filter:none!important}
 
 .planner.route-result{max-height:min(62vh,470px)!important;overflow:auto!important}
 .planner.route-result .planner-grid{display:none!important}
@@ -167,7 +167,7 @@ body.route-mode{--ui-head:42px}.route-mode .map-header{height:var(--ui-head)!imp
 
 .leg-list{display:grid;gap:6px;margin-top:8px}.leg-row{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:7px;align-items:center;background:#071621;border:1px solid #263f50;border-radius:9px;padding:7px}.leg-no{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#17384d;font-weight:800;font-size:10px}.leg-main b{display:block;font-size:10px}.leg-main small{display:block;color:#8fa9b8;font-size:8px;margin-top:2px}.leg-metric{text-align:right;white-space:nowrap}.leg-metric b,.leg-metric strong,.leg-metric span{display:block;font-size:9px}.leg-metric strong{color:#fff}.leg-metric span{color:#9fb6c4}.handling-row,.total-row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:7px;padding:7px 8px;border-radius:8px;background:#10293a;font-size:10px}.total-row{background:#153b2d}.total-row b{font-size:15px}.result-confidence{display:flex;justify-content:space-between;gap:8px;font-size:9px;padding:6px 8px;border-radius:8px;background:#152536}.result-confidence span{color:#9fb6c4;text-align:right}.scenario-note{font-size:8px;color:#8fa9b8;margin-top:6px}.result-sources{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}.result-sources a{font-size:8px;color:#78cfff}.planner.route-result{max-height:min(72vh,620px)!important}
 @media(max-width:650px){.planner.route-result{max-height:68vh!important}.result-kpi{grid-template-columns:1fr 1fr 1fr!important}.result-kpi strong{font-size:13px!important}.leg-row{grid-template-columns:22px minmax(0,1fr);}.leg-metric{grid-column:2;text-align:left;display:flex;gap:8px;flex-wrap:wrap}.result-confidence{display:block}.result-confidence span{display:block;text-align:left;margin-top:2px}}
-</style></head><body><div id="map"></div>
+.leaflet-marker-pane svg,.leaflet-overlay-pane svg{max-width:none!important;max-height:none!important}.point-route-action{min-height:44px!important}</style></head><body><div id="map"></div>
 <header class="map-header"><h1>НСМ · Западная Сибирь и Ямал <small class="data-date">данные 29.09.2026</small></h1><nav class="map-actions"><button class="on" data-mf="all">Все</button><button data-mf="demand">Спрос</button><button id="mRoutes">Маршруты</button><button id="mFit">Регион</button><details><summary>Ещё</summary><div class="more-menu"><button data-mf="terminal">Перевалки</button><button data-mf="quarry">Карьеры</button><button data-mf="port">Порты/ЖД</button></div></details></nav></header><div class="map-key"><button class="k key-filter" data-key-filter="demand"><i style="background:#ff9f43"></i>спрос</button><button class="k key-filter" data-key-filter="terminal"><i style="background:#20c7e8"></i>перевалка</button><button class="k key-filter" data-key-filter="quarry"><i style="background:#48c774"></i>карьеры</button><button class="k key-filter" data-key-filter="port"><i style="background:#4d86ff"></i>порт/ЖД</button><br><span class="k"><em class="rail"></em>РЖД/сеть</span><span class="k"><em class="yrw"></em>ЯЖДК</span><span class="k"><em class="road"></em>авто</span><span class="k"><em class="water"></em>вода</span><span class="k"><em class="corridor"></em>коридор</span><span class="k"><em class="uncertain"></em>гипотеза</span></div><div id="routeSummary" class="route-summary"></div><div id="routeCard" class="route-card"></div><div class="planner" id="planner"><button id="sheetClose" class="sheet-close" aria-label="Закрыть">×</button><button id="calcToggle" class="calc-toggle" type="button">Стоимость</button><button id="showAll" type="button" style="float:right;margin-right:6px">Вся карта</button><div class="planner-grid"><select id="fromSel"><option value="">Маршрут: точка A…</option></select><select id="toSel"><option value="">Точка B…</option></select><button id="planBtn">Путь</button></div><div class="cost-grid"><label>РЖД ₽/т·км<input id="railRate" type="number" value="3.2" step="0.1"></label><label>ЯЖДК ₽/т·км<input id="yrwRate" type="number" value="4.5" step="0.1"></label><label>Авто ₽/т·км<input id="roadRate" type="number" value="12" step="0.1"></label><label>Вода ₽/т·км<input id="waterRate" type="number" value="4" step="0.1"></label><label>Перевалка ₽/т<input id="handling" type="number" value="250" step="10"></label></div><div class="cost-note">Стартовые ставки — сценарный пример, не рыночная котировка: РЖД 3,2; ЯЖДК 4,5; авто 12; вода 4 ₽/т·км, перевалка 250 ₽/т. Замените на КП/тариф.</div><div id="planResult" class="planner-result">Выберите две точки. Расчёт использует только нанесённые подтверждённые/проектные рёбра и показывает мультимодальную цепочку.</div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script><script>
 const O=[
@@ -231,7 +231,7 @@ const R=[
 const map=L.map("map",{zoomControl:true}).setView([66.7,72.2],5);
 const DIST={"pur|kor":"122 км","kor|fara":"49 км","fara|nur":"21 км","nur|yambst":"236 км","kor|yambst":"306 км","surg|sport":"15 км"};
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);L.control.scale({metric:true,imperial:false,maxWidth:160}).addTo(map);
-const colors={demand:"#ff9f43",terminal:"#20c7e8",quarry:"#48c774",port:"#4d86ff"},groups={};O.forEach(o=>{const action=o.c==="quarry"?'<button type="button" class="point-route-action" onclick="setOrigin(\''+o.id+'\');return false">Отсюда · точка A</button>':(o.c==="demand"||o.c==="terminal"?'<button type="button" class="point-route-action" onclick="setDestination(\''+o.id+'\');return false">Сюда · точка B</button>':'');let m=L.circleMarker(o.p,{radius:o.c==="demand"?7:9,color:"#06121c",weight:2,fillColor:colors[o.c],fillOpacity:.95}).bindTooltip(o.n,{direction:"top",permanent:true,className:"obj-label",offset:[0,-8]}).bindPopup('<h3>'+o.n+'</h3><b>'+o.r+'</b><p>'+o.d+'</p><div class="m">'+o.m+'</div>'+action+'<a target="_blank" rel="noopener" href="'+o.u+'">Источник ↗</a>');m.on("click",()=>selectMapPoint(o));m.addTo(map);groups[o.id]=m});
+const colors={demand:"#ff9f43",terminal:"#20c7e8",quarry:"#48c774",port:"#4d86ff"},groups={};O.forEach(o=>{const action=o.c==="quarry"?'<button type="button" class="point-route-action" data-route-action="origin" data-id="'+o.id+'">Отсюда · точка A</button>':(o.c==="demand"||o.c==="terminal"||o.c==="port"?'<button type="button" class="point-route-action" data-route-action="destination" data-id="'+o.id+'">Сюда · точка B</button>':'');let m=L.circleMarker(o.p,{radius:o.c==="demand"?7:9,color:"#06121c",weight:2,fillColor:colors[o.c],fillOpacity:.95}).bindTooltip(o.n,{direction:"top",permanent:true,className:"obj-label",offset:[0,-8]}).bindPopup('<h3>'+o.n+'</h3><b>'+o.r+'</b><p>'+o.d+'</p><div class="m">'+o.m+'</div>'+action+'<a target="_blank" rel="noopener" href="'+o.u+'">Источник ↗</a>');m.addTo(map);groups[o.id]=m});
 const ROUTE_GEOM={
  "kor|fara":[[65.9302,78.1777],[65.98,77.72],[66.03,76.99]],
  "fara|nur":[[66.03,76.99],[66.055,76.82],[66.084,76.681]],
@@ -267,6 +267,12 @@ function updateLabels(){const z=map.getZoom();O.forEach(o=>{const m=groups[o.id]
 const selA=document.querySelector("#fromSel"),selB=document.querySelector("#toSel");O.forEach(o=>{let op=document.createElement("option");op.value=o.id;op.textContent=o.n+" · "+({quarry:"карьер",terminal:"перевалка",port:"порт/ЖД",demand:"потребление"}[o.c]);selA.appendChild(op)});
 function fillDest(){const old=selB.value;selB.innerHTML='<option value="">Точка B…</option>';if(!selA.value)return;const seen=new Set(),q=[selA.value];seen.add(selA.value);while(q.length){const x=q.shift();for(const [y] of adj[x]||[])if(!seen.has(y)){seen.add(y);q.push(y)}}O.filter(o=>seen.has(o.id)&&o.id!==selA.value&&o.c!=="quarry").forEach(o=>{let op=document.createElement("option");op.value=o.id;op.textContent=o.n+" · "+({terminal:"перевалка",port:"порт/ЖД",demand:"потребление"}[o.c]||o.c);selB.appendChild(op)});if([...selB.options].some(o=>o.value===old))selB.value=old}
 window.setOrigin=function(id){const o=O.find(x=>x.id===id);if(!o)return false;selA.value=id;fillDest();selB.value="";planner.classList.add("origin-set","choose-destination");planner.classList.remove("open");map.closePopup();applyDestinationMode();return false};
+document.querySelector(".leaflet-popup-pane").addEventListener("click",e=>{
+ const btn=e.target.closest("[data-route-action]");if(!btn)return;
+ e.preventDefault();e.stopPropagation();
+ const id=btn.dataset.id;
+ if(btn.dataset.routeAction==="origin")window.setOrigin(id);else window.setDestination(id);
+},{capture:true});
 window.setDestination=function(id){if(!selA.value){planner.classList.add("open");return false}fillDest();if([...selB.options].some(x=>x.value===id)){selB.value=id;planner.classList.add("open");map.closePopup()}return false};
 function selectMapPoint(o){
  if(o.c==="quarry"){
@@ -279,7 +285,13 @@ function selectMapPoint(o){
 }
 function applyDestinationMode(){
  const reachable=new Set([...selB.options].map(x=>x.value).filter(Boolean));
- O.forEach(o=>{const m=groups[o.id];const el=m&&m.getElement();if(el)el.classList.toggle("destination-candidate",reachable.has(o.id)&&(o.c==="demand"||o.c==="terminal"||o.c==="port"))});
+ O.forEach(o=>{
+   const m=groups[o.id],candidate=reachable.has(o.id)&&(o.c==="demand"||o.c==="terminal"||o.c==="port");
+   if(!m)return;
+   m.setRadius(o.c==="demand"?7:9);
+   m.setStyle({color:candidate?"#d9f6ff":"#06121c",weight:candidate?4:2,fillColor:colors[o.c],fillOpacity:.95});
+   const el=m.getElement();if(el)el.classList.remove("destination-candidate");
+ });
 }
 selA.addEventListener("change",()=>{fillDest();planner.classList.add("open")});
 const adj={};O.forEach(o=>adj[o.id]=[]);R.forEach((r,i)=>{if(r.t==="hyp"||r.status==="hypothesis"||(r.a==="kor"&&r.b==="yambst"))return;adj[r.a].push([r.b,i]);adj[r.b].push([r.a,i])});fillDest();
