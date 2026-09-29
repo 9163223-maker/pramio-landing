@@ -286,9 +286,18 @@ function clearRouteFocus(){document.body.classList.remove("route-mode");routeFoc
 function refreshRoutes(){const z=map.getZoom();R.forEach((r,i)=>{const l=lines[i];const selected=l.options&&l.options.weight>=6;const should=routeVisibility!=="off"&&(selected||z>=6||r.status==="verified");if(should){if(!map.hasLayer(l))l.addTo(map)}else if(map.hasLayer(l))map.removeLayer(l)})}
 map.on("zoomend",refreshRoutes);refreshRoutes();
 function updateLabels(){const z=map.getZoom();O.forEach(o=>{const m=groups[o.id];if(!m)return;if(routeFocused&&!focusIds.has(o.id)){m.closeTooltip();return}const key=o.id==="kor"||o.id==="pur"||o.id==="laby"||o.id==="tamb"||o.id==="bov";const show=z>=7||(z>=6&&(o.c==="terminal"||o.c==="quarry"))||(z<6&&key);if(show)m.openTooltip();else m.closeTooltip()})}map.on("zoomend",updateLabels);updateLabels();
-const selA=document.querySelector("#fromSel"),selB=document.querySelector("#toSel");O.forEach(o=>{let op=document.createElement("option");op.value=o.id;op.textContent=o.n+" · "+({quarry:"карьер",terminal:"перевалка",port:"порт/ЖД",demand:"потребление"}[o.c]);selA.appendChild(op)});
+const selA=document.querySelector("#fromSel"),selB=document.querySelector("#toSel");O.filter(o=>o.c==="quarry").forEach(o=>{let op=document.createElement("option");op.value=o.id;op.textContent=o.n+" · карьер";selA.appendChild(op)});
 function fillDest(){const old=selB.value;selB.innerHTML='<option value="">Точка B…</option>';if(!selA.value)return;const seen=new Set(),q=[selA.value];seen.add(selA.value);while(q.length){const x=q.shift();for(const [y] of adj[x]||[])if(!seen.has(y)){seen.add(y);q.push(y)}}O.filter(o=>seen.has(o.id)&&o.id!==selA.value&&o.c!=="quarry").forEach(o=>{let op=document.createElement("option");op.value=o.id;op.textContent=o.n+" · "+({terminal:"перевалка",port:"порт/ЖД",demand:"потребление"}[o.c]||o.c);selB.appendChild(op)});if([...selB.options].some(o=>o.value===old))selB.value=old}
-window.setOrigin=function(id){const o=O.find(x=>x.id===id);if(!o)return false;selA.value=id;fillDest();selB.value="";planner.classList.add("origin-set","choose-destination");planner.classList.remove("open");map.closePopup();applyDestinationMode();return false};
+function chooseOrigin(id){
+ const o=O.find(x=>x.id===id&&x.c==="quarry");
+ if(!o||![...selA.options].some(x=>x.value===id))return false;
+ selA.value=id;fillDest();selB.value="";
+ planner.classList.add("origin-set","choose-destination");
+ planner.classList.remove("open");
+ applyDestinationMode();
+ return selA.value===id;
+}
+window.setOrigin=function(id){const ok=chooseOrigin(id);if(ok)map.closePopup();return false};
 document.querySelector("#map").addEventListener("click",e=>{
  const btn=e.target.closest("[data-route-action]");if(!btn)return;
  e.preventDefault();e.stopPropagation();
@@ -296,28 +305,18 @@ document.querySelector("#map").addEventListener("click",e=>{
  if(btn.dataset.routeAction==="origin")window.setOrigin(id);else window.setDestination(id);
 },{capture:true});
 window.setDestination=function(id){if(!selA.value){planner.classList.add("open");return false}fillDest();if([...selB.options].some(x=>x.value===id)){selB.value=id;planner.classList.add("open");map.closePopup()}return false};
-Object.values(groups).forEach(m=>m.on("click",e=>{
+map.on("popupopen",e=>{
+ const m=e.popup&&e.popup._source;
+ if(m&&m.options&&m.options.pointType==="quarry")chooseOrigin(m.options.pointId);
+});
+Object.values(groups).forEach(m=>m.on("click",()=>{
  const id=m.options.pointId,type=m.options.pointType;
- if(type==="quarry"){
-   window.setOrigin(id);
-   requestAnimationFrame(()=>m.openPopup());
-   return;
- }
  if((type==="demand"||type==="terminal"||type==="port")&&selA.value){
    window.setDestination(id);
    if(selB.value===id)document.querySelector("#planBtn").click();
  }
 }));
 
-function selectMapPoint(o){
- if(o.c==="quarry"){
-   selA.value=o.id;fillDest();selB.value="";planner.classList.add("origin-set","choose-destination");planner.classList.remove("open");applyDestinationMode();
- }else if(o.c==="demand"||o.c==="terminal"){
-   if(!selA.value){planner.classList.add("open");return}
-   fillDest();
-   if([...selB.options].some(x=>x.value===o.id)){selB.value=o.id;planner.classList.remove("choose-destination");planner.classList.add("open");document.querySelector("#planBtn").click()}
- }
-}
 function applyDestinationMode(){
  const reachable=new Set([...selB.options].map(x=>x.value).filter(Boolean));
  O.forEach(o=>{
