@@ -6,9 +6,42 @@
   const status = form.querySelector('.form-note');
   const endpoint = form.dataset.endpoint || '/send.php';
 
-  const setStatus = (text) => {
-    if (status) status.textContent = text;
+  const setStatus = (text, state = '') => {
+    if (!status) return;
+    status.textContent = text;
+    status.classList.toggle('is-sending', state === 'sending');
+    status.classList.toggle('is-success', state === 'success');
+    status.classList.toggle('is-error', state === 'error');
   };
+
+  const showSuccess = () => {
+    form.classList.add('is-success');
+    const fields = [...form.children].filter((node) => node !== status);
+    fields.forEach((node) => { node.hidden = true; });
+    if (status) {
+      status.hidden = false;
+      status.innerHTML = '<strong>Заявка отправлена</strong><span>Сообщение принято и направлено на <b>hello@pramio.ru</b>. Ответим на указанный вами e-mail.</span><button type="button" class="contact-success-reset">Отправить ещё одну заявку</button>';
+      status.classList.remove('is-sending','is-error');
+      status.classList.add('is-success');
+      status.focus?.({ preventScroll:true });
+    }
+  };
+
+  const restoreForm = () => {
+    form.classList.remove('is-success');
+    [...form.children].forEach((node) => { node.hidden = false; });
+    form.reset();
+    if (status) {
+      status.classList.remove('is-success','is-sending','is-error');
+      status.textContent = 'Заявка поступит на hello@pramio.ru. Для оценки достаточно короткого описания задачи.';
+    }
+  };
+
+  form.addEventListener('click', (event) => {
+    if (!event.target.closest('.contact-success-reset')) return;
+    restoreForm();
+    form.querySelector('.service-picker__trigger, input[name="email"]')?.focus({ preventScroll:true });
+  });
 
   const invalidMessage = (field) => {
     if (field.name === 'email') return field.value.trim() ? 'Укажите корректный e-mail.' : 'Укажите e-mail для ответа.';
@@ -80,7 +113,7 @@
     const data = new FormData(form);
 
     if (submit) submit.disabled = true;
-    setStatus('Отправляем сообщение...');
+    setStatus('Отправляем сообщение на hello@pramio.ru… Это может занять несколько секунд.', 'sending');
 
     try {
       const response = await fetch(endpoint, {
@@ -96,9 +129,9 @@
       if (startedAt) startedAt.value = String(Date.now());
       const tokenInput = form.querySelector('[name="form_token"]');
       if (tokenInput) tokenInput.value = result.token || '';
-      setStatus('Спасибо! Сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
+      showSuccess();
     } catch (error) {
-      setStatus('Не удалось отправить форму. Напишите нам на hello@pramio.ru.');
+      setStatus('Не удалось отправить форму. Напишите нам на hello@pramio.ru.', 'error');
     } finally {
       if (submit) submit.disabled = false;
     }
