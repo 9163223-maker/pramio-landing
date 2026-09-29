@@ -1,0 +1,28 @@
+name: Aurora Pages Check
+on:
+  push:
+    branches: [main, Aurora]
+    paths:
+      - 'aurora/**'
+      - '.github/workflows/aurora-pages-check.yml'
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Aurora HTML
+        run: |
+          test -s aurora/index.html
+          grep -q '<div id="map"></div>' aurora/index.html
+          grep -q 'leaflet@1.9.4' aurora/index.html
+          grep -q 'Коротчаево' aurora/index.html
+          grep -q 'Тамбей' aurora/index.html
+          grep -q 'FreiCON' aurora/index.html
+          echo "Aurora HTML validation passed"
+      - name: Check external map assets
+        run: |
+          curl -fsSL --retry 3 --max-time 20 https://unpkg.com/leaflet@1.9.4/dist/leaflet.js -o /tmp/leaflet.js
+          test -s /tmp/leaflet.js
+      - name: Report
+        run: echo "Map source and external Leaflet asset are available"
