@@ -246,15 +246,7 @@ O.forEach(o=>{
  const m=L.marker(o.p,{icon:pointIcon(o),keyboard:true,riseOnHover:true})
    .bindTooltip(o.n,{direction:"top",permanent:true,className:"obj-label",offset:[0,-8]})
    .bindPopup('<h3>'+o.n+'</h3><b>'+o.r+'</b><p>'+o.d+'</p><div class="m">'+o.m+'</div>'+action+'<a target="_blank" rel="noopener" href="'+o.u+'">Источник ↗</a>');
- m.on("click",()=>{
-   if(o.c==="quarry"){
-     window.setOrigin(o.id);
-     setTimeout(()=>m.openPopup(),0);
-   }else if((o.c==="demand"||o.c==="terminal"||o.c==="port")&&selA.value){
-     window.setDestination(o.id);
-     if(selB.value===o.id)document.querySelector("#planBtn").click();
-   }
- });
+ m.options.pointId=o.id;m.options.pointType=o.c;
  m.addTo(map);groups[o.id]=m;
 });
 const ROUTE_GEOM={
@@ -266,7 +258,12 @@ const ROUTE_GEOM={
 };
 function edgeKey(r){return r.a+"|"+r.b}
 function routeLatLngs(r,a,b){return ROUTE_GEOM[edgeKey(r)]||ROUTE_GEOM[r.b+"|"+r.a]?.slice().reverse()||[a.p,b.p]}
-const lineByEdge={};const lines=[];let routeVisibility="auto",focusIds=new Set(),routeFocused=false;R.forEach(r=>{if(r.a==="kor"&&r.b==="yambst")return;let a=O.find(x=>x.id===r.a),b=O.find(x=>x.id===r.b);r.operator=r.operator||(r.t==="rail"?"network":null);r.status=r.status||(r.t==="hyp"?"hypothesis":(r.km&&/^\d/.test(r.km)?"verified":"corridor"));let sty=r.status==="hypothesis"?{color:"#ef6666",weight:2,dashArray:"2 8",opacity:.55}:r.status==="corridor"?{color:r.t==="water"?"#278dff":r.t==="road"?"#ef9f4a":"#748691",weight:2.5,dashArray:"5 8",opacity:.62}:r.t==="water"?{color:"#278dff",weight:2.5,opacity:.7}:r.t==="road"?{color:"#ef9f4a",weight:2.5,opacity:.7}:r.operator==="yrw"?{color:"#8b6fc7",weight:2.5,dashArray:"8 5",opacity:.68}:{color:"#596a74",weight:2.5,dashArray:"8 5",opacity:.68};let l=L.polyline(routeLatLngs(r,a,b),sty,{smoothFactor:.55});l._edge=r;l._baseStyle={...sty};l.bindTooltip((r.lab||"Маршрут")+(r.km?" · "+r.km:""),{sticky:true,className:"rail-label"}).addTo(map);l.on("click",()=>{const c=document.querySelector("#routeCard");c.innerHTML='<button type="button" class="route-card-close" aria-label="Закрыть">×</button><h3>'+r.lab+' <span class="route-badge">'+(r.operator==="yrw"?"ЯЖДК":r.t==="rail"?"сеть РЖД":"")+'</span> <span class="route-badge">'+({verified:"подтверждено",corridor:"коридор",hypothesis:"гипотеза"}[r.status])+'</span></h3><div class="row"><small>Транспорт</small><b>'+(r.kind||({rail:"Железная дорога",road:"Автотранспорт",water:"Водный транспорт",hyp:"Проектный коридор"}[r.t]))+'</b></div><div class="row"><small>Расстояние</small><b>'+(r.km||"не подтверждено")+'</b></div><div class="row"><small>Основание</small><span>'+(r.proof||"Требует расчёта/проверки")+'</span></div>'+(r.src?'<a target="_blank" rel="noopener" href="'+r.src+'">Источник / расчёт ↗</a>':'');c.style.display="block";c.querySelector(".route-card-close").onclick=e=>{e.stopPropagation();c.style.display="none"}});lines.push(l);lineByEdge[r.a+"|"+r.b]=l;lineByEdge[r.b+"|"+r.a]=l});
+const lineByEdge={};const lines=[];let routeVisibility="auto",focusIds=new Set(),routeFocused=false;R.forEach(r=>{if(r.a==="kor"&&r.b==="yambst")return;let a=O.find(x=>x.id===r.a),b=O.find(x=>x.id===r.b);r.operator=r.operator||(r.t==="rail"?"network":null);r.status=r.status||(r.t==="hyp"?"hypothesis":(r.km&&/^\d/.test(r.km)?"verified":"corridor"));let sty=r.status==="hypothesis"
+ ?{color:"#a87979",weight:1.2,dashArray:"3 7",opacity:.32}
+ :r.t==="water"?{color:"#4385b8",weight:1.6,opacity:.46}
+ :r.t==="road"?{color:"#b98552",weight:1.5,opacity:.42}
+ :r.operator==="yrw"?{color:"#776a9b",weight:1.7,opacity:.5}
+ :{color:"#65747e",weight:1.5,opacity:.46};let l=L.polyline(routeLatLngs(r,a,b),sty,{smoothFactor:.55});l._edge=r;l._baseStyle={...sty};l.bindTooltip((r.lab||"Маршрут")+(r.km?" · "+r.km:""),{sticky:true,className:"rail-label"}).addTo(map);l.on("click",()=>{const c=document.querySelector("#routeCard");c.innerHTML='<button type="button" class="route-card-close" aria-label="Закрыть">×</button><h3>'+r.lab+' <span class="route-badge">'+(r.operator==="yrw"?"ЯЖДК":r.t==="rail"?"сеть РЖД":"")+'</span> <span class="route-badge">'+({verified:"подтверждено",corridor:"коридор",hypothesis:"гипотеза"}[r.status])+'</span></h3><div class="row"><small>Транспорт</small><b>'+(r.kind||({rail:"Железная дорога",road:"Автотранспорт",water:"Водный транспорт",hyp:"Проектный коридор"}[r.t]))+'</b></div><div class="row"><small>Расстояние</small><b>'+(r.km||"не подтверждено")+'</b></div><div class="row"><small>Основание</small><span>'+(r.proof||"Требует расчёта/проверки")+'</span></div>'+(r.src?'<a target="_blank" rel="noopener" href="'+r.src+'">Источник / расчёт ↗</a>':'');c.style.display="block";c.querySelector(".route-card-close").onclick=e=>{e.stopPropagation();c.style.display="none"}});lines.push(l);lineByEdge[r.a+"|"+r.b]=l;lineByEdge[r.b+"|"+r.a]=l});
 function applyFilter(f){O.forEach(o=>{let m=groups[o.id];if(f==="all"||o.c===f){if(!map.hasLayer(m))m.addTo(map)}else if(map.hasLayer(m))map.removeLayer(m)})}
 document.querySelectorAll("[data-mf]").forEach(b=>b.onclick=()=>applyFilter(b.dataset.mf));
 document.querySelector(".map-key").addEventListener("click",e=>{const b=e.target.closest("[data-key-filter]");if(!b)return;e.preventDefault();e.stopPropagation();const f=b.dataset.keyFilter,active=b.classList.contains("active");document.querySelectorAll("[data-key-filter]").forEach(x=>x.classList.remove("active"));applyFilter(active?"all":f);if(!active)b.classList.add("active")});
@@ -284,7 +281,7 @@ map.on("click",()=>{if(window.innerWidth<=650)planner.classList.remove("open");d
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){map.closePopup();document.querySelector("#routeCard").style.display="none";planner.classList.remove("open")}});
 
 
-function setRouteFocus(ids){document.body.classList.add("route-mode");lines.forEach(l=>{const e=l._edge,on=ids.has(e.a)&&ids.has(e.b);l.setStyle(on?{...l._baseStyle,weight:5,opacity:1}:{...l._baseStyle,weight:1.5,opacity:.18})});focusIds=new Set(ids||[]);routeFocused=focusIds.size>1;O.forEach(o=>{const m=groups[o.id];if(!m)return;if(!routeFocused||focusIds.has(o.id)){if(!map.hasLayer(m))m.addTo(map)}else if(map.hasLayer(m))map.removeLayer(m)});lines.forEach(l=>{const edge=l._edge;if(!routeFocused||!edge)return;if(focusIds.has(edge.a)&&focusIds.has(edge.b)){if(!map.hasLayer(l))l.addTo(map);const el=l.getElement();if(el)el.classList.add("route-active-path")}else if(map.hasLayer(l))map.removeLayer(l)})}
+function setRouteFocus(ids){document.body.classList.add("route-mode");lines.forEach(l=>{const e=l._edge,on=ids.has(e.a)&&ids.has(e.b);l.setStyle(on?{...l._baseStyle,weight:4,opacity:.95,dashArray:null,lineCap:"round",lineJoin:"round"}:{...l._baseStyle,weight:1,opacity:.12})});focusIds=new Set(ids||[]);routeFocused=focusIds.size>1;O.forEach(o=>{const m=groups[o.id];if(!m)return;if(!routeFocused||focusIds.has(o.id)){if(!map.hasLayer(m))m.addTo(map)}else if(map.hasLayer(m))map.removeLayer(m)});lines.forEach(l=>{const edge=l._edge;if(!routeFocused||!edge)return;if(focusIds.has(edge.a)&&focusIds.has(edge.b)){if(!map.hasLayer(l))l.addTo(map);const el=l.getElement();if(el)el.classList.add("route-active-path")}else if(map.hasLayer(l))map.removeLayer(l)})}
 function clearRouteFocus(){document.body.classList.remove("route-mode");routeFocused=false;planner.classList.remove("route-compact","route-result","origin-set","choose-destination","open");focusIds.clear();O.forEach(o=>{const m=groups[o.id];if(!map.hasLayer(m))m.addTo(map)});lines.forEach(l=>{const el=l.getElement();if(el)el.classList.remove("route-active-path")});refreshRoutes();updateLabels()}
 function refreshRoutes(){const z=map.getZoom();R.forEach((r,i)=>{const l=lines[i];const selected=l.options&&l.options.weight>=6;const should=routeVisibility!=="off"&&(selected||z>=6||r.status==="verified");if(should){if(!map.hasLayer(l))l.addTo(map)}else if(map.hasLayer(l))map.removeLayer(l)})}
 map.on("zoomend",refreshRoutes);refreshRoutes();
@@ -299,6 +296,19 @@ document.querySelector("#map").addEventListener("click",e=>{
  if(btn.dataset.routeAction==="origin")window.setOrigin(id);else window.setDestination(id);
 },{capture:true});
 window.setDestination=function(id){if(!selA.value){planner.classList.add("open");return false}fillDest();if([...selB.options].some(x=>x.value===id)){selB.value=id;planner.classList.add("open");map.closePopup()}return false};
+Object.values(groups).forEach(m=>m.on("click",e=>{
+ const id=m.options.pointId,type=m.options.pointType;
+ if(type==="quarry"){
+   window.setOrigin(id);
+   requestAnimationFrame(()=>m.openPopup());
+   return;
+ }
+ if((type==="demand"||type==="terminal"||type==="port")&&selA.value){
+   window.setDestination(id);
+   if(selB.value===id)document.querySelector("#planBtn").click();
+ }
+}));
+
 function selectMapPoint(o){
  if(o.c==="quarry"){
    selA.value=o.id;fillDest();selB.value="";planner.classList.add("origin-set","choose-destination");planner.classList.remove("open");applyDestinationMode();
