@@ -24,6 +24,9 @@ jobs:
           grep -q 'obj-label' aurora/index.html
           grep -q 'routeCard' aurora/index.html
           grep -q 'Водный транспорт' aurora/index.html
+          grep -q 'fromSel' aurora/index.html
+          grep -q 'toSel' aurora/index.html
+          grep -q 'planner-result' aurora/index.html
           echo "Aurora HTML validation passed"
       - name: Check external map assets
         run: |
