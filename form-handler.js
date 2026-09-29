@@ -20,7 +20,7 @@
     fields.forEach((node) => { node.hidden = true; });
     if (status) {
       status.hidden = false;
-      status.innerHTML = '<strong>Заявка отправлена</strong><span>Сообщение принято и направлено на <b>hello@pramio.ru</b>. Ответим на указанный вами e-mail.</span><button type="button" class="contact-success-reset">Отправить ещё одну заявку</button>';
+      status.innerHTML = '<strong>Заявка отправлена</strong><span>Мы получили сообщение. Ответим на указанный вами e-mail.</span><button type="button" class="contact-success-reset">Отправить ещё одну заявку</button>';
       status.classList.remove('is-sending','is-error');
       status.classList.add('is-success');
       status.focus?.({ preventScroll:true });
@@ -33,7 +33,7 @@
     form.reset();
     if (status) {
       status.classList.remove('is-success','is-sending','is-error');
-      status.textContent = 'Заявка поступит на hello@pramio.ru. Для оценки достаточно короткого описания задачи.';
+      status.textContent = 'Для оценки достаточно короткого описания задачи.';
     }
   };
 
@@ -113,7 +113,7 @@
     const data = new FormData(form);
 
     if (submit) submit.disabled = true;
-    setStatus('Отправляем сообщение на hello@pramio.ru… Это может занять несколько секунд.', 'sending');
+    setStatus('Отправляем заявку… Обычно это занимает несколько секунд.', 'sending');
 
     try {
       const response = await fetch(endpoint, {
