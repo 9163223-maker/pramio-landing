@@ -52,7 +52,7 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
     window.setTimeout(() => {
       if (document.querySelector('script[data-pramio-form-handler]')) return;
       const handler = document.createElement('script');
-      handler.src = PRAMIO_SITE_URL('form-handler.js?v=39');
+      handler.src = PRAMIO_SITE_URL('form-handler.js?v=40');
       handler.dataset.pramioFormHandler = '1';
       document.body.append(handler);
     }, 0);
@@ -290,6 +290,7 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
         picker.classList.remove('is-invalid');
         trigger.removeAttribute('aria-invalid');
         trigger.removeAttribute('aria-describedby');
+        picker.querySelector('#contact-service-error')?.remove();
         serviceSelect.dispatchEvent(new Event('change', { bubbles: true }));
         activeIndex = optionIndex;
         closePicker(true);
