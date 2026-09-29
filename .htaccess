@@ -33,6 +33,8 @@ ErrorDocument 404 /404.html
 
 AddType image/webp .webp
 AddType image/avif .avif
+AddType application/javascript .js
+AddCharset UTF-8 .js
 
 <FilesMatch "^(config\.local\.php|config\.sample\.php)$">
   <IfModule mod_authz_core.c>
