@@ -88,11 +88,13 @@
     if (!trigger) return;
     event.preventDefault();
     if (!trigger.hasAttribute('data-contact-service') && !trigger.matches('a[href*="service="]')) {
-      const select = document.querySelector('#contact-form [name="service"]');
+      const form = document.getElementById('contact-form');
+      const select = form && form.querySelector('[name="service"]');
       if (select && select.value) {
         select.value = '';
         select.dispatchEvent(new Event('change', { bubbles:true }));
       }
+      form?.querySelector('[name="source"]')?.remove();
     }
     openContact();
   });
