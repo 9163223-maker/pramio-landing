@@ -376,8 +376,9 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
 
   const openFromHash = () => {
     if (window.location.hash !== '#contact') return;
-    const trigger = document.querySelector('.contact-trigger');
-    if (trigger) window.setTimeout(() => trigger.click(), 80);
+    window.setTimeout(() => {
+      if (window.PRAmioContact?.open) window.PRAmioContact.open();
+    }, 80);
   };
 
   openFromHash();
