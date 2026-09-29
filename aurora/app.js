@@ -59,8 +59,15 @@
 const COLORS={demand:"#ff9f43",terminal:"#20c7e8",quarry:"#48c774",port:"#4d86ff"},state={origin:null,destination:null,path:null,rates:{rail:3.2,yrw:4.5,road:12,water:4,handling:250}};
 const byId=new Map(POINTS.map(p=>[p.id,p])),adj=new Map(POINTS.map(p=>[p.id,[]])),markers=new Map(),lines=[];
 ROUTES.forEach((r,i)=>{r.status=r.status||(r.t==="hyp"?"hypothesis":(r.km&&/^\d/.test(r.km)?"verified":"corridor"));if(r.t!=="hyp"&&r.status!=="hypothesis"&&!(r.a==="kor"&&r.b==="yambst")){adj.get(r.a)?.push([r.b,i]);adj.get(r.b)?.push([r.a,i])}});
-const map=L.map("map",{zoomControl:false}).setView([66,72],5);L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap contributors"}).addTo(map);L.control.zoom({position:"bottomright"}).addTo(map);
 const origin=document.querySelector("#origin"),destination=document.querySelector("#destination"),hint=document.querySelector("#hint"),result=document.querySelector("#result"),detail=document.querySelector("#detail");
+
+if(typeof window.L==="undefined"){
+  hint.textContent="Карта не загрузилась: недоступна библиотека Leaflet.";
+  document.querySelector("#map").innerHTML='<div class="map-error">Картографическая библиотека недоступна.<br>Список карьеров и данные доступны ниже.</div>';
+  throw new Error("Leaflet unavailable");
+}
+const map=L.map("map",{zoomControl:false}).setView([66,72],5);L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap contributors"}).addTo(map);L.control.zoom({position:"bottomright"}).addTo(map);
+
 function icon(p){return L.divIcon({className:"point-wrap",html:'<div class="map-point" style="--c:'+COLORS[p.c]+'"></div>',iconSize:[16,16],iconAnchor:[8,8]})}
 POINTS.forEach(p=>{const m=L.marker(p.p,{icon:icon(p)}).bindTooltip(p.n,{permanent:true,direction:"top",className:"point-label",offset:[0,-8]});m.on("click",()=>onPoint(p));m.addTo(map);markers.set(p.id,m)});
 function style(r){if(r.status==="hypothesis")return{color:"#9a7474",weight:1,dashArray:"3 7",opacity:.2};if(r.t==="road")return{color:"#92765e",weight:1.2,opacity:.3};if(r.t==="water")return{color:"#4b83aa",weight:1.3,opacity:.34};if(r.operator==="yrw")return{color:"#756d8d",weight:1.3,opacity:.36};return{color:"#66757d",weight:1.2,opacity:.32}}
