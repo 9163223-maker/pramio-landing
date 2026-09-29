@@ -304,20 +304,19 @@ document.querySelector("#map").addEventListener("click",e=>{
  const btn=e.target.closest("[data-route-action]");if(!btn)return;
  e.preventDefault();e.stopPropagation();
  const id=btn.dataset.id;
- if(btn.dataset.routeAction==="origin")window.setOrigin(id);else window.setDestination(id);
+ if(btn.dataset.routeAction==="origin"){selA.value=id;window.setOrigin(id)}else window.setDestination(id);
 },{capture:true});
 window.setDestination=function(id){if(!selA.value){planner.classList.add("open");return false}fillDest();if([...selB.options].some(x=>x.value===id)){selB.value=id;planner.classList.add("open");map.closePopup()}return false};
-map.on("popupopen",e=>{
- const m=e.popup&&e.popup._source;
- if(m&&m.options&&m.options.pointType==="quarry")chooseOrigin(m.options.pointId);
-});
-Object.values(groups).forEach(m=>m.on("click",()=>{
+Object.values(groups).forEach(m=>{
+ if(m.options.pointType==="quarry")m.on("popupopen",()=>chooseOrigin(m.options.pointId));
+ m.on("click",()=>{
  const id=m.options.pointId,type=m.options.pointType;
  if((type==="demand"||type==="terminal"||type==="port")&&selA.value){
    window.setDestination(id);
    if(selB.value===id)document.querySelector("#planBtn").click();
  }
-}));
+ });
+});
 
 function applyDestinationMode(){
  const reachable=new Set([...selB.options].map(x=>x.value).filter(Boolean));
