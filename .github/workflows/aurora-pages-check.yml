@@ -31,6 +31,28 @@ jobs:
           grep -q 'roadRate' aurora/index.html
           grep -q 'waterRate' aurora/index.html
           grep -q 'Сценарная логистика' aurora/index.html
+          grep -q 'id:"podg"' aurora/index.html
+          grep -q 'id:"nyag"' aurora/index.html
+      - name: Runtime graph integrity
+        run: |
+          python3 - <<'PY'
+          import re
+          s=open('aurora/index.html',encoding='utf-8').read()
+          ids=set(re.findall(r'id:"([^"]+)",n:',s))
+          edges=re.findall(r'\{a:"([^"]+)",b:"([^"]+)",t:',s)
+          missing=sorted({x for e in edges for x in e if x not in ids})
+          assert not missing, f"Routes reference missing objects: {missing}"
+          print(f"objects={len(ids)} routes={len(edges)} graph=OK")
+          PY
+      - name: JavaScript syntax
+        run: |
+          python3 - <<'PY'
+          import re
+          s=open('aurora/index.html',encoding='utf-8').read()
+          scripts=re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>',s,re.S)
+          open('/tmp/aurora.js','w',encoding='utf-8').write('\n'.join(x for x in scripts if x.strip()))
+          PY
+          node --check /tmp/aurora.js
           echo "Aurora HTML validation passed"
       - name: Check external map assets
         run: |
