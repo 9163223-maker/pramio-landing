@@ -2657,3 +2657,29 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
   border-color:#cc3c52!important;
   box-shadow:0 0 0 3px rgba(204,60,82,.10)!important;
 }
+
+/* v90 contact delivery feedback — primary state, not footer microcopy */
+.contact-form .form-note.is-sending,
+.contact-form .form-note.is-error{
+  display:block;margin:12px 0 0;padding:14px 16px;border-radius:16px;
+  font:600 14px/1.45 Manrope,system-ui,sans-serif;
+}
+.contact-form .form-note.is-sending{background:rgba(20,102,255,.08);color:#174b9d;}
+.contact-form .form-note.is-error{background:rgba(204,60,82,.09);color:#8f2437;}
+.contact-form.is-success{display:block;}
+.contact-form .form-note.is-success{
+  display:grid;gap:10px;margin:10px 0 0;padding:22px;border:1px solid rgba(20,102,255,.18);
+  border-radius:22px;background:rgba(255,255,255,.72);box-shadow:0 14px 38px rgba(20,72,150,.09);
+  color:var(--v2-ink);font:500 15px/1.5 Manrope,system-ui,sans-serif;
+}
+.contact-form .form-note.is-success strong{font:700 24px/1.15 var(--type-display);letter-spacing:-.02em;}
+.contact-form .form-note.is-success span{display:block;color:var(--v2-muted);}
+.contact-success-reset{
+  min-height:44px;margin-top:4px;padding:0 16px;border:1px solid rgba(20,102,255,.2);border-radius:14px;
+  background:rgba(20,102,255,.08);color:var(--v2-blue);font:700 14px/1.2 var(--type-ui);cursor:pointer;
+}
+@media(max-width:780px){
+  .contact-form .form-note.is-sending,.contact-form .form-note.is-error{font-size:14px!important;}
+  .contact-form .form-note.is-success{padding:20px;border-radius:20px;font-size:15px!important;}
+  .contact-form .form-note.is-success strong{font-size:23px!important;}
+}
