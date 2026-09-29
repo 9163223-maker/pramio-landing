@@ -19,6 +19,8 @@ jobs:
           grep -q 'Коротчаево' aurora/index.html
           grep -q 'Тамбей' aurora/index.html
           grep -q 'FreiCON' aurora/index.html
+          grep -q '797500' aurora/index.html
+          grep -q '306 км' aurora/index.html
           echo "Aurora HTML validation passed"
       - name: Check external map assets
         run: |
