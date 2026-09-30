@@ -31,7 +31,7 @@
 {a:"asb",b:"tyu",t:"rail",operator:"rzd",lab:"Асбест → Тюмень",km:"306 км",kind:"Железная дорога РЖД",proof:"ТР-4: Асбест—Баженово 36 + Баженово—Богданович 43 + Богданович—Тюмень 227",src:"https://tr4.info/station/793800"},
 {a:"urd",b:"tyu",t:"rail",operator:"rzd",lab:"Билимбай → Тюмень",km:"385 км",kind:"Железная дорога РЖД",proof:"ТР-4: Билимбай—Екатеринбург-Сорт. 49 + Екатеринбург-Сорт.—Богданович 109 + Богданович—Тюмень 227",src:"https://tr4.info/tp/780001"},
 {a:"pol",b:"tyu",t:"rail",operator:"rzd",lab:"Полуночное → Тюмень",km:"753 км",kind:"Железная дорога РЖД",proof:"ТР-4: Полуночное—Ивдель II 24 + Ивдель II—Серов-Сорт. 132 + Серов-Сорт.—Тюмень 597",src:"https://tr4.info/station/777507"},
-{a:"sdk",b:"tyu",t:"rail",lab:"Шартымка → Тюмень",kind:"Железная дорога",proof:"ЖД-коридор; тарифное расстояние уточнить по ЕСР"},
+{a:"sdk",b:"tyu",t:"rail",operator:"rzd",lab:"Шартымка → Тюмень",km:"603 км",kind:"Железная дорога РЖД",proof:"ТР-4: Шартымка—Полетаево I 147 + Полетаево I—Челябинск-Главный 26 + Челябинск-Главный—Тюмень 430"},
 {a:"emz",b:"tyu",t:"rail",operator:"rzd",lab:"Еманжелинск → Тюмень",km:"472 км",kind:"Железная дорога РЖД",proof:"ТР-4: Еманжелинск—Челябинск-Главный 42 + Челябинск-Главный—Тюмень 430",src:"https://tr4.info/tp/800008"},
 {a:"pok",b:"tyu",t:"rail",operator:"rzd",lab:"Покровск-Уральский → Тюмень",km:"684 км",kind:"Железная дорога РЖД",proof:"ТР-4: Покровск-Уральский—Серов-Сорт. 87 + Серов-Сорт.—Тюмень 597",src:"https://tr4.info/tp/774706"},
 {a:"tyu",b:"tob",t:"rail",operator:"rzd",lab:"Тюмень → Тобольск",km:"229 км",kind:"Железная дорога РЖД",proof:"ТР-4",src:"https://tr4.info/station/790003"},
@@ -60,6 +60,7 @@ const RZD_TARIFF_KOR={
  asb:{station:"Асбест",esr:"793800",km:1645,base:159204,classCoef:.72,dispatchCoef:1.03,wagon:78006,ton:1130.52,confidence:"high"},
  urd:{station:"Билимбай",esr:"781907",km:1724,base:166193,classCoef:.72,dispatchCoef:1.03,wagon:81430,ton:1180.14,confidence:"high"},
  pol:{station:"Полуночное",esr:"777507",km:2092,base:187918,classCoef:.70,dispatchCoef:1.01,wagon:87779,ton:1272.16,confidence:"high"},
+ sdk:{station:"Шартымка",esr:"805406",km:1942,base:null,classCoef:null,dispatchCoef:null,wagon:null,ton:null,confidence:"distance-verified"},
  emz:{station:"Еманжелинск",esr:"804600",km:1811,base:174652,classCoef:.71,dispatchCoef:1.03,wagon:84386,ton:1222.99,confidence:"high"},
  pok:{station:"Покровск-Уральский",esr:"775802",km:2023,base:187918,classCoef:.70,dispatchCoef:1.01,wagon:87779,ton:1272.16,confidence:"high"}
 };
