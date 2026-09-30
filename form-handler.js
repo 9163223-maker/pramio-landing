@@ -20,7 +20,7 @@
     fields.forEach((node) => { node.hidden = true; });
     if (status) {
       status.hidden = false;
-      status.innerHTML = '<strong>Заявка отправлена</strong><span>Мы получили сообщение. Ответим на указанный вами e-mail.</span><button type="button" class="contact-success-reset">Отправить ещё одну заявку</button>';
+      status.innerHTML = '<span class="contact-success-mark" aria-hidden="true">✓</span><strong>Готово</strong><span>Заявка отправлена. Ответим на указанный вами e-mail.</span><button type="button" class="contact-success-reset">Отправить ещё</button>';
       status.classList.remove('is-sending','is-error');
       status.classList.add('is-success');
       status.focus?.({ preventScroll:true });
@@ -113,7 +113,7 @@
     const data = new FormData(form);
 
     if (submit) submit.disabled = true;
-    setStatus('Отправляем заявку… Обычно это занимает несколько секунд.', 'sending');
+    setStatus('Отправляем заявку…', 'sending');
 
     try {
       const response = await fetch(endpoint, {
