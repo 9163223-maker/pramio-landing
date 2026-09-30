@@ -1,0 +1,24 @@
+name: TLZ Blog Visual Lab
+on:
+  push:
+    branches: [lab/blog-tlz-editorial]
+    paths:
+      - 'lab/blog-tlz/**'
+      - '.github/workflows/tlz-blog-lab.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate lab
+        run: |
+          test -s lab/blog-tlz/index.html
+          grep -q 'PRAMIO EDITORIAL / VISUAL LAB 01' lab/blog-tlz/index.html
+      - name: Package preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: tlz-blog-lab
+          path: lab/blog-tlz
