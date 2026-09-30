@@ -1,47 +1,32 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Aurora · НСМ Западная Сибирь и Ямал</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
-<style>html,body,#map{height:100%;margin:0}body{font:14px system-ui,-apple-system,sans-serif;background:#07131e}.leaflet-container{background:#dbe7ed}.panel{position:absolute;z-index:1000;top:12px;left:12px;right:12px;pointer-events:none}.box{pointer-events:auto;display:inline-block;background:#0b1c2df0;color:#eef7fc;border:1px solid #31536b;border-radius:15px;padding:11px 13px;box-shadow:0 10px 35px #0005;max-width:760px}.box h1{font-size:17px;margin:0 0 3px}.box p{font-size:11px;color:#9fb6c4;margin:0}.filters{margin-top:8px;display:flex;gap:5px;flex-wrap:wrap}.filters button{border:1px solid #355a72;background:#112b3d;color:#e7f4fa;border-radius:8px;padding:6px 9px}.filters button.on{background:#24607e}.legend{position:absolute;z-index:1000;bottom:20px;left:12px;background:#0b1c2de8;color:#dbeaf2;padding:8px 10px;border-radius:10px;border:1px solid #31536b;font-size:11px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-left:7px}.dot:first-child{margin-left:0}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#0c1d2d;color:#eaf5fb}.leaflet-popup-content{margin:12px 14px;min-width:240px}.leaflet-popup-content h3{margin:0 0 6px;font-size:15px}.leaflet-popup-content .m{color:#9fd5ef;background:#071621;padding:7px;border-radius:7px;margin:7px 0}.leaflet-popup-content a{color:#70d7ff}.rail-label{background:#0b1c2de8;color:#fff;border:1px solid #78909c;border-radius:8px;padding:3px 6px;font-size:10px;box-shadow:none}.leaflet-control-scale-line{background:#fffD;color:#111;border-color:#333}@media(max-width:650px){.box{display:block}.box h1{font-size:15px}.legend{display:none}}</style></head><body><div id="map"></div>
-<div class="panel"><div class="box"><h1>НСМ · Западная Сибирь и Ямал</h1><p>Реальная географическая подложка · координаты объектов · масштаб · ЖД/авто/водные коридоры · тарифные расстояния FreiCON/ТР-4</p><div class="filters"><button class="on" data-f="all">Все</button><button data-f="demand">Потребление</button><button data-f="terminal">Перевалка</button><button data-f="quarry">Карьеры</button><button data-f="port">Порты/ЖД</button><button id="routeBtn" class="on">Маршруты</button></div></div></div>
-<div class="legend"><span class="dot" style="background:#ff9f43"></span> спрос <span class="dot" style="background:#20c7e8"></span> перевалка <span class="dot" style="background:#48c774"></span> карьер <span class="dot" style="background:#4d86ff"></span> порт/ЖД</div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script><script>
-const O=[
-{id:"pok",n:"Покровск-Уральский",c:"quarry",p:[60.155068,59.811898],r:"Свердловская обл.",d:"Станция открыта для грузовых операций на путях ООО «Уральский щебень».",m:"ЕСР 775802. Потенциальный источник маршрутных поставок на север.",u:"https://online.freicon.ru/info/stations/775802"},
-{id:"surg",n:"Сургут",c:"terminal",p:[61.254,73.396],r:"ХМАО",d:"Крупный железнодорожный и речной узел ХМАО.",m:"Южный вход в рынок ХМАО; конкретные тупики и фронты требуют отдельной DD.",u:"https://online.freicon.ru/info"},
-{id:"pur",n:"Пуровск",c:"terminal",p:[64.981,77.823],r:"ЯНАО",d:"Пуровский терминал и станция на оси Пурпе—Коротчаево.",m:"ТР-4: Пуровск → Коротчаево 122 км. Терминал: 31 га, 10 км путей, фронт 54 вагона.",u:"https://purterminal.ru/arenda_tupika"},
-{id:"kor",n:"Коротчаево",c:"terminal",p:[65.93019867,78.177742],r:"ЯНАО",d:"Ключевой узел входа в Новоуренгойский и Ямбургский кластер.",m:"ЕСР 799101. FreiCON: действующая станция; линия Коротчаево—Ямбург 306 км.",u:"https://online.freicon.ru/info/stations/799101"},
-{id:"fara",n:"Фарафонтьевская",c:"terminal",p:[66.03,76.99],r:"ЯНАО",d:"ЖД станция/промышленная база западнее Нового Уренгоя.",m:"ТР-4: 49 км от Коротчаево; 257 км до Ямбурга. На базе заявлены 16 путей и реализация щебня.",u:"https://krongs.ru/proizvodstvennye-bazy/"},
-{id:"nur",n:"Новый Уренгой",c:"port",p:[66.084,76.681],r:"ЯНАО",d:"Центр Новоуренгойского промышленного кластера.",m:"ТР-4: 70 км от Коротчаево; 236 км до Ямбурга.",u:"https://online.freicon.ru/info"},
-{id:"yambst",n:"Ямбург (ЖД)",c:"port",p:[67.902,74.884],r:"ЯНАО",d:"Северный конец линии Коротчаево—Ямбург.",m:"ТР-4: 306 км от Коротчаево.",u:"https://online.freicon.ru/info"},
-{id:"harp",n:"Харп",c:"quarry",p:[66.801,65.808],r:"ЯНАО",d:"Локальный каменный кластер у Полярного Урала.",m:"Потенциальное преимущество — короткое плечо к Лабытнанги/Обской.",u:"https://nerudas.ru/karery/karery-shchebnya/karery-granitnogo-shchebnya/ooo-arkticheskaya-nerudnaya-kompaniya"},
-{id:"laby",n:"Лабытнанги",c:"port",p:[66.657,66.388],r:"ЯНАО",d:"Железнодорожный тупиковый узел на Оби и речная перевалка.",m:"Вариант ЖД/карьер → вода → Обская губа.",u:"https://online.freicon.ru/info"},
-{id:"ob",n:"Обская",c:"port",p:[66.553,66.541],r:"ЯНАО",d:"Узел линии Обская—Бованенково—Карская.",m:"Западная железнодорожная ось полуострова Ямал.",u:"https://online.freicon.ru/info"},
-{id:"south",n:"Южно-Русское НГКМ",c:"demand",p:[67.25,79.85],r:"ЯНАО",d:"Действующее месторождение с продолжающимся строительством инфраструктуры.",m:"Ближайшие проекты включают кустовые площадки и дороги; потенциальный спрос НСМ.",u:"https://zakupki.tochka.com/search/22800337-1/"},
-{id:"uren",n:"Уренгойское НГКМ",c:"demand",p:[66.15,77.1],r:"ЯНАО",d:"Крупный действующий газовый кластер.",m:"Коротчаево и Фарафонтьевская — ближайшие крупные железнодорожные входы.",u:"https://energybase.ru/"},
-{id:"enya",n:"Ен-Яхинское НГКМ",c:"demand",p:[67.05,76.55],r:"ЯНАО",d:"Продолжающиеся СМР и компрессорная инфраструктура.",m:"Северный кластер спроса.",u:"https://energybase.ru/oil-gas-field/yon-yakhinskoye/tenders"},
-{id:"pest",n:"Песцовое НГКМ",c:"demand",p:[66.77,76.35],r:"ЯНАО",d:"Действующий промысловый кластер.",m:"Дорожное обслуживание и дальнейшее обустройство.",u:"https://energybase.ru/"},
-{id:"yamb",n:"Ямбургское НГКМ",c:"demand",p:[67.92,74.88],r:"ЯНАО",d:"Крупный северный кластер.",m:"Продолжаются дорожные и инфраструктурные работы.",u:"https://energybase.ru/oil-gas-field/yamburgskoe/tenders"},
-{id:"bov",n:"Бованенково / Карская",c:"demand",p:[70.36,68.37],r:"Ямал",d:"Газовый и железнодорожный северный узел.",m:"Доступ по линии Обская—Бованенково.",u:"https://energybase.ru/"},
-{id:"khar",n:"Харасавэй",c:"demand",p:[71.18,66.82],r:"Ямал",d:"Северный проектный кластер.",m:"Отдельная сезонная/проектная логистика.",u:"https://energybase.ru/"},
-{id:"tamb",n:"Тамбейский кластер",c:"demand",p:[71.25,71.90],r:"Ямал",d:"Крупная новая стройка у Обской губы.",m:"КГС, сети, дороги, инженерная подготовка и магистральный газопровод.",u:"https://energybase.ru/upstream/gazdobtambey/tenders/epc"}];
-const R=[
-{a:"pok",b:"surg",t:"rail",lab:"Урал → ХМАО · тарифное расстояние: считать FreiCON по ЕСР"},
-{a:"pok",b:"pur",t:"rail",lab:"Урал → Пуровск · тарифное расстояние: FreiCON"},
-{a:"pok",b:"kor",t:"rail",lab:"Урал → Коротчаево · тарифное расстояние: FreiCON"},
-{a:"pur",b:"kor",t:"rail",lab:"ТР-4: 122 км"},
-{a:"kor",b:"fara",t:"rail",lab:"ТР-4 / FreiCON: 49 км"},
-{a:"fara",b:"nur",t:"rail",lab:"ТР-4: 21 км"},
-{a:"nur",b:"yambst",t:"rail",lab:"ТР-4: 236 км"},
-{a:"kor",b:"yambst",t:"rail",lab:"ТР-4 / FreiCON: 306 км"},
-{a:"kor",b:"uren",t:"road",lab:"последняя миля"},
-{a:"kor",b:"south",t:"road",lab:"проектное автоплечо — уточнить"},
-{a:"harp",b:"laby",t:"road",lab:"местный камень → порт"},
-{a:"ob",b:"bov",t:"rail",lab:"Обская—Бованенково"},
-{a:"laby",b:"tamb",t:"water",lab:"Обь → Обская губа → Тамбей (сезонно)"},
-{a:"bov",b:"tamb",t:"hyp",lab:"проектный коридор — не считать готовым"}];
-const map=L.map("map",{zoomControl:true}).setView([66.7,72.2],5);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:'© OpenStreetMap contributors'}).addTo(map);L.control.scale({metric:true,imperial:false,maxWidth:160}).addTo(map);
-const colors={demand:"#ff9f43",terminal:"#20c7e8",quarry:"#48c774",port:"#4d86ff"},groups={};O.forEach(o=>{let m=L.circleMarker(o.p,{radius:o.c==="demand"?7:9,color:"#06121c",weight:2,fillColor:colors[o.c],fillOpacity:.95}).bindTooltip(o.n,{direction:"top"}).bindPopup('<h3>'+o.n+'</h3><b>'+o.r+'</b><p>'+o.d+'</p><div class="m">'+o.m+'</div><a target="_blank" rel="noopener" href="'+o.u+'">Источник ↗</a>');m.addTo(map);groups[o.id]=m});
-const lines=[];R.forEach(r=>{let a=O.find(x=>x.id===r.a),b=O.find(x=>x.id===r.b),sty=r.t==="water"?{color:"#278dff",weight:4}:r.t==="road"?{color:"#ef9f4a",weight:3}:r.t==="hyp"?{color:"#ef6666",weight:2,dashArray:"4 8"}:{color:"#596a74",weight:3,dashArray:"8 5"};let l=L.polyline([a.p,b.p],sty).bindTooltip(r.lab,{sticky:true,className:"rail-label"}).addTo(map);lines.push(l)});
-document.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-f]").forEach(q=>q.classList.remove("on"));b.classList.add("on");let f=b.dataset.f;O.forEach(o=>{let m=groups[o.id];if(f==="all"||o.c===f){if(!map.hasLayer(m))m.addTo(map)}else if(map.hasLayer(m))map.removeLayer(m)})});
-document.querySelector("#routeBtn").onclick=e=>{e.currentTarget.classList.toggle("on");lines.forEach(l=>e.currentTarget.classList.contains("on")?l.addTo(map):map.removeLayer(l))};
-</script></body></html>
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>НСМ · Западная Сибирь и Ямал · Clean 2</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="./app.css?v=3">
+</head>
+<body>
+<div id="build" hidden>aurora-clean-2</div>\n<div id="map" aria-label="Карта НСМ"></div>
+<header class="topbar">
+  <div class="brand"><strong>НСМ · Западная Сибирь и Ямал</strong><small>данные 30.09.2026</small></div>
+  <div class="filters" role="group" aria-label="Фильтр объектов">
+    <button data-filter="all" class="active">Все</button><button data-filter="demand">Спрос</button><button data-filter="quarry">Карьеры</button><button data-filter="terminal">Перевалки</button><button data-filter="port">Порт/ЖД</button>
+  </div>
+  <div class="legend"><span><i class="demand"></i>спрос</span><span><i class="terminal"></i>перевалка</span><span><i class="quarry"></i>карьеры</span><span><i class="port"></i>порт/ЖД</span></div>
+</header>
+<aside id="detail" class="detail" hidden></aside>
+<section id="planner" class="planner" aria-live="polite">
+  <div class="route-row">
+    <label><span>A · карьер</span><select id="origin"><option value="">Выберите карьер</option></select></label>
+    <span class="arrow">→</span>
+    <label><span>B · назначение</span><select id="destination" disabled><option value="">Сначала выберите A</option></select></label>
+    <button id="fit" class="secondary">Регион</button>
+  </div>
+  <div id="hint" class="hint">Нажмите на карьер на карте — он станет точкой A.</div>
+  <div id="result" class="result" hidden></div>
+</section>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="./app.js?v=8"></script>
+</body></html>
