@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>НСМ · Западная Сибирь и Ямал · Clean 2</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="./app.css?v=3">
+<link rel="stylesheet" href="./app.css?v=4">
 </head>
 <body>
 <div id="build" hidden>aurora-clean-2</div>\n<div id="map" aria-label="Карта НСМ"></div>
 <header class="topbar">
-  <div class="brand"><strong>НСМ · Западная Сибирь и Ямал</strong><small>данные 29.09.2026</small></div>
+  <div class="brand"><strong>НСМ · Западная Сибирь и Ямал</strong><small>данные 30.09.2026</small></div>
   <div class="filters" role="group" aria-label="Фильтр объектов">
     <button data-filter="all" class="active">Все</button><button data-filter="demand">Спрос</button><button data-filter="quarry">Карьеры</button><button data-filter="terminal">Перевалки</button><button data-filter="port">Порт/ЖД</button>
   </div>
-  <div class="legend"><span><i class="demand"></i>спрос</span><span><i class="terminal"></i>перевалка</span><span><i class="quarry"></i>карьеры</span><span><i class="port"></i>порт/ЖД</span></div>
+  <div class="legend"><span><i class="demand"></i>спрос</span><span><i class="terminal"></i>перевалка</span><span><i class="quarry"></i>карьеры</span><span class="legend-code nnk-code">ННК</span><span class="legend-code altai-code">АК</span><span><i style="background:#22c55e"></i>независимые</span><span><i style="background:#ff7a00"></i>потенциальные</span><span><i class="port"></i>порт/ЖД</span></div>
 </header>
 <aside id="detail" class="detail" hidden></aside>
 <section id="planner" class="planner" aria-live="polite">
@@ -28,5 +28,5 @@
   <div id="result" class="result" hidden></div>
 </section>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="./app.js?v=9"></script>
+<script src="./app.js?v=10"></script>
 </body></html>
