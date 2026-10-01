@@ -99,6 +99,20 @@
 .blog-page::before{clip-path:none!important;-webkit-clip-path:none!important}
 .blog-page .page{overflow:visible!important}
 .blog-v12-rubrics{overflow:visible!important}
+
+/* v12 eyebrow marker geometry — Safari zoom must not compress the dot */
+.blog-v12-head .eyebrow>span{
+  display:block!important;
+  flex:0 0 10px!important;
+  width:10px!important;
+  min-width:10px!important;
+  max-width:10px!important;
+  height:10px!important;
+  min-height:10px!important;
+  aspect-ratio:1/1!important;
+  border-radius:50%!important;
+  overflow:visible!important;
+}
 </style></head>
 <body class="inner-page blog-page">
 
