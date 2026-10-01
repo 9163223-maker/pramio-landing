@@ -84,6 +84,15 @@
  }
  .blog-v12-rubric-grid{position:relative;z-index:2}
 }
+
+/* v12 final rubric order: TLZ is the lead rubric, not a footer banner */
+.blog-v12-tlz{order:-1!important;grid-column:1/-1!important;margin:0!important;min-height:150px!important}
+@media(max-width:780px){
+ .blog-v12-tlz{order:-1!important;margin:0!important;min-height:145px!important}
+ .blog-v12-rubrics:before{content:none!important}
+ /* remove decorative background interference inside rubric reading zone */
+ .blog-v12-rubrics{background:rgba(244,248,255,.94);border-radius:28px;padding:14px 0 4px!important}
+}
 </style></head>
 <body class="inner-page blog-page">
 
@@ -99,12 +108,12 @@
         <a class="blog-v12-preview" href="/blog/max/chto-takoe-mini-app-max/"><small>MAX · РАЗБОР</small><strong>Что такое Mini App в MAX</strong><em>Когда интерфейса обычного бота уже недостаточно.</em></a>
       </div>
     </section>
-    <section class="blog-v12-rubrics" aria-labelledby="rubrics-title"><div class="blog-v12-sectionhead"><h2 id="rubrics-title">Рубрики</h2><p>Выберите направление — внутри только материалы по теме.</p></div><div class="blog-v12-rubric-grid">
+    <section class="blog-v12-rubrics" aria-labelledby="rubrics-title"><div class="blog-v12-sectionhead"><h2 id="rubrics-title">Рубрики</h2><p>Выберите направление — внутри только материалы по теме.</p></div><div class="blog-v12-rubric-grid"><a class="blog-v12-rubric blog-v12-tlz" href="#editorial-project"><span class="blog-v12-tlzmark">ТЛЗ</span><b>Тётя Лида знает</b><span>Маркетинг и технологии человеческим языком.</span><i>→</i></a>
       <a class="blog-v12-rubric" href="/blog/max/"><b>MAX</b><span>Боты, каналы, Mini App и лид-магниты.</span><i>→</i></a>
       <a class="blog-v12-rubric" href="/services/telegram-bots/"><b>Telegram</b><span>Боты, заявки и автоматизация процессов.</span><i>→</i></a>
       <a class="blog-v12-rubric" href="/services/ai-automation/"><b>AI</b><span>Ассистенты, базы знаний и автоматизация.</span><i>→</i></a>
       <a class="blog-v12-rubric" href="/services/sites/"><b>Сайты и SEO</b><span>Структура, конверсия, поиск и индексация.</span><i>→</i></a>
-      <a class="blog-v12-rubric blog-v12-tlz" href="#editorial-project"><span class="blog-v12-tlzmark">ТЛЗ</span><b>Тётя Лида знает</b><span>Маркетинг и технологии человеческим языком.</span><i>→</i></a>
+      
     </div></section>
     <section class="content-section related-section blog-v12-more" aria-labelledby="max-reading"><div class="blog-v12-sectionhead"><h2 id="max-reading">Ещё почитать</h2></div><div class="link-grid"><a class="link-card" href="/blog/max/chto-umeet-bot-max/"><strong>Что умеет бот MAX</strong><span>Возможности Bot API без лишних обещаний.</span></a><a class="link-card" href="/blog/max/kak-podklyuchit-bota-k-kanalu-max/"><strong>Бот и канал MAX</strong><span>Подключение, права и ограничения.</span></a><a class="link-card link-card--wide" href="/blog/max/"><strong>Все материалы о MAX</strong><span>Перейти в рубрику.</span></a></div></section>
     <section class="content-section editorial-project-card" id="editorial-project" aria-labelledby="editorial-title"><p class="eyebrow"><span></span> авторская рубрика</p><h2 id="editorial-title">Тётя Лида знает</h2><p>Наблюдения, разборы и практические уроки о рекламе, маркетинге и технологиях — без канцелярита и презентационной магии.</p></section>
