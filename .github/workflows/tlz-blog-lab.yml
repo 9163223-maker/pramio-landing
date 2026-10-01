@@ -1,4 +1,5 @@
 name: TLZ Blog Visual Lab
+
 on:
   push:
     branches: [lab/blog-tlz-editorial]
@@ -6,10 +7,18 @@ on:
       - 'lab/blog-tlz/**'
       - '.github/workflows/tlz-blog-lab.yml'
   workflow_dispatch:
+
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: tlz-blog-lab-pages
+  cancel-in-progress: true
+
 jobs:
-  preview:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,8 +26,23 @@ jobs:
         run: |
           test -s lab/blog-tlz/index.html
           grep -q 'PRAMIO EDITORIAL / VISUAL LAB 01' lab/blog-tlz/index.html
-      - name: Package preview
-        uses: actions/upload-artifact@v4
+      - name: Prepare Pages artifact
+        run: |
+          rm -rf _site
+          mkdir -p _site
+          cp -R lab/blog-tlz/. _site/
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
-          name: tlz-blog-lab
-          path: lab/blog-tlz
+          path: _site
+
+  deploy:
+    environment:
+      name: tlz-blog-lab
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy preview to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
