@@ -59,6 +59,31 @@
  .blog-v12-rubrics{margin-bottom:24px!important}
  .blog-v12-sectionhead{margin-bottom:12px!important}
 }
+
+/* v12 rubric composition correction */
+@media(max-width:780px){
+ .blog-v12-tlz{
+   margin-top:-42px!important;
+   margin-left:10px!important;
+   margin-right:10px!important;
+   z-index:4!important;
+ }
+ .blog-v12-rubric-grid{
+   padding-bottom:0!important;
+ }
+ .blog-v12-rubrics:before{
+   content:"";
+   position:absolute;
+   left:-8px;right:-8px;
+   bottom:0;
+   height:58%;
+   z-index:1;
+   pointer-events:none;
+   background:linear-gradient(to bottom,rgba(244,248,255,0),rgba(244,248,255,.88) 20%,rgba(244,248,255,.96));
+   border-radius:30px;
+ }
+ .blog-v12-rubric-grid{position:relative;z-index:2}
+}
 </style></head>
 <body class="inner-page blog-page">
 
