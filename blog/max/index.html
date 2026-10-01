@@ -36,15 +36,10 @@
  .blog-max-v12 .service-cta h2{font-size:36px;line-height:1.04}
 }
 
+.blog-max-v12 .cluster-nav-swipe-hint{display:none}
 @media(max-width:780px){
- .blog-max-v12 .cluster-nav-wrap{position:relative;margin-top:18px}
- .blog-max-v12 .cluster-nav-wrap .cluster-nav{margin:0;padding-right:48px;scroll-padding-inline:0 54px;scrollbar-width:none}
- .blog-max-v12 .cluster-nav-wrap .cluster-nav::-webkit-scrollbar{display:none}
- .blog-max-v12 .cluster-nav-wrap:after{content:"";position:absolute;z-index:7;right:0;top:0;bottom:4px;width:72px;pointer-events:none;background:linear-gradient(90deg,rgba(246,249,255,0),rgba(246,249,255,.92) 72%)}
- .blog-max-v12 .cluster-nav-cue{display:grid!important;place-items:center;position:absolute;z-index:8;right:8px;top:50%;transform:translateY(-50%);width:42px;height:42px;border:1px solid rgba(20,102,255,.16);border-radius:50%;background:rgba(255,255,255,.86);box-shadow:0 8px 22px rgba(20,72,150,.12);color:#1466ff;font:700 20px/1 Manrope,system-ui,sans-serif;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:opacity .18s ease,transform .18s ease}
- .blog-max-v12 .cluster-nav-wrap.is-explored:after,.blog-max-v12 .cluster-nav-wrap.is-explored .cluster-nav-cue{opacity:0;pointer-events:none}
+ .blog-max-v12 .cluster-nav-swipe-hint{display:block;margin:8px 4px 0;color:#68778d;font:600 12px/1.35 Manrope,system-ui,sans-serif;letter-spacing:.01em}
 }
-@media(min-width:781px){.blog-max-v12 .cluster-nav-cue{display:none!important}}
 </style>
 </head><body class="inner-page blog-max-v12">
 
@@ -53,7 +48,7 @@
   <main class="page">
     <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="">Главная</a><span>/</span><a href="blog/">Блог</a><span>/</span><span>MAX</span></nav>
     <section class="service-hero"><div><p class="eyebrow"><span></span> MAX для бизнеса</p><h1>Боты, каналы и Mini App в MAX</h1><p class="lead">Собрали практические разборы возможностей MAX для бизнеса: от создания чат-бота до автоматизации канала и мини-приложений.</p><div class="actions"><a class="btn primary" href="services/max-bots/">Разработка для MAX</a><a class="btn ghost" href="blog/">Вся база знаний</a></div></div></section>
-    <div class="cluster-nav-wrap"><nav class="cluster-nav" aria-label="Навигация по разделу MAX"><a href="services/max-bots/">Обзор</a><a href="services/max-bots/business/">Для бизнеса</a><a href="services/max-bots/channels/">Каналы</a><a href="services/max-bots/lead-magnets/">Лид-магниты</a><a href="services/max-bots/mini-app/">Mini App</a><a href="blog/max/" aria-current="page">Блог</a></nav><button class="cluster-nav-cue" type="button" aria-label="Показать следующие разделы">→</button></div>
+    <nav class="cluster-nav" aria-label="Навигация по разделу MAX"><a href="services/max-bots/">Обзор</a><a href="services/max-bots/business/">Для бизнеса</a><a href="services/max-bots/channels/">Каналы</a><a href="services/max-bots/lead-magnets/">Лид-магниты</a><a href="services/max-bots/mini-app/">Mini App</a><a href="blog/max/" aria-current="page">Блог</a></nav><p class="cluster-nav-swipe-hint" aria-hidden="true">Листайте разделы влево-вправо&nbsp;↔</p>
     <section class="content-section" aria-labelledby="max-articles"><h2 id="max-articles">С чего начать</h2><p>Материалы построены вокруг конкретных вопросов. Можно читать последовательно или открыть нужный разбор.</p><div class="feature-grid" data-blog-feed="MAX"></div></section>
     <section class="content-section" aria-labelledby="max-services"><h2 id="max-services">Если нужна реализация</h2><p><a href="services/max-bots/business/">Бот MAX для бизнеса</a> · <a href="services/max-bots/channels/">Бот для канала MAX</a> · <a href="services/max-bots/lead-magnets/">Лид-магниты в MAX</a> · <a href="services/max-bots/mini-app/">Mini App для MAX</a></p></section>
     <section class="service-cta"><h2>Сначала проверим задачу по возможностям MAX</h2><p>API и правила платформы развиваются, поэтому перед оценкой разработки сверяем актуальные методы и ограничения.</p><a class="btn" href="services/max-bots/">Решения для MAX</a></section>
