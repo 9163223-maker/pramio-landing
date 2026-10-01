@@ -138,13 +138,7 @@
   <main class="page">
     <nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="">Главная</a><span>/</span><span>Блог</span></nav>
     <section class="blog-v12-head" aria-labelledby="blog-title"><p class="eyebrow"><span></span> журнал PRAMIO</p><h1 id="blog-title">Практика digital без воды</h1></section>
-    <section class="blog-v12-lead" aria-label="Свежие материалы">
-      <a class="blog-v12-feature" href="/blog/max/lid-magnit-v-max/"><span>СВЕЖИЙ МАТЕРИАЛ · MAX</span><h2>Лид-магнит в MAX: как превратить интерес в обращение</h2><p>Что получает человек, где подключается бот и на каком шаге бизнес чаще всего теряет лид.</p><b>Читать →</b></a>
-      <div class="blog-v12-stack">
-        <a class="blog-v12-preview" href="/blog/max/kak-sozdat-bota-v-max/"><small>MAX · ПРАКТИКА</small><strong>Как создать бота в MAX</strong><em>От регистрации до первого рабочего сценария.</em></a>
-        <a class="blog-v12-preview" href="/blog/max/chto-takoe-mini-app-max/"><small>MAX · РАЗБОР</small><strong>Что такое Mini App в MAX</strong><em>Когда интерфейса обычного бота уже недостаточно.</em></a>
-      </div>
-    </section>
+    <section class="blog-v12-lead" id="latest-materials" aria-label="Последние материалы"></section>
     <section class="blog-v12-rubrics" aria-labelledby="rubrics-title"><div class="blog-v12-sectionhead"><h2 id="rubrics-title">Рубрики</h2><p>Выберите направление — внутри только материалы по теме.</p></div><div class="blog-v12-rubric-grid"><a class="blog-v12-rubric blog-v12-tlz" href="#editorial-project"><span class="blog-v12-tlzmark">ТЛЗ</span><b>Тётя Лида знает</b><span>Маркетинг и технологии человеческим языком.</span><i>→</i></a>
       <a class="blog-v12-rubric" href="/blog/max/"><b>MAX</b><span>Боты, каналы, Mini App и лид-магниты.</span><i>→</i></a>
       <a class="blog-v12-rubric" href="/services/telegram-bots/"><b>Telegram</b><span>Боты, заявки и автоматизация процессов.</span><i>→</i></a>
@@ -156,5 +150,27 @@
     <section class="service-cta"><h2>Ищете решение под конкретную задачу?</h2><p>Перейдите к направлениям PRAMIO или опишите задачу своими словами.</p><a class="btn" href="/services/">Перейти к услугам</a></section>
   </main>
   <footer class="site-footer"><a class="footer-brand" href=""><img src="/assets/pramio-logo.webp" alt="PRAMIO" width="1000" height="414"></a><p>Цифровые продукты и разработка под задачи бизнеса.</p><nav><a href="/services/">Все услуги</a><a href="/services/max-bots/">MAX</a><a href="/services/telegram-bots/">Telegram</a><a href="/services/ai-automation/">AI и автоматизация</a><a href="/services/sites/">Сайты</a><a href="/portfolio/">Демо-каталог</a><a href="/blog/">Блог</a><a href="#adminkit">АдминКИТ</a><a href="mailto:hello@pramio.ru">hello@pramio.ru</a><a href="/privacy/">Политика обработки данных</a></nav><small>© 2026 PRAMIO</small></footer>
+  <script>
+/* Blog feed v1 — single metadata owner for the latest-materials surface.
+   New articles are added once here; the first three are rendered as 1 feature + 2 previews. */
+window.PRAMIO_BLOG_ARTICLES = [
+  {published:"2026-10-01",section:"MAX",type:"ПРАКТИКА",href:"/blog/max/lid-magnit-v-max/",title:"Лид-магнит в MAX: как превратить интерес в обращение",excerpt:"Что получает человек, где подключается бот и на каком шаге бизнес чаще всего теряет лид."},
+  {published:"2026-09-30",section:"MAX",type:"ПРАКТИКА",href:"/blog/max/kak-sozdat-bota-v-max/",title:"Как создать бота в MAX",excerpt:"От регистрации до первого рабочего сценария."},
+  {published:"2026-09-29",section:"MAX",type:"РАЗБОР",href:"/blog/max/chto-takoe-mini-app-max/",title:"Что такое Mini App в MAX",excerpt:"Когда интерфейса обычного бота уже недостаточно."},
+  {published:"2026-09-28",section:"MAX",type:"РАЗБОР",href:"/blog/max/chto-umeet-bot-max/",title:"Что умеет бот MAX",excerpt:"Возможности Bot API без лишних обещаний."},
+  {published:"2026-09-27",section:"MAX",type:"ПРАКТИКА",href:"/blog/max/kak-podklyuchit-bota-k-kanalu-max/",title:"Бот и канал MAX",excerpt:"Подключение, права и ограничения."}
+];
+(function(){
+  const root=document.getElementById("latest-materials");
+  if(!root)return;
+  const esc=v=>String(v).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+  const href=v=>window.PRAMIO_BASE?window.PRAMIO_BASE+String(v).replace(/^\//,""):v;
+  const items=[...window.PRAMIO_BLOG_ARTICLES].sort((a,b)=>String(b.published).localeCompare(String(a.published))).slice(0,3);
+  if(!items.length)return;
+  const first=items[0], rest=items.slice(1);
+  root.innerHTML='<a class="blog-v12-feature" href="'+esc(href(first.href))+'"><span>СВЕЖИЙ МАТЕРИАЛ · '+esc(first.section)+'</span><h2>'+esc(first.title)+'</h2><p>'+esc(first.excerpt)+'</p><b>Читать →</b></a>'+
+    (rest.length?'<div class="blog-v12-stack">'+rest.map(a=>'<a class="blog-v12-preview" href="'+esc(href(a.href))+'"><small>'+esc(a.section)+' · '+esc(a.type)+'</small><strong>'+esc(a.title)+'</strong><em>'+esc(a.excerpt)+'</em></a>').join('')+'</div>':'');
+})();
+</script>
   <script src="/script.js?v=62"></script><script src="/site-v2.js?v=69"></script>
 <script>if(window.PRAMIO_BASE){document.querySelectorAll("[href^=\"/\"]").forEach(a=>a.setAttribute("href",window.PRAMIO_BASE+a.getAttribute("href")));document.querySelectorAll("[src^=\"/\"]").forEach(a=>a.setAttribute("src",window.PRAMIO_BASE+a.getAttribute("src")));}</script>\n</body></html>
