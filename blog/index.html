@@ -114,14 +114,21 @@
   overflow:visible!important;
 }
 
-/* v12 Safari zoom: keep eyebrow halo inside its own paint box */
-.blog-v12-head .eyebrow{
-  padding-left:8px!important;
-  margin-left:-8px!important;
-  overflow:visible!important;
-}
+/* v12 Safari zoom: marker owns its halo; no external box-shadow paint */
+.blog-v12-head .eyebrow{overflow:visible!important}
 .blog-v12-head .eyebrow>span{
-  margin-left:8px!important;
+  flex:0 0 22px!important;
+  width:22px!important;
+  min-width:22px!important;
+  max-width:22px!important;
+  height:22px!important;
+  min-height:22px!important;
+  margin:0!important;
+  border:6px solid rgba(20,102,255,.09)!important;
+  background:var(--warm-accent,#f47a3c)!important;
+  background-clip:padding-box!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
 }
 </style></head>
 <body class="inner-page blog-page">
