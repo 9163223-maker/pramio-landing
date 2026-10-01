@@ -93,6 +93,12 @@
  /* remove decorative background interference inside rubric reading zone */
  .blog-v12-rubrics{background:rgba(244,248,255,.94);border-radius:28px;padding:14px 0 4px!important}
 }
+
+/* v12: single TLZ owner + zoom-safe editorial background */
+.blog-page{overflow-x:hidden!important}
+.blog-page::before{clip-path:none!important;-webkit-clip-path:none!important}
+.blog-page .page{overflow:visible!important}
+.blog-v12-rubrics{overflow:visible!important}
 </style></head>
 <body class="inner-page blog-page">
 
@@ -116,7 +122,6 @@
       
     </div></section>
     <section class="content-section related-section blog-v12-more" aria-labelledby="max-reading"><div class="blog-v12-sectionhead"><h2 id="max-reading">Ещё почитать</h2></div><div class="link-grid"><a class="link-card" href="/blog/max/chto-umeet-bot-max/"><strong>Что умеет бот MAX</strong><span>Возможности Bot API без лишних обещаний.</span></a><a class="link-card" href="/blog/max/kak-podklyuchit-bota-k-kanalu-max/"><strong>Бот и канал MAX</strong><span>Подключение, права и ограничения.</span></a><a class="link-card link-card--wide" href="/blog/max/"><strong>Все материалы о MAX</strong><span>Перейти в рубрику.</span></a></div></section>
-    <section class="content-section editorial-project-card" id="editorial-project" aria-labelledby="editorial-title"><p class="eyebrow"><span></span> авторская рубрика</p><h2 id="editorial-title">Тётя Лида знает</h2><p>Наблюдения, разборы и практические уроки о рекламе, маркетинге и технологиях — без канцелярита и презентационной магии.</p></section>
     <section class="service-cta"><h2>Ищете решение под конкретную задачу?</h2><p>Перейдите к направлениям PRAMIO или опишите задачу своими словами.</p><a class="btn" href="/services/">Перейти к услугам</a></section>
   </main>
   <footer class="site-footer"><a class="footer-brand" href=""><img src="/assets/pramio-logo.webp" alt="PRAMIO" width="1000" height="414"></a><p>Цифровые продукты и разработка под задачи бизнеса.</p><nav><a href="/services/">Все услуги</a><a href="/services/max-bots/">MAX</a><a href="/services/telegram-bots/">Telegram</a><a href="/services/ai-automation/">AI и автоматизация</a><a href="/services/sites/">Сайты</a><a href="/portfolio/">Демо-каталог</a><a href="/blog/">Блог</a><a href="#adminkit">АдминКИТ</a><a href="mailto:hello@pramio.ru">hello@pramio.ru</a><a href="/privacy/">Политика обработки данных</a></nav><small>© 2026 PRAMIO</small></footer>
