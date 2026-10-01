@@ -1,10 +1,10 @@
 /* PRAMIO blog feed — canonical article metadata owner. */
 window.PRAMIO_BLOG_ARTICLES = [
-  {rank:1,section:"MAX",type:"ПРАКТИКА",href:"/blog/max/lid-magnit-v-max/",title:"Лид-магнит в MAX: как превратить интерес в обращение",excerpt:"Что получает человек, где подключается бот и на каком шаге бизнес чаще всего теряет лид."},
-  {rank:2,section:"MAX",type:"ПРАКТИКА",href:"/blog/max/kak-sozdat-bota-v-max/",title:"Как создать бота в MAX",excerpt:"От регистрации до первого рабочего сценария."},
+  {rank:1,section:"MAX",type:"ПРАКТИКА",href:"/blog/max/lid-magnit-v-max/",title:"Лид-магнит в MAX: как превратить интерес в обращение",excerpt:"Как выдать полезный материал через бота MAX и продолжить общение с человеком после выдачи."},
+  {rank:2,section:"MAX",type:"ПРАКТИКА",href:"/blog/max/kak-sozdat-bota-v-max/",title:"Как создать бота в MAX",excerpt:"Регистрация, модерация, токен, Webhook и первые шаги после создания бота."},
   {rank:3,section:"MAX",type:"РАЗБОР",href:"/blog/max/chto-takoe-mini-app-max/",title:"Что такое Mini App в MAX",excerpt:"Когда интерфейса обычного бота уже недостаточно."},
-  {rank:4,section:"MAX",type:"РАЗБОР",href:"/blog/max/chto-umeet-bot-max/",title:"Что умеет бот MAX",excerpt:"Возможности Bot API без лишних обещаний."},
-  {rank:5,section:"MAX",type:"ПРАКТИКА",href:"/blog/max/kak-podklyuchit-bota-k-kanalu-max/",title:"Бот и канал MAX",excerpt:"Подключение, права и ограничения."}
+  {rank:4,section:"MAX",type:"РАЗБОР",href:"/blog/max/chto-umeet-bot-max/",title:"Что умеет бот MAX",excerpt:"Какие возможности MAX доступны боту и где действуют ограничения."},
+  {rank:5,section:"MAX",type:"ПРАКТИКА",href:"/blog/max/kak-podklyuchit-bota-k-kanalu-max/",title:"Бот и канал MAX",excerpt:"Какие права нужны боту в канале MAX и что можно делать через API."}
 ];
 (function(){
   const esc=v=>String(v).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
