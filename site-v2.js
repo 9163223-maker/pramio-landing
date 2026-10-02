@@ -52,7 +52,7 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
     window.setTimeout(() => {
       if (document.querySelector('script[data-pramio-form-handler]')) return;
       const handler = document.createElement('script');
-      handler.src = PRAMIO_SITE_URL('form-handler.js?v=43');
+      handler.src = PRAMIO_SITE_URL('form-handler.js?v=44');
       handler.dataset.pramioFormHandler = '1';
       document.body.append(handler);
     }, 0);
