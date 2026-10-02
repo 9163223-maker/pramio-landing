@@ -37,6 +37,7 @@
     form.reset();
     if (tokenInput) tokenInput.value = token;
     if (startedAt) startedAt.value = started || String(Date.now());
+    form.querySelector('[name="source"]')?.remove();
     if (status) {
       status.classList.remove('is-success','is-sending','is-error');
       status.textContent = 'Для оценки достаточно короткого описания задачи.';
