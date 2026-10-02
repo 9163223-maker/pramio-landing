@@ -2778,3 +2778,39 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
   .service-hero + .content-section{margin-top:10px!important}
   .content-section{padding-top:18px!important}
 }
+
+
+/* v93 contact request lifecycle — final desktop geometry + native hidden semantics */
+.contact-form > [hidden]{display:none!important;}
+@media(min-width:781px){
+  .contact-panel{
+    top:clamp(14px,2vh,22px)!important;
+    bottom:clamp(14px,2vh,22px)!important;
+    padding:26px 30px!important;
+    overflow-y:auto!important;
+  }
+  .contact-eyebrow{margin:4px 0 10px!important;}
+  .contact-panel h2{font-size:34px!important;line-height:1.02!important;}
+  .contact-intro{margin:10px 0 16px!important;font-size:14px!important;line-height:1.42!important;}
+  .contact-form{gap:10px!important;}
+  .contact-form label{gap:5px!important;}
+  .contact-form input,.contact-form textarea,.service-picker__trigger{
+    min-height:44px!important;
+    padding:10px 13px!important;
+    border-radius:14px!important;
+  }
+  .contact-form textarea{
+    min-height:82px!important;
+    max-height:108px!important;
+    resize:none!important;
+  }
+  .privacy-consent{padding:7px 9px!important;line-height:1.32!important;}
+  .contact-submit{min-height:46px!important;margin-top:0!important;}
+  .contact-form .form-note:not(.is-sending):not(.is-success):not(.is-error){
+    margin:0!important;font-size:11px!important;line-height:1.32!important;
+  }
+  .contact-form .form-note.is-success{margin-top:4px!important;}
+}
+@media(min-width:781px) and (min-height:720px){
+  .contact-panel{overflow-y:hidden!important;}
+}
