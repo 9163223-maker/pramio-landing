@@ -77,25 +77,26 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
          This local listener only preserves in-place navigation and service preselection. */
       event.preventDefault();
       const form = document.getElementById('contact-form');
-      if (requestedSource && form) {
-        let sourceInput = form.querySelector('[name="source"]');
-        if (!sourceInput) {
-          sourceInput = document.createElement('input');
-          sourceInput.type = 'hidden';
-          sourceInput.name = 'source';
-          form.append(sourceInput);
-        }
+      if (!form) return;
+      form.querySelector('[name="source"]')?.remove();
+      if (requestedSource) {
+        const sourceInput = document.createElement('input');
+        sourceInput.type = 'hidden';
+        sourceInput.name = 'source';
         sourceInput.value = requestedSource.slice(0,120);
+        form.append(sourceInput);
       }
-      if (!requestedService) return;
-      const select = form && form.querySelector('[name="service"]');
+      const select = form.querySelector('[name="service"]');
       if (!select) return;
+      if (!requestedService) {
+        select.selectedIndex = 0;
+        select.dispatchEvent(new Event('change', { bubbles:true }));
+        return;
+      }
       const normalizedService = PRAMIO_NORMALIZE_CONTACT_SERVICE(requestedService);
       const option = Array.from(select.options).find((item) => item.text === normalizedService || item.value === normalizedService);
-      if (option) {
-        select.value = option.value;
-        select.dispatchEvent(new Event('change', { bubbles:true }));
-      }
+      select.value = option ? option.value : '';
+      select.dispatchEvent(new Event('change', { bubbles:true }));
     });
   });
   document.querySelectorAll('.site-nav a[href="/#contact"],.mobile-nav a[href="/#contact"]').forEach((link) => {
