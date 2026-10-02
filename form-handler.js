@@ -30,7 +30,13 @@
   const restoreForm = () => {
     form.classList.remove('is-success');
     [...form.children].forEach((node) => { node.hidden = false; });
+    const tokenInput = form.querySelector('[name="form_token"]');
+    const startedAt = form.querySelector('[name="started_at"]');
+    const token = tokenInput?.value || '';
+    const started = startedAt?.value || '';
     form.reset();
+    if (tokenInput) tokenInput.value = token;
+    if (startedAt) startedAt.value = started || String(Date.now());
     if (status) {
       status.classList.remove('is-success','is-sending','is-error');
       status.textContent = 'Для оценки достаточно короткого описания задачи.';
