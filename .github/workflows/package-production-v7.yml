@@ -1,0 +1,43 @@
+name: Build production ZIP v7
+
+on:
+  push:
+    branches:
+      - packaging/final-2026-10-02-v7
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Build direct-root production archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p package
+          rsync -a ./ package/ \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='package/' \
+            --exclude='*.zip'
+          cd package
+          zip -qr ../PRAMIO-PRODUCTION-2026-10-02-v7.zip .
+          cd ..
+          test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-02-v7.zip | grep -c '^index.html$')" -eq 1
+          test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-02-v7.zip | grep -c '^.htaccess$')" -eq 1
+          test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-02-v7.zip | grep -c '^send.php$')" -eq 1
+          test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-02-v7.zip | grep -c '^form-handler.js$')" -eq 1
+          test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-02-v7.zip | grep -c '^site-v2.js$')" -eq 1
+          test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-02-v7.zip | grep -c '^site-v2.css$')" -eq 1
+          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-02-v7.zip | grep -q '^pramio-landing/'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PRAMIO-PRODUCTION-2026-10-02-v7
+          path: PRAMIO-PRODUCTION-2026-10-02-v7.zip
+          if-no-files-found: error
+          retention-days: 7
