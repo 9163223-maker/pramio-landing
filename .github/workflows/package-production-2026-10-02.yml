@@ -24,7 +24,8 @@ jobs:
             --exclude='.git/' \
             --exclude='.github/' \
             --exclude='package/' \
-            --exclude='*.zip'
+            --exclude='*.zip' \\
+            --exclude='PACKAGING-SOURCE.txt'
           cd package
           zip -qr ../PRAMIO-PRODUCTION-2026-10-02.zip .
           cd ..
