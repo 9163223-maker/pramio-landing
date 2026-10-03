@@ -1,5 +1,6 @@
 /* PRAMIO blog feed — canonical article metadata owner. */
 window.PRAMIO_BLOG_ARTICLES = [
+  {rank:0,section:"САЙТЫ",type:"ТЁТЯ ЛИДА ЗНАЕТ",href:"/blog/tetya-lida/krasivo-a-klient-gde/",title:"Красиво. А клиент где?",excerpt:"Семь ошибок сайта, из-за которых хороший трафик не превращается в заявки."},
   {rank:1,section:"MAX",type:"ПРАКТИКА",href:"/blog/max/lid-magnit-v-max/",title:"Лид-магнит в MAX: как превратить интерес в обращение",excerpt:"Как выдать полезный материал через бота MAX и продолжить общение с человеком после выдачи."},
   {rank:2,section:"MAX",type:"ПРАКТИКА",href:"/blog/max/kak-sozdat-bota-v-max/",title:"Как создать бота в MAX",excerpt:"Регистрация, модерация, токен, Webhook и первые шаги после создания бота."},
   {rank:3,section:"MAX",type:"РАЗБОР",href:"/blog/max/chto-takoe-mini-app-max/",title:"Что такое Mini App в MAX",excerpt:"Когда интерфейса обычного бота уже недостаточно."},
