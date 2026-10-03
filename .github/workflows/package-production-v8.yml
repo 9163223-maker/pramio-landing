@@ -1,0 +1,37 @@
+name: Build production ZIP v8
+on:
+  push:
+    branches:
+      - packaging/final-2026-10-03-v8
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Build direct-root production archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p package
+          rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip'
+          cd package
+          zip -qr ../PRAMIO-PRODUCTION-2026-10-03-v8.zip .
+          cd ..
+          unzip -t PRAMIO-PRODUCTION-2026-10-03-v8.zip >/dev/null
+          for f in index.html .htaccess send.php form-handler.js site-v2.js site-v2.css sitemap.xml blog/index.html blog/tetya-lida/krasivo-a-klient-gde/index.html; do
+            test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-03-v8.zip | grep -Fxc "$f")" -eq 1
+          done
+          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-03-v8.zip | grep -q '^pramio-landing/'
+          sha256sum PRAMIO-PRODUCTION-2026-10-03-v8.zip | tee PRAMIO-PRODUCTION-2026-10-03-v8.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PRAMIO-PRODUCTION-2026-10-03-v8
+          path: |
+            PRAMIO-PRODUCTION-2026-10-03-v8.zip
+            PRAMIO-PRODUCTION-2026-10-03-v8.sha256
+          if-no-files-found: error
+          retention-days: 7
