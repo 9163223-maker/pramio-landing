@@ -24,6 +24,9 @@ ErrorDocument 404 /404.html
   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
   RewriteRule ^(.+)$ https://pramio.ru/$1/ [R=301,L]
 
+  # Keep the registered sitemap URL stable while adding due articles server-side.
+  RewriteRule ^sitemap\.xml$ /sitemap-live.php [END]
+
   # Canonical trailing slash for virtual scheduled TLZ article URLs.
   RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
   RewriteCond %{REQUEST_URI} !/$
