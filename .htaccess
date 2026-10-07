@@ -24,7 +24,7 @@ ErrorDocument 404 /404.html
   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
   RewriteRule ^(.+)$ https://pramio.ru/$1/ [R=301,L]
 
-  # Normalize explicit index.html paths to their directory URL. This also
+  # Scheduled TLZ articles are rendered server-side from the protected queue.\n  # The router returns a real 404 before publish_at and indexable HTML after it.\n  RewriteRule ^blog/tetya-lida/([a-z0-9-]+)/?$ /scheduled-article.php?slug=$1 [END,QSA]\n\n  # Normalize explicit index.html paths to their directory URL. This also
   # removes the duplicate showroom/legal/index.html URL without indexing demos.
   RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html(?:[?\s]) [NC]
   RewriteRule ^(.*/)?index\.html$ https://pramio.ru/$1 [R=301,L]
