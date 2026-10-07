@@ -1,0 +1,48 @@
+name: Build SEO content production ZIP
+on:
+  push:
+    branches:
+      - packaging/seo-content-2026-10-07
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Validate scheduled content and build direct-root archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          php -l publish-content.php
+          python3 -m json.tool content-queue/articles.json >/dev/null
+          test "$(python3 - <<'PY'
+          import json
+          with open('content-queue/articles.json', encoding='utf-8') as f:
+              print(len(json.load(f)['articles']))
+          PY
+          )" -eq 10
+          grep -q 'Require all denied' content-queue/.htaccess
+          grep -q '2026-10-08T09:00:00+03:00' content-queue/articles.json
+          grep -q '2026-11-04T09:00:00+03:00' content-queue/articles.json
+          mkdir -p package
+          rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip'
+          cd package
+          zip -qr ../PRAMIO-PRODUCTION-2026-10-07-SEO-CONTENT.zip .
+          cd ..
+          unzip -t PRAMIO-PRODUCTION-2026-10-07-SEO-CONTENT.zip >/dev/null
+          for f in index.html .htaccess send.php site-v2.js site-v2.css sitemap.xml blog/index.html blog/blog-feed.js blog/tetya-lida/krasivo-a-klient-gde/index.html services/interactive-support/index.html publish-content.php content-queue/articles.json content-queue/.htaccess CONTENT-PUBLISHING.md; do
+            test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-07-SEO-CONTENT.zip | grep -Fxc "$f")" -eq 1
+          done
+          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-07-SEO-CONTENT.zip | grep -q '^pramio-landing/'
+          sha256sum PRAMIO-PRODUCTION-2026-10-07-SEO-CONTENT.zip | tee PRAMIO-PRODUCTION-2026-10-07-SEO-CONTENT.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PRAMIO-PRODUCTION-2026-10-07-SEO-CONTENT
+          path: |
+            PRAMIO-PRODUCTION-2026-10-07-SEO-CONTENT.zip
+            PRAMIO-PRODUCTION-2026-10-07-SEO-CONTENT.sha256
+          if-no-files-found: error
+          retention-days: 7
