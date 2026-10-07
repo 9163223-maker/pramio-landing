@@ -1,0 +1,36 @@
+name: Build TLZ cron-free production ZIP
+on:
+  push:
+    branches: [release-tlz-cronfree-1007]
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate and package
+        shell: bash
+        run: |
+          set -euo pipefail
+          php -l scheduled-article.php
+          php -l blog/blog-feed.php
+          python3 -m json.tool content-queue/articles.json >/dev/null
+          test ! -e publish-content.php
+          grep -q 'scheduled-article.php' .htaccess
+          grep -q 'blog/blog-feed.php' blog/index.html
+          grep -q 'Тётя Лида знает' blog/tetya-lida/index.html
+          test "$(python3 - <<'PY'
+          import json
+          print(len(json.load(open('content-queue/articles.json'))['articles']))
+          PY
+          )" -eq 10
+          mkdir package
+          rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip'
+          (cd package && zip -qr ../PRAMIO-PRODUCTION-2026-10-07-TLZ-CRONFREE.zip .)
+          unzip -t PRAMIO-PRODUCTION-2026-10-07-TLZ-CRONFREE.zip >/dev/null
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PRAMIO-PRODUCTION-2026-10-07-TLZ-CRONFREE
+          path: PRAMIO-PRODUCTION-2026-10-07-TLZ-CRONFREE.zip
+          retention-days: 7
