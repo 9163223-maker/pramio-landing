@@ -177,12 +177,17 @@ foreach ($due as $a) {
     $u->appendChild($dom->createElementNS($ns, 'priority', '0.7'));
     $rootNode->appendChild($u);
 }
+$latestContentDate = '2026-10-03';
+if ($due) {
+    $lastDue = $due[count($due) - 1];
+    $latestContentDate = substr((string)$lastDue['publish_at'], 0, 10);
+}
 $blogLoc = 'https://pramio.ru/blog/';
 foreach ($xp->query('//s:url') as $u) {
     $loc = $xp->query('s:loc', $u)->item(0);
     if ($loc && $loc->nodeValue === $blogLoc) {
         $lm = $xp->query('s:lastmod', $u)->item(0);
-        if ($lm) $lm->nodeValue = $now->format('Y-m-d');
+        if ($lm) $lm->nodeValue = $latestContentDate;
     }
 }
 file_put_contents($sitemapPath . '.tmp', $dom->saveXML(), LOCK_EX);
