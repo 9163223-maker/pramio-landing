@@ -24,6 +24,10 @@ ErrorDocument 404 /404.html
   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
   RewriteRule ^(.+)$ https://pramio.ru/$1/ [R=301,L]
 
+  # Implementation endpoint is internal; only /sitemap.xml is public.
+  RewriteCond %{THE_REQUEST} \s/+sitemap-live\.php(?:[?\s]) [NC]
+  RewriteRule ^sitemap-live\.php$ - [R=404,L]
+
   # Keep the registered sitemap URL stable while adding due articles server-side.
   RewriteRule ^sitemap\.xml$ /sitemap-live.php [END]
 
