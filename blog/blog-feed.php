@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 function pramioQueue(): array {
-  $path=__DIR__.'/content-queue/articles.json';
+  $path=dirname(__DIR__).'/content-queue/articles.json';
   $raw=is_file($path)?file_get_contents($path):false;
   $data=$raw!==false?json_decode($raw,true):null;
   if(!is_array($data)||!isset($data['articles'])||!is_array($data['articles'])) return ['timezone'=>'Europe/Moscow','articles'=>[]];
