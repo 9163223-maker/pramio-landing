@@ -2874,3 +2874,6 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
 @keyframes tlz-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 @media(prefers-reduced-motion:reduce){.tlz-topic-cloud span{animation:none}}
 @media(max-width:780px){.tlz-home-head{padding:14px 18px 18px}.tlz-topic-cloud{gap:7px;margin-top:16px}.tlz-topic-cloud span{min-height:38px;padding:0 13px;font-size:11px}}
+
+/* Blog taxonomy: unavailable categories are labels, not fake navigation. */
+.blog-tags .tlz-tag-muted{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid rgba(41,88,106,.08);border-radius:999px;color:rgba(64,83,106,.52);font:700 11px/1 Manrope,system-ui,sans-serif;letter-spacing:.03em;cursor:default;user-select:none}
