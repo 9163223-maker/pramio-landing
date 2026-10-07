@@ -9,3 +9,7 @@ Before publish_at the URL returns HTTP 404. At or after publish_at the canonical
 The blog loads blog/blog-feed.php, which exposes only articles already due and uses a five-minute revalidation cache. The content-queue directory is denied to HTTP clients.
 
 The static sitemap contains only URLs already public at packaging time. Future URLs are not advertised early. Published articles are linked from the blog automatically.
+
+## Sitemap
+
+The public sitemap URL remains `/sitemap.xml`. Apache serves it through `sitemap-live.php`, which keeps the static entries from `sitemap-base.xml` and appends only queue articles whose `publish_at` is already due. Future queue URLs therefore stay out of the sitemap and enter it automatically after publication, without cron or a second sitemap registration.
