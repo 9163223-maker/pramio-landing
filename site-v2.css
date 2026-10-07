@@ -2845,3 +2845,22 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
     min-width:22px!important;min-height:22px!important;max-width:22px!important;max-height:22px!important;
   }
 }
+
+/* v95 TLZ article identity — quiet editorial layer inside canonical PRAMIO shell */
+.article-page .tlz-kicker{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.article-page .tlz-kicker a{color:inherit;text-decoration:none}
+.article-page .tlz-kicker b{font:700 10px/1 Manrope,system-ui,sans-serif;letter-spacing:.08em;color:#a95f3a}
+.tlz-article-topics{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 18px}
+.tlz-article-topics span{display:inline-flex;align-items:center;min-height:30px;padding:0 10px;border:1px solid rgba(174,103,66,.15);border-radius:999px;background:rgba(255,249,245,.55);color:#6b5a55;font:700 10px/1 Manrope,system-ui,sans-serif;letter-spacing:.045em}
+.article-page .service-hero{box-shadow:0 16px 44px rgba(61,91,126,.07),inset 0 1px rgba(255,255,255,.82)}
+.article-page .service-hero:before{content:"";position:absolute;inset:-1px;pointer-events:none;border-radius:inherit;background:radial-gradient(circle at 10% 10%,rgba(221,123,70,.07),transparent 32%);mix-blend-mode:multiply}
+@media(max-width:780px){
+ .article-page .breadcrumbs{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .article-page .service-hero{padding:13px 17px 14px!important}
+ .article-page .service-hero h1{font-size:clamp(32px,8.7vw,39px)!important;line-height:1!important}
+ .article-page .service-hero .lead{font-size:15.5px!important;line-height:1.32!important;margin-top:7px!important}
+ .article-page .article-meta{margin-top:12px!important;font-size:11px!important;line-height:1.35!important}
+ .article-page .tlz-kicker{margin-bottom:6px!important}
+ .tlz-article-topics{margin:9px 0 12px}
+ .article-page .article-toc{margin-top:0!important}
+}
