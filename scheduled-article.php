@@ -13,10 +13,12 @@ function pramioDue(array $a, DateTimeImmutable $now): bool {
 function pramioH(string $v): string { return htmlspecialchars($v,ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8'); }
 function pramioUrl(string $slug): string { return 'https://pramio.ru/blog/tetya-lida/'.$slug.'/'; }
 
+if (preg_match('~\\s/+scheduled-article\\.php(?:[?\\s])~i', (string)($_SERVER['THE_REQUEST'] ?? ''))) { http_response_code(404); header('X-Robots-Tag: noindex, nofollow', true); exit; }
+
 $data=pramioQueue(); $tz=new DateTimeZone((string)($data['timezone']??'Europe/Moscow')); $now=new DateTimeImmutable('now',$tz);
 $slug=(string)($_GET['slug']??'');
 $match=null; foreach($data['articles'] as $a){ if(hash_equals((string)($a['slug']??''),$slug)){ $match=$a; break; } }
-if(!$match || !pramioDue($match,$now)){ http_response_code(404); header('Cache-Control: no-store, max-age=0'); $nf=__DIR__.'/404.html'; if(is_file($nf)) readfile($nf); exit; }
+if(!$match || !pramioDue($match,$now)){ http_response_code(404); header('X-Robots-Tag: noindex, nofollow', true); header('Cache-Control: no-store, max-age=0'); $nf=__DIR__.'/404.html'; if(is_file($nf)) readfile($nf); exit; }
 header('Content-Type: text/html; charset=UTF-8'); header('Cache-Control: public, max-age=300, must-revalidate');
 $a=$match; $date=new DateTimeImmutable((string)$a['publish_at']); $sections=''; $toc='';
 foreach($a['sections'] as $i=>$s){$id='part-'.($i+1);$toc.='<a href="#'.pramioH($id).'">'.($i+1).'. '.pramioH((string)$s[0]).'</a>';$ps='';foreach($s[1] as $x)$ps.='<p>'.pramioH((string)$x).'</p>';$sections.='<section class="content-section" id="'.pramioH($id).'"><h2>'.pramioH((string)$s[0]).'</h2>'.$ps.'</section>';}
