@@ -37,5 +37,4 @@ if(!is_string($out)){
 }
 header('Content-Type: application/xml; charset=UTF-8');
 header('Cache-Control: public, max-age=300, must-revalidate');
-header('X-Robots-Tag: noindex, follow', true);
 echo $out;
