@@ -2864,3 +2864,13 @@ body.contact-open .mobile-nav{pointer-events:none!important;}
  .tlz-article-topics{margin:9px 0 12px}
  .article-page .article-toc{margin-top:0!important}
 }
+
+/* TLZ editorial landing: restrained motion, disabled for reduced-motion users */
+.tlz-home-head{position:relative;overflow:hidden;padding-bottom:24px}
+.tlz-home-head .lead{max-width:720px}
+.tlz-topic-cloud{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;max-width:720px}
+.tlz-topic-cloud span{display:inline-flex;align-items:center;min-height:42px;padding:0 16px;border:1px solid rgba(41,88,106,.12);border-radius:999px;background:rgba(255,255,255,.54);box-shadow:0 8px 26px rgba(56,93,128,.06);color:#40536a;font:700 12px/1 Manrope,system-ui,sans-serif;animation:tlz-float 7s ease-in-out infinite}
+.tlz-topic-cloud span:nth-child(2n){animation-delay:-2.4s}.tlz-topic-cloud span:nth-child(3n){animation-delay:-4.1s}
+@keyframes tlz-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){.tlz-topic-cloud span{animation:none}}
+@media(max-width:780px){.tlz-home-head{padding:14px 18px 18px}.tlz-topic-cloud{gap:7px;margin-top:16px}.tlz-topic-cloud span{min-height:38px;padding:0 13px;font-size:11px}}
