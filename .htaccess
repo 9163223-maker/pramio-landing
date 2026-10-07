@@ -24,6 +24,11 @@ ErrorDocument 404 /404.html
   RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
   RewriteRule ^(.+)$ https://pramio.ru/$1/ [R=301,L]
 
+  # Canonical trailing slash for virtual scheduled TLZ article URLs.
+  RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteRule ^blog/tetya-lida/([a-z0-9-]+)$ https://pramio.ru/blog/tetya-lida/$1/ [R=301,L]
+
   # Scheduled TLZ articles are rendered server-side from the protected queue.
   # The router returns a real 404 before publish_at and indexable HTML after it.
   RewriteCond %{DOCUMENT_ROOT}/blog/tetya-lida/$1/index.html !-f
