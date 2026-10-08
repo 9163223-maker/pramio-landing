@@ -41,6 +41,12 @@ ErrorDocument 404 /404.html
   RewriteCond %{THE_REQUEST} \s/+blog/tetya-lida/index\.php(?:[?\s]) [NC]
   RewriteRule ^blog/tetya-lida/index\.php$ - [R=404,L]
 
+  # Prevent public access to PHP implementation routes; internal rewrites remain allowed.
+  RewriteCond %{THE_REQUEST} \s/+scheduled-article\.php(?:[?\s]) [NC]
+  RewriteRule ^scheduled-article\.php$ - [R=404,L]
+  RewriteCond %{THE_REQUEST} \s/+blog/tetya-lida/index\.php(?:[?\s]) [NC]
+  RewriteRule ^blog/tetya-lida/index\.php$ - [R=404,L]
+
   # Server-rendered TLZ hub: publication-aware links in initial HTML.
   RewriteRule ^blog/tetya-lida/?$ /blog/tetya-lida/index.php [END]
 
