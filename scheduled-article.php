@@ -13,7 +13,7 @@ function pramioDue(array $a, DateTimeImmutable $now): bool {
 function pramioH(string $v): string { return htmlspecialchars($v,ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8'); }
 function pramioUrl(string $slug): string { return 'https://pramio.ru/blog/tetya-lida/'.$slug.'/'; }
 
-if (preg_match('~\\s/+scheduled-article\\.php(?:[?\\s])~i', (string)($_SERVER['THE_REQUEST'] ?? ''))) { http_response_code(404); header('X-Robots-Tag: noindex, nofollow', true); exit; }
+if (preg_match('~(?:^|/)scheduled-article\\.php(?:$|[?])~i', (string)($_SERVER['REQUEST_URI'] ?? '')) || preg_match('~\\s/+scheduled-article\\.php(?:[?\\s])~i', (string)($_SERVER['THE_REQUEST'] ?? ''))) { http_response_code(404); header('X-Robots-Tag: noindex, nofollow', true); exit; }
 
 $data=pramioQueue(); $tz=new DateTimeZone((string)($data['timezone']??'Europe/Moscow')); $now=new DateTimeImmutable('now',$tz);
 $slug=(string)($_GET['slug']??'');
