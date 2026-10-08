@@ -1,0 +1,39 @@
+name: Package PRAMIO production v10
+on:
+  push:
+    branches:
+      - packaging/final-2026-10-08-v10
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Validate and package direct-root production
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in send.php scheduled-article.php sitemap-live.php blog/blog-feed.php config.sample.php; do php -l "$f"; done
+          mkdir -p package
+          rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip' --exclude='config.local.php'
+          cd package
+          zip -qr ../PRAMIO-PRODUCTION-2026-10-08-v10.zip .
+          cd ..
+          unzip -t PRAMIO-PRODUCTION-2026-10-08-v10.zip >/dev/null
+          for f in index.html .htaccess send.php scheduled-article.php sitemap-live.php sitemap-base.xml sitemap.xml site-v2.js site-v2.css blog/index.html blog/max/index.html blog/blog-feed.php blog/tetya-lida/index.html blog/tetya-lida/krasivo-a-klient-gde/index.html content-queue/articles.json content-queue/.htaccess services/interactive-support/index.html; do
+            test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-08-v10.zip | grep -Fxc "$f")" -eq 1
+          done
+          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-08-v10.zip | grep -q '^pramio-landing/'
+          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-08-v10.zip | grep -q '^config.local.php$'
+          sha256sum PRAMIO-PRODUCTION-2026-10-08-v10.zip | tee PRAMIO-PRODUCTION-2026-10-08-v10.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PRAMIO-PRODUCTION-2026-10-08-v10
+          path: |
+            PRAMIO-PRODUCTION-2026-10-08-v10.zip
+            PRAMIO-PRODUCTION-2026-10-08-v10.sha256
+          if-no-files-found: error
+          retention-days: 7
