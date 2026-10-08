@@ -1,0 +1,31 @@
+name: Package PRAMIO v11
+on:
+  push:
+    branches:
+      - packaging/v11-2026-10-08
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate and package
+        run: |
+          set -euo pipefail
+          find . -type f -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 php -l
+          mkdir -p package
+          rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip' --exclude='config.local.php'
+          (cd package && zip -qr ../PRAMIO-PRODUCTION-V11-2026-10-08.zip .)
+          unzip -t PRAMIO-PRODUCTION-V11-2026-10-08.zip >/dev/null
+          for f in .htaccess index.html blog/tetya-lida/index.php scheduled-article.php blog/blog-feed.php sitemap-live.php sitemap.xml content-queue/articles.json; do
+            unzip -Z1 PRAMIO-PRODUCTION-V11-2026-10-08.zip | grep -Fqx "$f"
+          done
+          sha256sum PRAMIO-PRODUCTION-V11-2026-10-08.zip > PRAMIO-PRODUCTION-V11-2026-10-08.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PRAMIO-PRODUCTION-V11-2026-10-08
+          path: |
+            PRAMIO-PRODUCTION-V11-2026-10-08.zip
+            PRAMIO-PRODUCTION-V11-2026-10-08.sha256
+          retention-days: 7
