@@ -28,6 +28,10 @@ ErrorDocument 404 /404.html
   RewriteCond %{THE_REQUEST} \s/+sitemap-live\.php(?:[?\s]) [NC]
   RewriteRule ^sitemap-live\.php$ - [R=404,L]
 
+  # Internal XML base is read by PHP from disk, not exposed as another sitemap.
+  RewriteCond %{THE_REQUEST} \s/+sitemap-base\.xml(?:[?\s]) [NC]
+  RewriteRule ^sitemap-base\.xml$ - [R=404,L]
+
   # Keep the registered sitemap URL stable while adding due articles server-side.
   RewriteRule ^sitemap\.xml$ /sitemap-live.php [END]
 
