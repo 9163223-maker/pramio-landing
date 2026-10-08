@@ -1,0 +1,35 @@
+name: Package PRAMIO production v11
+on:
+  push:
+    branches: [packaging/final-2026-10-08-v11]
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate and build
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in send.php scheduled-article.php sitemap-live.php blog/blog-feed.php blog/tetya-lida/index.php config.sample.php; do php -l "$f"; done
+          mkdir -p package
+          rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip' --exclude='config.local.php'
+          cd package
+          zip -qr ../PRAMIO-PRODUCTION-2026-10-08-v11.zip .
+          cd ..
+          unzip -t PRAMIO-PRODUCTION-2026-10-08-v11.zip >/dev/null
+          for f in index.html .htaccess scheduled-article.php sitemap-live.php sitemap-base.xml sitemap.xml blog/tetya-lida/index.php blog/tetya-lida/index.html blog/tetya-lida/krasivo-a-klient-gde/index.html content-queue/articles.json content-queue/.htaccess; do
+            test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-08-v11.zip | grep -Fxc "$f")" -eq 1
+          done
+          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-08-v11.zip | grep -q '^pramio-landing/'
+          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-08-v11.zip | grep -q '^config.local.php$'
+          sha256sum PRAMIO-PRODUCTION-2026-10-08-v11.zip | tee PRAMIO-PRODUCTION-2026-10-08-v11.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PRAMIO-PRODUCTION-2026-10-08-v11
+          path: |
+            PRAMIO-PRODUCTION-2026-10-08-v11.zip
+            PRAMIO-PRODUCTION-2026-10-08-v11.sha256
+          retention-days: 7
