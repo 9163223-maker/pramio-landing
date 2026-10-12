@@ -1,4 +1,5 @@
 name: Package PRAMIO production v12
+# Full root-level Timeweb release archive
 on:
   push:
     branches: [packaging/final-2026-10-12-v12]
