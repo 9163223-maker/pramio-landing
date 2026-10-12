@@ -19,11 +19,12 @@ if(is_array($queue)&&isset($queue['articles'])&&is_array($queue['articles'])){
 }
 usort($articles,static fn($a,$b)=>strcmp((string)$b['publish_at'],(string)$a['publish_at']));
 $h=static fn($s)=>htmlspecialchars((string)$s,ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8');
+$fmtDate=static fn($s)=>(new DateTimeImmutable((string)$s))->format('d.m.Y');
 $cards='';
 foreach($articles as $article){
-  $cards.='<a class="link-card" href="/blog/tetya-lida/'.$h($article['slug']).'/"><strong>'.$h($article['title']??'').'</strong><span>'.$h($article['description']??'').'</span></a>';
+  $cards.='<a class="link-card" href="/blog/tetya-lida/'.$h($article['slug']).'/"><strong>'.$h($article['title']??'').'</strong><time datetime="'.$h(substr((string)$article['publish_at'],0,10)).'">'.$fmtDate($article['publish_at']).'</time><span>'.$h($article['description']??'').'</span></a>';
 }
-$cards.='<a class="link-card" href="/blog/tetya-lida/krasivo-a-klient-gde/"><strong>Почему сайт не приносит заявки: где искать причину</strong><span>Разбираем, где сайт теряет человека по пути от первого экрана до обращения.</span></a>';
+$cards.='<a class="link-card" href="/blog/tetya-lida/krasivo-a-klient-gde/"><strong>Почему сайт не приносит заявки: где искать причину</strong><time datetime="2026-10-03">03.10.2026</time><span>Разбираем, где сайт теряет человека по пути от первого экрана до обращения.</span></a>';
 header('Content-Type: text/html; charset=UTF-8');
 header('Cache-Control: public, max-age=300, must-revalidate');
 ?>
