@@ -43,3 +43,11 @@ footer{padding:28px 3.5vw 45px;border-top:1px solid #263944;display:grid;grid-te
 
 /* v10 — mobile Safari viewport and safe-area contract */
 @media(max-width:720px){.map{height:clamp(330px,52svh,430px);min-height:0}.topbar{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}.finder{padding-left:max(5vw,env(safe-area-inset-left));padding-right:max(5vw,env(safe-area-inset-right))}.footer{padding-bottom:max(28px,env(safe-area-inset-bottom))}}
+
+/* v13 — stronger product presentation without simulated live telemetry */
+.control{box-shadow:0 26px 75px rgba(0,0,0,.22);border:1px solid rgba(196,242,60,.18)}
+.control-head{position:relative;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.09)}
+.map{background:radial-gradient(ellipse at 52% 42%,rgba(182,237,54,.11),transparent 47%),linear-gradient(145deg,#102431,#07131d 75%);border:1px solid rgba(196,242,60,.2);border-radius:22px;overflow:hidden}
+.map-status{box-shadow:0 14px 45px rgba(0,0,0,.25);backdrop-filter:blur(12px)}
+.progress-track i{height:5px;border-radius:10px}.progress-vehicle{box-shadow:0 0 0 9px #bdf23c19,0 0 35px #bdf23c35}
+@media(max-width:720px){.control-head{padding-bottom:16px}.map{height:clamp(300px,43svh,370px)}.route-progress{top:48%}.city-a,.city-b{top:58%}}
