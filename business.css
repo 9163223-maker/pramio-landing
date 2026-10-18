@@ -1,0 +1,29 @@
+/* Commercial entry and service formats. Dedicated components replace the old
+   home hero and the top-level service intro; no cascade patches are required. */
+.business-intro,.offer-intro,.business-section{position:relative;z-index:1;min-width:0;scroll-margin-top:120px}
+.business-intro,.offer-intro{padding:clamp(26px,4vw,50px);border:1px solid rgba(255,255,255,.86);border-radius:32px;background:linear-gradient(135deg,rgba(255,255,255,.88),rgba(239,246,255,.73));box-shadow:0 18px 56px rgba(36,76,140,.07)}
+.business-intro h1,.offer-intro h1{max-width:1040px;margin:0;color:#10233d;font-size:clamp(38px,4.6vw,64px);line-height:1.08;letter-spacing:-.045em}
+.business-intro__lead,.offer-intro .lead{max-width:900px;margin:22px 0 0;color:#52657e;font:400 clamp(17px,1.55vw,21px)/1.6 Manrope,system-ui,sans-serif}
+.business-actions,.offer-intro .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.business-actions .btn,.offer-intro .btn{white-space:nowrap}
+.business-section{margin:clamp(36px,5vw,64px) auto 0}
+.business-section h2{max-width:940px;margin:0 0 24px;color:#10233d;font-size:clamp(29px,3.3vw,44px);line-height:1.14;letter-spacing:-.035em}
+.business-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
+.business-card{min-width:0;padding:26px;border:1px solid rgba(255,255,255,.92);border-radius:24px;background:rgba(255,255,255,.84);box-shadow:0 12px 32px rgba(36,76,140,.055)}
+.business-number{display:block;margin-bottom:18px;color:#576a82;font:700 11px/1.5 Manrope,system-ui,sans-serif;letter-spacing:.07em}
+.business-card h3,.business-estimate h3{margin:0 0 12px;color:#10233d;font-size:23px;line-height:1.25;letter-spacing:-.025em}
+.business-card p,.business-card dd,.business-estimate p,.business-note{margin:0;color:#52657e;font:400 16px/1.65 Manrope,system-ui,sans-serif;overflow-wrap:break-word}
+.business-card--offer{display:flex;flex-direction:column}
+.business-card__audience{padding-bottom:18px;border-bottom:1px solid #e2e9f2}
+.business-card dl{margin:0 0 24px}
+.business-card dt{margin:18px 0 5px;color:#203854;font:700 13px/1.5 Manrope,system-ui,sans-serif}
+.business-card dd{margin:0}
+.business-link{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:44px;margin-top:auto;padding-top:14px;border-top:1px solid #e2e9f2;color:#174883;font:700 14px/1.45 Manrope,system-ui,sans-serif;text-decoration:none}
+.business-link:focus-visible,.business-note a:focus-visible{outline:3px solid #216bff;outline-offset:5px;border-radius:3px}
+.business-link:hover{color:#155fe1}
+.business-estimate{margin-top:18px;padding:26px;border:1px solid #d9e6f7;border-radius:24px;background:rgba(241,247,255,.88)}
+.business-estimate p{max-width:960px}
+.business-note{margin-top:20px;max-width:900px}
+.business-note a{color:#174883}
+@media(max-width:980px){.business-grid{grid-template-columns:1fr}.business-card--offer{display:block}.business-card dl{display:grid;grid-template-columns:minmax(150px,.4fr) minmax(0,1fr);gap:12px 20px;margin:20px 0}.business-card dt,.business-card dd{margin:0}.business-section{scroll-margin-top:100px}}
+@media(max-width:560px){.business-intro,.offer-intro{padding:24px 20px;border-radius:24px}.business-intro h1,.offer-intro h1{font-size:clamp(33px,8.7vw,43px);line-height:1.1}.business-intro__lead,.offer-intro .lead{margin-top:16px;font-size:16px;line-height:1.55}.business-actions,.offer-intro .actions{gap:10px;margin-top:20px}.business-actions .btn,.offer-intro .btn{width:100%;min-height:48px}.business-section{margin-top:34px}.business-section h2{font-size:30px;margin-bottom:20px}.business-grid{gap:14px}.business-card,.business-estimate{padding:22px 20px;border-radius:22px}.business-card h3,.business-estimate h3{font-size:22px}.business-card dl{display:block;margin:0 0 20px}.business-card dt{margin:16px 0 5px}.business-card dd{margin:0}.business-number{margin-bottom:12px}}
