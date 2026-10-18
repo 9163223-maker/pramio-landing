@@ -93,7 +93,7 @@ function renderArticle(array $a, array $publishedBefore): string {
 <section class="service-cta"><h2>Разберём, где сайт теряет заявки</h2><p>Пришлите ссылку и коротко опишите задачу. Посмотрим путь пользователя и определим, что имеет смысл исправлять в первую очередь.</p><a class="btn" href="/?service=Интерактивный сервис или поддержка#contact">Обсудить доработку сайта</a></section>
 </article></main>
 <footer class="site-footer"><a class="footer-brand" href="/"><img src="/assets/pramio-logo.webp" alt="PRAMIO" width="1000" height="414"></a><p>Цифровые продукты и разработка под задачи бизнеса.</p><nav><a href="/services/">Все услуги</a><a href="/services/max-bots/">MAX</a><a href="/services/telegram-bots/">Telegram</a><a href="/services/ai-automation/">AI и автоматизация</a><a href="/services/sites/">Сайты</a><a href="/portfolio/">Демо-каталог</a><a href="/blog/">Блог</a><a href="mailto:hello@pramio.ru">hello@pramio.ru</a><a href="/privacy/">Политика обработки данных</a></nav><small>© 2026 PRAMIO</small></footer>
-<script src="/script.js?v=62"></script><script src="/site-v2.js?v=70"></script></body></html>';
+<script src="/script.js?v=62"></script><script src="/site-v2.js?v=141"></script></body></html>';
 }
 
 $due = [];

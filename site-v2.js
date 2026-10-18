@@ -142,19 +142,19 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
     menuReturnFocus = null;
   };
 
-  const openMenu = () => {
+  const openMenu = (moveFocus = true) => {
     if (!menuToggle || !mobileNav) return;
     menuReturnFocus = document.activeElement;
     menuToggle.setAttribute('aria-expanded', 'true');
     menuToggle.setAttribute('aria-label', 'Закрыть меню');
     mobileNav.hidden = false;
     setMenuInert(true);
-    requestAnimationFrame(() => mobileNav.querySelector('a[href],button:not([disabled])')?.focus({ preventScroll:true }));
+    if (moveFocus) requestAnimationFrame(() => mobileNav.querySelector('a[href],button:not([disabled])')?.focus({ preventScroll:true }));
   };
 
   if (menuToggle && mobileNav) {
-    menuToggle.addEventListener('click', () => {
-      if (menuToggle.getAttribute('aria-expanded') === 'true') closeMenu(true); else openMenu();
+    menuToggle.addEventListener('click', (event) => {
+      if (menuToggle.getAttribute('aria-expanded') === 'true') closeMenu(true); else openMenu(event.detail === 0);
     });
     mobileNav.querySelectorAll('a, button').forEach((item) => item.addEventListener('click', () => closeMenu(false)));
     document.addEventListener('keydown', (event) => {
