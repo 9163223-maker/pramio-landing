@@ -314,3 +314,18 @@
 .preview-landing-demo .preview-stage>small{font:600 10px/1.5 Manrope,sans-serif;letter-spacing:.1em;color:#b7c9df}
 .showroom-featured .showroom-copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(22px,3.4vw,44px)}
 @media(max-width:780px){.showroom-featured{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto 1fr!important;min-height:0}.showroom-featured .showroom-preview{aspect-ratio:16/10;min-height:0;padding:10px}.showroom-featured .showroom-copy{padding:22px}.preview-landing-demo .preview-stage{gap:12px;padding:18px}.preview-landing-demo strong{font-size:clamp(25px,6vw,40px)}.preview-landing-demo .landing-demo-ui span,.preview-landing-demo .landing-demo-ui b{padding:6px 8px;font-size:9px}}
+
+/* V13.1: featured editor uses the same card grid as the catalog; mobile must be one column. */
+.showroom-grid>.showroom-card-featured{grid-column:1/-1;display:grid!important;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)!important;grid-template-rows:auto!important;align-items:stretch}
+.showroom-card-featured>.showroom-preview{aspect-ratio:auto!important;min-width:0;min-height:270px;padding:24px!important}
+.showroom-card-featured>.showroom-card-copy{min-width:0;padding:30px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:12px;overflow-wrap:anywhere}
+.showroom-card-featured>.showroom-card-copy h3,.showroom-card-featured>.showroom-card-copy p{margin:0;max-width:100%}
+.showroom-card-featured>.showroom-card-copy a{display:inline-flex;align-items:center;min-height:44px}
+.showroom-card-featured .editor-preview-inner{min-width:0;max-width:100%}
+@media(max-width:780px){
+ .showroom-grid>.showroom-card-featured{display:flex!important;flex-direction:column!important;grid-template-columns:minmax(0,1fr)!important}
+ .showroom-card-featured>.showroom-preview{width:100%;min-height:0!important;aspect-ratio:auto!important;padding:24px 22px!important}
+ .showroom-card-featured>.showroom-card-copy{width:100%;padding:22px 22px 30px!important;gap:10px}
+ .showroom-card-featured .editor-preview-inner strong{font-size:clamp(26px,8vw,35px)}
+ .showroom-card-featured:after{display:none!important}
+}
