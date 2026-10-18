@@ -1,7 +1,7 @@
-name: Package PRAMIO production v13
+name: Package PRAMIO production V14 RC
 on:
   push:
-    branches: [packaging/final-2026-10-12-v12, packaging/portfolio-refresh-2026-10-16-v13]
+    branches: [packaging/portfolio-refresh-2026-10-16-v13]
   workflow_dispatch:
 permissions:
   contents: read
@@ -10,54 +10,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate and build
-        shell: bash
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: PHP syntax
         run: |
-          set -euo pipefail
-          for f in send.php scheduled-article.php sitemap-live.php blog/blog-feed.php blog/tetya-lida/index.php config.sample.php; do php -l "$f"; done
-          test -f portfolio/demo-nav.js
-          test -f portfolio/demo-nav.css
-          test -f portfolio/index.html
-          ! grep -q '<div class="pramio-signal-rivers"' portfolio/index.html
-          grep -q 'landing-demo/' portfolio/index.html
-          for page in clinic build beauty logistics shop expert card legal crm clinic-admin; do
-            grep -q '../demo-nav.css' "portfolio/$page/index.html"
-            grep -q '../demo-nav.js' "portfolio/$page/index.html"
-          done
-          mkdir -p package
-          rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip' --exclude='config.local.php'
-          # The live PHP editor is hosted outside this repository. Preserve its directory on deploy.
-          test ! -e package/portfolio/landing-demo
-          test -f package/portfolio/index.html
-          test -f package/portfolio/demo-nav.js
-          test -f package/portfolio/demo-nav.css
-          printf '%s\n' 'IMPORTANT: preserve public_html/portfolio/landing-demo/ during deployment.' > package/DEPLOY-READ-ME.txt
-          cd package
-          zip -qr ../PRAMIO-PRODUCTION-2026-10-18-v13.zip .
-          cd ..
-          unzip -t PRAMIO-PRODUCTION-2026-10-18-v13.zip >/dev/null
-          for f in index.html .htaccess scheduled-article.php sitemap-live.php sitemap-base.xml sitemap.xml blog/tetya-lida/index.php blog/tetya-lida/index.html blog/tetya-lida/krasivo-a-klient-gde/index.html content-queue/articles.json content-queue/.htaccess; do
-            test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -Fxc "$f")" -eq 1
-          done
-          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -q '^pramio-landing/'
-          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -q '^config.local.php
-          sha256sum PRAMIO-PRODUCTION-2026-10-18-v13.zip | tee PRAMIO-PRODUCTION-2026-10-18-v13.sha256
+          set -eu
+          for f in send.php scheduled-article.php sitemap-live.php blog/blog-feed.php blog/tetya-lida/index.php publish-content.php config.sample.php; do php -l "$f"; done
+      - name: Functional DOM checks
+        run: |
+          npm install --prefix qa --no-audit --no-fund
+          PRAMIO_TEST_ROOT=. node qa/verify.mjs
+      - name: Validate source and package exact production manifest
+        run: python3 scripts/package-production-v14.py
       - uses: actions/upload-artifact@v4
         with:
-          name: PRAMIO-PRODUCTION-2026-10-18-v13
+          name: PRAMIO-PRODUCTION-2026-10-18-V14-RC
           path: |
-            PRAMIO-PRODUCTION-2026-10-18-v13.zip
-            PRAMIO-PRODUCTION-2026-10-18-v13.sha256
-          retention-days: 7
-
-          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -q '^portfolio/landing-demo/'
-          unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -Fxq 'portfolio/demo-nav.js'
-          unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -Fxq 'portfolio/demo-nav.css'
-          sha256sum PRAMIO-PRODUCTION-2026-10-18-v13.zip | tee PRAMIO-PRODUCTION-2026-10-18-v13.sha256
-      - uses: actions/upload-artifact@v4
-        with:
-          name: PRAMIO-PRODUCTION-2026-10-18-v13
-          path: |
-            PRAMIO-PRODUCTION-2026-10-18-v13.zip
-            PRAMIO-PRODUCTION-2026-10-18-v13.sha256
-          retention-days: 7
+            PRAMIO-PRODUCTION-2026-10-18-V14-RC.zip
+            PRAMIO-PRODUCTION-2026-10-18-V14-RC.sha256
+          retention-days: 14
