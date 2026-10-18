@@ -1,4 +1,4 @@
-name: Package PRAMIO production v12
+name: Package PRAMIO production v13
 on:
   push:
     branches: [packaging/final-2026-10-12-v12, packaging/portfolio-refresh-2026-10-16-v13]
@@ -28,6 +28,9 @@ jobs:
           rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip' --exclude='config.local.php'
           # The live PHP editor is hosted outside this repository. Preserve its directory on deploy.
           test ! -e package/portfolio/landing-demo
+          test -f package/portfolio/index.html
+          test -f package/portfolio/demo-nav.js
+          test -f package/portfolio/demo-nav.css
           printf '%s\n' 'IMPORTANT: preserve public_html/portfolio/landing-demo/ during deployment.' > package/DEPLOY-READ-ME.txt
           cd package
           zip -qr ../PRAMIO-PRODUCTION-2026-10-18-v13.zip .
@@ -37,7 +40,19 @@ jobs:
             test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -Fxc "$f")" -eq 1
           done
           ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -q '^pramio-landing/'
-          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -q '^config.local.php$'
+          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -q '^config.local.php
+          sha256sum PRAMIO-PRODUCTION-2026-10-18-v13.zip | tee PRAMIO-PRODUCTION-2026-10-18-v13.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PRAMIO-PRODUCTION-2026-10-18-v13
+          path: |
+            PRAMIO-PRODUCTION-2026-10-18-v13.zip
+            PRAMIO-PRODUCTION-2026-10-18-v13.sha256
+          retention-days: 7
+
+          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -q '^portfolio/landing-demo/'
+          unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -Fxq 'portfolio/demo-nav.js'
+          unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -Fxq 'portfolio/demo-nav.css'
           sha256sum PRAMIO-PRODUCTION-2026-10-18-v13.zip | tee PRAMIO-PRODUCTION-2026-10-18-v13.sha256
       - uses: actions/upload-artifact@v4
         with:
