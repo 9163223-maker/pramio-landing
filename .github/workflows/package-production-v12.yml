@@ -26,6 +26,9 @@ jobs:
           done
           mkdir -p package
           rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip' --exclude='config.local.php'
+          # The live PHP editor is hosted outside this repository. Preserve its directory on deploy.
+          test ! -e package/portfolio/landing-demo
+          printf '%s\n' 'IMPORTANT: preserve public_html/portfolio/landing-demo/ during deployment.' > package/DEPLOY-READ-ME.txt
           cd package
           zip -qr ../PRAMIO-PRODUCTION-2026-10-18-v13.zip .
           cd ..
