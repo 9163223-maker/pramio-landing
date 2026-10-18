@@ -1,7 +1,7 @@
 name: Package PRAMIO production v12
 on:
   push:
-    branches: [packaging/final-2026-10-12-v12]
+    branches: [packaging/final-2026-10-12-v12, packaging/portfolio-refresh-2026-10-16-v13]
 permissions:
   contents: read
 jobs:
@@ -17,19 +17,19 @@ jobs:
           mkdir -p package
           rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip' --exclude='config.local.php'
           cd package
-          zip -qr ../PRAMIO-PRODUCTION-2026-10-12-v12.zip .
+          zip -qr ../PRAMIO-PRODUCTION-2026-10-18-v13.zip .
           cd ..
-          unzip -t PRAMIO-PRODUCTION-2026-10-12-v12.zip >/dev/null
+          unzip -t PRAMIO-PRODUCTION-2026-10-18-v13.zip >/dev/null
           for f in index.html .htaccess scheduled-article.php sitemap-live.php sitemap-base.xml sitemap.xml blog/tetya-lida/index.php blog/tetya-lida/index.html blog/tetya-lida/krasivo-a-klient-gde/index.html content-queue/articles.json content-queue/.htaccess; do
-            test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-12-v12.zip | grep -Fxc "$f")" -eq 1
+            test "$(unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -Fxc "$f")" -eq 1
           done
-          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-12-v12.zip | grep -q '^pramio-landing/'
-          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-12-v12.zip | grep -q '^config.local.php$'
-          sha256sum PRAMIO-PRODUCTION-2026-10-12-v12.zip | tee PRAMIO-PRODUCTION-2026-10-12-v12.sha256
+          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -q '^pramio-landing/'
+          ! unzip -Z1 PRAMIO-PRODUCTION-2026-10-18-v13.zip | grep -q '^config.local.php$'
+          sha256sum PRAMIO-PRODUCTION-2026-10-18-v13.zip | tee PRAMIO-PRODUCTION-2026-10-18-v13.sha256
       - uses: actions/upload-artifact@v4
         with:
-          name: PRAMIO-PRODUCTION-2026-10-12-v12
+          name: PRAMIO-PRODUCTION-2026-10-18-v13
           path: |
-            PRAMIO-PRODUCTION-2026-10-12-v12.zip
-            PRAMIO-PRODUCTION-2026-10-12-v12.sha256
+            PRAMIO-PRODUCTION-2026-10-18-v13.zip
+            PRAMIO-PRODUCTION-2026-10-18-v13.sha256
           retention-days: 7
