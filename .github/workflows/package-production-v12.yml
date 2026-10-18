@@ -2,6 +2,7 @@ name: Package PRAMIO production v12
 on:
   push:
     branches: [packaging/final-2026-10-12-v12, packaging/portfolio-refresh-2026-10-16-v13]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -14,6 +15,15 @@ jobs:
         run: |
           set -euo pipefail
           for f in send.php scheduled-article.php sitemap-live.php blog/blog-feed.php blog/tetya-lida/index.php config.sample.php; do php -l "$f"; done
+          test -f portfolio/demo-nav.js
+          test -f portfolio/demo-nav.css
+          test -f portfolio/index.html
+          ! grep -q '<div class="pramio-signal-rivers"' portfolio/index.html
+          grep -q 'landing-demo/' portfolio/index.html
+          for page in clinic build beauty logistics shop expert card legal crm clinic-admin; do
+            grep -q '../demo-nav.css' "portfolio/$page/index.html"
+            grep -q '../demo-nav.js' "portfolio/$page/index.html"
+          done
           mkdir -p package
           rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip' --exclude='config.local.php'
           cd package
