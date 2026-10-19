@@ -1,4 +1,4 @@
-name: Package PRAMIO production V14.6
+name: Package PRAMIO production V14.7
 on:
   push:
     branches: [packaging/portfolio-refresh-2026-10-16-v13]
@@ -29,8 +29,8 @@ jobs:
         run: python3 scripts/package-production-v14.py
       - uses: actions/upload-artifact@v4
         with:
-          name: PRAMIO-PRODUCTION-2026-10-19-V14-6-MOBILE-NAV
+          name: PRAMIO-PRODUCTION-2026-10-19-V14-7-MARKER-FIX
           path: |
-            PRAMIO-PRODUCTION-2026-10-19-V14-6-MOBILE-NAV.zip
-            PRAMIO-PRODUCTION-2026-10-19-V14-6-MOBILE-NAV.sha256
+            PRAMIO-PRODUCTION-2026-10-19-V14-7-MARKER-FIX.zip
+            PRAMIO-PRODUCTION-2026-10-19-V14-7-MARKER-FIX.sha256
           retention-days: 14

@@ -1,5 +1,9 @@
 /* Commercial entry and service formats. Dedicated components replace the old
    home hero and the top-level service intro; no cascade patches are required. */
+/* Reserve space inside the label for its 6px marker ring, rather than letting
+   the decoration paint outside the section's left alignment boundary. */
+.home-page .section-heading .eyebrow{padding-left:8px;box-sizing:border-box}
+.home-page .section-heading .eyebrow>span{flex-shrink:0;box-shadow:0 0 0 6px rgba(20,102,255,.09)}
 .business-intro,.offer-intro,.business-section{position:relative;z-index:1;min-width:0;scroll-margin-top:120px}
 .business-intro,.offer-intro{padding:clamp(26px,4vw,50px);border:1px solid rgba(255,255,255,.86);border-radius:32px;background:linear-gradient(135deg,rgba(255,255,255,.88),rgba(239,246,255,.73));box-shadow:0 18px 56px rgba(36,76,140,.07)}
 .business-intro h1,.offer-intro h1{max-width:1040px;margin:0;color:#10233d;font-size:clamp(38px,4.6vw,64px);line-height:1.08;letter-spacing:-.045em}

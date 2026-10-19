@@ -29,11 +29,11 @@ for(const width of [320,390,430,768,1440])test('Navigation and editor toolbar st
  assert.equal(d.documentElement.style.getPropertyValue('--pramio-demo-nav-height'),'51px');
  nav.getBoundingClientRect=()=>({height:61});observer();
  assert.equal(d.documentElement.style.getPropertyValue('--pramio-demo-nav-height'),'61px');
- assert.equal(w.getComputedStyle(d.querySelector('.floating-demo')).display,width<=760?'none':'flex');
+ assert.equal(w.getComputedStyle(d.querySelector('.floating-demo')).display,'flex');
  assert.equal(nav.querySelector('.pdn-back').pathname,'/portfolio/');
  assert.equal(new URL(nav.querySelector('.pdn-contact').href).searchParams.get('example'),'landing-demo');
  w.eval(read('portfolio/demo-nav.js'));assert.equal(d.querySelectorAll('[data-pramio-demo-nav]').length,1);
  dom.window.close();
 });
-test('Copper section marker cannot extend beyond its box',()=>{const dom=new JSDOM('<p class="eyebrow"><span></span>Наши услуги</p>');const s=dom.window.document.createElement('style');s.textContent=read('styles.css');dom.window.document.head.append(s);const dot=dom.window.getComputedStyle(dom.window.document.querySelector('span'));assert.equal(dot.boxShadow,'none');assert.equal(dot.flexShrink,'0');dom.window.close()});
+test('Copper section marker ring fits INSIDE the label left boundary at mobile widths',()=>{for(const width of [320,390,430,768]){const dom=new JSDOM('<body class="home-page"><section class="section-heading"><p class="eyebrow"><span></span>Наши услуги</p></section></body>');const s=dom.window.document.createElement('style');s.textContent=atWidth(read('styles.css')+'\n'+read('business.css'),width);dom.window.document.head.append(s);const w=dom.window,label=w.getComputedStyle(w.document.querySelector('.eyebrow')),dot=w.getComputedStyle(w.document.querySelector('span'));assert.equal(label.paddingLeft,'8px');assert.equal(dot.flexShrink,'0');assert.equal(dot.boxShadow,'0 0 0 6px rgba(20,102,255,.09)');assert(parseFloat(label.paddingLeft)>=6,'Ring must not paint outside the section');dom.window.close()}});
 if(failed)process.exitCode=1;
