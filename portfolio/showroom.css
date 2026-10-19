@@ -18,7 +18,6 @@
 .gallery-meta{display:flex;justify-content:space-between;gap:12px;font:500 11px/1.4 Manrope,system-ui;color:#687385}
 .gallery-copy h2{margin:8px 0;font:600 25px/1.15 Geologica,system-ui;letter-spacing:-.035em;color:#142139}
 .gallery-copy p{margin:0 0 18px;font:400 14px/1.5 Manrope,system-ui;color:#58677b;max-width:44ch}
-.gallery-preview:after{content:"Открыть демо ↗";position:absolute;left:12px;bottom:12px;padding:8px 12px;border-radius:8px;background:#163e75;color:#fff;font:700 12px/1.3 Manrope,system-ui;box-shadow:0 3px 14px #0002}
 .gallery-open{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:12px 16px;margin-top:auto;border:1px solid #163e75;border-radius:10px;background:#163e75;font:700 13px/1.3 Manrope,system-ui;color:#fff;text-decoration:none;white-space:nowrap}
 .gallery-open b{font:500 22px/1 system-ui}
 .gallery-enquire{position:relative;z-index:4;display:flex;align-items:center;justify-content:center;align-self:center;min-height:44px;margin-top:4px;padding:8px 10px;border:0;background:transparent;color:#52657f;font:600 12px/1.3 Manrope,system-ui;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}.gallery-enquire:hover{color:#163e75}.gallery-enquire:focus-visible{outline:3px solid #b87943;outline-offset:3px}

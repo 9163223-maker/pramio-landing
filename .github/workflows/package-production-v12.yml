@@ -1,4 +1,4 @@
-name: Package PRAMIO production V14.8
+name: Package PRAMIO production V14.9
 on:
   push:
     branches: [packaging/portfolio-refresh-2026-10-16-v13]
@@ -30,8 +30,8 @@ jobs:
         run: python3 scripts/package-production-v14.py
       - uses: actions/upload-artifact@v4
         with:
-          name: PRAMIO-PRODUCTION-2026-10-19-V14-8-DEMO-CRM
+          name: PRAMIO-PRODUCTION-2026-10-19-V14-9-CARD-ACTIONS
           path: |
-            PRAMIO-PRODUCTION-2026-10-19-V14-8-DEMO-CRM.zip
-            PRAMIO-PRODUCTION-2026-10-19-V14-8-DEMO-CRM.sha256
+            PRAMIO-PRODUCTION-2026-10-19-V14-9-CARD-ACTIONS.zip
+            PRAMIO-PRODUCTION-2026-10-19-V14-9-CARD-ACTIONS.sha256
           retention-days: 14
