@@ -1,4 +1,4 @@
-name: Package PRAMIO production V14.7
+name: Package PRAMIO production V14.8
 on:
   push:
     branches: [packaging/portfolio-refresh-2026-10-16-v13]
@@ -24,13 +24,14 @@ jobs:
           PRAMIO_TEST_ROOT=. node qa/cms-verify.mjs
           PRAMIO_TEST_ROOT=. node qa/sales-verify.mjs
           PRAMIO_TEST_ROOT=. node qa/mobile-nav-verify.mjs
+          PRAMIO_TEST_ROOT=. node qa/portfolio-actions-verify.mjs
           PRAMIO_TEST_ROOT=. php qa/publishing-verify.php
       - name: Validate source and package exact production manifest
         run: python3 scripts/package-production-v14.py
       - uses: actions/upload-artifact@v4
         with:
-          name: PRAMIO-PRODUCTION-2026-10-19-V14-7-MARKER-FIX
+          name: PRAMIO-PRODUCTION-2026-10-19-V14-8-DEMO-CRM
           path: |
-            PRAMIO-PRODUCTION-2026-10-19-V14-7-MARKER-FIX.zip
-            PRAMIO-PRODUCTION-2026-10-19-V14-7-MARKER-FIX.sha256
+            PRAMIO-PRODUCTION-2026-10-19-V14-8-DEMO-CRM.zip
+            PRAMIO-PRODUCTION-2026-10-19-V14-8-DEMO-CRM.sha256
           retention-days: 14

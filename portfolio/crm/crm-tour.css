@@ -1,0 +1,23 @@
+/* Demo orientation and a real, in-tab deal creation flow. */
+.crm-intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(270px,1fr);gap:28px;padding:24px;margin-bottom:24px;border:1px solid #527f70;border-radius:16px;background:linear-gradient(115deg,#23483f,#162b32);box-shadow:0 12px 32px #0002}
+.crm-kicker{margin:0 0 10px;color:#badf9e;font:700 11px/1.4 Manrope,system-ui;letter-spacing:.12em}
+.crm-intro h2{margin:0 0 12px;font:500 clamp(22px,2.3vw,30px)/1.18 Geologica,system-ui;letter-spacing:-.035em;color:#f4faf5}
+.crm-intro p:not(.crm-kicker){max-width:56ch;margin:0;color:#d0e2db;font-size:13px;line-height:1.6}
+.crm-steps{display:grid;align-content:center;gap:10px}
+.crm-steps button{display:flex;align-items:center;gap:12px;min-height:46px;padding:10px 14px;border:1px solid #658b77;border-radius:9px;background:#c4e3aa;color:#173c2e;text-align:left;font-size:13px;font-weight:700}
+.crm-steps button+button{background:#16322c;color:#e6f1e6}
+.crm-steps button span{font:500 11px/1 Geologica,system-ui;opacity:.7}
+.crm-steps button b{margin-left:auto;font-size:18px;font-weight:500}
+.crm-steps small{font-size:11px;line-height:1.5;color:#b8ccc4}
+.logo span{display:inline-block;margin-left:6px;padding:4px 6px;border-radius:5px;background:#c4e3aa;color:#183c2f;font-size:11px;letter-spacing:0;vertical-align:middle}
+.deal-form{display:grid;gap:16px;margin:20px 0;padding:20px;border:1px solid #658b77;border-radius:12px;background:#1c332f}
+.deal-form[hidden]{display:none}
+.deal-form h3{margin:0;font-size:17px}
+.deal-form label{display:grid;gap:8px;font-size:13px;color:#d8e8de}
+.deal-form input{width:100%;min-height:46px;padding:11px;border:1px solid #658b77;border-radius:7px;background:#0d211c;color:#fff;font-size:16px}
+.deal-form>div{display:flex;flex-wrap:wrap;gap:10px}
+.deal-form button{min-height:44px;padding:10px 16px;border:1px solid #658b77;border-radius:8px;background:#c4e3aa;color:#173c2e;font-size:13px;font-weight:700}
+.deal-form button[type=button]{background:transparent;color:#e6f1e6}
+.deal-notice{margin:18px 0;padding:14px;border-radius:8px;background:#24483d;color:#d4efc1;font-size:13px;overflow-wrap:anywhere}
+@media(max-width:1000px){.crm-intro{grid-template-columns:1fr;gap:18px}.crm-steps{grid-template-columns:1fr 1fr}.crm-steps small{grid-column:1/-1}}
+@media(max-width:700px){.crm-intro{padding:20px 18px;gap:16px;margin-bottom:20px}.crm-intro h2{font-size:23px}.crm-steps{grid-template-columns:1fr}.crm-steps small{grid-column:auto}.deal-form{padding:16px}}

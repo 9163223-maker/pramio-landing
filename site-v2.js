@@ -27,7 +27,7 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
   return aliases[value] || value;
 };
 
-const PRAMIO_EXAMPLES = {'landing-demo':'Ателье ремонта',clinic:'СЕВЕР',build:'КОНТУР / ДОМА',beauty:'NUDE/STUDIO',logistics:'NORTHLINE',shop:'FORMA',expert:'ПРАКТИКА',card:'Илья Морозов',legal:'LEX/17',crm:'Flowdesk','clinic-admin':'PRAMIO CMS'};
+const PRAMIO_EXAMPLES = {'landing-demo':'Ателье ремонта',clinic:'СЕВЕР',build:'КОНТУР / ДОМА',beauty:'NUDE/STUDIO',logistics:'NORTHLINE',shop:'FORMA',expert:'ПРАКТИКА',card:'Илья Морозов',legal:'LEX/17',crm:'Flowdesk CRM','clinic-admin':'PRAMIO CMS'};
 window.PRAMIO_SET_EXAMPLE = (id='') => {
   const form=document.getElementById('contact-form');if(!form)return;
   form.querySelector('[name="example"]')?.remove();form.querySelector('.contact-example')?.remove();

@@ -327,7 +327,7 @@ if (!in_array($service, $allowedServices, true) || $message === '' || !filter_va
 $service = pramio_cut($service, 120);
 $message = pramio_cut($message, 3000);
 $source = preg_replace('/[^a-zA-Z0-9_-]/', '', pramio_cut($source, 120));
-$examples = ['landing-demo'=>'Ателье ремонта','clinic'=>'СЕВЕР','build'=>'КОНТУР / ДОМА','beauty'=>'NUDE/STUDIO','logistics'=>'NORTHLINE','shop'=>'FORMA','expert'=>'ПРАКТИКА','card'=>'Илья Морозов','legal'=>'LEX/17','crm'=>'Flowdesk','clinic-admin'=>'PRAMIO CMS'];
+$examples = ['landing-demo'=>'Ателье ремонта','clinic'=>'СЕВЕР','build'=>'КОНТУР / ДОМА','beauty'=>'NUDE/STUDIO','logistics'=>'NORTHLINE','shop'=>'FORMA','expert'=>'ПРАКТИКА','card'=>'Илья Морозов','legal'=>'LEX/17','crm'=>'Flowdesk CRM','clinic-admin'=>'PRAMIO CMS'];
 $exampleText = isset($examples[$example]) ? "Выбранный пример: {$examples[$example]}\nhttps://pramio.ru/portfolio/{$example}/\n" : '';
 
 $text = "Новая заявка с сайта {$cfg['site_name']}\n\nНаправление: {$service}\nEmail: {$email}\n" . ($source !== '' ? "Источник: {$source}\n" : '') . $exampleText . "Согласие на обработку данных: получено\n\nСообщение:\n{$message}";
