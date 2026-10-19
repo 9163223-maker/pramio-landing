@@ -1,14 +1,15 @@
 <?php
 declare(strict_types=1);
 function pramioQueue(): array {
+  static $cached=null;if($cached!==null)return $cached;
   $path=dirname(__DIR__).'/content-queue/articles.json';
   $raw=is_file($path)?file_get_contents($path):false;
   $data=$raw!==false?json_decode($raw,true):null;
   if(!is_array($data)||!isset($data['articles'])||!is_array($data['articles'])) return ['timezone'=>'Europe/Moscow','articles'=>[]];
-  return $data;
+  return $cached=$data;
 }
 function pramioDue(array $a, DateTimeImmutable $now): bool {
-  try { return new DateTimeImmutable((string)$a['publish_at']) <= $now; } catch(Throwable $e){ return false; }
+  try { $date=new DateTimeImmutable((string)$a['publish_at']);$cutoff=pramioQueue()['publication_paused_after']??null;return $date <= $now && (!$cutoff || $date <= new DateTimeImmutable((string)$cutoff)); } catch(Throwable $e){ return false; }
 }
 function pramioH(string $v): string { return htmlspecialchars($v,ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8'); }
 function pramioUrl(string $slug): string { return 'https://pramio.ru/blog/tetya-lida/'.$slug.'/'; }

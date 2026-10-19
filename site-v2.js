@@ -27,6 +27,18 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
   return aliases[value] || value;
 };
 
+const PRAMIO_EXAMPLES = {'landing-demo':'Ателье ремонта',clinic:'СЕВЕР',build:'КОНТУР / ДОМА',beauty:'NUDE/STUDIO',logistics:'NORTHLINE',shop:'FORMA',expert:'ПРАКТИКА',card:'Илья Морозов',legal:'LEX/17',crm:'Flowdesk','clinic-admin':'PRAMIO CMS'};
+window.PRAMIO_SET_EXAMPLE = (id='') => {
+  const form=document.getElementById('contact-form');if(!form)return;
+  form.querySelector('[name="example"]')?.remove();form.querySelector('.contact-example')?.remove();
+  if(!Object.prototype.hasOwnProperty.call(PRAMIO_EXAMPLES,id))return;
+  if(!document.querySelector('link[data-contact-example-style]')){const style=document.createElement('link');style.rel='stylesheet';style.href=PRAMIO_SITE_URL('contact-example.css?v=145');style.dataset.contactExampleStyle='1';document.head.append(style)}
+  const box=document.createElement('div');box.className='contact-example';
+  const label=document.createElement('span'),title=document.createElement('strong'),link=document.createElement('a'),remove=document.createElement('button'),input=document.createElement('input');
+  label.textContent='ВЫБРАННЫЙ ПРИМЕР';title.textContent=PRAMIO_EXAMPLES[id];link.textContent='Посмотреть пример ↗';link.href=PRAMIO_SITE_URL('portfolio/'+id+'/');link.target='_blank';link.rel='noopener';remove.type='button';remove.textContent='Убрать пример';remove.addEventListener('click',()=>{window.PRAMIO_SET_EXAMPLE('');const source=form.querySelector('[name="source"]');if(source&&/^(portfolio|demo)-/.test(source.value))source.remove()});
+  input.type='hidden';input.name='example';input.value=id;box.append(label,title,link,remove);form.prepend(box,input);
+};
+
 /* global-contact-v5 */
 (() => {
   const ensureContactPanel = () => {
@@ -52,7 +64,7 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
     window.setTimeout(() => {
       if (document.querySelector('script[data-pramio-form-handler]')) return;
       const handler = document.createElement('script');
-      handler.src = PRAMIO_SITE_URL('form-handler.js?v=44');
+      handler.src = PRAMIO_SITE_URL('form-handler.js?v=145');
       handler.dataset.pramioFormHandler = '1';
       document.body.append(handler);
     }, 0);
@@ -67,6 +79,7 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
     if (url.origin !== window.location.origin || url.hash !== '#contact') return;
     const requestedService = url.searchParams.get('service');
     const requestedSource = url.searchParams.get('source');
+    const requestedExample = url.searchParams.get('example');
     link.classList.add('contact-trigger');
     link.setAttribute('aria-haspopup','dialog');
     link.setAttribute('aria-controls','contact-panel');
@@ -78,6 +91,7 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
       event.preventDefault();
       const form = document.getElementById('contact-form');
       if (!form) return;
+      window.PRAMIO_SET_EXAMPLE(requestedExample || '');
       form.querySelector('[name="source"]')?.remove();
       if (requestedSource) {
         const sourceInput = document.createElement('input');
@@ -192,6 +206,7 @@ const PRAMIO_NORMALIZE_CONTACT_SERVICE = (value) => {
     }
 
     const contactParams = new URLSearchParams(window.location.search);
+    window.PRAMIO_SET_EXAMPLE(contactParams.get('example') || '');
     const requestedService = contactParams.get('service');
     const requestedSource = contactParams.get('source');
     if (requestedSource && !form.querySelector('[name="source"]')) {

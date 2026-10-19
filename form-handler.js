@@ -38,6 +38,7 @@
     if (tokenInput) tokenInput.value = token;
     if (startedAt) startedAt.value = started || String(Date.now());
     form.querySelector('[name="source"]')?.remove();
+    window.PRAMIO_SET_EXAMPLE?.('');
     if (status) {
       status.classList.remove('is-success','is-sending','is-error');
       status.textContent = 'Для оценки достаточно короткого описания задачи.';

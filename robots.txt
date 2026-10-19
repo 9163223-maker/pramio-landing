@@ -3,5 +3,5 @@ Allow: /
 Disallow: /send.php
 Disallow: /config.local.php
 Disallow: /config.sample.php
-Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&yclid&gclid&fbclid&from
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&yclid&gclid&fbclid&from&service&source&example
 Sitemap: https://pramio.ru/sitemap.xml

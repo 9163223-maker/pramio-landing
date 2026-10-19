@@ -26,6 +26,7 @@ if(is_array($data)&&isset($data['articles'])&&is_array($data['articles'])){
     if(!preg_match('/^[a-z0-9-]+$/',$slug)) continue;
     try{$date=new DateTimeImmutable((string)$a['publish_at']);}catch(Throwable $e){continue;}
     if($date>$now) continue;
+    if(!empty($data['publication_paused_after']) && $date>new DateTimeImmutable((string)$data['publication_paused_after'])) continue;
     $loc='https://pramio.ru/blog/tetya-lida/'.$slug.'/';
     $extra.="  <url><loc>".htmlspecialchars($loc,ENT_XML1|ENT_QUOTES,'UTF-8')."</loc><lastmod>".$date->format('Y-m-d')."</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>\n";
   }

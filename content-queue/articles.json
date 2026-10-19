@@ -1,5 +1,6 @@
 {
   "timezone": "Europe/Moscow",
+  "publication_paused_after": "2026-10-19T00:00:00+03:00",
   "series": "Тётя Лида знает",
   "articles": [
     {

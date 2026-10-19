@@ -95,6 +95,7 @@
         select.dispatchEvent(new Event('change', { bubbles:true }));
       }
       form?.querySelector('[name="source"]')?.remove();
+      window.PRAMIO_SET_EXAMPLE?.('');
     }
     openContact();
   });
