@@ -302,3 +302,50 @@
  .preview-expert .expert-redblock{opacity:.16!important}
  .preview-legal .legal-sectionmark{opacity:.1!important}
 }
+
+
+/* R14: compact editorial portfolio hero and five native quiz cards */
+@media(min-width:981px){
+.portfolio-page .showroom-hero{width:100%!important;max-width:none!important;padding:30px 36px!important;margin-top:8px!important;min-height:0!important;border-radius:24px!important}
+.portfolio-page .showroom-hero>div{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.82fr);align-items:start;gap:12px 48px}
+.portfolio-page .showroom-hero .eyebrow{grid-column:1/-1;margin:0!important}
+.portfolio-page .showroom-hero h1{grid-column:1;grid-row:2/4;max-width:700px!important;font:600 clamp(38px,3.45vw,48px)/1.13 Geologica,Manrope,sans-serif!important;letter-spacing:-.036em!important;margin:0!important}
+.portfolio-page .showroom-hero .lead{grid-column:2;grid-row:2;margin:0!important;font:400 17px/1.6 Manrope,system-ui,sans-serif!important;max-width:none!important}
+.portfolio-page .showroom-hero .actions{grid-column:2;grid-row:3;margin:0!important;display:flex;flex-wrap:wrap;gap:9px}
+.portfolio-page .showroom-section{margin-top:42px!important}
+.portfolio-page .showroom-grid{gap:24px!important}
+}
+.r14-quiz-section{margin:36px 0 30px;min-width:0}
+.r14-quiz-heading{display:flex;justify-content:space-between;align-items:end;gap:28px;margin:0 0 14px}
+.r14-quiz-heading h2{margin:8px 0;font:600 clamp(30px,3vw,36px)/1.18 Geologica,Manrope,sans-serif;letter-spacing:-.035em;color:#061833}
+.r14-quiz-heading p:not(.eyebrow){max-width:700px;margin:0;color:#4a5b73;font:400 17px/1.55 Manrope,sans-serif}
+.r14-quiz-catalog{white-space:nowrap;font:600 16px/1.5 Manrope,sans-serif;color:#1466ff;padding:10px 0;text-decoration:none}
+.r14-quiz-controls{display:flex;align-items:center;justify-content:space-between;margin:0 0 10px;font:600 14px Manrope,sans-serif;color:#4a5b73}
+.r14-quiz-controls>div{display:flex;gap:8px}
+.r14-quiz-controls button{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;border:1px solid rgba(26,72,125,.18);background:#fff;color:#061833;font:600 23px Manrope;cursor:pointer}
+.r14-quiz-controls button:disabled{opacity:.38;cursor:default}
+.r14-quiz-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 40px)/3);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-inline:contain;padding:4px 2px 12px}
+.r14-quiz-track::-webkit-scrollbar{display:none}
+.r14-quiz-card{min-width:0;scroll-snap-align:start;border:1px solid rgba(26,72,125,.13);background:rgba(255,255,255,.92);border-radius:24px;overflow:hidden;box-shadow:0 12px 36px rgba(23,64,121,.06)}
+.r14-quiz-link{display:flex;flex-direction:column;height:100%;text-decoration:none;color:#061833}
+.r14-quiz-stage{height:220px;position:relative;overflow:hidden;background:linear-gradient(145deg,#1b2d46,#3e668c);color:white;isolation:isolate}
+.r14-quiz-stage:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,18,43,.74),transparent 69%);z-index:0}
+.r14-quiz-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72;filter:saturate(.78);transition:transform .35s}
+.r14-quiz-card:hover .r14-quiz-stage img{transform:scale(1.035)}
+.r14-quiz-overline,.r14-quiz-word,.r14-quiz-steps{position:absolute;z-index:1;left:22px;right:16px}
+.r14-quiz-overline{top:20px;font:600 11px/1.4 Manrope,sans-serif;letter-spacing:.075em;color:#f4f6fa}
+.r14-quiz-word{bottom:47px;font:600 clamp(23px,2.5vw,34px)/1.1 Geologica,sans-serif;letter-spacing:-.03em}
+.r14-quiz-steps{bottom:19px;display:flex;align-items:center;gap:9px;font:600 11px Manrope,sans-serif;color:#fff}
+.r14-quiz-steps i{width:10px;height:1px;background:rgba(255,255,255,.5)}
+.r14-quiz-orbit .r14-quiz-stage{background:radial-gradient(circle at 65% 25%,#4d4775,#11152b 75%)}
+.r14-quiz-framework .r14-quiz-stage{background:linear-gradient(130deg,#493728,#9d7658)}
+.r14-quiz-puppy .r14-quiz-stage{background:linear-gradient(130deg,#f8dabe,#c38e6b)}
+.r14-quiz-nail .r14-quiz-stage{background:linear-gradient(145deg,#e7cab8,#a26b68)}
+.r14-quiz-caption{display:flex;justify-content:space-between;gap:12px;padding:22px;flex:1}
+.r14-quiz-caption small{font:600 13px/1.4 Manrope,sans-serif;color:#1466ff}
+.r14-quiz-caption h3{margin:7px 0 8px;font:600 22px/1.25 Geologica,sans-serif;color:#061833}
+.r14-quiz-caption p{margin:0;font:400 15px/1.5 Manrope,sans-serif;color:#4a5b73}
+.r14-quiz-arrow{flex:none;align-self:flex-end;font:600 25px Manrope;color:#1466ff}
+@media(max-width:980px){.r14-quiz-track{grid-auto-columns:calc((100% - 16px)/2);gap:16px}.portfolio-page .showroom-hero{max-width:none!important;width:100%!important;min-height:0!important}}
+@media(max-width:640px){.r14-quiz-heading{display:block}.r14-quiz-heading h2{font-size:29px}.r14-quiz-heading p:not(.eyebrow){font-size:16px}.r14-quiz-catalog{display:inline-block;margin-top:8px}.r14-quiz-track{grid-auto-columns:88%;gap:12px}.r14-quiz-stage{height:205px}.r14-quiz-caption{padding:18px}.r14-quiz-caption h3{font-size:21px}}
+@media(prefers-reduced-motion:reduce){.r14-quiz-track{scroll-behavior:auto}.r14-quiz-stage img{transition:none}}
