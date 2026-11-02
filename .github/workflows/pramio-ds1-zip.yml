@@ -1,9 +1,7 @@
 name: PRAMIO R14 public_html ZIP
+# GitHub Actions disabled for PRAMIO: CircleCI is the CI provider.
 on:
-  push:
-    branches: [packaging/pramio-ds1-2026-11-02]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
