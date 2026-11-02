@@ -24,7 +24,7 @@ const failures=[];
 const check=(ok,message)=>{if(!ok)failures.push(message)};
 for(const path of pages){
   const html=readFileSync(path,'utf8');
-  check(/site-v2\.css\?v=100/.test(html),path+' missing latest CSS');
+  check(/site-v2\.css\?v=101/.test(html),path+' missing latest CSS');
   check(/site-v2\.js\?v=100/.test(html),path+' missing latest JS');
 }
 const css=readFileSync('site-v2.css','utf8');
