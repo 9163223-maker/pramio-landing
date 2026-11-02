@@ -1,0 +1,62 @@
+version: 2.1
+
+# PRAMIO: lightweight CI only. No automatic deployment.
+# Keep working demo-quiz and portfolio/nail folders on Timeweb untouched.
+jobs:
+  validate-pramio:
+    docker:
+      - image: cimg/php:8.3-node
+    resource_class: small
+    working_directory: ~/project
+    steps:
+      - checkout
+      - run:
+          name: JavaScript syntax
+          command: |
+            set -eu
+            node --check script.js
+            node --check site-v2.js
+            node --check portfolio/showroom.js
+            node --check form-handler.js
+            node --check floating-fixes.js
+      - run:
+          name: PHP syntax
+          command: |
+            set -eu
+            for source in send.php scheduled-article.php sitemap-live.php blog/blog-feed.php blog/tetya-lida/index.php; do
+              php -l "$source"
+            done
+      - run:
+          name: Shared design system and page routing
+          command: |
+            set -eu
+            node scripts/check-design-system.mjs
+            for path in index.html portfolio/index.html blog/index.html .htaccess sitemap.xml site.webmanifest assets/pramio-favicon.svg; do
+              test -f "$path"
+            done
+            grep -Fq '../demo-quiz/01/' portfolio/index.html
+            grep -Fq '../demo-quiz/02/' portfolio/index.html
+            grep -Fq '../demo-quiz/04/' portfolio/index.html
+            grep -Fq '../demo-quiz/05/' portfolio/index.html
+            grep -Fq './nail/' portfolio/index.html
+            grep -Fq 'r14-quiz-track' portfolio/index.html
+            echo 'PRAMIO links and route guards: PASS'
+      - run:
+          name: Release safety checks
+          command: |
+            set -eu
+            test ! -f config.local.php
+            test -f content-queue/articles.json
+            test -f content-queue/.htaccess
+            node -e "JSON.parse(require('fs').readFileSync('content-queue/articles.json','utf8'))"
+            node -e "JSON.parse(require('fs').readFileSync('site.webmanifest','utf8'))"
+            echo 'Timeweb config stays private; no deploy step: PASS'
+
+workflows:
+  pramio-checks:
+    jobs:
+      - validate-pramio:
+          filters:
+            branches:
+              only:
+                - packaging/pramio-ds1-2026-11-02
