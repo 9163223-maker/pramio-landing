@@ -2,7 +2,7 @@ name: PRAMIO DS1 deployment ZIP
 on:
   push:
     branches:
-      - design/unified-desktop-ds1-20261102
+      - packaging/pramio-ds1-2026-11-02
 permissions:
   contents: read
 jobs:
@@ -18,10 +18,16 @@ jobs:
         run: |
           set -euo pipefail
           node --check site-v2.js
+          node --check script.js
           node scripts/check-design-system.mjs
           php -l scheduled-article.php
           php -l blog/tetya-lida/index.php
           php -l blog/blog-feed.php
+          php -l sitemap-live.php
+          test -f .htaccess
+          test -f sitemap.xml
+          test -f content-queue/articles.json
+          test -f content-queue/.htaccess
       - name: Build Timeweb public_html archive
         shell: bash
         run: |
@@ -40,6 +46,22 @@ jobs:
           test -f package/site-v2.css
           test -f package/site-v2.js
           test -f package/blog/index.html
+          test -f package/.htaccess
+          test -f package/content-queue/.htaccess
+          test -f package/sitemap.xml
+          test ! -f package/config.local.php
+          ! unzip -Z1 PRAMIO-DS1-2026-11-02.zip | grep -q '^pramio-landing/'
+          ! unzip -Z1 PRAMIO-DS1-2026-11-02.zip | grep -q '^package/'
+          ! unzip -Z1 PRAMIO-DS1-2026-11-02.zip | grep -q '^config.local.php
+          sha256sum PRAMIO-DS1-2026-11-02.zip > PRAMIO-DS1-2026-11-02.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PRAMIO-DS1-2026-11-02
+          path: |
+            PRAMIO-DS1-2026-11-02.zip
+            PRAMIO-DS1-2026-11-02.sha256
+          retention-days: 14
+
           sha256sum PRAMIO-DS1-2026-11-02.zip > PRAMIO-DS1-2026-11-02.sha256
       - uses: actions/upload-artifact@v4
         with:
