@@ -1,4 +1,4 @@
-name: PRAMIO DS1 public_html ZIP
+name: PRAMIO R14 public_html ZIP
 on:
   push:
     branches: [packaging/pramio-ds1-2026-11-02]
@@ -28,27 +28,33 @@ jobs:
           for file in .htaccess sitemap.xml sitemap-base.xml content-queue/articles.json content-queue/.htaccess index.html blog/index.html; do
             test -f "$file"
           done
+      - name: Generate canonical favicon variants
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet --disable-pip-version-check cairosvg pillow
+          python scripts/generate-pramio-icons.py
       - name: Package website for Timeweb public_html
         shell: bash
         run: |
           set -euo pipefail
-          archive="PRAMIO-DS1-2026-11-02.zip"
+          archive="PRAMIO-R14-2026-11-02.zip"
           mkdir -p package
           rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip' --exclude='config.local.php' --exclude='docs/' --exclude='scripts/' --exclude='*.md'
           (cd package && zip -qr "../$archive" .)
           unzip -t "$archive" >/dev/null
-          for file in index.html .htaccess site-v2.css site-v2.js scheduled-article.php sitemap.xml sitemap-base.xml sitemap-live.php blog/index.html blog/tetya-lida/index.php content-queue/articles.json content-queue/.htaccess; do
+          for file in index.html .htaccess site-v2.css site-v2.js scheduled-article.php sitemap.xml sitemap-base.xml sitemap-live.php blog/index.html blog/tetya-lida/index.php content-queue/articles.json content-queue/.htaccess assets/pramio-favicon.svg assets/pramio-icon-32.png assets/pramio-icon-180.png assets/pramio-icon-192.png assets/pramio-icon-512.png favicon.ico; do
             test "$(unzip -Z1 "$archive" | grep -Fxc "$file")" -eq 1
           done
           if unzip -Z1 "$archive" | grep -Eq '^(pramio-landing/|package/|config.local.php$|docs/|scripts/)'; then
             echo "Unexpected root folder or private file in archive" >&2
             exit 1
           fi
-          sha256sum "$archive" > PRAMIO-DS1-2026-11-02.sha256
+          sha256sum "$archive" > PRAMIO-R14-2026-11-02.sha256
       - uses: actions/upload-artifact@v4
         with:
-          name: PRAMIO-DS1-2026-11-02
+          name: PRAMIO-R14-2026-11-02
           path: |
-            PRAMIO-DS1-2026-11-02.zip
-            PRAMIO-DS1-2026-11-02.sha256
+            PRAMIO-R14-2026-11-02.zip
+            PRAMIO-R14-2026-11-02.sha256
           retention-days: 14
