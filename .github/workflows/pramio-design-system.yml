@@ -1,16 +1,7 @@
 name: PRAMIO design system guardrails
+# GitHub Actions disabled for PRAMIO: CircleCI is the CI provider.
 on:
-  push:
-    branches:
-      - main
-      - design/**
-  pull_request:
-    paths:
-      - '**/*.html'
-      - '**/*.php'
-      - 'site-v2.css'
-      - 'site-v2.js'
-      - 'scripts/check-design-system.mjs'
+  workflow_dispatch:
 jobs:
   check-design-system:
     runs-on: ubuntu-latest
