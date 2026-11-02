@@ -24,8 +24,8 @@ const failures=[];
 const check=(ok,message)=>{if(!ok)failures.push(message)};
 for(const path of pages){
   const html=readFileSync(path,'utf8');
-  check(/site-v2\\.css\\?v=100/.test(html),path+' missing latest CSS');
-  check(/site-v2\\.js\\?v=100/.test(html),path+' missing latest JS');
+  check(/site-v2\.css\?v=100/.test(html),path+' missing latest CSS');
+  check(/site-v2\.js\?v=100/.test(html),path+' missing latest JS');
 }
 const css=readFileSync('site-v2.css','utf8');
 for(const token of ['--pr-font-display','--pr-font-body','--pr-fs-body','--pr-fs-card','--pr-fs-h2','--pr-card','--pr-border','--pr-gap-3']){
@@ -40,5 +40,5 @@ check((blog.match(/class="link-card" href=/g)||[]).length>=10,'Blog not rendered
 check(blog.includes('data-blog-feed=""'),'Blog cannot progressively update');
 check(blog.includes('href="/blog/tetya-lida/')&&blog.includes('href="/blog/max/'),'Blog missing direct article links');
 check(!blog.includes('blog-v12-rubrics'),'Blog still uses intermediate rubric cards');
-if(failures.length){console.error('PRAMIO DS1 FAIL:\\n'+failures.join('\\n'));process.exit(1)}
+if(failures.length){console.error('PRAMIO DS1 FAIL:\n'+failures.join('\n'));process.exit(1)}
 console.log('PRAMIO DS1 PASS: '+pages.length+' pages, design tokens, static article links, motion guards');
