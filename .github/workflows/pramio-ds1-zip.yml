@@ -1,8 +1,7 @@
-name: PRAMIO DS1 deployment ZIP
+name: PRAMIO DS1 public_html ZIP
 on:
   push:
-    branches:
-      - packaging/pramio-ds1-2026-11-02
+    branches: [packaging/pramio-ds1-2026-11-02]
   pull_request:
     branches: [main]
 permissions:
@@ -16,56 +15,36 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate design system and PHP
+      - name: Validate sources
         shell: bash
         run: |
           set -euo pipefail
-          node --check site-v2.js
           node --check script.js
+          node --check site-v2.js
           node scripts/check-design-system.mjs
-          php -l scheduled-article.php
-          php -l blog/tetya-lida/index.php
-          php -l blog/blog-feed.php
-          php -l sitemap-live.php
-          test -f .htaccess
-          test -f sitemap.xml
-          test -f content-queue/articles.json
-          test -f content-queue/.htaccess
-      - name: Build Timeweb public_html archive
+          for phpfile in send.php scheduled-article.php sitemap-live.php blog/blog-feed.php blog/tetya-lida/index.php; do
+            php -l "$phpfile"
+          done
+          for file in .htaccess sitemap.xml sitemap-base.xml content-queue/articles.json content-queue/.htaccess index.html blog/index.html; do
+            test -f "$file"
+          done
+      - name: Package website for Timeweb public_html
         shell: bash
         run: |
           set -euo pipefail
+          archive="PRAMIO-DS1-2026-11-02.zip"
           mkdir -p package
-          rsync -a ./ package/ \
-            --exclude='.git/' --exclude='.github/' \
-            --exclude='package/' --exclude='*.zip' \
-            --exclude='config.local.php' --exclude='docs/' \
-            --exclude='scripts/' --exclude='*.md'
-          cd package
-          zip -qr ../PRAMIO-DS1-2026-11-02.zip .
-          cd ..
-          unzip -t PRAMIO-DS1-2026-11-02.zip >/dev/null
-          test -f package/index.html
-          test -f package/site-v2.css
-          test -f package/site-v2.js
-          test -f package/blog/index.html
-          test -f package/.htaccess
-          test -f package/content-queue/.htaccess
-          test -f package/sitemap.xml
-          test ! -f package/config.local.php
-          ! unzip -Z1 PRAMIO-DS1-2026-11-02.zip | grep -q '^pramio-landing/'
-          ! unzip -Z1 PRAMIO-DS1-2026-11-02.zip | grep -q '^package/'
-          ! unzip -Z1 PRAMIO-DS1-2026-11-02.zip | grep -q '^config.local.php
-          sha256sum PRAMIO-DS1-2026-11-02.zip > PRAMIO-DS1-2026-11-02.sha256
-      - uses: actions/upload-artifact@v4
-        with:
-          name: PRAMIO-DS1-2026-11-02
-          path: |
-            PRAMIO-DS1-2026-11-02.zip
-            PRAMIO-DS1-2026-11-02.sha256
-          retention-days: 14
-
-          sha256sum PRAMIO-DS1-2026-11-02.zip > PRAMIO-DS1-2026-11-02.sha256
+          rsync -a ./ package/ --exclude='.git/' --exclude='.github/' --exclude='package/' --exclude='*.zip' --exclude='config.local.php' --exclude='docs/' --exclude='scripts/' --exclude='*.md'
+          (cd package && zip -qr "../$archive" .)
+          unzip -t "$archive" >/dev/null
+          for file in index.html .htaccess site-v2.css site-v2.js scheduled-article.php sitemap.xml sitemap-base.xml sitemap-live.php blog/index.html blog/tetya-lida/index.php content-queue/articles.json content-queue/.htaccess; do
+            test "$(unzip -Z1 "$archive" | grep -Fxc "$file")" -eq 1
+          done
+          if unzip -Z1 "$archive" | grep -Eq '^(pramio-landing/|package/|config.local.php$|docs/|scripts/)'; then
+            echo "Unexpected root folder or private file in archive" >&2
+            exit 1
+          fi
+          sha256sum "$archive" > PRAMIO-DS1-2026-11-02.sha256
       - uses: actions/upload-artifact@v4
         with:
           name: PRAMIO-DS1-2026-11-02
