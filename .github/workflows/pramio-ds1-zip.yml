@@ -3,10 +3,13 @@ on:
   push:
     branches:
       - packaging/pramio-ds1-2026-11-02
+  pull_request:
+    branches: [main]
 permissions:
   contents: read
 jobs:
   build:
+    if: github.event_name == 'push' || startsWith(github.head_ref, 'packaging/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
