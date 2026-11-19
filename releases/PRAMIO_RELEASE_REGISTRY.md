@@ -1,6 +1,6 @@
 # PRAMIO RU — Release registry & preservation rules
 
-Updated: 2026-11-18. This file is the release ledger; do not confuse these archive branches with production deployments. The user deploys manually on Timeweb by unpacking a single ZIP **into public_html**. No installers, no manual CSS/JS links.
+Updated: 2026-11-19. This file is the release ledger; do not confuse these archive branches with production deployments. The user deploys manually on Timeweb by unpacking a single ZIP **into public_html**. No installers, no manual CSS/JS links.
 
 ## Authoritative source hierarchy
 1. Current production `public_html` snapshot: authoritative for existing portfolio entries, pages and assets.
@@ -17,7 +17,16 @@ Never overwrite `portfolio/index.html` or root `index.html` with an older file u
 - R48 — branch `release/pramio-r48-landscape-seo-20261118`, `releases/PRAMIO-R48-FULL-UNZIP-LANDSCAPE-NAV-SEO.zip` — scene navigation and chip links; portfolio still inherited R23/R47.
 - R49 — branch `release/pramio-r49-flora-batumi-links-20261118`, `releases/PRAMIO-R49-FULL-HOME-LINKS-BATUMI-FLORA.zip` — recreated **new, non-original** FLORA demo at `/portfolio/flora/`. Do not claim original FLORA restoration. Its actual source has not been recovered.
 
-## Open incident: FLORA disappeared
+## R50 — authentic FLORA recovered (2026-11-19)
+
+- User supplied full Timeweb backup `public_html(1).zip` on 2026-11-19, SHA-256 `c5b368e69ce9480082c9f1019f54a3d7c5cc3c0bbbfaf81ddd576910ad463cff`. This file contains server configuration `config.local.php` and MUST NOT be uploaded to public GitHub.
+- ORIGINAL project was found under `portfolio/seasonal/` as FLORA FIVE SEASONS (21 actual files, five landing pages), with five campaign slugs `valentine`, `march8`, `tulips`, `mothers-day`, `september` and preserved photos, styles, scripts.
+- R49 added an incorrect substitute at `/portfolio/flora/`; R50 corrects the portfolio card and schema.org ItemList to `/portfolio/seasonal/`, and redirects the erroneous `/portfolio/flora/` path to the authentic collection.
+- Package: `releases/PRAMIO-R50-RESTORE-ORIGINAL-FLORA-FIVE-SEASONS.zip`, 981274 bytes, SHA-256 `26d2238142ac4c3eb7087eb5609399ca4c5375c2f092e8b125472b597b17d257`, 29 files. Direct unzip into Timeweb `public_html`, no installer or nested directory.
+- Source of portfolio index: R49. Only the erroneous FLORA card URL is replaced; all other catalog links remain unchanged. Home page `index.html` and NEXT Batumi files are intentionally not in this patch. Every original seasonal file matches the user's archive byte-for-byte.
+- R50 ZIP is also preserved in the Project Library as `/PRAMIO RU/PRAMIO-R50-RESTORE-ORIGINAL-FLORA-FIVE-SEASONS.zip`.
+
+## Original FLORA incident history
 The portfolio R23 snapshot does not contain FLORA, yet a later production version had it. A full working Timeweb `public_html` backup from BEFORE R47 overwrite is required to recover the exact original. Restore original path, assets, behavior, preview, and correct portfolio card by diff/merge with current state. Do not substitute new R49 demo.
 
 ## Release gate
